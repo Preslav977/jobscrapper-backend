@@ -12,3 +12,22 @@ generator client {
 datasource db {
   provider = "postgresql"
 }
+
+model Company {
+  id   Int     @id @default(autoincrement())
+  name String
+  logo String?
+  jobs Jobs[]
+}
+
+model Jobs {
+  id              String   @id @default(uuid())
+  employment_type String
+  job_type        String
+  location        String
+  date_posted     DateTime
+  job_title       String
+  job_description String
+  company         Company  @relation(fields: [companyID], references: [id], onDelete: Cascade)
+  companyID       Int
+}
