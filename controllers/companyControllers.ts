@@ -4,21 +4,17 @@ import type { Request, Response } from "express";
 
 import type { CompanyInterface } from "../interfaces/CompanyInterface";
 
-import { upload } from "../helpers/multerConfiguration";
+async function createCompany(req: Request, res: Response) {
+  const { name, URL }: CompanyInterface = req.body;
 
-exports.createCompany = [
-  upload.single("file"),
+  const createCompany = await prisma.company.create({
+    data: {
+      name,
+      URL,
+    },
+  });
 
-  async (req: Request, res: Response) => {
-    const { name, URL }: CompanyInterface = req.body;
+  res.json(createCompany);
+}
 
-    const createCompany = await prisma.company.create({
-      data: {
-        name,
-        URL,
-      },
-    });
-
-    res.json(createCompany);
-  },
-];
+export { createCompany };
