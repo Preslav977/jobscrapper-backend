@@ -2,9 +2,13 @@ import { prisma } from "../db/client";
 
 import type { Request, Response } from "express";
 
-import type { CompanyInterface } from "../interfaces/companyInterface";
+import type { CompanyInterface } from "../interfaces/CompanyInterface";
+
+import { upload } from "../helpers/multerConfiguration";
 
 exports.createCompany = [
+  upload.single("file"),
+
   async (req: Request, res: Response) => {
     const { name, URL }: CompanyInterface = req.body;
 

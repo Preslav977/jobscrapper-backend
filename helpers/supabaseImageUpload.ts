@@ -23,4 +23,4 @@ async function supabaseImageUpload(file: MulterFile) {
   }
 }
 
-module.exports = supabaseImageUpload;
+export { supabaseImageUpload };

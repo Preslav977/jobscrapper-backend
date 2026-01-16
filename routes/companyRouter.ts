@@ -4,4 +4,4 @@ const companyRouter = Router();
 
 companyRouter.post("/company");
 
-module.exports = companyRouter;
+export { companyRouter };
