@@ -6,6 +6,6 @@ import { createCompany } from "../controllers/companyControllers";
 
 const companyRouter = Router();
 
-companyRouter.post("/company", upload.single("file"), createCompany);
+companyRouter.post("/companies", upload.single("file"), createCompany);
 
 export { companyRouter };
