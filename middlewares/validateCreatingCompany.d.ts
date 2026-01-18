@@ -1,3 +1,3 @@
-declare const createCompany: import("express-validator").ValidationChain[];
-export { createCompany };
+declare const validateCreatingCompany: import("express-validator").ValidationChain[];
+export { validateCreatingCompany };
 //# sourceMappingURL=validateCreatingCompany.d.ts.map

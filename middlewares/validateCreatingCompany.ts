@@ -5,10 +5,9 @@ const companyLengthError = "name must be at least 1 character!";
 
 const companyExistsError = "name already exists!";
 
-const createCompany = [
+const validateCreatingCompany = [
   body("name")
     .trim()
-    .notEmpty()
     .isLength({ min: 1 })
     .escape()
     .withMessage(`Company ${companyLengthError}`),
@@ -26,4 +25,4 @@ const createCompany = [
   }),
 ];
 
-export { createCompany };
+export { validateCreatingCompany };
