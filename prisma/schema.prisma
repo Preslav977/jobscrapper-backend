@@ -15,11 +15,13 @@ datasource db {
 
 model Company {
   id           Int            @id @default(autoincrement())
-  name         String
+  name         String         @unique
   logo         String?
   jobs         Jobs[]
   URL          String
   instructions Instructions[]
+
+  @@map("company")
 }
 
 model Jobs {
@@ -32,6 +34,8 @@ model Jobs {
   job_description String
   company         Company  @relation(fields: [companyID], references: [id], onDelete: Cascade)
   companyID       Int
+
+  @@map("jobs")
 }
 
 model Instructions {
@@ -48,4 +52,6 @@ model Instructions {
   jobsContainer     String?
   company           Company @relation(fields: [companyID], references: [id], onDelete: Cascade)
   companyID         Int
+
+  @@map("instructions")
 }
