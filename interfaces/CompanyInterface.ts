@@ -1,6 +1,6 @@
-import type { JobsInterface } from "./JobsInterface";
+import type { JobsInterface } from "./JobsInterface.js";
 
-import type { InstructionsInterface } from "./InstructionsInterface";
+import type { InstructionsInterface } from "./InstructionsInterface.js";
 
 export interface CompanyInterface {
   id: number;

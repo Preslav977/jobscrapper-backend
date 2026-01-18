@@ -1,8 +1,8 @@
-import { prisma } from "../db/client";
+import { prisma } from "../db/client.js";
 
 import type { Request, Response } from "express";
 
-import type { CompanyInterface } from "../interfaces/CompanyInterface";
+import type { CompanyInterface } from "../interfaces/CompanyInterface.js";
 
 async function createCompany(req: Request, res: Response) {
   const { name, URL }: CompanyInterface = req.body;

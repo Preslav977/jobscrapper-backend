@@ -18,7 +18,7 @@
   "main": "index.js",
   "devDependencies": {
     "@eslint/js": "^9.39.2",
-    "@types/node": "^25.0.6",
+    "@types/node": "^25.0.9",
     "@types/pg": "^8.16.0",
     "eslint": "^9.39.2",
     "eslint-config-prettier": "^10.1.8",
@@ -31,7 +31,8 @@
     "typescript-eslint": "^8.52.0"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "tsc && node app"
   },
   "repository": {
     "type": "git",
