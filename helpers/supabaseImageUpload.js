@@ -16,3 +16,4 @@ async function supabaseImageUpload(file) {
     }
 }
 export { supabaseImageUpload };
+//# sourceMappingURL=supabaseImageUpload.js.map

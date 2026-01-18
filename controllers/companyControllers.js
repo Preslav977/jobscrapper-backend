@@ -10,3 +10,4 @@ async function createCompany(req, res) {
     res.json(createCompany);
 }
 export { createCompany };
+//# sourceMappingURL=companyControllers.js.map
