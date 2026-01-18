@@ -1,7 +1,5 @@
 import { createClient } from "@supabase/supabase-js";
-import "dotenv/config";
 const supabase = createClient(`${process.env.supabaseURL}`, `${process.env.supabaseAPI}`);
-console.log(process.env.supabaseURL, process.env.supabaseAPI);
 async function supabaseImageUpload(file) {
     const { error } = await supabase.storage
         .from("jobscrapper-images")
@@ -16,7 +14,6 @@ async function supabaseImageUpload(file) {
     const { data } = await supabase.storage
         .from("jobscrapper-images")
         .getPublicUrl(`public/${file.originalname}`);
-    console.log("Uploaded image Supabase", data);
     return data.publicUrl;
 }
 export { supabaseImageUpload };

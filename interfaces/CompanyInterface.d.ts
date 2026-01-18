@@ -3,9 +3,9 @@ import type { InstructionsInterface } from "./InstructionsInterface.js";
 export interface CompanyInterface {
     id: number;
     name: string;
-    logo: string;
+    logo?: string;
     URL: string;
     jobs: JobsInterface[];
-    instructions: InstructionsInterface[];
+    instructions?: InstructionsInterface[];
 }
 //# sourceMappingURL=CompanyInterface.d.ts.map
