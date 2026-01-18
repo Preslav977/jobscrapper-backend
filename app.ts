@@ -1,6 +1,6 @@
 import express from "express";
 
-// import path from "node:path";
+import path from "node:path";
 
 import { companyRouter } from "./routes/companyRouter.js";
 
@@ -8,9 +8,9 @@ import type { NextFunction, Request, Response } from "express";
 
 const app = express();
 
-// const assetsPath = path.join(__dirname, "/public");
+const assetsPath = path.join(__dirname, "/public");
 
-// app.use(express.static(assetsPath));
+app.use(express.static(assetsPath));
 
 app.use(express.json());
 

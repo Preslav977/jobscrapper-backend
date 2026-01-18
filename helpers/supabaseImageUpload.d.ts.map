@@ -1,1 +1,1 @@
-{"version":3,"file":"supabaseImageUpload.d.ts","sourceRoot":"","sources":["supabaseImageUpload.ts"],"names":[],"mappings":"AAEA,OAAO,KAAK,EAAE,UAAU,EAAE,MAAM,6BAA6B,CAAC;AAO9D,iBAAe,mBAAmB,CAAC,IAAI,EAAE,UAAU,iBAclD;AAED,OAAO,EAAE,mBAAmB,EAAE,CAAC"}
+{"version":3,"file":"supabaseImageUpload.d.ts","sourceRoot":"","sources":["supabaseImageUpload.ts"],"names":[],"mappings":"AACA,OAAO,eAAe,CAAC;AACvB,OAAO,KAAK,EAAE,UAAU,EAAE,MAAM,6BAA6B,CAAC;AAS9D,iBAAe,mBAAmB,CAAC,IAAI,EAAE,UAAU,mBAoBlD;AAED,OAAO,EAAE,mBAAmB,EAAE,CAAC"}

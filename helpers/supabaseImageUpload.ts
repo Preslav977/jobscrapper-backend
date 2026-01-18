@@ -1,5 +1,4 @@
 import { createClient } from "@supabase/supabase-js";
-
 import type { MulterFile } from "../interfaces/MulterFile.js";
 
 const supabase = createClient(
