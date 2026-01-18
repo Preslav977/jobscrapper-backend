@@ -8,7 +8,7 @@ const supabase = createClient(
 );
 
 async function supabaseImageUpload(file: MulterFile) {
-  const { data, error } = await supabase.storage
+  const { error } = await supabase.storage
     .from("jobscrapper-images")
     .upload(`public/${file.originalname}`, file.buffer, {
       cacheControl: "3600",
@@ -17,10 +17,14 @@ async function supabaseImageUpload(file: MulterFile) {
     });
 
   if (error) {
-    //
-  } else {
-    //
+    return `Failed  to upload the image: ${error.message}`;
   }
+
+  const { data } = await supabase.storage
+    .from("jobscrapper-images")
+    .getPublicUrl(`public/${file.originalname}`);
+
+  return data.publicUrl;
 }
 
 export { supabaseImageUpload };
