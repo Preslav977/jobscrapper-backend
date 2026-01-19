@@ -6,6 +6,7 @@ import {
   createCompany,
   getCompanies,
   getCompanyByName,
+  updateCompany,
 } from "../controllers/companyControllers.js";
 
 import { validateCreatingCompany } from "../middlewares/validateCreatingCompany.js";
@@ -22,5 +23,7 @@ companyRouter.post(
 companyRouter.get("/", getCompanies);
 
 companyRouter.get("/:name", getCompanyByName);
+
+companyRouter.put("/:id", upload.single("file"), updateCompany);
 
 export { companyRouter };

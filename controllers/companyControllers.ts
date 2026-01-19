@@ -68,4 +68,39 @@ async function getCompanyByName(req: Request, res: Response) {
   }
 }
 
-export { createCompany, getCompanies, getCompanyByName };
+async function updateCompany(req: Request, res: Response) {
+  const { id } = req.params;
+
+  const { name, URL }: CompanyInterface = req.body;
+
+  if (req.file) {
+    const logo = await supabaseImageUpload(req.file);
+
+    const companyUpdateInformation = await prisma.company.update({
+      where: {
+        id: Number(id),
+      },
+      data: {
+        name,
+        logo,
+        URL,
+      },
+    });
+
+    res.json(companyUpdateInformation);
+  } else {
+    const companyUpdateInformation = await prisma.company.update({
+      where: {
+        id: Number(id),
+      },
+      data: {
+        name,
+        URL,
+      },
+    });
+
+    res.json(companyUpdateInformation);
+  }
+}
+
+export { createCompany, getCompanies, getCompanyByName, updateCompany };
