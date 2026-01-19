@@ -5,6 +5,7 @@ import { upload } from "../helpers/multerConfiguration.js";
 import {
   createCompany,
   getCompanies,
+  getCompanyByName,
 } from "../controllers/companyControllers.js";
 
 import { validateCreatingCompany } from "../middlewares/validateCreatingCompany.js";
@@ -19,5 +20,7 @@ companyRouter.post(
 );
 
 companyRouter.get("/", getCompanies);
+
+companyRouter.get("/:name", getCompanyByName);
 
 export { companyRouter };

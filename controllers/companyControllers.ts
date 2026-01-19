@@ -47,4 +47,25 @@ async function getCompanies(req: Request, res: Response) {
   }
 }
 
-export { createCompany, getCompanies };
+async function getCompanyByName(req: Request, res: Response) {
+  const { name }: CompanyInterface = req.body;
+
+  const trimCompanyNameSpace = name.trim();
+
+  const companyGetByName = await prisma.company.findFirst({
+    where: {
+      name: {
+        mode: "insensitive",
+        equals: trimCompanyNameSpace,
+      },
+    },
+  });
+
+  if (companyGetByName === null) {
+    res.json({ message: "No company with this name has been found!" });
+  } else {
+    res.json(companyGetByName);
+  }
+}
+
+export { createCompany, getCompanies, getCompanyByName };
