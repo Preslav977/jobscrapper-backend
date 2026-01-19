@@ -103,4 +103,24 @@ async function updateCompany(req: Request, res: Response) {
   }
 }
 
-export { createCompany, getCompanies, getCompanyByName, updateCompany };
+async function deleteCompany(req: Request, res: Response) {
+  const { id } = req.params;
+
+  const companyDelete = await prisma.company.delete({
+    where: {
+      id: Number(id),
+    },
+  });
+
+  res.json({
+    message: `Company with ID: ${companyDelete.id} has been deleted!`,
+  });
+}
+
+export {
+  createCompany,
+  deleteCompany,
+  getCompanies,
+  getCompanyByName,
+  updateCompany,
+};

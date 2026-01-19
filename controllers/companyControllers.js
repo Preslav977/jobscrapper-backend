@@ -83,5 +83,16 @@ async function updateCompany(req, res) {
         res.json(companyUpdateInformation);
     }
 }
-export { createCompany, getCompanies, getCompanyByName, updateCompany };
+async function deleteCompany(req, res) {
+    const { id } = req.params;
+    const companyDelete = await prisma.company.delete({
+        where: {
+            id: Number(id),
+        },
+    });
+    res.json({
+        message: `Company with ID: ${companyDelete.id} has been deleted!`,
+    });
+}
+export { createCompany, deleteCompany, getCompanies, getCompanyByName, updateCompany, };
 //# sourceMappingURL=companyControllers.js.map
