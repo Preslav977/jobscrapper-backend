@@ -1,4 +1,5 @@
 import type { Request, Response } from "express";
 declare function createCompany(req: Request, res: Response): Promise<void>;
-export { createCompany };
+declare function getCompanies(req: Request, res: Response): Promise<void>;
+export { createCompany, getCompanies };
 //# sourceMappingURL=companyControllers.d.ts.map

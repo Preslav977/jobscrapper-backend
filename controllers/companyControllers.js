@@ -21,5 +21,9 @@ async function createCompany(req, res) {
         }
     }
 }
-export { createCompany };
+async function getCompanies(req, res) {
+    const companiesGet = await prisma.company.findMany();
+    res.json(companiesGet);
+}
+export { createCompany, getCompanies };
 //# sourceMappingURL=companyControllers.js.map

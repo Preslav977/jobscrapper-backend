@@ -32,4 +32,19 @@ async function createCompany(req: Request, res: Response) {
   }
 }
 
-export { createCompany };
+async function getCompanies(req: Request, res: Response) {
+  const companiesGet = await prisma.company.findMany({
+    include: {
+      jobs: true,
+      instructions: true,
+    },
+  });
+
+  if (companiesGet.length === 0) {
+    res.json({ message: "No companies has been found!" });
+  } else {
+    res.json(companiesGet);
+  }
+}
+
+export { createCompany, getCompanies };

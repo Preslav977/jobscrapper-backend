@@ -8,6 +8,7 @@ const companyExistsError = "name already exists!";
 const validateCreatingCompany = [
   body("name")
     .trim()
+    .notEmpty()
     .isLength({ min: 1 })
     .escape()
     .withMessage(`Company ${companyLengthError}`),
