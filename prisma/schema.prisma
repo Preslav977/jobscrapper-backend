@@ -25,15 +25,15 @@ model Company {
 }
 
 model Jobs {
-  id              String   @id @default(uuid())
-  hybridOrRemote  String
-  fullTimeOrNot   String
-  location        String
-  date_posted     DateTime @updatedAt
-  job_title       String
-  job_description String
-  company         Company  @relation(fields: [companyID], references: [id], onDelete: Cascade)
-  companyID       Int
+  id             String   @id @default(uuid())
+  hybridOrRemote String
+  fullTimeOrNot  String
+  location       String
+  datePosted     DateTime @updatedAt
+  jobTitle       String
+  jobDescription String
+  company        Company  @relation(fields: [companyID], references: [id], onDelete: Cascade)
+  companyID      Int
 
   @@map("jobs")
 }

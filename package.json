@@ -33,7 +33,8 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "tsc -w & node --watch app"
+    "start": "tsc -w & node --watch app",
+    "prisma-migrate": "npx prisma migrate dev --name init"
   },
   "repository": {
     "type": "git",
