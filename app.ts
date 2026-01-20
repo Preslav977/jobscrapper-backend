@@ -2,7 +2,7 @@ import express from "express";
 
 import path from "node:path";
 
-import { companyRouter } from "./routes/companyRouter.js";
+import { companyRouter } from "./routes/companyRouter/companyRouter.js";
 
 import type { NextFunction, Request, Response } from "express";
 

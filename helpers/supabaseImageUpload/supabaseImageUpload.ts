@@ -1,12 +1,12 @@
 import { createClient } from "@supabase/supabase-js";
-import type { MulterFile } from "../interfaces/MulterFile.js";
+import type { MulterFileInterface } from "../../interfaces/MulterFileInterface/MulterFileInterface.js";
 
 const supabase = createClient(
   `${process.env.supabaseURL}`,
   `${process.env.supabaseAPI}`,
 );
 
-async function supabaseImageUpload(file: MulterFile) {
+async function supabaseImageUpload(file: MulterFileInterface) {
   const { error } = await supabase.storage
     .from("jobscrapper-images")
     .upload(`public/${file.originalname}`, file.buffer, {

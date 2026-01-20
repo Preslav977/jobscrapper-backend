@@ -1,12 +1,12 @@
-import { prisma } from "../db/client.js";
+import { prisma } from "../../db/client.js";
 
 import type { Request, Response } from "express";
 
 import { validationResult } from "express-validator";
 
-import type { CompanyInterface } from "../interfaces/CompanyInterface.js";
+import type { CompanyInterface } from "../../interfaces/CompanyInterface/CompanyInterface.js";
 
-import { supabaseImageUpload } from "../helpers/supabaseImageUpload.js";
+import { supabaseImageUpload } from "../../helpers/supabaseImageUpload/supabaseImageUpload.js";
 
 async function createCompany(req: Request, res: Response) {
   const { name, URL }: CompanyInterface = req.body;

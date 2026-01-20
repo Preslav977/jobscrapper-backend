@@ -1,6 +1,6 @@
-import { prisma } from "../db/client.js";
+import { prisma } from "../../db/client.js";
 import { validationResult } from "express-validator";
-import { supabaseImageUpload } from "../helpers/supabaseImageUpload.js";
+import { supabaseImageUpload } from "../../helpers/supabaseImageUpload/supabaseImageUpload.js";
 async function createCompany(req, res) {
     const { name, URL } = req.body;
     const errors = validationResult(req);
@@ -95,4 +95,4 @@ async function deleteCompany(req, res) {
     });
 }
 export { createCompany, deleteCompany, getCompanies, getCompanyByName, updateCompany, };
-//# sourceMappingURL=companyControllers.js.map
+//# sourceMappingURL=companyController.js.map

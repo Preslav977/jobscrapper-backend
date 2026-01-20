@@ -1,6 +1,6 @@
 import { Router } from "express";
 
-import { upload } from "../helpers/multerConfiguration.js";
+import { upload } from "../../helpers/multerConfiguration/multerConfiguration.js";
 
 import {
   createCompany,
@@ -8,9 +8,9 @@ import {
   getCompanies,
   getCompanyByName,
   updateCompany,
-} from "../controllers/companyControllers.js";
+} from "../../controllers/companyController/companyController.js";
 
-import { validateCreatingCompany } from "../middlewares/validateCreatingCompany.js";
+import { validateCreatingCompany } from "../../middlewares/validateCreatingCompany.js";
 
 const companyRouter = Router();
 

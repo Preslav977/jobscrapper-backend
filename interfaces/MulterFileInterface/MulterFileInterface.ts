@@ -1,4 +1,4 @@
-export interface MulterFile {
+export interface MulterFileInterface {
   fieldname: string;
   originalname: string;
   encoding: string;

@@ -1,4 +1,4 @@
-export interface MulterFile {
+export interface MulterFileInterface {
     fieldname: string;
     originalname: string;
     encoding: string;
@@ -6,4 +6,4 @@ export interface MulterFile {
     buffer: Buffer;
     size: number;
 }
-//# sourceMappingURL=MulterFile.d.ts.map
+//# sourceMappingURL=MulterFileInterface.d.ts.map

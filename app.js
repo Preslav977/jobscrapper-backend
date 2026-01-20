@@ -1,6 +1,6 @@
 import express from "express";
 import path from "node:path";
-import { companyRouter } from "./routes/companyRouter.js";
+import { companyRouter } from "./routes/companyRouter/companyRouter.js";
 const app = express();
 const assetsPath = path.join(__dirname, "/public");
 app.use(express.static(assetsPath));
