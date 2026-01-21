@@ -1,10 +1,11 @@
 export interface JobsInterface {
-    id: number;
+    id?: string;
     hybridOrRemote: string;
     fullTimeOrNot: string;
     location: string;
-    date_posted: Date;
-    job_title: string;
-    job_description: string;
+    datePosted: Date;
+    jobTitle: string;
+    jobDescription: string;
+    companyID: number;
 }
 //# sourceMappingURL=JobsInterface.d.ts.map
