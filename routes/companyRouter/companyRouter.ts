@@ -10,7 +10,10 @@ import {
   updateCompany,
 } from "../../controllers/companyController/companyController.js";
 
-import { createJobs } from "../../controllers/jobsControllers/jobsControllers.js";
+import {
+  createJobs,
+  getJobDetails,
+} from "../../controllers/jobsControllers/jobsControllers.js";
 
 import { validateCreatingCompany } from "../../middlewares/validateCreatingCompany.js";
 
@@ -24,6 +27,8 @@ companyRouter.post(
 );
 
 companyRouter.post("/:id/jobs", createJobs);
+
+companyRouter.get("/:companyID/job/:id", getJobDetails);
 
 companyRouter.get("/", getCompanies);
 

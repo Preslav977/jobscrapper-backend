@@ -18,8 +18,12 @@ async function getJobDetails(req, res) {
         include: {
             company: true,
         },
-        where: {},
+        where: {
+            companyID: Number(companyID),
+            id: Number(id),
+        },
     });
+    res.json(getJobDetails);
 }
-export { createJobs };
+export { createJobs, getJobDetails };
 //# sourceMappingURL=jobsControllers.js.map

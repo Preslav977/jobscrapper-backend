@@ -19,6 +19,15 @@ async function createCompany(req, res) {
             });
             res.json(createCompany);
         }
+        else {
+            const createCompany = await prisma.company.create({
+                data: {
+                    name,
+                    URL,
+                },
+            });
+            res.json(createCompany);
+        }
     }
 }
 async function getCompanies(req, res) {

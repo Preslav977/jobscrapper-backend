@@ -26,8 +26,13 @@ async function getJobDetails(req: Request, res: Response) {
     include: {
       company: true,
     },
-    where: {},
+    where: {
+      companyID: Number(companyID),
+      id: Number(id),
+    },
   });
+
+  res.json(getJobDetails);
 }
 
-export { createJobs };
+export { createJobs, getJobDetails };
