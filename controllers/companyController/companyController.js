@@ -45,6 +45,10 @@ async function getCompanyByName(req, res) {
                 equals: trimCompanyNameSpace,
             },
         },
+        include: {
+            jobs: true,
+            instructions: true,
+        },
     });
     if (companyGetByName === null) {
         res.json({ message: "No company with this name has been found!" });

@@ -19,4 +19,15 @@ async function createJobs(req: Request, res: Response) {
   res.json(createJobsForCompany);
 }
 
+async function getJobDetails(req: Request, res: Response) {
+  const { id, companyID } = req.params;
+
+  const getJobDetails = await prisma.jobs.findFirst({
+    include: {
+      company: true,
+    },
+    where: {},
+  });
+}
+
 export { createJobs };

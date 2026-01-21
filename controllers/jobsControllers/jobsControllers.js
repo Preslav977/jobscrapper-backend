@@ -12,5 +12,14 @@ async function createJobs(req, res) {
     });
     res.json(createJobsForCompany);
 }
+async function getJobDetails(req, res) {
+    const { id, companyID } = req.params;
+    const getJobDetails = await prisma.jobs.findFirst({
+        include: {
+            company: true,
+        },
+        where: {},
+    });
+}
 export { createJobs };
 //# sourceMappingURL=jobsControllers.js.map

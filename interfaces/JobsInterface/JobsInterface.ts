@@ -1,5 +1,5 @@
 export interface JobsInterface {
-  id?: string;
+  id: number;
   hybridOrRemote: string;
   fullTimeOrNot: string;
   location: string;

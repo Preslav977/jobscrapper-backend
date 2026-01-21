@@ -59,6 +59,11 @@ async function getCompanyByName(req: Request, res: Response) {
         equals: trimCompanyNameSpace,
       },
     },
+
+    include: {
+      jobs: true,
+      instructions: true,
+    },
   });
 
   if (companyGetByName === null) {
