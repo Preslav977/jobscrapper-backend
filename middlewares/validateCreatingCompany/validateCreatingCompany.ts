@@ -1,5 +1,5 @@
 import { body } from "express-validator";
-import { prisma } from "../db/client.js";
+import { prisma } from "../../db/client.js";
 
 const companyLengthError = "name must be at least 1 character!";
 

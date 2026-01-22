@@ -3,7 +3,7 @@ import { upload } from "../../helpers/multerConfiguration/multerConfiguration.js
 import { createCompany, deleteCompany, getCompanies, getCompanyByName, updateCompany, } from "../../controllers/companyController/companyController.js";
 import { createJobs, deleteJob, getJobDetails, updateJob, } from "../../controllers/jobsControllers/jobsControllers.js";
 import { createScrappingInstructions, deleteScrappingInstructionsDetails, getScrappingInstructionsDetails, updateScrappingInstructionsDetails, } from "../../controllers/instructionsController/instructionsController.js";
-import { validateCreatingCompany } from "../../middlewares/validateCreatingCompany.js";
+import { validateCreatingCompany } from "../../middlewares/validateCreatingCompany/validateCreatingCompany.js";
 const companyRouter = Router();
 companyRouter.post("/", upload.single("file"), validateCreatingCompany, createCompany);
 companyRouter.post("/:id/jobs", createJobs);

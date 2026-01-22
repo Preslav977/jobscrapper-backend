@@ -1,0 +1,1 @@
+{"version":3,"file":"JWTBearerTokenInterface.d.ts","sourceRoot":"","sources":["JWTBearerTokenInterface.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAE,UAAU,EAAE,YAAY,EAAE,MAAM,cAAc,CAAC;AAE7D,MAAM,WAAW,uBAAuB;IACtC,KAAK,EAAE,MAAM,CAAC;IACd,QAAQ,EAAE,UAAU,CAAC;IACrB,YAAY,EAAE,YAAY,CAAC;CAC5B"}

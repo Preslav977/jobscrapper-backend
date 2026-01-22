@@ -24,7 +24,7 @@ import {
   updateScrappingInstructionsDetails,
 } from "../../controllers/instructionsController/instructionsController.js";
 
-import { validateCreatingCompany } from "../../middlewares/validateCreatingCompany.js";
+import { validateCreatingCompany } from "../../middlewares/validateCreatingCompany/validateCreatingCompany.js";
 
 const companyRouter = Router();
 
