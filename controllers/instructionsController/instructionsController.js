@@ -39,5 +39,28 @@ async function getScrappingInstructionsDetails(req, res) {
         res.json(getInstructionsDetails);
     }
 }
-export { createScrappingInstructions, getScrappingInstructionsDetails };
+async function updateScrappingInstructionsDetails(req, res) {
+    const { companyID, id } = req.params;
+    const { careersButton, joinUsButton, loadMoreButton, locationSelect, jobCategorySelect, jobTypingInput, submitFormButton, scrollToContainer, nextPageButton, jobsContainer, } = req.body;
+    const updateInstructionsDetails = await prisma.instructions.update({
+        where: {
+            companyID: Number(companyID),
+            id: Number(id),
+        },
+        data: {
+            careersButton,
+            joinUsButton,
+            loadMoreButton,
+            locationSelect,
+            jobCategorySelect,
+            jobTypingInput,
+            submitFormButton,
+            scrollToContainer,
+            nextPageButton,
+            jobsContainer,
+        },
+    });
+    res.json(updateInstructionsDetails);
+}
+export { createScrappingInstructions, getScrappingInstructionsDetails, updateScrappingInstructionsDetails, };
 //# sourceMappingURL=instructionsController.js.map
