@@ -57,8 +57,6 @@ async function updateJob(req: Request, res: Response) {
     jobDescription,
   }: JobsInterface = req.body;
 
-  //TODO: figure out how to check if job has been expired
-
   const updateJobDetails = await prisma.jobs.update({
     include: {
       company: true,
@@ -82,4 +80,23 @@ async function updateJob(req: Request, res: Response) {
   res.json(updateJobDetails);
 }
 
-export { createJobs, getJobDetails, updateJob };
+async function deleteJob(req: Request, res: Response) {
+  const { id, companyID } = req.params;
+
+  //TODO: figure out how to check if job has been expired
+
+  const jobDelete = await prisma.jobs.delete({
+    include: {
+      company: true,
+    },
+
+    where: {
+      companyID: Number(companyID),
+      id: Number(id),
+    },
+  });
+
+  res.json({ message: `Job with ID: ${jobDelete.id} has been deleted!` });
+}
+
+export { createJobs, deleteJob, getJobDetails, updateJob };

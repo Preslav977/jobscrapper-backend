@@ -12,6 +12,7 @@ import {
 
 import {
   createJobs,
+  deleteJob,
   getJobDetails,
   updateJob,
 } from "../../controllers/jobsControllers/jobsControllers.js";
@@ -32,6 +33,8 @@ companyRouter.post("/:id/jobs", createJobs);
 companyRouter.get("/:companyID/job/:id", getJobDetails);
 
 companyRouter.put("/:companyID/job/:id", updateJob);
+
+companyRouter.delete("/:companyID/job/:id", deleteJob);
 
 companyRouter.get("/", getCompanies);
 
