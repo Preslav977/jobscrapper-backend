@@ -39,4 +39,27 @@ async function createScrappingInstructions(req: Request, res: Response) {
   res.json(createInstructionsForCompany);
 }
 
-export { createScrappingInstructions };
+async function getScrappingInstructionsDetails(req: Request, res: Response) {
+  const { companyID, id } = req.params;
+
+  const getInstructionsDetails = await prisma.instructions.findFirst({
+    include: {
+      company: true,
+    },
+
+    where: {
+      companyID: Number(companyID),
+      id: Number(id),
+    },
+  });
+
+  if (getInstructionsDetails === null) {
+    res.json({
+      message: "No instructions has been found with that ID for that company!",
+    });
+  } else {
+    res.json(getInstructionsDetails);
+  }
+}
+
+export { createScrappingInstructions, getScrappingInstructionsDetails };
