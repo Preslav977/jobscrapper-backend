@@ -1,5 +1,5 @@
 export interface InstructionsInterface {
-  id: number;
+  id?: number;
   careersButton: string;
   joinUsButton: string;
   loadMoreButton: string;
@@ -10,4 +10,5 @@ export interface InstructionsInterface {
   scrollToContainer: string;
   nextPageButton: string;
   jobsContainer: string;
+  companyID: number;
 }

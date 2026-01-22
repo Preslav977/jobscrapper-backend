@@ -17,6 +17,8 @@ import {
   updateJob,
 } from "../../controllers/jobsControllers/jobsControllers.js";
 
+import { createScrappingInstructions } from "../../controllers/instructionsController/instructionsController.js";
+
 import { validateCreatingCompany } from "../../middlewares/validateCreatingCompany.js";
 
 const companyRouter = Router();
@@ -29,6 +31,8 @@ companyRouter.post(
 );
 
 companyRouter.post("/:id/jobs", createJobs);
+
+companyRouter.post("/:companyID/instructions", createScrappingInstructions);
 
 companyRouter.get("/:companyID/job/:id", getJobDetails);
 
