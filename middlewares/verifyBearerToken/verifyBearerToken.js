@@ -1,4 +1,5 @@
 import jwt from "jsonwebtoken";
+import "dotenv/config";
 function verifyBearerToken(req, res, next) {
     const bearerHeader = req.headers.authorization;
     if (typeof bearerHeader !== "undefined") {

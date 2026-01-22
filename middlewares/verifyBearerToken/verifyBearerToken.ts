@@ -1,5 +1,7 @@
 import jwt from "jsonwebtoken";
 
+import "dotenv/config";
+
 import type { NextFunction, Request, Response } from "express";
 
 import type { JWTBearerTokenInterface } from "../../interfaces/JWTBearerTokenInterface/JWTBearerTokenInterface.js";
@@ -18,19 +20,15 @@ function verifyBearerToken(
 
     req.token = bearerToken;
 
-    jwt.verify(
-      req.token,
-      process.env.SECRET,
-      (err: JWTBearerTokenInterface, authData: JWTBearerTokenInterface) => {
-        if (err) {
-          res.sendStatus(403);
-        } else {
-          req.authData = authData;
+    jwt.verify(req.token, process.env.SECRET as string, (err, authData) => {
+      if (err) {
+        res.sendStatus(403);
+      } else {
+        req.authData = authData as JWTBearerTokenInterface;
 
-          next();
-        }
-      },
-    );
+        next();
+      }
+    });
   } else {
     res.sendStatus(403);
   }

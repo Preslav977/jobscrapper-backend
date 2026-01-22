@@ -1,7 +1,6 @@
-import type { JwtPayload, VerifyErrors } from "jsonwebtoken";
+import type { JwtPayload } from "jsonwebtoken";
 
 export interface JWTBearerTokenInterface {
   token: string;
   authData: JwtPayload;
-  verifyErrors: VerifyErrors;
 }
