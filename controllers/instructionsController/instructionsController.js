@@ -62,5 +62,17 @@ async function updateScrappingInstructionsDetails(req, res) {
     });
     res.json(updateInstructionsDetails);
 }
-export { createScrappingInstructions, getScrappingInstructionsDetails, updateScrappingInstructionsDetails, };
+async function deleteScrappingInstructionsDetails(req, res) {
+    const { companyID, id } = req.params;
+    const deleteInstructionsDetails = await prisma.instructions.delete({
+        where: {
+            companyID: Number(companyID),
+            id: Number(id),
+        },
+    });
+    res.json({
+        message: `Instructions with ID: ${deleteInstructionsDetails.id} has been deleted!`,
+    });
+}
+export { createScrappingInstructions, deleteScrappingInstructionsDetails, getScrappingInstructionsDetails, updateScrappingInstructionsDetails, };
 //# sourceMappingURL=instructionsController.js.map

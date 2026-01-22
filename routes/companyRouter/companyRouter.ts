@@ -19,6 +19,7 @@ import {
 
 import {
   createScrappingInstructions,
+  deleteScrappingInstructionsDetails,
   getScrappingInstructionsDetails,
   updateScrappingInstructionsDetails,
 } from "../../controllers/instructionsController/instructionsController.js";
@@ -46,6 +47,11 @@ companyRouter.put(
 companyRouter.get(
   "/:companyID/instructions/:id",
   getScrappingInstructionsDetails,
+);
+
+companyRouter.delete(
+  "/:companyID/instructions/:id",
+  deleteScrappingInstructionsDetails,
 );
 
 companyRouter.get("/:companyID/job/:id", getJobDetails);
