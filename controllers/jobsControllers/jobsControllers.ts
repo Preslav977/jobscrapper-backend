@@ -5,18 +5,22 @@ import type { JobsInterface } from "../../interfaces/JobsInterface/JobsInterface
 async function createJobs(req: Request, res: Response) {
   const { id } = req.params;
 
-  const jobsArray: JobsInterface = req.body.map((job: JobsInterface) => {
-    return {
-      ...job,
-      companyID: Number(id),
-    };
-  });
+  if (req.body.length === 0) {
+    res.json({ message: "No jobs has been created. Scrapping failed!" });
+  } else {
+    const jobsArray: JobsInterface = req.body.map((job: JobsInterface) => {
+      return {
+        ...job,
+        companyID: Number(id),
+      };
+    });
 
-  const createJobsForCompany = await prisma.jobs.createManyAndReturn({
-    data: jobsArray,
-  });
+    const createJobsForCompany = await prisma.jobs.createManyAndReturn({
+      data: jobsArray,
+    });
 
-  res.json(createJobsForCompany);
+    res.json(createJobsForCompany);
+  }
 }
 
 async function getJobDetails(req: Request, res: Response) {
@@ -32,7 +36,50 @@ async function getJobDetails(req: Request, res: Response) {
     },
   });
 
-  res.json(getJobDetails);
+  if (getJobDetails === null) {
+    res.json({
+      message: "No job has been found with that ID in that company!",
+    });
+  } else {
+    res.json(getJobDetails);
+  }
 }
 
-export { createJobs, getJobDetails };
+async function updateJob(req: Request, res: Response) {
+  const { id, companyID } = req.params;
+
+  const {
+    hybridOrRemote,
+    fullTimeOrNot,
+    location,
+    datePosted,
+    jobTitle,
+    jobDescription,
+  }: JobsInterface = req.body;
+
+  //TODO: figure out how to check if job has been expired
+
+  const updateJobDetails = await prisma.jobs.update({
+    include: {
+      company: true,
+    },
+
+    where: {
+      companyID: Number(companyID),
+      id: Number(id),
+    },
+
+    data: {
+      hybridOrRemote,
+      fullTimeOrNot,
+      location,
+      datePosted,
+      jobTitle,
+      jobDescription,
+    },
+  });
+
+  res.json(updateJobDetails);
+}
+
+export { createJobs, getJobDetails, updateJob };
