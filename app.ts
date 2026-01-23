@@ -8,6 +8,8 @@ import { companyRouter } from "./routes/companyRouter/companyRouter.js";
 
 import { userRouter } from "./routes/userRouter/userRouter.js";
 
+import { authRouter } from "./routes/authRouter/authRouter.js";
+
 import type { NextFunction, Request, Response } from "express";
 
 import type { UserIDInterface } from "./interfaces/UserInterface/UserInterface.js";
@@ -123,6 +125,8 @@ app.get("users/logout", (req, res, next) => {
     res.redirect("/login");
   });
 });
+
+app.use(authRouter);
 
 app.use("/users", userRouter);
 

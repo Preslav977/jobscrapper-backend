@@ -2,6 +2,9 @@ import { prisma } from "../../db/client.js";
 
 import type { Request, Response } from "express";
 
+import jwt from "jsonwebtoken";
+
+import bcrypt from "bcryptjs";
 import { validationResult } from "express-validator";
 import type { UserInterface } from "../../interfaces/UserInterface/UserInterface.js";
 
@@ -10,19 +13,40 @@ async function signUpUser(req: Request, res: Response) {
 
   const errors = validationResult(req);
 
-  if (!errors.isEmpty()) {
-    res.status(400).send(errors.array());
-  } else {
-    const signUpUser = await prisma.user.create({
-      data: {
-        email,
-        password,
-        confirmPassword,
-      },
-    });
+  bcrypt.hash(password, 10, async (error, hashedPassword) => {
+    if (error) {
+      console.error("Failed to hash the password", error);
 
-    res.json(signUpUser);
-  }
+      throw error;
+    }
+
+    if (!errors.isEmpty()) {
+      res.status(400).send(errors.array());
+    } else {
+      const signUpUser = await prisma.user.create({
+        data: {
+          email,
+          password: hashedPassword as string,
+          confirmPassword: hashedPassword as string,
+        },
+      });
+
+      res.json(signUpUser);
+    }
+  });
 }
 
-export { signUpUser };
+async function userLogin(req: Request, res: Response) {
+  const { id }: UserInterface = req.body;
+
+  jwt.sign(
+    { id },
+    process.env.SECRET as string,
+    { expiresIn: "15m" },
+    (err, token) => {
+      res.json({ token });
+    },
+  );
+}
+
+export { signUpUser, userLogin };

@@ -3,6 +3,7 @@ import express from "express";
 import path from "node:path";
 import { companyRouter } from "./routes/companyRouter/companyRouter.js";
 import { userRouter } from "./routes/userRouter/userRouter.js";
+import { authRouter } from "./routes/authRouter/authRouter.js";
 import session from "express-session";
 import { PrismaSessionStore } from "@quixo3/prisma-session-store";
 import passport from "passport";
@@ -83,6 +84,7 @@ app.get("users/logout", (req, res, next) => {
         res.redirect("/login");
     });
 });
+app.use(authRouter);
 app.use("/users", userRouter);
 app.use("/companies", companyRouter);
 app.use((err, req, res, next) => {
