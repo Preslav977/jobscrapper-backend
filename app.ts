@@ -6,6 +6,18 @@ import { companyRouter } from "./routes/companyRouter/companyRouter.js";
 
 import type { NextFunction, Request, Response } from "express";
 
+import session from "express-session";
+
+import { PrismaSessionStore } from "@quixo3/prisma-session-store";
+
+import passport from "passport";
+
+import LocalStrategy from "passport-local";
+
+import bcrypt from "bcryptjs";
+
+import { prisma } from "./db/client.js";
+
 const app = express();
 
 const assetsPath = path.join(__dirname, "/public");
@@ -17,6 +29,74 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use("/companies", companyRouter);
+
+app.use(
+  session({
+    cookie: {
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+    },
+    secret: process.env.sessionSecret as string,
+    resave: false,
+    saveUninitialized: false,
+
+    store: new PrismaSessionStore(prisma, {
+      checkPeriod: 2 * 60 * 1000,
+      dbRecordIdIsSessionId: true,
+      dbRecordIdFunction: undefined!,
+    }),
+  }),
+);
+
+app.use(passport.session());
+
+passport.use(
+  new LocalStrategy.Strategy(
+    {
+      usernameField: "email",
+      passwordField: "password",
+    },
+    async (email, password, done) => {
+      try {
+        const user = await prisma.user.findFirst({
+          where: {
+            email,
+          },
+        });
+
+        if (!user) {
+          return done(null, false, {
+            message: "Incorrect email, check if is correctly typed!",
+          });
+        }
+
+        const match = await bcrypt.compare(password, user.password);
+
+        if (!match) {
+          return done(null, false, {
+            message: "Incorrect password, check if is correctly typed!",
+          });
+        }
+        return done(null, user);
+      } catch (error) {
+        return done(error);
+      }
+    },
+  ),
+);
+
+passport.serializeUser((user, done) => {
+  done(null, user.id);
+});
+
+passport.deserializeUser(async (id, done) => {
+  try {
+    const user = await prisma.user.findFirst({
+      id,
+    });
+  } catch (error) {
+    done(error);
+  }
+});
 
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   console.error(err.stack);
