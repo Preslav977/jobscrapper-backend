@@ -6,6 +6,8 @@ import { companyRouter } from "./routes/companyRouter/companyRouter.js";
 
 import type { NextFunction, Request, Response } from "express";
 
+import type { UserInterface } from "./interfaces/UserInterface/UserInterface.js";
+
 import session from "express-session";
 
 import { PrismaSessionStore } from "@quixo3/prisma-session-store";
@@ -84,18 +86,40 @@ passport.use(
   ),
 );
 
-passport.serializeUser((user, done) => {
+passport.serializeUser((user: UserInterface, done) => {
   done(null, user.id);
 });
 
-passport.deserializeUser(async (id, done) => {
+passport.deserializeUser(async (id: number, done) => {
   try {
     const user = await prisma.user.findFirst({
-      id,
+      where: {
+        id,
+      },
     });
+
+    done(null, user);
   } catch (error) {
     done(error);
   }
+});
+
+app.post(
+  "users/login",
+  passport.authenticate("local", {
+    successRedirect: "/",
+    failureRedirect: "/login",
+  }),
+);
+
+app.get("users/logout", (req, res, next) => {
+  req.logout((err) => {
+    if (err) {
+      return next(err);
+    }
+
+    res.redirect("/login");
+  });
 });
 
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
