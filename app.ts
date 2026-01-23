@@ -6,7 +6,7 @@ import { companyRouter } from "./routes/companyRouter/companyRouter.js";
 
 import type { NextFunction, Request, Response } from "express";
 
-import type { UserInterface } from "./interfaces/UserInterface/UserInterface.js";
+import type { UserIDInterface } from "./interfaces/UserInterface/UserInterface.js";
 
 import session from "express-session";
 
@@ -86,7 +86,7 @@ passport.use(
   ),
 );
 
-passport.serializeUser((user: UserInterface, done) => {
+passport.serializeUser((user: UserIDInterface, done) => {
   done(null, user.id);
 });
 
