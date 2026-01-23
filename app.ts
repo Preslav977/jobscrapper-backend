@@ -1,8 +1,12 @@
+import "dotenv/config";
+
 import express from "express";
 
 import path from "node:path";
 
 import { companyRouter } from "./routes/companyRouter/companyRouter.js";
+
+import { userRouter } from "./routes/userRouter/userRouter.js";
 
 import type { NextFunction, Request, Response } from "express";
 
@@ -29,8 +33,6 @@ app.use(express.static(assetsPath));
 app.use(express.json());
 
 app.use(express.urlencoded({ extended: true }));
-
-app.use("/companies", companyRouter);
 
 app.use(
   session({
@@ -121,6 +123,10 @@ app.get("users/logout", (req, res, next) => {
     res.redirect("/login");
   });
 });
+
+app.use("/users", userRouter);
+
+app.use("/companies", companyRouter);
 
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   console.error(err.stack);
