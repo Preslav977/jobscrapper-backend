@@ -49,4 +49,12 @@ async function userLogin(req: Request, res: Response) {
   );
 }
 
-export { signUpUser, userLogin };
+async function userGetDetails(req: Request, res: Response) {
+  const { id } = req.params;
+
+  console.log(id);
+
+  console.log(req.authData);
+}
+
+export { signUpUser, userGetDetails, userLogin };

@@ -4,13 +4,7 @@ import "dotenv/config";
 
 import type { NextFunction, Request, Response } from "express";
 
-import type { JWTBearerTokenInterface } from "../../interfaces/JWTBearerTokenInterface/JWTBearerTokenInterface.js";
-
-function verifyBearerToken(
-  req: Request & JWTBearerTokenInterface,
-  res: Response,
-  next: NextFunction,
-) {
+function verifyBearerToken(req: Request, res: Response, next: NextFunction) {
   const bearerHeader = req.headers.authorization!;
 
   if (typeof bearerHeader !== "undefined") {
@@ -24,7 +18,7 @@ function verifyBearerToken(
       if (err) {
         res.sendStatus(403);
       } else {
-        req.authData = authData as JWTBearerTokenInterface;
+        req.authData = authData!;
 
         next();
       }

@@ -1,5 +1,6 @@
 import { prisma } from "../../db/client.js";
 import jwt from "jsonwebtoken";
+import { JWTBearerTokenInterface } from "../../interfaces/JWTBearerTokenInterface/JWTBearerTokenInterface.js";
 import bcrypt from "bcryptjs";
 import { validationResult } from "express-validator";
 async function signUpUser(req, res) {
@@ -31,5 +32,10 @@ async function userLogin(req, res) {
         res.json({ token });
     });
 }
-export { signUpUser, userLogin };
+async function userGetDetails(req, res) {
+    const { id } = req.params;
+    console.log(id);
+    console.log(req.authData.id);
+}
+export { signUpUser, userGetDetails, userLogin };
 //# sourceMappingURL=userController.js.map
