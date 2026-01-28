@@ -8,6 +8,8 @@ import bcrypt from "bcryptjs";
 import { validationResult } from "express-validator";
 import type { UserInterface } from "../../interfaces/UserInterface/UserInterface.js";
 
+import type { BearerTokenInterface } from "../../interfaces/BearerTokenInterface/BearerTokenInterface.js";
+
 async function signUpUser(req: Request, res: Response) {
   const { email, password, confirmPassword }: UserInterface = req.body;
 
@@ -49,7 +51,10 @@ async function userLogin(req: Request, res: Response) {
   );
 }
 
-async function userGetDetails(req: Request, res: Response) {
+async function userGetDetails(
+  req: Request & BearerTokenInterface,
+  res: Response,
+) {
   const { id } = req.params;
 
   console.log(id);

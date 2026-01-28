@@ -3,8 +3,15 @@ import jwt from "jsonwebtoken";
 import "dotenv/config";
 
 import type { NextFunction, Request, Response } from "express";
+import type { UserInterface } from "../../interfaces/UserInterface/UserInterface.js";
 
-function verifyBearerToken(req: Request, res: Response, next: NextFunction) {
+import type { BearerTokenInterface } from "../../interfaces/BearerTokenInterface/BearerTokenInterface.js";
+
+function verifyBearerToken(
+  req: Request & BearerTokenInterface,
+  res: Response,
+  next: NextFunction,
+) {
   const bearerHeader = req.headers.authorization!;
 
   if (typeof bearerHeader !== "undefined") {
@@ -18,7 +25,7 @@ function verifyBearerToken(req: Request, res: Response, next: NextFunction) {
       if (err) {
         res.sendStatus(403);
       } else {
-        req.authData = authData!;
+        req.authData = authData as UserInterface;
 
         next();
       }
