@@ -6,6 +6,7 @@
     "outDir": "./",
     // Environment Settings
     // See also https://aka.ms/tsconfig/module
+    "typeRoots": ["./node_modules/@types"],
     "module": "nodenext",
     "moduleResolution": "nodenext",
     "target": "es2023",
@@ -13,7 +14,7 @@
     // "types": [],
     // For nodejs:
     "lib": ["esnext"],
-    "types": ["node", "express"],
+    "types": ["node"],
     // and npm install -D @types/node
 
     // Other Outputs

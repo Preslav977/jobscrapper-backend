@@ -39,7 +39,11 @@ async function signUpUser(req: Request, res: Response) {
 }
 
 async function userLogin(req: Request, res: Response) {
-  const { id }: UserInterface = req.body;
+  const { id } = req.user as UserInterface;
+
+  console.log(id);
+
+  console.log(typeof id);
 
   jwt.sign(
     { id },
@@ -51,15 +55,12 @@ async function userLogin(req: Request, res: Response) {
   );
 }
 
-async function userGetDetails(
-  req: Request & BearerTokenInterface,
-  res: Response,
-) {
-  const { id } = req.params;
+async function userGetDetails(req: BearerTokenInterface, res: Response) {
+  const { id } = req.params ? req.params : (req.user as UserInterface);
 
   console.log(id);
 
-  console.log(req.authData);
+  console.log(req.authData!);
 }
 
 export { signUpUser, userGetDetails, userLogin };

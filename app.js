@@ -10,6 +10,7 @@ import passport from "passport";
 import LocalStrategy from "passport-local";
 import bcrypt from "bcryptjs";
 import { prisma } from "./db/client.js";
+import { verifyBearerToken } from "./middlewares/verifyBearerToken/verifyBearerToken.js";
 const app = express();
 const assetsPath = path.join(__dirname, "/public");
 app.use(express.static(assetsPath));
@@ -85,6 +86,7 @@ app.get("users/logout", (req, res, next) => {
     });
 });
 app.use(authRouter);
+app.use(verifyBearerToken);
 app.use("/users", userRouter);
 app.use("/companies", companyRouter);
 app.use((err, req, res, next) => {

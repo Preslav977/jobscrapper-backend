@@ -4,6 +4,6 @@ import { userGetDetails } from "../../controllers/userController/userController.
 
 const userRouter = Router();
 
-userRouter.get("/", userGetDetails);
+userRouter.get("{/:id}", userGetDetails);
 
 export { userRouter };

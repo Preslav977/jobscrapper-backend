@@ -2,13 +2,14 @@ import jwt from "jsonwebtoken";
 
 import "dotenv/config";
 
-import type { NextFunction, Request, Response } from "express";
+import type { NextFunction, Response } from "express";
+
+import process from "process";
+import type { BearerTokenInterface } from "../../interfaces/BearerTokenInterface/BearerTokenInterface.js";
 import type { UserInterface } from "../../interfaces/UserInterface/UserInterface.js";
 
-import type { BearerTokenInterface } from "../../interfaces/BearerTokenInterface/BearerTokenInterface.js";
-
 function verifyBearerToken(
-  req: Request & BearerTokenInterface,
+  req: BearerTokenInterface,
   res: Response,
   next: NextFunction,
 ) {

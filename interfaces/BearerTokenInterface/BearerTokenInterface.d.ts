@@ -1,7 +1,7 @@
 import type { Request } from "express";
 import type { UserInterface } from "../UserInterface/UserInterface.js";
-
 export interface BearerTokenInterface extends Request {
-  token?: string;
-  authData?: UserInterface;
+    token?: string;
+    authData?: UserInterface;
 }
+//# sourceMappingURL=BearerTokenInterface.d.ts.map

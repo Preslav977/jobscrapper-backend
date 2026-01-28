@@ -1,6 +1,5 @@
 import { prisma } from "../../db/client.js";
 import jwt from "jsonwebtoken";
-import { JWTBearerTokenInterface } from "../../interfaces/JWTBearerTokenInterface/JWTBearerTokenInterface.js";
 import bcrypt from "bcryptjs";
 import { validationResult } from "express-validator";
 async function signUpUser(req, res) {
@@ -27,15 +26,17 @@ async function signUpUser(req, res) {
     });
 }
 async function userLogin(req, res) {
-    const { id } = req.body;
+    const { id } = req.user;
+    console.log(id);
+    console.log(typeof id);
     jwt.sign({ id }, process.env.SECRET, { expiresIn: "15m" }, (err, token) => {
         res.json({ token });
     });
 }
 async function userGetDetails(req, res) {
-    const { id } = req.params;
+    const { id } = req.params ? req.params : req.user;
     console.log(id);
-    console.log(req.authData.id);
+    console.log(req.authData);
 }
 export { signUpUser, userGetDetails, userLogin };
 //# sourceMappingURL=userController.js.map
