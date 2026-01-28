@@ -1,1 +1,0 @@
-{"version":3,"file":"BearerTokenInterface.d.ts","sourceRoot":"","sources":["BearerTokenInterface.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAE,OAAO,EAAE,MAAM,SAAS,CAAC;AACvC,OAAO,KAAK,EAAE,aAAa,EAAE,MAAM,mCAAmC,CAAC;AAEvE,MAAM,WAAW,oBAAqB,SAAQ,OAAO;IACnD,KAAK,CAAC,EAAE,MAAM,CAAC;IACf,QAAQ,CAAC,EAAE,aAAa,CAAC;CAC1B"}

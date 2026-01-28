@@ -8,7 +8,7 @@ import bcrypt from "bcryptjs";
 import { validationResult } from "express-validator";
 import type { UserInterface } from "../../interfaces/UserInterface/UserInterface.js";
 
-import type { BearerTokenInterface } from "../../interfaces/BearerTokenInterface/BearerTokenInterface.js";
+// import type { BearerTokenInterface } from "../../interfaces/BearerTokenInterface/BearerTokenInterface.js";
 
 async function signUpUser(req: Request, res: Response) {
   const { email, password, confirmPassword }: UserInterface = req.body;
@@ -41,26 +41,36 @@ async function signUpUser(req: Request, res: Response) {
 async function userLogin(req: Request, res: Response) {
   const { id } = req.user as UserInterface;
 
-  console.log(id);
-
-  console.log(typeof id);
-
   jwt.sign(
     { id },
     process.env.SECRET as string,
     { expiresIn: "15m" },
     (err, token) => {
-      res.json({ token });
+      if (err) {
+        res.json({ message: "Failed to retrieve Bearer Token: ", err });
+      } else {
+        res.json({ token });
+      }
     },
   );
 }
 
-async function userGetDetails(req: BearerTokenInterface, res: Response) {
-  const { id } = req.params ? req.params : (req.user as UserInterface);
-
-  console.log(id);
-
-  console.log(req.authData!);
+async function userGetDetails(req: Request, res: Response) {
+  if (req.params.id) {
+    const userDetails = await prisma.user.findFirst({
+      where: {
+        id: Number(req.params.id),
+      },
+    });
+    res.json(userDetails);
+  } else {
+    const userDetails = await prisma.user.findFirst({
+      where: {
+        id: Number(req.authData!.id),
+      },
+    });
+    res.json(userDetails);
+  }
 }
 
 export { signUpUser, userGetDetails, userLogin };

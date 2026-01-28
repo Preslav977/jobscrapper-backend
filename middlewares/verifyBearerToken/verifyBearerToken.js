@@ -1,4 +1,5 @@
 import jwt from "jsonwebtoken";
+import "../../types/expressAugmentation.js";
 import "dotenv/config";
 import process from "process";
 function verifyBearerToken(req, res, next) {
