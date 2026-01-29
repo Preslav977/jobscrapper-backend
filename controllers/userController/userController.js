@@ -2,6 +2,7 @@ import { prisma } from "../../db/client.js";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 import { validationResult } from "express-validator";
+import { supabaseImageUpload } from "../../helpers/supabaseImageUpload/supabaseImageUpload.js";
 // import type { BearerTokenInterface } from "../../interfaces/BearerTokenInterface/BearerTokenInterface.js";
 async function signUpUser(req, res) {
     const { email, password, confirmPassword } = req.body;
@@ -55,5 +56,47 @@ async function userGetDetails(req, res) {
         res.json(userDetails);
     }
 }
-export { signUpUser, userGetDetails, userLogin };
+async function userUpdateDetails(req, res) {
+    const { id } = req.params;
+    const { firstName, lastName, location, email, phoneNumber, linkedInURL, githubURL, portfolioURL, } = req.body;
+    if (req.file) {
+        const logo = await supabaseImageUpload(req.file);
+        const updateUserDetails = await prisma.user.update({
+            where: {
+                id: Number(id),
+            },
+            data: {
+                firstName,
+                lastName,
+                location,
+                email,
+                phoneNumber,
+                linkedInURL,
+                githubURL,
+                portfolioURL,
+                profilePicture: logo,
+            },
+        });
+        res.json(updateUserDetails);
+    }
+    else {
+        const updateUserDetails = await prisma.user.update({
+            where: {
+                id: Number(id),
+            },
+            data: {
+                firstName,
+                lastName,
+                location,
+                email,
+                phoneNumber,
+                linkedInURL,
+                githubURL,
+                portfolioURL,
+            },
+        });
+        res.json(updateUserDetails);
+    }
+}
+export { signUpUser, userGetDetails, userLogin, userUpdateDetails };
 //# sourceMappingURL=userController.js.map

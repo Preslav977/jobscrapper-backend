@@ -1,16 +1,16 @@
 export interface UserInterface {
-    id: number;
-    firstName?: string;
-    lastName?: string;
+    id?: number;
+    firstName: string | null;
+    lastName: string | null;
     password: string;
     confirmPassword: string;
-    location?: string;
+    location: string | null;
     email: string;
-    phoneNumber?: number;
-    linkedInURL?: string;
-    githubURL?: string;
-    portfolioURL?: string;
-    profilePicture?: string;
+    phoneNumber: number | null;
+    linkedInURL: string | null;
+    githubURL: string | null;
+    portfolioURL: string | null;
+    profilePicture?: string | null;
 }
 export interface UserIDInterface extends Express.User {
     id?: number;

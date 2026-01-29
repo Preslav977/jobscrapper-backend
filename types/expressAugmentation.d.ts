@@ -1,11 +1,11 @@
 import type { UserInterface } from "../interfaces/UserInterface/UserInterface.js";
 declare global {
-  namespace Express {
-    interface Request {
-      token: string;
-      authData: UserInterface;
+    namespace Express {
+        interface Request {
+            token: string;
+            authData: UserInterface;
+        }
     }
-  }
 }
 export {};
 //# sourceMappingURL=expressAugmentation.d.ts.map

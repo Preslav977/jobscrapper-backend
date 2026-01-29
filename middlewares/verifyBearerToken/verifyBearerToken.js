@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
+import process from "process";
 import "../../types/expressAugmentation.js";
 import "dotenv/config";
-import process from "process";
 function verifyBearerToken(req, res, next) {
     const bearerHeader = req.headers.authorization;
     if (typeof bearerHeader !== "undefined") {

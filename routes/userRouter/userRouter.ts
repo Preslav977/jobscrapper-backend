@@ -1,9 +1,14 @@
 import { Router } from "express";
 
-import { userGetDetails } from "../../controllers/userController/userController.js";
+import {
+  userGetDetails,
+  userUpdateDetails,
+} from "../../controllers/userController/userController.js";
 
 const userRouter = Router();
 
 userRouter.get("{/:id}", userGetDetails);
+
+userRouter.put("/:id", userUpdateDetails);
 
 export { userRouter };

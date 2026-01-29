@@ -1,11 +1,11 @@
 import jwt from "jsonwebtoken";
+import process from "process";
 import "../../types/expressAugmentation.js";
 
 import "dotenv/config";
 
 import type { NextFunction, Request, Response } from "express";
 
-import process from "process";
 import type { UserInterface } from "../../interfaces/UserInterface/UserInterface.js";
 
 function verifyBearerToken(req: Request, res: Response, next: NextFunction) {
