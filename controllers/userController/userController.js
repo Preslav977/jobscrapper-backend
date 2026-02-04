@@ -3,7 +3,6 @@ import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 import { validationResult } from "express-validator";
 import { supabaseImageUpload } from "../../helpers/supabaseImageUpload/supabaseImageUpload.js";
-// import type { BearerTokenInterface } from "../../interfaces/BearerTokenInterface/BearerTokenInterface.js";
 async function signUpUser(req, res) {
     const { email, password, confirmPassword } = req.body;
     const errors = validationResult(req);
