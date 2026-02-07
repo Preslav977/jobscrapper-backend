@@ -56,6 +56,7 @@ model Jobs {
   datePosted       DateTime @updatedAt
   jobTitle         String
   jobDescription   String
+  jobAnchor        String?
   company          Company  @relation(fields: [companyID], references: [id], onDelete: Cascade)
   companyID        Int
 
@@ -63,19 +64,27 @@ model Jobs {
 }
 
 model Instructions {
-  id                Int     @id @default(autoincrement())
-  careersButton     String?
-  joinUsButton      String?
-  loadMoreButton    String?
-  locationSelect    String?
-  jobCategorySelect String?
-  jobTypingInput    String?
-  submitFormButton  String?
-  scrollToContainer String?
-  nextPageButton    String?
-  jobsContainer     String?
-  company           Company @relation(fields: [companyID], references: [id], onDelete: Cascade)
-  companyID         Int
+  id                         Int     @id @default(autoincrement())
+  careersButton              String?
+  careersHoverButton         String?
+  joinUsButton               String?
+  joinUsHoverButton          String?
+  loadMoreButton             String?
+  locationSelect             String?
+  locationClickSelect        String?
+  jobCategorySelect          String?
+  jobCategoryClickSelect     String?
+  jobTypingInput             String?
+  submitFormButton           String?
+  scrollToContainer          String?
+  nextPageButton             String?
+  jobsContainer              String?
+  jobsContainerTitle         String?
+  jobsContainerLocation      String?
+  jobsContainerDesc          String?
+  jobsContainerDetailsAnchor String?
+  company                    Company @relation(fields: [companyID], references: [id], onDelete: Cascade)
+  companyID                  Int
 
   @@map("instructions")
 }
