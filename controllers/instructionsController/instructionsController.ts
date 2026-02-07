@@ -9,29 +9,47 @@ async function createScrappingInstructions(req: Request, res: Response) {
 
   const {
     careersButton,
+    careersHoverButton,
     joinUsButton,
+    joinUsHoverButton,
     loadMoreButton,
     locationSelect,
+    locationClickSelect,
     jobCategorySelect,
+    jobCategoryClickSelect,
     jobTypingInput,
     submitFormButton,
     scrollToContainer,
     nextPageButton,
+    showMoreJobsOnPage,
     jobsContainer,
+    jobsContainerTitle,
+    jobsContainerLocation,
+    jobsContainerDesc,
+    jobsContainerDetailsAnchor,
   }: InstructionsInterface = req.body;
 
   const createInstructionsForCompany = await prisma.instructions.create({
     data: {
       careersButton,
+      careersHoverButton,
       joinUsButton,
+      joinUsHoverButton,
       loadMoreButton,
       locationSelect,
+      locationClickSelect,
       jobCategorySelect,
+      jobCategoryClickSelect,
       jobTypingInput,
       submitFormButton,
       scrollToContainer,
       nextPageButton,
+      showMoreJobsOnPage,
       jobsContainer,
+      jobsContainerTitle,
+      jobsContainerLocation,
+      jobsContainerDesc,
+      jobsContainerDetailsAnchor,
       companyID: Number(companyID),
     },
   });
@@ -67,15 +85,24 @@ async function updateScrappingInstructionsDetails(req: Request, res: Response) {
 
   const {
     careersButton,
+    careersHoverButton,
     joinUsButton,
+    joinUsHoverButton,
     loadMoreButton,
     locationSelect,
+    locationClickSelect,
     jobCategorySelect,
+    jobCategoryClickSelect,
     jobTypingInput,
     submitFormButton,
     scrollToContainer,
     nextPageButton,
+    showMoreJobsOnPage,
     jobsContainer,
+    jobsContainerTitle,
+    jobsContainerLocation,
+    jobsContainerDesc,
+    jobsContainerDetailsAnchor,
   }: InstructionsInterface = req.body;
 
   const updateInstructionsDetails = await prisma.instructions.update({
@@ -86,15 +113,25 @@ async function updateScrappingInstructionsDetails(req: Request, res: Response) {
 
     data: {
       careersButton,
+      careersHoverButton,
       joinUsButton,
+      joinUsHoverButton,
       loadMoreButton,
       locationSelect,
+      locationClickSelect,
       jobCategorySelect,
+      jobCategoryClickSelect,
       jobTypingInput,
       submitFormButton,
       scrollToContainer,
       nextPageButton,
+      showMoreJobsOnPage,
       jobsContainer,
+      jobsContainerTitle,
+      jobsContainerLocation,
+      jobsContainerDesc,
+      jobsContainerDetailsAnchor,
+      companyID: Number(companyID),
     },
   });
 

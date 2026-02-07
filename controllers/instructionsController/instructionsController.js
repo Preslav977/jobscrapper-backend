@@ -1,19 +1,28 @@
 import { prisma } from "../../db/client.js";
 async function createScrappingInstructions(req, res) {
     const { companyID } = req.params;
-    const { careersButton, joinUsButton, loadMoreButton, locationSelect, jobCategorySelect, jobTypingInput, submitFormButton, scrollToContainer, nextPageButton, jobsContainer, } = req.body;
+    const { careersButton, careersHoverButton, joinUsButton, joinUsHoverButton, loadMoreButton, locationSelect, locationClickSelect, jobCategorySelect, jobCategoryClickSelect, jobTypingInput, submitFormButton, scrollToContainer, nextPageButton, showMoreJobsOnPage, jobsContainer, jobsContainerTitle, jobsContainerLocation, jobsContainerDesc, jobsContainerDetailsAnchor, } = req.body;
     const createInstructionsForCompany = await prisma.instructions.create({
         data: {
             careersButton,
+            careersHoverButton,
             joinUsButton,
+            joinUsHoverButton,
             loadMoreButton,
             locationSelect,
+            locationClickSelect,
             jobCategorySelect,
+            jobCategoryClickSelect,
             jobTypingInput,
             submitFormButton,
             scrollToContainer,
             nextPageButton,
+            showMoreJobsOnPage,
             jobsContainer,
+            jobsContainerTitle,
+            jobsContainerLocation,
+            jobsContainerDesc,
+            jobsContainerDetailsAnchor,
             companyID: Number(companyID),
         },
     });
@@ -41,7 +50,7 @@ async function getScrappingInstructionsDetails(req, res) {
 }
 async function updateScrappingInstructionsDetails(req, res) {
     const { companyID, id } = req.params;
-    const { careersButton, joinUsButton, loadMoreButton, locationSelect, jobCategorySelect, jobTypingInput, submitFormButton, scrollToContainer, nextPageButton, jobsContainer, } = req.body;
+    const { careersButton, careersHoverButton, joinUsButton, joinUsHoverButton, loadMoreButton, locationSelect, locationClickSelect, jobCategorySelect, jobCategoryClickSelect, jobTypingInput, submitFormButton, scrollToContainer, nextPageButton, showMoreJobsOnPage, jobsContainer, jobsContainerTitle, jobsContainerLocation, jobsContainerDesc, jobsContainerDetailsAnchor, } = req.body;
     const updateInstructionsDetails = await prisma.instructions.update({
         where: {
             companyID: Number(companyID),
@@ -49,15 +58,25 @@ async function updateScrappingInstructionsDetails(req, res) {
         },
         data: {
             careersButton,
+            careersHoverButton,
             joinUsButton,
+            joinUsHoverButton,
             loadMoreButton,
             locationSelect,
+            locationClickSelect,
             jobCategorySelect,
+            jobCategoryClickSelect,
             jobTypingInput,
             submitFormButton,
             scrollToContainer,
             nextPageButton,
+            showMoreJobsOnPage,
             jobsContainer,
+            jobsContainerTitle,
+            jobsContainerLocation,
+            jobsContainerDesc,
+            jobsContainerDetailsAnchor,
+            companyID: Number(companyID),
         },
     });
     res.json(updateInstructionsDetails);
