@@ -78,6 +78,7 @@ model Instructions {
   submitFormButton           String?
   scrollToContainer          String?
   nextPageButton             String?
+  showMoreJobsOnPage         String?
   jobsContainer              String?
   jobsContainerTitle         String?
   jobsContainerLocation      String?
