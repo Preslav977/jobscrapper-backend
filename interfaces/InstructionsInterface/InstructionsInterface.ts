@@ -17,6 +17,9 @@ export interface InstructionsInterface {
   jobsContainer: string;
   jobsContainerTitle: string;
   jobsContainerLocation: string;
+  jobsWorkingDay: string;
+  jobsWorkingType: string;
+  jobsDatePosted: string;
   jobsContainerDesc: string;
   jobsContainerDetailsAnchor: string;
   companyID: number;

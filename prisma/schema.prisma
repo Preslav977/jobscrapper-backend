@@ -82,6 +82,9 @@ model Instructions {
   jobsContainer              String?
   jobsContainerTitle         String?
   jobsContainerLocation      String?
+  jobsWorkingDay             String?
+  jobsWorkingType            String?
+  jobsDatePosted             String?
   jobsContainerDesc          String?
   jobsContainerDetailsAnchor String?
   company                    Company @relation(fields: [companyID], references: [id], onDelete: Cascade)
