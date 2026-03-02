@@ -48,17 +48,16 @@ model Company {
 }
 
 model Jobs {
-  id               Int      @id @default(autoincrement())
-  hybridOrRemote   String
-  jobQualification String?
-  fullTimeOrNot    String
-  location         String
-  datePosted       DateTime @updatedAt
-  jobTitle         String
-  jobDescription   String
-  jobAnchor        String?
-  company          Company  @relation(fields: [companyID], references: [id], onDelete: Cascade)
-  companyID        Int
+  id             Int      @id @default(autoincrement())
+  hybridOrRemote String
+  qualification  String?
+  location       String
+  datePosted     DateTime @updatedAt
+  title          String
+  description    String
+  anchorDetails  String?
+  company        Company  @relation(fields: [companyID], references: [id], onDelete: Cascade)
+  companyID      Int
 
   @@map("jobs")
 }
