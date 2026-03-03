@@ -1,13 +1,12 @@
 export interface JobsInterface {
     id: number;
     hybridOrRemote: string;
-    joqQualification?: string;
-    fullTimeOrNot: string;
+    qualification: string;
     location: string;
     datePosted: Date;
-    jobTitle: string;
-    jobDescription: string;
-    jobAnchor?: string;
+    title: string;
+    description: string;
+    anchorHref: string;
     companyID: number;
 }
 //# sourceMappingURL=JobsInterface.d.ts.map

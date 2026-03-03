@@ -1,7 +1,7 @@
 import { prisma } from "../../db/client.js";
 async function createScrappingInstructions(req, res) {
     const { companyID } = req.params;
-    const { careersButton, careersHoverButton, joinUsButton, joinUsHoverButton, loadMoreButton, locationSelect, locationClickSelect, jobCategorySelect, jobCategoryClickSelect, jobTypingInput, submitFormButton, scrollToContainer, nextPageButton, showMoreJobsOnPage, jobsContainer, jobsContainerTitle, jobsContainerLocation, jobsWorkingDay, jobsWorkingType, jobsDatePosted, jobsContainerDesc, jobsContainerDetailsAnchor, } = req.body;
+    const { careersButton, careersHoverButton, joinUsButton, joinUsHoverButton, loadMoreButton, locationSelect, locationClickSelect, categorySelect, categoryClickSelect, typingInput, submitFormButton, scrollToContainer, nextPageButton, showMoreJobsOnPage, jobContainer, jobTitle, jobLocation, jobRemoteOrHybrid, jobDatePosted, jobDescription, jobDetailsAnchorHref, } = req.body;
     const createInstructionsForCompany = await prisma.instructions.create({
         data: {
             careersButton,
@@ -11,21 +11,20 @@ async function createScrappingInstructions(req, res) {
             loadMoreButton,
             locationSelect,
             locationClickSelect,
-            jobCategorySelect,
-            jobCategoryClickSelect,
-            jobTypingInput,
+            categorySelect,
+            categoryClickSelect,
+            typingInput,
             submitFormButton,
             scrollToContainer,
             nextPageButton,
             showMoreJobsOnPage,
-            jobsContainer,
-            jobsContainerTitle,
-            jobsContainerLocation,
-            jobsWorkingDay,
-            jobsWorkingType,
-            jobsDatePosted,
-            jobsContainerDesc,
-            jobsContainerDetailsAnchor,
+            jobContainer,
+            jobTitle,
+            jobLocation,
+            jobRemoteOrHybrid,
+            jobDatePosted,
+            jobDescription,
+            jobDetailsAnchorHref,
             companyID: Number(companyID),
         },
     });
@@ -53,7 +52,7 @@ async function getScrappingInstructionsDetails(req, res) {
 }
 async function updateScrappingInstructionsDetails(req, res) {
     const { companyID, id } = req.params;
-    const { careersButton, careersHoverButton, joinUsButton, joinUsHoverButton, loadMoreButton, locationSelect, locationClickSelect, jobCategorySelect, jobCategoryClickSelect, jobTypingInput, submitFormButton, scrollToContainer, nextPageButton, showMoreJobsOnPage, jobsContainer, jobsContainerTitle, jobsContainerLocation, jobsWorkingDay, jobsWorkingType, jobsDatePosted, jobsContainerDesc, jobsContainerDetailsAnchor, } = req.body;
+    const { careersButton, careersHoverButton, joinUsButton, joinUsHoverButton, loadMoreButton, locationSelect, locationClickSelect, categorySelect, categoryClickSelect, typingInput, submitFormButton, scrollToContainer, nextPageButton, showMoreJobsOnPage, jobContainer, jobTitle, jobLocation, jobRemoteOrHybrid, jobDatePosted, jobDescription, jobDetailsAnchorHref, } = req.body;
     const updateInstructionsDetails = await prisma.instructions.update({
         where: {
             companyID: Number(companyID),
@@ -67,21 +66,20 @@ async function updateScrappingInstructionsDetails(req, res) {
             loadMoreButton,
             locationSelect,
             locationClickSelect,
-            jobCategorySelect,
-            jobCategoryClickSelect,
-            jobTypingInput,
+            categorySelect,
+            categoryClickSelect,
+            typingInput,
             submitFormButton,
             scrollToContainer,
             nextPageButton,
             showMoreJobsOnPage,
-            jobsContainer,
-            jobsContainerTitle,
-            jobsContainerLocation,
-            jobsWorkingDay,
-            jobsWorkingType,
-            jobsDatePosted,
-            jobsContainerDesc,
-            jobsContainerDetailsAnchor,
+            jobContainer,
+            jobTitle,
+            jobLocation,
+            jobRemoteOrHybrid,
+            jobDatePosted,
+            jobDescription,
+            jobDetailsAnchorHref,
             companyID: Number(companyID),
         },
     });

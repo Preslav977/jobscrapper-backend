@@ -7,21 +7,20 @@ export interface InstructionsInterface {
     loadMoreButton: string;
     locationSelect: string;
     locationClickSelect: string;
-    jobCategorySelect: string;
-    jobCategoryClickSelect: string;
-    jobTypingInput: string;
+    categorySelect: string;
+    categoryClickSelect: string;
+    typingInput: string;
     submitFormButton: string;
     scrollToContainer: string;
     nextPageButton: string;
     showMoreJobsOnPage: string;
-    jobsContainer: string;
-    jobsContainerTitle: string;
-    jobsContainerLocation: string;
-    jobsWorkingDay: string;
-    jobsWorkingType: string;
-    jobsDatePosted: string;
-    jobsContainerDesc: string;
-    jobsContainerDetailsAnchor: string;
+    jobContainer: string;
+    jobTitle: string;
+    jobLocation: string;
+    jobRemoteOrHybrid: string;
+    jobDatePosted: string;
+    jobDescription: string;
+    jobDetailsAnchorHref: string;
     companyID: number;
 }
 //# sourceMappingURL=InstructionsInterface.d.ts.map
