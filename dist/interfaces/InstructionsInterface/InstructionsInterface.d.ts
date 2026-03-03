@@ -4,10 +4,13 @@ export interface InstructionsInterface {
     careersHoverButton: string;
     joinUsButton: string;
     joinUsHoverButton: string;
+    navigationMenuClick: string;
     loadMoreButton: string;
     locationSelect: string;
+    locationSelectOption: string;
     locationClickSelect: string;
     categorySelect: string;
+    categorySelectOption: string;
     categoryClickSelect: string;
     typingInput: string;
     submitFormButton: string;

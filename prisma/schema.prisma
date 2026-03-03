@@ -68,10 +68,13 @@ model Instructions {
   careersHoverButton   String?
   joinUsButton         String?
   joinUsHoverButton    String?
+  navigationMenuClick  String?
   loadMoreButton       String?
   locationSelect       String?
+  locationSelectOption String?
   locationClickSelect  String?
   categorySelect       String?
+  categorySelectOption String?
   categoryClickSelect  String?
   typingInput          String?
   submitFormButton     String?
