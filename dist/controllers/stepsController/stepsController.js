@@ -50,4 +50,17 @@ async function updateScrappingStepsDetails(req, res) {
     });
     res.json(updateStepsDetails);
 }
+async function deleteScrappingStepsDetails(req, res) {
+    const { companyID, instructionsID } = req.params;
+    await prisma.steps.deleteMany({
+        where: {
+            companyID: Number(companyID),
+            instructionsID: Number(instructionsID),
+        },
+    });
+    res.json({
+        message: `Steps related to companyID: ${companyID} has been deleted!`,
+    });
+}
+export { createScrappingSteps, deleteScrappingStepsDetails, getScrappingStepsDetails, updateScrappingStepsDetails, };
 //# sourceMappingURL=stepsController.js.map
