@@ -12,4 +12,23 @@ async function createScrappingSteps(req, res) {
     });
     res.json(createStepsForInstructions);
 }
+async function getScrappingSteps(req, res) {
+    const { instructionsID } = req.params;
+    const getStepsDetails = await prisma.steps.findFirst({
+        include: {
+            instructions: true,
+        },
+        where: {
+            instructionsID: Number(instructionsID),
+        },
+    });
+    if (getStepsDetails === null) {
+        res.json({
+            message: "No steps has been found with that ID for the instructions company!",
+        });
+    }
+    else {
+        res.json(getStepsDetails);
+    }
+}
 //# sourceMappingURL=stepsController.js.map

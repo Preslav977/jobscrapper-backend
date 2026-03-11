@@ -20,3 +20,26 @@ async function createScrappingSteps(req: Request, res: Response) {
 
   res.json(createStepsForInstructions);
 }
+
+async function getScrappingSteps(req: Request, res: Response) {
+  const { instructionsID } = req.params;
+
+  const getStepsDetails = await prisma.steps.findFirst({
+    include: {
+      instructions: true,
+    },
+
+    where: {
+      instructionsID: Number(instructionsID),
+    },
+  });
+
+  if (getStepsDetails === null) {
+    res.json({
+      message:
+        "No steps has been found with that ID for the instructions company!",
+    });
+  } else {
+    res.json(getStepsDetails);
+  }
+}
