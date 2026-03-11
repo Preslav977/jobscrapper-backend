@@ -1,11 +1,13 @@
+import type { JsonObject } from "@prisma/client/runtime/client";
 export interface InstructionsInterface {
     id?: number;
-    container: JSON;
-    title: JSON;
-    location: JSON;
-    remoteOrHybrid: JSON;
-    datePosted: JSON;
-    anchorHref: JSON;
-    companyID: number;
+    container: JsonObject;
+    title: JsonObject;
+    location: JsonObject;
+    remoteOrHybrid: JsonObject;
+    datePosted: JsonObject;
+    description: JsonObject;
+    anchorHref: JsonObject;
+    companyID: JsonObject;
 }
 //# sourceMappingURL=InstructionsInterface.d.ts.map

@@ -123,6 +123,7 @@ export const InstructionsScalarFieldEnum = {
     location: 'location',
     remoteOrHybrid: 'remoteOrHybrid',
     datePosted: 'datePosted',
+    description: 'description',
     anchorHref: 'anchorHref',
     companyID: 'companyID'
 };

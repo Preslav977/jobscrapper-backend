@@ -1,33 +1,16 @@
 import { prisma } from "../../db/client.js";
 async function createScrappingInstructions(req, res) {
     const { companyID } = req.params;
-    const { careersButton, careersHoverButton, joinUsButton, joinUsHoverButton, navigationMenuClick, loadMoreButton, locationSelect, locationSelectOption, locationClickSelect, categorySelect, categorySelectOption, categoryClickSelect, typingInput, submitFormButton, scrollToContainer, nextPageButton, showMoreJobsOnPage, jobContainer, jobTitle, jobLocation, jobRemoteOrHybrid, jobDatePosted, jobDescription, jobDetailsAnchorHref, } = req.body;
+    const { container, title, location, remoteOrHybrid, datePosted, description, anchorHref, } = req.body;
     const createInstructionsForCompany = await prisma.instructions.create({
         data: {
-            careersButton,
-            careersHoverButton,
-            joinUsButton,
-            joinUsHoverButton,
-            navigationMenuClick,
-            loadMoreButton,
-            locationSelect,
-            locationSelectOption,
-            locationClickSelect,
-            categorySelect,
-            categorySelectOption,
-            categoryClickSelect,
-            typingInput,
-            submitFormButton,
-            scrollToContainer,
-            nextPageButton,
-            showMoreJobsOnPage,
-            jobContainer,
-            jobTitle,
-            jobLocation,
-            jobRemoteOrHybrid,
-            jobDatePosted,
-            jobDescription,
-            jobDetailsAnchorHref,
+            container,
+            title,
+            location,
+            remoteOrHybrid,
+            datePosted,
+            description,
+            anchorHref,
             companyID: Number(companyID),
         },
     });
@@ -55,37 +38,20 @@ async function getScrappingInstructionsDetails(req, res) {
 }
 async function updateScrappingInstructionsDetails(req, res) {
     const { companyID, id } = req.params;
-    const { careersButton, careersHoverButton, joinUsButton, joinUsHoverButton, navigationMenuClick, loadMoreButton, locationSelect, locationSelectOption, locationClickSelect, categorySelect, categorySelectOption, categoryClickSelect, typingInput, submitFormButton, scrollToContainer, nextPageButton, showMoreJobsOnPage, jobContainer, jobTitle, jobLocation, jobRemoteOrHybrid, jobDatePosted, jobDescription, jobDetailsAnchorHref, } = req.body;
+    const { container, title, location, remoteOrHybrid, datePosted, description, anchorHref, } = req.body;
     const updateInstructionsDetails = await prisma.instructions.update({
         where: {
             companyID: Number(companyID),
             id: Number(id),
         },
         data: {
-            careersButton,
-            careersHoverButton,
-            joinUsButton,
-            joinUsHoverButton,
-            navigationMenuClick,
-            loadMoreButton,
-            locationSelect,
-            locationSelectOption,
-            locationClickSelect,
-            categorySelect,
-            categorySelectOption,
-            categoryClickSelect,
-            typingInput,
-            submitFormButton,
-            scrollToContainer,
-            nextPageButton,
-            showMoreJobsOnPage,
-            jobContainer,
-            jobTitle,
-            jobLocation,
-            jobRemoteOrHybrid,
-            jobDatePosted,
-            jobDescription,
-            jobDetailsAnchorHref,
+            container,
+            title,
+            location,
+            remoteOrHybrid,
+            datePosted,
+            description,
+            anchorHref,
             companyID: Number(companyID),
         },
     });

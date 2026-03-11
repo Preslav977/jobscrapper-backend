@@ -83,6 +83,7 @@ export declare const InstructionsScalarFieldEnum: {
     readonly location: "location";
     readonly remoteOrHybrid: "remoteOrHybrid";
     readonly datePosted: "datePosted";
+    readonly description: "description";
     readonly anchorHref: "anchorHref";
     readonly companyID: "companyID";
 };

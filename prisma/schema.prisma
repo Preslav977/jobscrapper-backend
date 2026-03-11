@@ -69,6 +69,7 @@ model Instructions {
   location       Json?
   remoteOrHybrid Json?
   datePosted     Json?
+  description    Json?
   anchorHref     Json?
   company        Company @relation(fields: [companyID], references: [id], onDelete: Cascade)
   companyID      Int
