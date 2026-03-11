@@ -80,6 +80,7 @@ model Instructions {
 
 model Steps {
   id             Int          @id @default(autoincrement())
+  order          Int
   action         String
   selector       String
   instructions   Instructions @relation(fields: [instructionsID], references: [id], onDelete: Cascade)

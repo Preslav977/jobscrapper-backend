@@ -90,6 +90,7 @@ export declare const InstructionsScalarFieldEnum: {
 export type InstructionsScalarFieldEnum = (typeof InstructionsScalarFieldEnum)[keyof typeof InstructionsScalarFieldEnum];
 export declare const StepsScalarFieldEnum: {
     readonly id: "id";
+    readonly order: "order";
     readonly action: "action";
     readonly selector: "selector";
     readonly instructionsID: "instructionsID";

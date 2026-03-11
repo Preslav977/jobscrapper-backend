@@ -14,26 +14,31 @@ export type AggregateSteps = {
 };
 export type StepsAvgAggregateOutputType = {
     id: number | null;
+    order: number | null;
     instructionsID: number | null;
 };
 export type StepsSumAggregateOutputType = {
     id: number | null;
+    order: number | null;
     instructionsID: number | null;
 };
 export type StepsMinAggregateOutputType = {
     id: number | null;
+    order: number | null;
     action: string | null;
     selector: string | null;
     instructionsID: number | null;
 };
 export type StepsMaxAggregateOutputType = {
     id: number | null;
+    order: number | null;
     action: string | null;
     selector: string | null;
     instructionsID: number | null;
 };
 export type StepsCountAggregateOutputType = {
     id: number;
+    order: number;
     action: number;
     selector: number;
     instructionsID: number;
@@ -41,26 +46,31 @@ export type StepsCountAggregateOutputType = {
 };
 export type StepsAvgAggregateInputType = {
     id?: true;
+    order?: true;
     instructionsID?: true;
 };
 export type StepsSumAggregateInputType = {
     id?: true;
+    order?: true;
     instructionsID?: true;
 };
 export type StepsMinAggregateInputType = {
     id?: true;
+    order?: true;
     action?: true;
     selector?: true;
     instructionsID?: true;
 };
 export type StepsMaxAggregateInputType = {
     id?: true;
+    order?: true;
     action?: true;
     selector?: true;
     instructionsID?: true;
 };
 export type StepsCountAggregateInputType = {
     id?: true;
+    order?: true;
     action?: true;
     selector?: true;
     instructionsID?: true;
@@ -144,6 +154,7 @@ export type StepsGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
 };
 export type StepsGroupByOutputType = {
     id: number;
+    order: number;
     action: string;
     selector: string;
     instructionsID: number;
@@ -161,6 +172,7 @@ export type StepsWhereInput = {
     OR?: Prisma.StepsWhereInput[];
     NOT?: Prisma.StepsWhereInput | Prisma.StepsWhereInput[];
     id?: Prisma.IntFilter<"Steps"> | number;
+    order?: Prisma.IntFilter<"Steps"> | number;
     action?: Prisma.StringFilter<"Steps"> | string;
     selector?: Prisma.StringFilter<"Steps"> | string;
     instructionsID?: Prisma.IntFilter<"Steps"> | number;
@@ -168,6 +180,7 @@ export type StepsWhereInput = {
 };
 export type StepsOrderByWithRelationInput = {
     id?: Prisma.SortOrder;
+    order?: Prisma.SortOrder;
     action?: Prisma.SortOrder;
     selector?: Prisma.SortOrder;
     instructionsID?: Prisma.SortOrder;
@@ -178,6 +191,7 @@ export type StepsWhereUniqueInput = Prisma.AtLeast<{
     AND?: Prisma.StepsWhereInput | Prisma.StepsWhereInput[];
     OR?: Prisma.StepsWhereInput[];
     NOT?: Prisma.StepsWhereInput | Prisma.StepsWhereInput[];
+    order?: Prisma.IntFilter<"Steps"> | number;
     action?: Prisma.StringFilter<"Steps"> | string;
     selector?: Prisma.StringFilter<"Steps"> | string;
     instructionsID?: Prisma.IntFilter<"Steps"> | number;
@@ -185,6 +199,7 @@ export type StepsWhereUniqueInput = Prisma.AtLeast<{
 }, "id">;
 export type StepsOrderByWithAggregationInput = {
     id?: Prisma.SortOrder;
+    order?: Prisma.SortOrder;
     action?: Prisma.SortOrder;
     selector?: Prisma.SortOrder;
     instructionsID?: Prisma.SortOrder;
@@ -199,44 +214,52 @@ export type StepsScalarWhereWithAggregatesInput = {
     OR?: Prisma.StepsScalarWhereWithAggregatesInput[];
     NOT?: Prisma.StepsScalarWhereWithAggregatesInput | Prisma.StepsScalarWhereWithAggregatesInput[];
     id?: Prisma.IntWithAggregatesFilter<"Steps"> | number;
+    order?: Prisma.IntWithAggregatesFilter<"Steps"> | number;
     action?: Prisma.StringWithAggregatesFilter<"Steps"> | string;
     selector?: Prisma.StringWithAggregatesFilter<"Steps"> | string;
     instructionsID?: Prisma.IntWithAggregatesFilter<"Steps"> | number;
 };
 export type StepsCreateInput = {
+    order: number;
     action: string;
     selector: string;
     instructions: Prisma.InstructionsCreateNestedOneWithoutStepsInput;
 };
 export type StepsUncheckedCreateInput = {
     id?: number;
+    order: number;
     action: string;
     selector: string;
     instructionsID: number;
 };
 export type StepsUpdateInput = {
+    order?: Prisma.IntFieldUpdateOperationsInput | number;
     action?: Prisma.StringFieldUpdateOperationsInput | string;
     selector?: Prisma.StringFieldUpdateOperationsInput | string;
     instructions?: Prisma.InstructionsUpdateOneRequiredWithoutStepsNestedInput;
 };
 export type StepsUncheckedUpdateInput = {
     id?: Prisma.IntFieldUpdateOperationsInput | number;
+    order?: Prisma.IntFieldUpdateOperationsInput | number;
     action?: Prisma.StringFieldUpdateOperationsInput | string;
     selector?: Prisma.StringFieldUpdateOperationsInput | string;
     instructionsID?: Prisma.IntFieldUpdateOperationsInput | number;
 };
 export type StepsCreateManyInput = {
     id?: number;
+    order: number;
     action: string;
     selector: string;
     instructionsID: number;
 };
 export type StepsUpdateManyMutationInput = {
+    order?: Prisma.IntFieldUpdateOperationsInput | number;
     action?: Prisma.StringFieldUpdateOperationsInput | string;
     selector?: Prisma.StringFieldUpdateOperationsInput | string;
 };
 export type StepsUncheckedUpdateManyInput = {
     id?: Prisma.IntFieldUpdateOperationsInput | number;
+    order?: Prisma.IntFieldUpdateOperationsInput | number;
     action?: Prisma.StringFieldUpdateOperationsInput | string;
     selector?: Prisma.StringFieldUpdateOperationsInput | string;
     instructionsID?: Prisma.IntFieldUpdateOperationsInput | number;
@@ -251,28 +274,33 @@ export type StepsOrderByRelationAggregateInput = {
 };
 export type StepsCountOrderByAggregateInput = {
     id?: Prisma.SortOrder;
+    order?: Prisma.SortOrder;
     action?: Prisma.SortOrder;
     selector?: Prisma.SortOrder;
     instructionsID?: Prisma.SortOrder;
 };
 export type StepsAvgOrderByAggregateInput = {
     id?: Prisma.SortOrder;
+    order?: Prisma.SortOrder;
     instructionsID?: Prisma.SortOrder;
 };
 export type StepsMaxOrderByAggregateInput = {
     id?: Prisma.SortOrder;
+    order?: Prisma.SortOrder;
     action?: Prisma.SortOrder;
     selector?: Prisma.SortOrder;
     instructionsID?: Prisma.SortOrder;
 };
 export type StepsMinOrderByAggregateInput = {
     id?: Prisma.SortOrder;
+    order?: Prisma.SortOrder;
     action?: Prisma.SortOrder;
     selector?: Prisma.SortOrder;
     instructionsID?: Prisma.SortOrder;
 };
 export type StepsSumOrderByAggregateInput = {
     id?: Prisma.SortOrder;
+    order?: Prisma.SortOrder;
     instructionsID?: Prisma.SortOrder;
 };
 export type StepsCreateNestedManyWithoutInstructionsInput = {
@@ -314,11 +342,13 @@ export type StepsUncheckedUpdateManyWithoutInstructionsNestedInput = {
     deleteMany?: Prisma.StepsScalarWhereInput | Prisma.StepsScalarWhereInput[];
 };
 export type StepsCreateWithoutInstructionsInput = {
+    order: number;
     action: string;
     selector: string;
 };
 export type StepsUncheckedCreateWithoutInstructionsInput = {
     id?: number;
+    order: number;
     action: string;
     selector: string;
 };
@@ -348,31 +378,37 @@ export type StepsScalarWhereInput = {
     OR?: Prisma.StepsScalarWhereInput[];
     NOT?: Prisma.StepsScalarWhereInput | Prisma.StepsScalarWhereInput[];
     id?: Prisma.IntFilter<"Steps"> | number;
+    order?: Prisma.IntFilter<"Steps"> | number;
     action?: Prisma.StringFilter<"Steps"> | string;
     selector?: Prisma.StringFilter<"Steps"> | string;
     instructionsID?: Prisma.IntFilter<"Steps"> | number;
 };
 export type StepsCreateManyInstructionsInput = {
     id?: number;
+    order: number;
     action: string;
     selector: string;
 };
 export type StepsUpdateWithoutInstructionsInput = {
+    order?: Prisma.IntFieldUpdateOperationsInput | number;
     action?: Prisma.StringFieldUpdateOperationsInput | string;
     selector?: Prisma.StringFieldUpdateOperationsInput | string;
 };
 export type StepsUncheckedUpdateWithoutInstructionsInput = {
     id?: Prisma.IntFieldUpdateOperationsInput | number;
+    order?: Prisma.IntFieldUpdateOperationsInput | number;
     action?: Prisma.StringFieldUpdateOperationsInput | string;
     selector?: Prisma.StringFieldUpdateOperationsInput | string;
 };
 export type StepsUncheckedUpdateManyWithoutInstructionsInput = {
     id?: Prisma.IntFieldUpdateOperationsInput | number;
+    order?: Prisma.IntFieldUpdateOperationsInput | number;
     action?: Prisma.StringFieldUpdateOperationsInput | string;
     selector?: Prisma.StringFieldUpdateOperationsInput | string;
 };
 export type StepsSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
     id?: boolean;
+    order?: boolean;
     action?: boolean;
     selector?: boolean;
     instructionsID?: boolean;
@@ -380,6 +416,7 @@ export type StepsSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
 }, ExtArgs["result"]["steps"]>;
 export type StepsSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
     id?: boolean;
+    order?: boolean;
     action?: boolean;
     selector?: boolean;
     instructionsID?: boolean;
@@ -387,6 +424,7 @@ export type StepsSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
 }, ExtArgs["result"]["steps"]>;
 export type StepsSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
     id?: boolean;
+    order?: boolean;
     action?: boolean;
     selector?: boolean;
     instructionsID?: boolean;
@@ -394,11 +432,12 @@ export type StepsSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
 }, ExtArgs["result"]["steps"]>;
 export type StepsSelectScalar = {
     id?: boolean;
+    order?: boolean;
     action?: boolean;
     selector?: boolean;
     instructionsID?: boolean;
 };
-export type StepsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "action" | "selector" | "instructionsID", ExtArgs["result"]["steps"]>;
+export type StepsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "order" | "action" | "selector" | "instructionsID", ExtArgs["result"]["steps"]>;
 export type StepsInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     instructions?: boolean | Prisma.InstructionsDefaultArgs<ExtArgs>;
 };
@@ -415,6 +454,7 @@ export type $StepsPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     };
     scalars: runtime.Types.Extensions.GetPayloadResult<{
         id: number;
+        order: number;
         action: string;
         selector: string;
         instructionsID: number;
@@ -774,6 +814,7 @@ export interface Prisma__StepsClient<T, Null = never, ExtArgs extends runtime.Ty
  */
 export interface StepsFieldRefs {
     readonly id: Prisma.FieldRef<"Steps", 'Int'>;
+    readonly order: Prisma.FieldRef<"Steps", 'Int'>;
     readonly action: Prisma.FieldRef<"Steps", 'String'>;
     readonly selector: Prisma.FieldRef<"Steps", 'String'>;
     readonly instructionsID: Prisma.FieldRef<"Steps", 'Int'>;
