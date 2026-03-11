@@ -784,6 +784,7 @@ export declare const StepsScalarFieldEnum: {
     readonly action: "action";
     readonly selector: "selector";
     readonly instructionsID: "instructionsID";
+    readonly companyID: "companyID";
 };
 export type StepsScalarFieldEnum = (typeof StepsScalarFieldEnum)[keyof typeof StepsScalarFieldEnum];
 export declare const SessionScalarFieldEnum: {

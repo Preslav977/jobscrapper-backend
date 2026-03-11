@@ -12,7 +12,7 @@ async function createScrappingSteps(req, res) {
     });
     res.json(createStepsForInstructions);
 }
-async function getScrappingSteps(req, res) {
+async function getScrappingStepsDetails(req, res) {
     const { instructionsID } = req.params;
     const getStepsDetails = await prisma.steps.findFirst({
         include: {
@@ -30,5 +30,19 @@ async function getScrappingSteps(req, res) {
     else {
         res.json(getStepsDetails);
     }
+}
+async function updateScrappingStepsDetails(req, res) {
+    const { instructionsID } = req.params;
+    const { order, action, selector } = req.body;
+    const updateStepsDetails = await prisma.steps.update({
+        where: {
+            instructionsID: Number(instructionsID),
+        },
+        data: {
+            order,
+            action,
+            selector,
+        },
+    });
 }
 //# sourceMappingURL=stepsController.js.map

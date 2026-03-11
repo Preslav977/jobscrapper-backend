@@ -103,7 +103,8 @@ export const StepsScalarFieldEnum = {
     order: 'order',
     action: 'action',
     selector: 'selector',
-    instructionsID: 'instructionsID'
+    instructionsID: 'instructionsID',
+    companyID: 'companyID'
 };
 export const SessionScalarFieldEnum = {
     id: 'id',

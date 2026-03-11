@@ -170,6 +170,7 @@ export type CompanyWhereInput = {
     browserNavigation?: Prisma.StringNullableFilter<"Company"> | string | null;
     jobs?: Prisma.JobsListRelationFilter;
     instructions?: Prisma.InstructionsListRelationFilter;
+    steps?: Prisma.StepsListRelationFilter;
 };
 export type CompanyOrderByWithRelationInput = {
     id?: Prisma.SortOrder;
@@ -179,6 +180,7 @@ export type CompanyOrderByWithRelationInput = {
     browserNavigation?: Prisma.SortOrderInput | Prisma.SortOrder;
     jobs?: Prisma.JobsOrderByRelationAggregateInput;
     instructions?: Prisma.InstructionsOrderByRelationAggregateInput;
+    steps?: Prisma.StepsOrderByRelationAggregateInput;
 };
 export type CompanyWhereUniqueInput = Prisma.AtLeast<{
     id?: number;
@@ -191,6 +193,7 @@ export type CompanyWhereUniqueInput = Prisma.AtLeast<{
     browserNavigation?: Prisma.StringNullableFilter<"Company"> | string | null;
     jobs?: Prisma.JobsListRelationFilter;
     instructions?: Prisma.InstructionsListRelationFilter;
+    steps?: Prisma.StepsListRelationFilter;
 }, "id" | "name">;
 export type CompanyOrderByWithAggregationInput = {
     id?: Prisma.SortOrder;
@@ -221,6 +224,7 @@ export type CompanyCreateInput = {
     browserNavigation?: string | null;
     jobs?: Prisma.JobsCreateNestedManyWithoutCompanyInput;
     instructions?: Prisma.InstructionsCreateNestedManyWithoutCompanyInput;
+    steps?: Prisma.StepsCreateNestedManyWithoutCompanyInput;
 };
 export type CompanyUncheckedCreateInput = {
     id?: number;
@@ -230,6 +234,7 @@ export type CompanyUncheckedCreateInput = {
     browserNavigation?: string | null;
     jobs?: Prisma.JobsUncheckedCreateNestedManyWithoutCompanyInput;
     instructions?: Prisma.InstructionsUncheckedCreateNestedManyWithoutCompanyInput;
+    steps?: Prisma.StepsUncheckedCreateNestedManyWithoutCompanyInput;
 };
 export type CompanyUpdateInput = {
     name?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -238,6 +243,7 @@ export type CompanyUpdateInput = {
     browserNavigation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     jobs?: Prisma.JobsUpdateManyWithoutCompanyNestedInput;
     instructions?: Prisma.InstructionsUpdateManyWithoutCompanyNestedInput;
+    steps?: Prisma.StepsUpdateManyWithoutCompanyNestedInput;
 };
 export type CompanyUncheckedUpdateInput = {
     id?: Prisma.IntFieldUpdateOperationsInput | number;
@@ -247,6 +253,7 @@ export type CompanyUncheckedUpdateInput = {
     browserNavigation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     jobs?: Prisma.JobsUncheckedUpdateManyWithoutCompanyNestedInput;
     instructions?: Prisma.InstructionsUncheckedUpdateManyWithoutCompanyNestedInput;
+    steps?: Prisma.StepsUncheckedUpdateManyWithoutCompanyNestedInput;
 };
 export type CompanyCreateManyInput = {
     id?: number;
@@ -299,6 +306,10 @@ export type CompanyScalarRelationFilter = {
     is?: Prisma.CompanyWhereInput;
     isNot?: Prisma.CompanyWhereInput;
 };
+export type CompanyNullableScalarRelationFilter = {
+    is?: Prisma.CompanyWhereInput | null;
+    isNot?: Prisma.CompanyWhereInput | null;
+};
 export type CompanyCreateNestedOneWithoutJobsInput = {
     create?: Prisma.XOR<Prisma.CompanyCreateWithoutJobsInput, Prisma.CompanyUncheckedCreateWithoutJobsInput>;
     connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutJobsInput;
@@ -323,12 +334,27 @@ export type CompanyUpdateOneRequiredWithoutInstructionsNestedInput = {
     connect?: Prisma.CompanyWhereUniqueInput;
     update?: Prisma.XOR<Prisma.XOR<Prisma.CompanyUpdateToOneWithWhereWithoutInstructionsInput, Prisma.CompanyUpdateWithoutInstructionsInput>, Prisma.CompanyUncheckedUpdateWithoutInstructionsInput>;
 };
+export type CompanyCreateNestedOneWithoutStepsInput = {
+    create?: Prisma.XOR<Prisma.CompanyCreateWithoutStepsInput, Prisma.CompanyUncheckedCreateWithoutStepsInput>;
+    connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutStepsInput;
+    connect?: Prisma.CompanyWhereUniqueInput;
+};
+export type CompanyUpdateOneWithoutStepsNestedInput = {
+    create?: Prisma.XOR<Prisma.CompanyCreateWithoutStepsInput, Prisma.CompanyUncheckedCreateWithoutStepsInput>;
+    connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutStepsInput;
+    upsert?: Prisma.CompanyUpsertWithoutStepsInput;
+    disconnect?: Prisma.CompanyWhereInput | boolean;
+    delete?: Prisma.CompanyWhereInput | boolean;
+    connect?: Prisma.CompanyWhereUniqueInput;
+    update?: Prisma.XOR<Prisma.XOR<Prisma.CompanyUpdateToOneWithWhereWithoutStepsInput, Prisma.CompanyUpdateWithoutStepsInput>, Prisma.CompanyUncheckedUpdateWithoutStepsInput>;
+};
 export type CompanyCreateWithoutJobsInput = {
     name: string;
     logo?: string | null;
     URL: string;
     browserNavigation?: string | null;
     instructions?: Prisma.InstructionsCreateNestedManyWithoutCompanyInput;
+    steps?: Prisma.StepsCreateNestedManyWithoutCompanyInput;
 };
 export type CompanyUncheckedCreateWithoutJobsInput = {
     id?: number;
@@ -337,6 +363,7 @@ export type CompanyUncheckedCreateWithoutJobsInput = {
     URL: string;
     browserNavigation?: string | null;
     instructions?: Prisma.InstructionsUncheckedCreateNestedManyWithoutCompanyInput;
+    steps?: Prisma.StepsUncheckedCreateNestedManyWithoutCompanyInput;
 };
 export type CompanyCreateOrConnectWithoutJobsInput = {
     where: Prisma.CompanyWhereUniqueInput;
@@ -357,6 +384,7 @@ export type CompanyUpdateWithoutJobsInput = {
     URL?: Prisma.StringFieldUpdateOperationsInput | string;
     browserNavigation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     instructions?: Prisma.InstructionsUpdateManyWithoutCompanyNestedInput;
+    steps?: Prisma.StepsUpdateManyWithoutCompanyNestedInput;
 };
 export type CompanyUncheckedUpdateWithoutJobsInput = {
     id?: Prisma.IntFieldUpdateOperationsInput | number;
@@ -365,6 +393,7 @@ export type CompanyUncheckedUpdateWithoutJobsInput = {
     URL?: Prisma.StringFieldUpdateOperationsInput | string;
     browserNavigation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     instructions?: Prisma.InstructionsUncheckedUpdateManyWithoutCompanyNestedInput;
+    steps?: Prisma.StepsUncheckedUpdateManyWithoutCompanyNestedInput;
 };
 export type CompanyCreateWithoutInstructionsInput = {
     name: string;
@@ -372,6 +401,7 @@ export type CompanyCreateWithoutInstructionsInput = {
     URL: string;
     browserNavigation?: string | null;
     jobs?: Prisma.JobsCreateNestedManyWithoutCompanyInput;
+    steps?: Prisma.StepsCreateNestedManyWithoutCompanyInput;
 };
 export type CompanyUncheckedCreateWithoutInstructionsInput = {
     id?: number;
@@ -380,6 +410,7 @@ export type CompanyUncheckedCreateWithoutInstructionsInput = {
     URL: string;
     browserNavigation?: string | null;
     jobs?: Prisma.JobsUncheckedCreateNestedManyWithoutCompanyInput;
+    steps?: Prisma.StepsUncheckedCreateNestedManyWithoutCompanyInput;
 };
 export type CompanyCreateOrConnectWithoutInstructionsInput = {
     where: Prisma.CompanyWhereUniqueInput;
@@ -400,6 +431,7 @@ export type CompanyUpdateWithoutInstructionsInput = {
     URL?: Prisma.StringFieldUpdateOperationsInput | string;
     browserNavigation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     jobs?: Prisma.JobsUpdateManyWithoutCompanyNestedInput;
+    steps?: Prisma.StepsUpdateManyWithoutCompanyNestedInput;
 };
 export type CompanyUncheckedUpdateWithoutInstructionsInput = {
     id?: Prisma.IntFieldUpdateOperationsInput | number;
@@ -408,6 +440,54 @@ export type CompanyUncheckedUpdateWithoutInstructionsInput = {
     URL?: Prisma.StringFieldUpdateOperationsInput | string;
     browserNavigation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     jobs?: Prisma.JobsUncheckedUpdateManyWithoutCompanyNestedInput;
+    steps?: Prisma.StepsUncheckedUpdateManyWithoutCompanyNestedInput;
+};
+export type CompanyCreateWithoutStepsInput = {
+    name: string;
+    logo?: string | null;
+    URL: string;
+    browserNavigation?: string | null;
+    jobs?: Prisma.JobsCreateNestedManyWithoutCompanyInput;
+    instructions?: Prisma.InstructionsCreateNestedManyWithoutCompanyInput;
+};
+export type CompanyUncheckedCreateWithoutStepsInput = {
+    id?: number;
+    name: string;
+    logo?: string | null;
+    URL: string;
+    browserNavigation?: string | null;
+    jobs?: Prisma.JobsUncheckedCreateNestedManyWithoutCompanyInput;
+    instructions?: Prisma.InstructionsUncheckedCreateNestedManyWithoutCompanyInput;
+};
+export type CompanyCreateOrConnectWithoutStepsInput = {
+    where: Prisma.CompanyWhereUniqueInput;
+    create: Prisma.XOR<Prisma.CompanyCreateWithoutStepsInput, Prisma.CompanyUncheckedCreateWithoutStepsInput>;
+};
+export type CompanyUpsertWithoutStepsInput = {
+    update: Prisma.XOR<Prisma.CompanyUpdateWithoutStepsInput, Prisma.CompanyUncheckedUpdateWithoutStepsInput>;
+    create: Prisma.XOR<Prisma.CompanyCreateWithoutStepsInput, Prisma.CompanyUncheckedCreateWithoutStepsInput>;
+    where?: Prisma.CompanyWhereInput;
+};
+export type CompanyUpdateToOneWithWhereWithoutStepsInput = {
+    where?: Prisma.CompanyWhereInput;
+    data: Prisma.XOR<Prisma.CompanyUpdateWithoutStepsInput, Prisma.CompanyUncheckedUpdateWithoutStepsInput>;
+};
+export type CompanyUpdateWithoutStepsInput = {
+    name?: Prisma.StringFieldUpdateOperationsInput | string;
+    logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    URL?: Prisma.StringFieldUpdateOperationsInput | string;
+    browserNavigation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    jobs?: Prisma.JobsUpdateManyWithoutCompanyNestedInput;
+    instructions?: Prisma.InstructionsUpdateManyWithoutCompanyNestedInput;
+};
+export type CompanyUncheckedUpdateWithoutStepsInput = {
+    id?: Prisma.IntFieldUpdateOperationsInput | number;
+    name?: Prisma.StringFieldUpdateOperationsInput | string;
+    logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    URL?: Prisma.StringFieldUpdateOperationsInput | string;
+    browserNavigation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    jobs?: Prisma.JobsUncheckedUpdateManyWithoutCompanyNestedInput;
+    instructions?: Prisma.InstructionsUncheckedUpdateManyWithoutCompanyNestedInput;
 };
 /**
  * Count Type CompanyCountOutputType
@@ -415,10 +495,12 @@ export type CompanyUncheckedUpdateWithoutInstructionsInput = {
 export type CompanyCountOutputType = {
     jobs: number;
     instructions: number;
+    steps: number;
 };
 export type CompanyCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     jobs?: boolean | CompanyCountOutputTypeCountJobsArgs;
     instructions?: boolean | CompanyCountOutputTypeCountInstructionsArgs;
+    steps?: boolean | CompanyCountOutputTypeCountStepsArgs;
 };
 /**
  * CompanyCountOutputType without action
@@ -441,6 +523,12 @@ export type CompanyCountOutputTypeCountJobsArgs<ExtArgs extends runtime.Types.Ex
 export type CompanyCountOutputTypeCountInstructionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     where?: Prisma.InstructionsWhereInput;
 };
+/**
+ * CompanyCountOutputType without action
+ */
+export type CompanyCountOutputTypeCountStepsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    where?: Prisma.StepsWhereInput;
+};
 export type CompanySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
     id?: boolean;
     name?: boolean;
@@ -449,6 +537,7 @@ export type CompanySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     browserNavigation?: boolean;
     jobs?: boolean | Prisma.Company$jobsArgs<ExtArgs>;
     instructions?: boolean | Prisma.Company$instructionsArgs<ExtArgs>;
+    steps?: boolean | Prisma.Company$stepsArgs<ExtArgs>;
     _count?: boolean | Prisma.CompanyCountOutputTypeDefaultArgs<ExtArgs>;
 }, ExtArgs["result"]["company"]>;
 export type CompanySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -476,6 +565,7 @@ export type CompanyOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
 export type CompanyInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     jobs?: boolean | Prisma.Company$jobsArgs<ExtArgs>;
     instructions?: boolean | Prisma.Company$instructionsArgs<ExtArgs>;
+    steps?: boolean | Prisma.Company$stepsArgs<ExtArgs>;
     _count?: boolean | Prisma.CompanyCountOutputTypeDefaultArgs<ExtArgs>;
 };
 export type CompanyIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {};
@@ -485,6 +575,7 @@ export type $CompanyPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     objects: {
         jobs: Prisma.$JobsPayload<ExtArgs>[];
         instructions: Prisma.$InstructionsPayload<ExtArgs>[];
+        steps: Prisma.$StepsPayload<ExtArgs>[];
     };
     scalars: runtime.Types.Extensions.GetPayloadResult<{
         id: number;
@@ -823,6 +914,7 @@ export interface Prisma__CompanyClient<T, Null = never, ExtArgs extends runtime.
     readonly [Symbol.toStringTag]: "PrismaPromise";
     jobs<T extends Prisma.Company$jobsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$jobsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$JobsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>;
     instructions<T extends Prisma.Company$instructionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$instructionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$InstructionsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>;
+    steps<T extends Prisma.Company$stepsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$stepsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StepsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>;
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1268,6 +1360,29 @@ export type Company$instructionsArgs<ExtArgs extends runtime.Types.Extensions.In
     take?: number;
     skip?: number;
     distinct?: Prisma.InstructionsScalarFieldEnum | Prisma.InstructionsScalarFieldEnum[];
+};
+/**
+ * Company.steps
+ */
+export type Company$stepsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Steps
+     */
+    select?: Prisma.StepsSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Steps
+     */
+    omit?: Prisma.StepsOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.StepsInclude<ExtArgs> | null;
+    where?: Prisma.StepsWhereInput;
+    orderBy?: Prisma.StepsOrderByWithRelationInput | Prisma.StepsOrderByWithRelationInput[];
+    cursor?: Prisma.StepsWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?: Prisma.StepsScalarFieldEnum | Prisma.StepsScalarFieldEnum[];
 };
 /**
  * Company without action
