@@ -63,17 +63,28 @@ model Jobs {
 }
 
 model Instructions {
-  id                Int     @id @default(autoincrement())
-  jobContainer      Json?
-  jobTitle          Json?
-  jobLocation       Json?
-  jobRemoteOrHybrid Json?
-  jobDatePosted     Json?
-  jobAnchorHref     Json?
-  company           Company @relation(fields: [companyID], references: [id], onDelete: Cascade)
-  companyID         Int
+  id             Int     @id @default(autoincrement())
+  container      Json?
+  title          Json?
+  location       Json?
+  remoteOrHybrid Json?
+  datePosted     Json?
+  anchorHref     Json?
+  company        Company @relation(fields: [companyID], references: [id], onDelete: Cascade)
+  companyID      Int
+  steps          Steps[]
 
   @@map("instructions")
+}
+
+model Steps {
+  id             Int          @id @default(autoincrement())
+  action         String
+  selector       String
+  instructions   Instructions @relation(fields: [instructionsID], references: [id], onDelete: Cascade)
+  instructionsID Int
+
+  @@map("steps")
 }
 
 model Session {
