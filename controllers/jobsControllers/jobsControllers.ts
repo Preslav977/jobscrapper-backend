@@ -49,11 +49,10 @@ async function updateJob(req: Request, res: Response) {
   const { id, companyID } = req.params;
 
   const {
-    hybridOrRemote,
-    qualification,
-    location,
-    datePosted,
     title,
+    location,
+    remoteOrHybrid,
+    datePosted,
     description,
     anchorHref,
   }: JobsInterface = req.body;
@@ -69,11 +68,10 @@ async function updateJob(req: Request, res: Response) {
     },
 
     data: {
-      hybridOrRemote,
-      qualification,
-      location,
-      datePosted,
       title,
+      location,
+      remoteOrHybrid,
+      datePosted,
       description,
       anchorHref,
     },
