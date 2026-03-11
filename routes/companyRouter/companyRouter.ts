@@ -24,6 +24,12 @@ import {
   updateScrappingInstructionsDetails,
 } from "../../controllers/instructionsController/instructionsController.js";
 
+import {
+  createScrappingSteps,
+  getScrappingStepsDetails,
+  updateScrappingStepsDetails,
+} from "../../controllers/stepsController/stepsController.js";
+
 import { validateCreatingCompany } from "../../middlewares/validateCreatingCompany/validateCreatingCompany.js";
 
 const companyRouter = Router();
@@ -52,6 +58,26 @@ companyRouter.get(
 companyRouter.delete(
   "/:companyID/instructions/:id",
   deleteScrappingInstructionsDetails,
+);
+
+companyRouter.post(
+  "/:companyID/instructions/:instructionsID/steps",
+  createScrappingSteps,
+);
+
+companyRouter.get(
+  "/:companyID/instructions/:instructionsID/steps",
+  getScrappingStepsDetails,
+);
+
+companyRouter.put(
+  "/:companyID/instructions/:instructionsID/steps/:id",
+  updateScrappingStepsDetails,
+);
+
+companyRouter.delete(
+  "/:companyID/instructions/:instructionID/steps",
+  createScrappingSteps,
 );
 
 companyRouter.get("/:companyID/job/:id", getJobDetails);

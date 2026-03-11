@@ -5,7 +5,7 @@ import type { Request, Response } from "express";
 import type { StepsInterface } from "../../interfaces/StepsInterface/StepsInterface.js";
 
 async function createScrappingSteps(req: Request, res: Response) {
-  const { instructionsID, companyID } = req.params;
+  const { companyID, instructionsID } = req.params;
 
   const { order, action, selector }: StepsInterface = req.body;
 
@@ -14,8 +14,8 @@ async function createScrappingSteps(req: Request, res: Response) {
       order,
       action,
       selector,
-      instructionsID: Number(instructionsID),
       companyID: Number(companyID),
+      instructionsID: Number(instructionsID),
     },
   });
 
