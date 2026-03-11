@@ -37,20 +37,20 @@ model User {
 }
 
 model Company {
-  id           Int            @id @default(autoincrement())
-  name         String         @unique
-  logo         String?
-  jobs         Jobs[]
-  URL          String
-  instructions Instructions[]
+  id                Int            @id @default(autoincrement())
+  name              String         @unique
+  logo              String?
+  jobs              Jobs[]
+  URL               String
+  browserNavigation String?
+  instructions      Instructions[]
 
   @@map("company")
 }
 
 model Jobs {
   id             Int      @id @default(autoincrement())
-  hybridOrRemote String
-  qualification  String?
+  remoteOrHybrid String
   location       String
   datePosted     DateTime @updatedAt
   title          String
@@ -63,33 +63,15 @@ model Jobs {
 }
 
 model Instructions {
-  id                   Int     @id @default(autoincrement())
-  careersButton        String?
-  careersHoverButton   String?
-  joinUsButton         String?
-  joinUsHoverButton    String?
-  navigationMenuClick  String?
-  loadMoreButton       String?
-  locationSelect       String?
-  locationSelectOption String?
-  locationClickSelect  String?
-  categorySelect       String?
-  categorySelectOption String?
-  categoryClickSelect  String?
-  typingInput          String?
-  submitFormButton     String?
-  scrollToContainer    String?
-  nextPageButton       String?
-  showMoreJobsOnPage   String?
-  jobContainer         String?
-  jobTitle             String?
-  jobLocation          String?
-  jobRemoteOrHybrid    String?
-  jobDatePosted        String?
-  jobDescription       String?
-  jobDetailsAnchorHref String?
-  company              Company @relation(fields: [companyID], references: [id], onDelete: Cascade)
-  companyID            Int
+  id                Int     @id @default(autoincrement())
+  jobContainer      Json?
+  jobTitle          Json?
+  jobLocation       Json?
+  jobRemoteOrHybrid Json?
+  jobDatePosted     Json?
+  jobAnchorHref     Json?
+  company           Company @relation(fields: [companyID], references: [id], onDelete: Cascade)
+  companyID         Int
 
   @@map("instructions")
 }

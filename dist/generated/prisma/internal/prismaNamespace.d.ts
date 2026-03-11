@@ -697,10 +697,13 @@ export declare const InstructionsScalarFieldEnum: {
     readonly careersHoverButton: "careersHoverButton";
     readonly joinUsButton: "joinUsButton";
     readonly joinUsHoverButton: "joinUsHoverButton";
+    readonly navigationMenuClick: "navigationMenuClick";
     readonly loadMoreButton: "loadMoreButton";
     readonly locationSelect: "locationSelect";
+    readonly locationSelectOption: "locationSelectOption";
     readonly locationClickSelect: "locationClickSelect";
     readonly categorySelect: "categorySelect";
+    readonly categorySelectOption: "categorySelectOption";
     readonly categoryClickSelect: "categoryClickSelect";
     readonly typingInput: "typingInput";
     readonly submitFormButton: "submitFormButton";
