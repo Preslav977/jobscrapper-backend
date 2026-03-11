@@ -8,7 +8,9 @@ export interface PrismaClientConstructor {
    * Type-safe database client for TypeScript
    * @example
    * ```
-   * const prisma = new PrismaClient()
+   * const prisma = new PrismaClient({
+   *   adapter: new PrismaPg({ connectionString: process.env.DATABASE_URL })
+   * })
    * // Fetch zero or more Users
    * const users = await prisma.user.findMany()
    * ```
@@ -25,7 +27,9 @@ export interface PrismaClientConstructor {
  * Type-safe database client for TypeScript
  * @example
  * ```
- * const prisma = new PrismaClient()
+ * const prisma = new PrismaClient({
+ *   adapter: new PrismaPg({ connectionString: process.env.DATABASE_URL })
+ * })
  * // Fetch zero or more Users
  * const users = await prisma.user.findMany()
  * ```
@@ -98,7 +102,7 @@ export interface PrismaClient<in LogOpts extends Prisma.LogLevel = never, in out
      * ])
      * ```
      *
-     * Read more in our [docs](https://www.prisma.io/docs/concepts/components/prisma-client/transactions).
+     * Read more in our [docs](https://www.prisma.io/docs/orm/prisma-client/queries/transactions).
      */
     $transaction<P extends Prisma.PrismaPromise<any>[]>(arg: [...P], options?: {
         isolationLevel?: Prisma.TransactionIsolationLevel;
@@ -153,6 +157,17 @@ export interface PrismaClient<in LogOpts extends Prisma.LogLevel = never, in out
       * ```
       */
     get instructions(): Prisma.InstructionsDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
+    /**
+     * `prisma.steps`: Exposes CRUD operations for the **Steps** model.
+      * Example usage:
+      * ```ts
+      * // Fetch zero or more Steps
+      * const steps = await prisma.steps.findMany()
+      * ```
+      */
+    get steps(): Prisma.StepsDelegate<ExtArgs, {
         omit: OmitOpts;
     }>;
     /**

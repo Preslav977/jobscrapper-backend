@@ -30,6 +30,7 @@ export declare const ModelName: {
     readonly Company: "Company";
     readonly Jobs: "Jobs";
     readonly Instructions: "Instructions";
+    readonly Steps: "Steps";
     readonly Session: "Session";
 };
 export type ModelName = (typeof ModelName)[keyof typeof ModelName];
@@ -61,15 +62,15 @@ export declare const CompanyScalarFieldEnum: {
     readonly name: "name";
     readonly logo: "logo";
     readonly URL: "URL";
+    readonly browserNavigation: "browserNavigation";
 };
 export type CompanyScalarFieldEnum = (typeof CompanyScalarFieldEnum)[keyof typeof CompanyScalarFieldEnum];
 export declare const JobsScalarFieldEnum: {
     readonly id: "id";
-    readonly hybridOrRemote: "hybridOrRemote";
-    readonly qualification: "qualification";
-    readonly location: "location";
-    readonly datePosted: "datePosted";
     readonly title: "title";
+    readonly location: "location";
+    readonly remoteOrHybrid: "remoteOrHybrid";
+    readonly datePosted: "datePosted";
     readonly description: "description";
     readonly anchorHref: "anchorHref";
     readonly companyID: "companyID";
@@ -77,33 +78,22 @@ export declare const JobsScalarFieldEnum: {
 export type JobsScalarFieldEnum = (typeof JobsScalarFieldEnum)[keyof typeof JobsScalarFieldEnum];
 export declare const InstructionsScalarFieldEnum: {
     readonly id: "id";
-    readonly careersButton: "careersButton";
-    readonly careersHoverButton: "careersHoverButton";
-    readonly joinUsButton: "joinUsButton";
-    readonly joinUsHoverButton: "joinUsHoverButton";
-    readonly navigationMenuClick: "navigationMenuClick";
-    readonly loadMoreButton: "loadMoreButton";
-    readonly locationSelect: "locationSelect";
-    readonly locationSelectOption: "locationSelectOption";
-    readonly locationClickSelect: "locationClickSelect";
-    readonly categorySelect: "categorySelect";
-    readonly categorySelectOption: "categorySelectOption";
-    readonly categoryClickSelect: "categoryClickSelect";
-    readonly typingInput: "typingInput";
-    readonly submitFormButton: "submitFormButton";
-    readonly scrollToContainer: "scrollToContainer";
-    readonly nextPageButton: "nextPageButton";
-    readonly showMoreJobsOnPage: "showMoreJobsOnPage";
-    readonly jobContainer: "jobContainer";
-    readonly jobTitle: "jobTitle";
-    readonly jobLocation: "jobLocation";
-    readonly jobRemoteOrHybrid: "jobRemoteOrHybrid";
-    readonly jobDatePosted: "jobDatePosted";
-    readonly jobDescription: "jobDescription";
-    readonly jobDetailsAnchorHref: "jobDetailsAnchorHref";
+    readonly container: "container";
+    readonly title: "title";
+    readonly location: "location";
+    readonly remoteOrHybrid: "remoteOrHybrid";
+    readonly datePosted: "datePosted";
+    readonly anchorHref: "anchorHref";
     readonly companyID: "companyID";
 };
 export type InstructionsScalarFieldEnum = (typeof InstructionsScalarFieldEnum)[keyof typeof InstructionsScalarFieldEnum];
+export declare const StepsScalarFieldEnum: {
+    readonly id: "id";
+    readonly action: "action";
+    readonly selector: "selector";
+    readonly instructionsID: "instructionsID";
+};
+export type StepsScalarFieldEnum = (typeof StepsScalarFieldEnum)[keyof typeof StepsScalarFieldEnum];
 export declare const SessionScalarFieldEnum: {
     readonly id: "id";
     readonly sid: "sid";
@@ -116,6 +106,11 @@ export declare const SortOrder: {
     readonly desc: "desc";
 };
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder];
+export declare const NullableJsonNullValueInput: {
+    readonly DbNull: import("@prisma/client-runtime-utils").DbNullClass;
+    readonly JsonNull: import("@prisma/client-runtime-utils").JsonNullClass;
+};
+export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput];
 export declare const QueryMode: {
     readonly default: "default";
     readonly insensitive: "insensitive";
@@ -126,4 +121,10 @@ export declare const NullsOrder: {
     readonly last: "last";
 };
 export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder];
+export declare const JsonNullValueFilter: {
+    readonly DbNull: import("@prisma/client-runtime-utils").DbNullClass;
+    readonly JsonNull: import("@prisma/client-runtime-utils").JsonNullClass;
+    readonly AnyNull: import("@prisma/client-runtime-utils").AnyNullClass;
+};
+export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter];
 //# sourceMappingURL=prismaNamespaceBrowser.d.ts.map

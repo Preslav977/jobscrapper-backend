@@ -23,6 +23,11 @@ export type Jobs = Prisma.JobsModel;
  */
 export type Instructions = Prisma.InstructionsModel;
 /**
+ * Model Steps
+ *
+ */
+export type Steps = Prisma.StepsModel;
+/**
  * Model Session
  *
  */

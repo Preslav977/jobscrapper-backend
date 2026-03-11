@@ -22,8 +22,9 @@ async function createCompany(req: Request, res: Response) {
       const createCompany = await prisma.company.create({
         data: {
           name,
-          URL,
           logo,
+          URL,
+          browserNavigation: null,
         },
       });
 
@@ -33,6 +34,7 @@ async function createCompany(req: Request, res: Response) {
         data: {
           name,
           URL,
+          browserNavigation: null,
         },
       });
 

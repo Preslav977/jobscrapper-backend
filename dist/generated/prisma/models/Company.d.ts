@@ -23,18 +23,21 @@ export type CompanyMinAggregateOutputType = {
     name: string | null;
     logo: string | null;
     URL: string | null;
+    browserNavigation: string | null;
 };
 export type CompanyMaxAggregateOutputType = {
     id: number | null;
     name: string | null;
     logo: string | null;
     URL: string | null;
+    browserNavigation: string | null;
 };
 export type CompanyCountAggregateOutputType = {
     id: number;
     name: number;
     logo: number;
     URL: number;
+    browserNavigation: number;
     _all: number;
 };
 export type CompanyAvgAggregateInputType = {
@@ -48,18 +51,21 @@ export type CompanyMinAggregateInputType = {
     name?: true;
     logo?: true;
     URL?: true;
+    browserNavigation?: true;
 };
 export type CompanyMaxAggregateInputType = {
     id?: true;
     name?: true;
     logo?: true;
     URL?: true;
+    browserNavigation?: true;
 };
 export type CompanyCountAggregateInputType = {
     id?: true;
     name?: true;
     logo?: true;
     URL?: true;
+    browserNavigation?: true;
     _all?: true;
 };
 export type CompanyAggregateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -143,6 +149,7 @@ export type CompanyGroupByOutputType = {
     name: string;
     logo: string | null;
     URL: string;
+    browserNavigation: string | null;
     _count: CompanyCountAggregateOutputType | null;
     _avg: CompanyAvgAggregateOutputType | null;
     _sum: CompanySumAggregateOutputType | null;
@@ -160,6 +167,7 @@ export type CompanyWhereInput = {
     name?: Prisma.StringFilter<"Company"> | string;
     logo?: Prisma.StringNullableFilter<"Company"> | string | null;
     URL?: Prisma.StringFilter<"Company"> | string;
+    browserNavigation?: Prisma.StringNullableFilter<"Company"> | string | null;
     jobs?: Prisma.JobsListRelationFilter;
     instructions?: Prisma.InstructionsListRelationFilter;
 };
@@ -168,6 +176,7 @@ export type CompanyOrderByWithRelationInput = {
     name?: Prisma.SortOrder;
     logo?: Prisma.SortOrderInput | Prisma.SortOrder;
     URL?: Prisma.SortOrder;
+    browserNavigation?: Prisma.SortOrderInput | Prisma.SortOrder;
     jobs?: Prisma.JobsOrderByRelationAggregateInput;
     instructions?: Prisma.InstructionsOrderByRelationAggregateInput;
 };
@@ -179,6 +188,7 @@ export type CompanyWhereUniqueInput = Prisma.AtLeast<{
     NOT?: Prisma.CompanyWhereInput | Prisma.CompanyWhereInput[];
     logo?: Prisma.StringNullableFilter<"Company"> | string | null;
     URL?: Prisma.StringFilter<"Company"> | string;
+    browserNavigation?: Prisma.StringNullableFilter<"Company"> | string | null;
     jobs?: Prisma.JobsListRelationFilter;
     instructions?: Prisma.InstructionsListRelationFilter;
 }, "id" | "name">;
@@ -187,6 +197,7 @@ export type CompanyOrderByWithAggregationInput = {
     name?: Prisma.SortOrder;
     logo?: Prisma.SortOrderInput | Prisma.SortOrder;
     URL?: Prisma.SortOrder;
+    browserNavigation?: Prisma.SortOrderInput | Prisma.SortOrder;
     _count?: Prisma.CompanyCountOrderByAggregateInput;
     _avg?: Prisma.CompanyAvgOrderByAggregateInput;
     _max?: Prisma.CompanyMaxOrderByAggregateInput;
@@ -201,11 +212,13 @@ export type CompanyScalarWhereWithAggregatesInput = {
     name?: Prisma.StringWithAggregatesFilter<"Company"> | string;
     logo?: Prisma.StringNullableWithAggregatesFilter<"Company"> | string | null;
     URL?: Prisma.StringWithAggregatesFilter<"Company"> | string;
+    browserNavigation?: Prisma.StringNullableWithAggregatesFilter<"Company"> | string | null;
 };
 export type CompanyCreateInput = {
     name: string;
     logo?: string | null;
     URL: string;
+    browserNavigation?: string | null;
     jobs?: Prisma.JobsCreateNestedManyWithoutCompanyInput;
     instructions?: Prisma.InstructionsCreateNestedManyWithoutCompanyInput;
 };
@@ -214,6 +227,7 @@ export type CompanyUncheckedCreateInput = {
     name: string;
     logo?: string | null;
     URL: string;
+    browserNavigation?: string | null;
     jobs?: Prisma.JobsUncheckedCreateNestedManyWithoutCompanyInput;
     instructions?: Prisma.InstructionsUncheckedCreateNestedManyWithoutCompanyInput;
 };
@@ -221,6 +235,7 @@ export type CompanyUpdateInput = {
     name?: Prisma.StringFieldUpdateOperationsInput | string;
     logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     URL?: Prisma.StringFieldUpdateOperationsInput | string;
+    browserNavigation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     jobs?: Prisma.JobsUpdateManyWithoutCompanyNestedInput;
     instructions?: Prisma.InstructionsUpdateManyWithoutCompanyNestedInput;
 };
@@ -229,6 +244,7 @@ export type CompanyUncheckedUpdateInput = {
     name?: Prisma.StringFieldUpdateOperationsInput | string;
     logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     URL?: Prisma.StringFieldUpdateOperationsInput | string;
+    browserNavigation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     jobs?: Prisma.JobsUncheckedUpdateManyWithoutCompanyNestedInput;
     instructions?: Prisma.InstructionsUncheckedUpdateManyWithoutCompanyNestedInput;
 };
@@ -237,23 +253,27 @@ export type CompanyCreateManyInput = {
     name: string;
     logo?: string | null;
     URL: string;
+    browserNavigation?: string | null;
 };
 export type CompanyUpdateManyMutationInput = {
     name?: Prisma.StringFieldUpdateOperationsInput | string;
     logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     URL?: Prisma.StringFieldUpdateOperationsInput | string;
+    browserNavigation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
 };
 export type CompanyUncheckedUpdateManyInput = {
     id?: Prisma.IntFieldUpdateOperationsInput | number;
     name?: Prisma.StringFieldUpdateOperationsInput | string;
     logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     URL?: Prisma.StringFieldUpdateOperationsInput | string;
+    browserNavigation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
 };
 export type CompanyCountOrderByAggregateInput = {
     id?: Prisma.SortOrder;
     name?: Prisma.SortOrder;
     logo?: Prisma.SortOrder;
     URL?: Prisma.SortOrder;
+    browserNavigation?: Prisma.SortOrder;
 };
 export type CompanyAvgOrderByAggregateInput = {
     id?: Prisma.SortOrder;
@@ -263,12 +283,14 @@ export type CompanyMaxOrderByAggregateInput = {
     name?: Prisma.SortOrder;
     logo?: Prisma.SortOrder;
     URL?: Prisma.SortOrder;
+    browserNavigation?: Prisma.SortOrder;
 };
 export type CompanyMinOrderByAggregateInput = {
     id?: Prisma.SortOrder;
     name?: Prisma.SortOrder;
     logo?: Prisma.SortOrder;
     URL?: Prisma.SortOrder;
+    browserNavigation?: Prisma.SortOrder;
 };
 export type CompanySumOrderByAggregateInput = {
     id?: Prisma.SortOrder;
@@ -305,6 +327,7 @@ export type CompanyCreateWithoutJobsInput = {
     name: string;
     logo?: string | null;
     URL: string;
+    browserNavigation?: string | null;
     instructions?: Prisma.InstructionsCreateNestedManyWithoutCompanyInput;
 };
 export type CompanyUncheckedCreateWithoutJobsInput = {
@@ -312,6 +335,7 @@ export type CompanyUncheckedCreateWithoutJobsInput = {
     name: string;
     logo?: string | null;
     URL: string;
+    browserNavigation?: string | null;
     instructions?: Prisma.InstructionsUncheckedCreateNestedManyWithoutCompanyInput;
 };
 export type CompanyCreateOrConnectWithoutJobsInput = {
@@ -331,6 +355,7 @@ export type CompanyUpdateWithoutJobsInput = {
     name?: Prisma.StringFieldUpdateOperationsInput | string;
     logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     URL?: Prisma.StringFieldUpdateOperationsInput | string;
+    browserNavigation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     instructions?: Prisma.InstructionsUpdateManyWithoutCompanyNestedInput;
 };
 export type CompanyUncheckedUpdateWithoutJobsInput = {
@@ -338,12 +363,14 @@ export type CompanyUncheckedUpdateWithoutJobsInput = {
     name?: Prisma.StringFieldUpdateOperationsInput | string;
     logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     URL?: Prisma.StringFieldUpdateOperationsInput | string;
+    browserNavigation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     instructions?: Prisma.InstructionsUncheckedUpdateManyWithoutCompanyNestedInput;
 };
 export type CompanyCreateWithoutInstructionsInput = {
     name: string;
     logo?: string | null;
     URL: string;
+    browserNavigation?: string | null;
     jobs?: Prisma.JobsCreateNestedManyWithoutCompanyInput;
 };
 export type CompanyUncheckedCreateWithoutInstructionsInput = {
@@ -351,6 +378,7 @@ export type CompanyUncheckedCreateWithoutInstructionsInput = {
     name: string;
     logo?: string | null;
     URL: string;
+    browserNavigation?: string | null;
     jobs?: Prisma.JobsUncheckedCreateNestedManyWithoutCompanyInput;
 };
 export type CompanyCreateOrConnectWithoutInstructionsInput = {
@@ -370,6 +398,7 @@ export type CompanyUpdateWithoutInstructionsInput = {
     name?: Prisma.StringFieldUpdateOperationsInput | string;
     logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     URL?: Prisma.StringFieldUpdateOperationsInput | string;
+    browserNavigation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     jobs?: Prisma.JobsUpdateManyWithoutCompanyNestedInput;
 };
 export type CompanyUncheckedUpdateWithoutInstructionsInput = {
@@ -377,6 +406,7 @@ export type CompanyUncheckedUpdateWithoutInstructionsInput = {
     name?: Prisma.StringFieldUpdateOperationsInput | string;
     logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     URL?: Prisma.StringFieldUpdateOperationsInput | string;
+    browserNavigation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     jobs?: Prisma.JobsUncheckedUpdateManyWithoutCompanyNestedInput;
 };
 /**
@@ -416,6 +446,7 @@ export type CompanySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     name?: boolean;
     logo?: boolean;
     URL?: boolean;
+    browserNavigation?: boolean;
     jobs?: boolean | Prisma.Company$jobsArgs<ExtArgs>;
     instructions?: boolean | Prisma.Company$instructionsArgs<ExtArgs>;
     _count?: boolean | Prisma.CompanyCountOutputTypeDefaultArgs<ExtArgs>;
@@ -425,20 +456,23 @@ export type CompanySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
     name?: boolean;
     logo?: boolean;
     URL?: boolean;
+    browserNavigation?: boolean;
 }, ExtArgs["result"]["company"]>;
 export type CompanySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
     id?: boolean;
     name?: boolean;
     logo?: boolean;
     URL?: boolean;
+    browserNavigation?: boolean;
 }, ExtArgs["result"]["company"]>;
 export type CompanySelectScalar = {
     id?: boolean;
     name?: boolean;
     logo?: boolean;
     URL?: boolean;
+    browserNavigation?: boolean;
 };
-export type CompanyOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "logo" | "URL", ExtArgs["result"]["company"]>;
+export type CompanyOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "logo" | "URL" | "browserNavigation", ExtArgs["result"]["company"]>;
 export type CompanyInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     jobs?: boolean | Prisma.Company$jobsArgs<ExtArgs>;
     instructions?: boolean | Prisma.Company$instructionsArgs<ExtArgs>;
@@ -457,6 +491,7 @@ export type $CompanyPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
         name: string;
         logo: string | null;
         URL: string;
+        browserNavigation: string | null;
     }, ExtArgs["result"]["company"]>;
     composites: {};
 };
@@ -817,6 +852,7 @@ export interface CompanyFieldRefs {
     readonly name: Prisma.FieldRef<"Company", 'String'>;
     readonly logo: Prisma.FieldRef<"Company", 'String'>;
     readonly URL: Prisma.FieldRef<"Company", 'String'>;
+    readonly browserNavigation: Prisma.FieldRef<"Company", 'String'>;
 }
 /**
  * Company findUnique

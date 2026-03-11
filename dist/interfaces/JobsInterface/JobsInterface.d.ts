@@ -1,10 +1,9 @@
 export interface JobsInterface {
     id: number;
-    hybridOrRemote: string;
-    qualification: string;
-    location: string;
-    datePosted: Date;
     title: string;
+    location: string;
+    remoteOrHybrid: string;
+    datePosted: Date;
     description: string;
     anchorHref: string;
     companyID: number;

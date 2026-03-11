@@ -37,12 +37,12 @@ export const Sql = runtime.Sql;
 export const Decimal = runtime.Decimal;
 export const getExtensionContext = runtime.Extensions.getExtensionContext;
 /**
- * Prisma Client JS version: 7.3.0
- * Query Engine version: 9d6ad21cbbceab97458517b147a6a09ff43aa735
+ * Prisma Client JS version: 7.4.2
+ * Query Engine version: 94a226be1cf2967af2541cca5529f0f7ba866919
  */
 export const prismaVersion = {
-    client: "7.3.0",
-    engine: "9d6ad21cbbceab97458517b147a6a09ff43aa735"
+    client: "7.4.2",
+    engine: "94a226be1cf2967af2541cca5529f0f7ba866919"
 };
 export const NullTypes = {
     DbNull: runtime.NullTypes.DbNull,
@@ -72,6 +72,7 @@ export const ModelName = {
     Company: 'Company',
     Jobs: 'Jobs',
     Instructions: 'Instructions',
+    Steps: 'Steps',
     Session: 'Session'
 };
 /**
@@ -102,46 +103,34 @@ export const CompanyScalarFieldEnum = {
     id: 'id',
     name: 'name',
     logo: 'logo',
-    URL: 'URL'
+    URL: 'URL',
+    browserNavigation: 'browserNavigation'
 };
 export const JobsScalarFieldEnum = {
     id: 'id',
-    hybridOrRemote: 'hybridOrRemote',
-    qualification: 'qualification',
-    location: 'location',
-    datePosted: 'datePosted',
     title: 'title',
+    location: 'location',
+    remoteOrHybrid: 'remoteOrHybrid',
+    datePosted: 'datePosted',
     description: 'description',
     anchorHref: 'anchorHref',
     companyID: 'companyID'
 };
 export const InstructionsScalarFieldEnum = {
     id: 'id',
-    careersButton: 'careersButton',
-    careersHoverButton: 'careersHoverButton',
-    joinUsButton: 'joinUsButton',
-    joinUsHoverButton: 'joinUsHoverButton',
-    navigationMenuClick: 'navigationMenuClick',
-    loadMoreButton: 'loadMoreButton',
-    locationSelect: 'locationSelect',
-    locationSelectOption: 'locationSelectOption',
-    locationClickSelect: 'locationClickSelect',
-    categorySelect: 'categorySelect',
-    categorySelectOption: 'categorySelectOption',
-    categoryClickSelect: 'categoryClickSelect',
-    typingInput: 'typingInput',
-    submitFormButton: 'submitFormButton',
-    scrollToContainer: 'scrollToContainer',
-    nextPageButton: 'nextPageButton',
-    showMoreJobsOnPage: 'showMoreJobsOnPage',
-    jobContainer: 'jobContainer',
-    jobTitle: 'jobTitle',
-    jobLocation: 'jobLocation',
-    jobRemoteOrHybrid: 'jobRemoteOrHybrid',
-    jobDatePosted: 'jobDatePosted',
-    jobDescription: 'jobDescription',
-    jobDetailsAnchorHref: 'jobDetailsAnchorHref',
+    container: 'container',
+    title: 'title',
+    location: 'location',
+    remoteOrHybrid: 'remoteOrHybrid',
+    datePosted: 'datePosted',
+    anchorHref: 'anchorHref',
     companyID: 'companyID'
+};
+export const StepsScalarFieldEnum = {
+    id: 'id',
+    action: 'action',
+    selector: 'selector',
+    instructionsID: 'instructionsID'
 };
 export const SessionScalarFieldEnum = {
     id: 'id',
@@ -153,6 +142,10 @@ export const SortOrder = {
     asc: 'asc',
     desc: 'desc'
 };
+export const NullableJsonNullValueInput = {
+    DbNull: DbNull,
+    JsonNull: JsonNull
+};
 export const QueryMode = {
     default: 'default',
     insensitive: 'insensitive'
@@ -160,6 +153,11 @@ export const QueryMode = {
 export const NullsOrder = {
     first: 'first',
     last: 'last'
+};
+export const JsonNullValueFilter = {
+    DbNull: DbNull,
+    JsonNull: JsonNull,
+    AnyNull: AnyNull
 };
 export const defineExtension = runtime.Extensions.defineExtension;
 //# sourceMappingURL=prismaNamespace.js.map

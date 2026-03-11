@@ -43,6 +43,7 @@ export const ModelName = {
     Company: 'Company',
     Jobs: 'Jobs',
     Instructions: 'Instructions',
+    Steps: 'Steps',
     Session: 'Session'
 };
 /*
@@ -73,46 +74,34 @@ export const CompanyScalarFieldEnum = {
     id: 'id',
     name: 'name',
     logo: 'logo',
-    URL: 'URL'
+    URL: 'URL',
+    browserNavigation: 'browserNavigation'
 };
 export const JobsScalarFieldEnum = {
     id: 'id',
-    hybridOrRemote: 'hybridOrRemote',
-    qualification: 'qualification',
-    location: 'location',
-    datePosted: 'datePosted',
     title: 'title',
+    location: 'location',
+    remoteOrHybrid: 'remoteOrHybrid',
+    datePosted: 'datePosted',
     description: 'description',
     anchorHref: 'anchorHref',
     companyID: 'companyID'
 };
 export const InstructionsScalarFieldEnum = {
     id: 'id',
-    careersButton: 'careersButton',
-    careersHoverButton: 'careersHoverButton',
-    joinUsButton: 'joinUsButton',
-    joinUsHoverButton: 'joinUsHoverButton',
-    navigationMenuClick: 'navigationMenuClick',
-    loadMoreButton: 'loadMoreButton',
-    locationSelect: 'locationSelect',
-    locationSelectOption: 'locationSelectOption',
-    locationClickSelect: 'locationClickSelect',
-    categorySelect: 'categorySelect',
-    categorySelectOption: 'categorySelectOption',
-    categoryClickSelect: 'categoryClickSelect',
-    typingInput: 'typingInput',
-    submitFormButton: 'submitFormButton',
-    scrollToContainer: 'scrollToContainer',
-    nextPageButton: 'nextPageButton',
-    showMoreJobsOnPage: 'showMoreJobsOnPage',
-    jobContainer: 'jobContainer',
-    jobTitle: 'jobTitle',
-    jobLocation: 'jobLocation',
-    jobRemoteOrHybrid: 'jobRemoteOrHybrid',
-    jobDatePosted: 'jobDatePosted',
-    jobDescription: 'jobDescription',
-    jobDetailsAnchorHref: 'jobDetailsAnchorHref',
+    container: 'container',
+    title: 'title',
+    location: 'location',
+    remoteOrHybrid: 'remoteOrHybrid',
+    datePosted: 'datePosted',
+    anchorHref: 'anchorHref',
     companyID: 'companyID'
+};
+export const StepsScalarFieldEnum = {
+    id: 'id',
+    action: 'action',
+    selector: 'selector',
+    instructionsID: 'instructionsID'
 };
 export const SessionScalarFieldEnum = {
     id: 'id',
@@ -124,6 +113,10 @@ export const SortOrder = {
     asc: 'asc',
     desc: 'desc'
 };
+export const NullableJsonNullValueInput = {
+    DbNull: DbNull,
+    JsonNull: JsonNull
+};
 export const QueryMode = {
     default: 'default',
     insensitive: 'insensitive'
@@ -131,5 +124,10 @@ export const QueryMode = {
 export const NullsOrder = {
     first: 'first',
     last: 'last'
+};
+export const JsonNullValueFilter = {
+    DbNull: DbNull,
+    JsonNull: JsonNull,
+    AnyNull: AnyNull
 };
 //# sourceMappingURL=prismaNamespaceBrowser.js.map
