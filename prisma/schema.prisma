@@ -64,17 +64,11 @@ model Jobs {
 }
 
 model Instructions {
-  id             Int     @id @default(autoincrement())
-  container      Json?
-  title          Json?
-  location       Json?
-  remoteOrHybrid Json?
-  datePosted     Json?
-  description    Json?
-  anchorHref     Json?
-  company        Company @relation(fields: [companyID], references: [id], onDelete: Cascade)
-  companyID      Int
-  steps          Steps[]
+  id                     Int     @id @default(autoincrement())
+  extractionInstructions Json
+  company                Company @relation(fields: [companyID], references: [id], onDelete: Cascade)
+  companyID              Int
+  steps                  Steps[]
 
   @@map("instructions")
 }

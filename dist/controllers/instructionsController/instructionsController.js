@@ -1,16 +1,10 @@
 import { prisma } from "../../db/client.js";
 async function createScrappingInstructions(req, res) {
     const { companyID } = req.params;
-    const { container, title, location, remoteOrHybrid, datePosted, description, anchorHref, } = req.body;
+    const { extractionInstructions } = req.body;
     const createInstructionsForCompany = await prisma.instructions.create({
         data: {
-            container,
-            title,
-            location,
-            remoteOrHybrid,
-            datePosted,
-            description,
-            anchorHref,
+            extractionInstructions,
             companyID: Number(companyID),
         },
     });
@@ -38,20 +32,14 @@ async function getScrappingInstructionsDetails(req, res) {
 }
 async function updateScrappingInstructionsDetails(req, res) {
     const { companyID, id } = req.params;
-    const { container, title, location, remoteOrHybrid, datePosted, description, anchorHref, } = req.body;
+    const { extractionInstructions } = req.body;
     const updateInstructionsDetails = await prisma.instructions.update({
         where: {
             companyID: Number(companyID),
             id: Number(id),
         },
         data: {
-            container,
-            title,
-            location,
-            remoteOrHybrid,
-            datePosted,
-            description,
-            anchorHref,
+            extractionInstructions,
             companyID: Number(companyID),
         },
     });

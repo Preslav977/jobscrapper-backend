@@ -37,12 +37,12 @@ export const Sql = runtime.Sql;
 export const Decimal = runtime.Decimal;
 export const getExtensionContext = runtime.Extensions.getExtensionContext;
 /**
- * Prisma Client JS version: 7.4.2
- * Query Engine version: 94a226be1cf2967af2541cca5529f0f7ba866919
+ * Prisma Client JS version: 7.5.0
+ * Query Engine version: 280c870be64f457428992c43c1f6d557fab6e29e
  */
 export const prismaVersion = {
-    client: "7.4.2",
-    engine: "94a226be1cf2967af2541cca5529f0f7ba866919"
+    client: "7.5.0",
+    engine: "280c870be64f457428992c43c1f6d557fab6e29e"
 };
 export const NullTypes = {
     DbNull: runtime.NullTypes.DbNull,
@@ -118,13 +118,7 @@ export const JobsScalarFieldEnum = {
 };
 export const InstructionsScalarFieldEnum = {
     id: 'id',
-    container: 'container',
-    title: 'title',
-    location: 'location',
-    remoteOrHybrid: 'remoteOrHybrid',
-    datePosted: 'datePosted',
-    description: 'description',
-    anchorHref: 'anchorHref',
+    extractionInstructions: 'extractionInstructions',
     companyID: 'companyID'
 };
 export const StepsScalarFieldEnum = {
@@ -145,8 +139,7 @@ export const SortOrder = {
     asc: 'asc',
     desc: 'desc'
 };
-export const NullableJsonNullValueInput = {
-    DbNull: DbNull,
+export const JsonNullValueInput = {
     JsonNull: JsonNull
 };
 export const QueryMode = {

@@ -46,8 +46,8 @@ export type PrismaVersion = {
     engine: string;
 };
 /**
- * Prisma Client JS version: 7.4.2
- * Query Engine version: 94a226be1cf2967af2541cca5529f0f7ba866919
+ * Prisma Client JS version: 7.5.0
+ * Query Engine version: 280c870be64f457428992c43c1f6d557fab6e29e
  */
 export declare const prismaVersion: PrismaVersion;
 /**
@@ -768,13 +768,7 @@ export declare const JobsScalarFieldEnum: {
 export type JobsScalarFieldEnum = (typeof JobsScalarFieldEnum)[keyof typeof JobsScalarFieldEnum];
 export declare const InstructionsScalarFieldEnum: {
     readonly id: "id";
-    readonly container: "container";
-    readonly title: "title";
-    readonly location: "location";
-    readonly remoteOrHybrid: "remoteOrHybrid";
-    readonly datePosted: "datePosted";
-    readonly description: "description";
-    readonly anchorHref: "anchorHref";
+    readonly extractionInstructions: "extractionInstructions";
     readonly companyID: "companyID";
 };
 export type InstructionsScalarFieldEnum = (typeof InstructionsScalarFieldEnum)[keyof typeof InstructionsScalarFieldEnum];
@@ -799,11 +793,10 @@ export declare const SortOrder: {
     readonly desc: "desc";
 };
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder];
-export declare const NullableJsonNullValueInput: {
-    readonly DbNull: runtime.DbNullClass;
+export declare const JsonNullValueInput: {
     readonly JsonNull: runtime.JsonNullClass;
 };
-export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput];
+export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput];
 export declare const QueryMode: {
     readonly default: "default";
     readonly insensitive: "insensitive";

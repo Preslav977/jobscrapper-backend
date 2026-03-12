@@ -30,13 +30,7 @@ export type InstructionsMaxAggregateOutputType = {
 };
 export type InstructionsCountAggregateOutputType = {
     id: number;
-    container: number;
-    title: number;
-    location: number;
-    remoteOrHybrid: number;
-    datePosted: number;
-    description: number;
-    anchorHref: number;
+    extractionInstructions: number;
     companyID: number;
     _all: number;
 };
@@ -58,13 +52,7 @@ export type InstructionsMaxAggregateInputType = {
 };
 export type InstructionsCountAggregateInputType = {
     id?: true;
-    container?: true;
-    title?: true;
-    location?: true;
-    remoteOrHybrid?: true;
-    datePosted?: true;
-    description?: true;
-    anchorHref?: true;
+    extractionInstructions?: true;
     companyID?: true;
     _all?: true;
 };
@@ -146,13 +134,7 @@ export type InstructionsGroupByArgs<ExtArgs extends runtime.Types.Extensions.Int
 };
 export type InstructionsGroupByOutputType = {
     id: number;
-    container: runtime.JsonValue | null;
-    title: runtime.JsonValue | null;
-    location: runtime.JsonValue | null;
-    remoteOrHybrid: runtime.JsonValue | null;
-    datePosted: runtime.JsonValue | null;
-    description: runtime.JsonValue | null;
-    anchorHref: runtime.JsonValue | null;
+    extractionInstructions: runtime.JsonValue;
     companyID: number;
     _count: InstructionsCountAggregateOutputType | null;
     _avg: InstructionsAvgAggregateOutputType | null;
@@ -168,26 +150,14 @@ export type InstructionsWhereInput = {
     OR?: Prisma.InstructionsWhereInput[];
     NOT?: Prisma.InstructionsWhereInput | Prisma.InstructionsWhereInput[];
     id?: Prisma.IntFilter<"Instructions"> | number;
-    container?: Prisma.JsonNullableFilter<"Instructions">;
-    title?: Prisma.JsonNullableFilter<"Instructions">;
-    location?: Prisma.JsonNullableFilter<"Instructions">;
-    remoteOrHybrid?: Prisma.JsonNullableFilter<"Instructions">;
-    datePosted?: Prisma.JsonNullableFilter<"Instructions">;
-    description?: Prisma.JsonNullableFilter<"Instructions">;
-    anchorHref?: Prisma.JsonNullableFilter<"Instructions">;
+    extractionInstructions?: Prisma.JsonFilter<"Instructions">;
     companyID?: Prisma.IntFilter<"Instructions"> | number;
     company?: Prisma.XOR<Prisma.CompanyScalarRelationFilter, Prisma.CompanyWhereInput>;
     steps?: Prisma.StepsListRelationFilter;
 };
 export type InstructionsOrderByWithRelationInput = {
     id?: Prisma.SortOrder;
-    container?: Prisma.SortOrderInput | Prisma.SortOrder;
-    title?: Prisma.SortOrderInput | Prisma.SortOrder;
-    location?: Prisma.SortOrderInput | Prisma.SortOrder;
-    remoteOrHybrid?: Prisma.SortOrderInput | Prisma.SortOrder;
-    datePosted?: Prisma.SortOrderInput | Prisma.SortOrder;
-    description?: Prisma.SortOrderInput | Prisma.SortOrder;
-    anchorHref?: Prisma.SortOrderInput | Prisma.SortOrder;
+    extractionInstructions?: Prisma.SortOrder;
     companyID?: Prisma.SortOrder;
     company?: Prisma.CompanyOrderByWithRelationInput;
     steps?: Prisma.StepsOrderByRelationAggregateInput;
@@ -197,26 +167,14 @@ export type InstructionsWhereUniqueInput = Prisma.AtLeast<{
     AND?: Prisma.InstructionsWhereInput | Prisma.InstructionsWhereInput[];
     OR?: Prisma.InstructionsWhereInput[];
     NOT?: Prisma.InstructionsWhereInput | Prisma.InstructionsWhereInput[];
-    container?: Prisma.JsonNullableFilter<"Instructions">;
-    title?: Prisma.JsonNullableFilter<"Instructions">;
-    location?: Prisma.JsonNullableFilter<"Instructions">;
-    remoteOrHybrid?: Prisma.JsonNullableFilter<"Instructions">;
-    datePosted?: Prisma.JsonNullableFilter<"Instructions">;
-    description?: Prisma.JsonNullableFilter<"Instructions">;
-    anchorHref?: Prisma.JsonNullableFilter<"Instructions">;
+    extractionInstructions?: Prisma.JsonFilter<"Instructions">;
     companyID?: Prisma.IntFilter<"Instructions"> | number;
     company?: Prisma.XOR<Prisma.CompanyScalarRelationFilter, Prisma.CompanyWhereInput>;
     steps?: Prisma.StepsListRelationFilter;
 }, "id">;
 export type InstructionsOrderByWithAggregationInput = {
     id?: Prisma.SortOrder;
-    container?: Prisma.SortOrderInput | Prisma.SortOrder;
-    title?: Prisma.SortOrderInput | Prisma.SortOrder;
-    location?: Prisma.SortOrderInput | Prisma.SortOrder;
-    remoteOrHybrid?: Prisma.SortOrderInput | Prisma.SortOrder;
-    datePosted?: Prisma.SortOrderInput | Prisma.SortOrder;
-    description?: Prisma.SortOrderInput | Prisma.SortOrder;
-    anchorHref?: Prisma.SortOrderInput | Prisma.SortOrder;
+    extractionInstructions?: Prisma.SortOrder;
     companyID?: Prisma.SortOrder;
     _count?: Prisma.InstructionsCountOrderByAggregateInput;
     _avg?: Prisma.InstructionsAvgOrderByAggregateInput;
@@ -229,90 +187,42 @@ export type InstructionsScalarWhereWithAggregatesInput = {
     OR?: Prisma.InstructionsScalarWhereWithAggregatesInput[];
     NOT?: Prisma.InstructionsScalarWhereWithAggregatesInput | Prisma.InstructionsScalarWhereWithAggregatesInput[];
     id?: Prisma.IntWithAggregatesFilter<"Instructions"> | number;
-    container?: Prisma.JsonNullableWithAggregatesFilter<"Instructions">;
-    title?: Prisma.JsonNullableWithAggregatesFilter<"Instructions">;
-    location?: Prisma.JsonNullableWithAggregatesFilter<"Instructions">;
-    remoteOrHybrid?: Prisma.JsonNullableWithAggregatesFilter<"Instructions">;
-    datePosted?: Prisma.JsonNullableWithAggregatesFilter<"Instructions">;
-    description?: Prisma.JsonNullableWithAggregatesFilter<"Instructions">;
-    anchorHref?: Prisma.JsonNullableWithAggregatesFilter<"Instructions">;
+    extractionInstructions?: Prisma.JsonWithAggregatesFilter<"Instructions">;
     companyID?: Prisma.IntWithAggregatesFilter<"Instructions"> | number;
 };
 export type InstructionsCreateInput = {
-    container?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-    title?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-    location?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-    remoteOrHybrid?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-    datePosted?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-    description?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-    anchorHref?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
+    extractionInstructions: Prisma.JsonNullValueInput | runtime.InputJsonValue;
     company: Prisma.CompanyCreateNestedOneWithoutInstructionsInput;
     steps?: Prisma.StepsCreateNestedManyWithoutInstructionsInput;
 };
 export type InstructionsUncheckedCreateInput = {
     id?: number;
-    container?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-    title?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-    location?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-    remoteOrHybrid?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-    datePosted?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-    description?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-    anchorHref?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
+    extractionInstructions: Prisma.JsonNullValueInput | runtime.InputJsonValue;
     companyID: number;
     steps?: Prisma.StepsUncheckedCreateNestedManyWithoutInstructionsInput;
 };
 export type InstructionsUpdateInput = {
-    container?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-    title?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-    location?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-    remoteOrHybrid?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-    datePosted?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-    description?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-    anchorHref?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
+    extractionInstructions?: Prisma.JsonNullValueInput | runtime.InputJsonValue;
     company?: Prisma.CompanyUpdateOneRequiredWithoutInstructionsNestedInput;
     steps?: Prisma.StepsUpdateManyWithoutInstructionsNestedInput;
 };
 export type InstructionsUncheckedUpdateInput = {
     id?: Prisma.IntFieldUpdateOperationsInput | number;
-    container?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-    title?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-    location?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-    remoteOrHybrid?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-    datePosted?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-    description?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-    anchorHref?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
+    extractionInstructions?: Prisma.JsonNullValueInput | runtime.InputJsonValue;
     companyID?: Prisma.IntFieldUpdateOperationsInput | number;
     steps?: Prisma.StepsUncheckedUpdateManyWithoutInstructionsNestedInput;
 };
 export type InstructionsCreateManyInput = {
     id?: number;
-    container?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-    title?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-    location?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-    remoteOrHybrid?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-    datePosted?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-    description?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-    anchorHref?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
+    extractionInstructions: Prisma.JsonNullValueInput | runtime.InputJsonValue;
     companyID: number;
 };
 export type InstructionsUpdateManyMutationInput = {
-    container?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-    title?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-    location?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-    remoteOrHybrid?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-    datePosted?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-    description?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-    anchorHref?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
+    extractionInstructions?: Prisma.JsonNullValueInput | runtime.InputJsonValue;
 };
 export type InstructionsUncheckedUpdateManyInput = {
     id?: Prisma.IntFieldUpdateOperationsInput | number;
-    container?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-    title?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-    location?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-    remoteOrHybrid?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-    datePosted?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-    description?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-    anchorHref?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
+    extractionInstructions?: Prisma.JsonNullValueInput | runtime.InputJsonValue;
     companyID?: Prisma.IntFieldUpdateOperationsInput | number;
 };
 export type InstructionsListRelationFilter = {
@@ -325,13 +235,7 @@ export type InstructionsOrderByRelationAggregateInput = {
 };
 export type InstructionsCountOrderByAggregateInput = {
     id?: Prisma.SortOrder;
-    container?: Prisma.SortOrder;
-    title?: Prisma.SortOrder;
-    location?: Prisma.SortOrder;
-    remoteOrHybrid?: Prisma.SortOrder;
-    datePosted?: Prisma.SortOrder;
-    description?: Prisma.SortOrder;
-    anchorHref?: Prisma.SortOrder;
+    extractionInstructions?: Prisma.SortOrder;
     companyID?: Prisma.SortOrder;
 };
 export type InstructionsAvgOrderByAggregateInput = {
@@ -405,24 +309,12 @@ export type InstructionsUpdateOneRequiredWithoutStepsNestedInput = {
     update?: Prisma.XOR<Prisma.XOR<Prisma.InstructionsUpdateToOneWithWhereWithoutStepsInput, Prisma.InstructionsUpdateWithoutStepsInput>, Prisma.InstructionsUncheckedUpdateWithoutStepsInput>;
 };
 export type InstructionsCreateWithoutCompanyInput = {
-    container?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-    title?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-    location?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-    remoteOrHybrid?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-    datePosted?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-    description?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-    anchorHref?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
+    extractionInstructions: Prisma.JsonNullValueInput | runtime.InputJsonValue;
     steps?: Prisma.StepsCreateNestedManyWithoutInstructionsInput;
 };
 export type InstructionsUncheckedCreateWithoutCompanyInput = {
     id?: number;
-    container?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-    title?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-    location?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-    remoteOrHybrid?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-    datePosted?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-    description?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-    anchorHref?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
+    extractionInstructions: Prisma.JsonNullValueInput | runtime.InputJsonValue;
     steps?: Prisma.StepsUncheckedCreateNestedManyWithoutInstructionsInput;
 };
 export type InstructionsCreateOrConnectWithoutCompanyInput = {
@@ -451,34 +343,16 @@ export type InstructionsScalarWhereInput = {
     OR?: Prisma.InstructionsScalarWhereInput[];
     NOT?: Prisma.InstructionsScalarWhereInput | Prisma.InstructionsScalarWhereInput[];
     id?: Prisma.IntFilter<"Instructions"> | number;
-    container?: Prisma.JsonNullableFilter<"Instructions">;
-    title?: Prisma.JsonNullableFilter<"Instructions">;
-    location?: Prisma.JsonNullableFilter<"Instructions">;
-    remoteOrHybrid?: Prisma.JsonNullableFilter<"Instructions">;
-    datePosted?: Prisma.JsonNullableFilter<"Instructions">;
-    description?: Prisma.JsonNullableFilter<"Instructions">;
-    anchorHref?: Prisma.JsonNullableFilter<"Instructions">;
+    extractionInstructions?: Prisma.JsonFilter<"Instructions">;
     companyID?: Prisma.IntFilter<"Instructions"> | number;
 };
 export type InstructionsCreateWithoutStepsInput = {
-    container?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-    title?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-    location?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-    remoteOrHybrid?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-    datePosted?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-    description?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-    anchorHref?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
+    extractionInstructions: Prisma.JsonNullValueInput | runtime.InputJsonValue;
     company: Prisma.CompanyCreateNestedOneWithoutInstructionsInput;
 };
 export type InstructionsUncheckedCreateWithoutStepsInput = {
     id?: number;
-    container?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-    title?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-    location?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-    remoteOrHybrid?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-    datePosted?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-    description?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-    anchorHref?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
+    extractionInstructions: Prisma.JsonNullValueInput | runtime.InputJsonValue;
     companyID: number;
 };
 export type InstructionsCreateOrConnectWithoutStepsInput = {
@@ -495,66 +369,30 @@ export type InstructionsUpdateToOneWithWhereWithoutStepsInput = {
     data: Prisma.XOR<Prisma.InstructionsUpdateWithoutStepsInput, Prisma.InstructionsUncheckedUpdateWithoutStepsInput>;
 };
 export type InstructionsUpdateWithoutStepsInput = {
-    container?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-    title?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-    location?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-    remoteOrHybrid?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-    datePosted?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-    description?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-    anchorHref?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
+    extractionInstructions?: Prisma.JsonNullValueInput | runtime.InputJsonValue;
     company?: Prisma.CompanyUpdateOneRequiredWithoutInstructionsNestedInput;
 };
 export type InstructionsUncheckedUpdateWithoutStepsInput = {
     id?: Prisma.IntFieldUpdateOperationsInput | number;
-    container?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-    title?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-    location?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-    remoteOrHybrid?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-    datePosted?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-    description?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-    anchorHref?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
+    extractionInstructions?: Prisma.JsonNullValueInput | runtime.InputJsonValue;
     companyID?: Prisma.IntFieldUpdateOperationsInput | number;
 };
 export type InstructionsCreateManyCompanyInput = {
     id?: number;
-    container?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-    title?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-    location?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-    remoteOrHybrid?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-    datePosted?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-    description?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-    anchorHref?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
+    extractionInstructions: Prisma.JsonNullValueInput | runtime.InputJsonValue;
 };
 export type InstructionsUpdateWithoutCompanyInput = {
-    container?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-    title?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-    location?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-    remoteOrHybrid?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-    datePosted?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-    description?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-    anchorHref?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
+    extractionInstructions?: Prisma.JsonNullValueInput | runtime.InputJsonValue;
     steps?: Prisma.StepsUpdateManyWithoutInstructionsNestedInput;
 };
 export type InstructionsUncheckedUpdateWithoutCompanyInput = {
     id?: Prisma.IntFieldUpdateOperationsInput | number;
-    container?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-    title?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-    location?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-    remoteOrHybrid?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-    datePosted?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-    description?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-    anchorHref?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
+    extractionInstructions?: Prisma.JsonNullValueInput | runtime.InputJsonValue;
     steps?: Prisma.StepsUncheckedUpdateManyWithoutInstructionsNestedInput;
 };
 export type InstructionsUncheckedUpdateManyWithoutCompanyInput = {
     id?: Prisma.IntFieldUpdateOperationsInput | number;
-    container?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-    title?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-    location?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-    remoteOrHybrid?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-    datePosted?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-    description?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-    anchorHref?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
+    extractionInstructions?: Prisma.JsonNullValueInput | runtime.InputJsonValue;
 };
 /**
  * Count Type InstructionsCountOutputType
@@ -582,13 +420,7 @@ export type InstructionsCountOutputTypeCountStepsArgs<ExtArgs extends runtime.Ty
 };
 export type InstructionsSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
     id?: boolean;
-    container?: boolean;
-    title?: boolean;
-    location?: boolean;
-    remoteOrHybrid?: boolean;
-    datePosted?: boolean;
-    description?: boolean;
-    anchorHref?: boolean;
+    extractionInstructions?: boolean;
     companyID?: boolean;
     company?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>;
     steps?: boolean | Prisma.Instructions$stepsArgs<ExtArgs>;
@@ -596,40 +428,22 @@ export type InstructionsSelect<ExtArgs extends runtime.Types.Extensions.Internal
 }, ExtArgs["result"]["instructions"]>;
 export type InstructionsSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
     id?: boolean;
-    container?: boolean;
-    title?: boolean;
-    location?: boolean;
-    remoteOrHybrid?: boolean;
-    datePosted?: boolean;
-    description?: boolean;
-    anchorHref?: boolean;
+    extractionInstructions?: boolean;
     companyID?: boolean;
     company?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>;
 }, ExtArgs["result"]["instructions"]>;
 export type InstructionsSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
     id?: boolean;
-    container?: boolean;
-    title?: boolean;
-    location?: boolean;
-    remoteOrHybrid?: boolean;
-    datePosted?: boolean;
-    description?: boolean;
-    anchorHref?: boolean;
+    extractionInstructions?: boolean;
     companyID?: boolean;
     company?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>;
 }, ExtArgs["result"]["instructions"]>;
 export type InstructionsSelectScalar = {
     id?: boolean;
-    container?: boolean;
-    title?: boolean;
-    location?: boolean;
-    remoteOrHybrid?: boolean;
-    datePosted?: boolean;
-    description?: boolean;
-    anchorHref?: boolean;
+    extractionInstructions?: boolean;
     companyID?: boolean;
 };
-export type InstructionsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "container" | "title" | "location" | "remoteOrHybrid" | "datePosted" | "description" | "anchorHref" | "companyID", ExtArgs["result"]["instructions"]>;
+export type InstructionsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "extractionInstructions" | "companyID", ExtArgs["result"]["instructions"]>;
 export type InstructionsInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     company?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>;
     steps?: boolean | Prisma.Instructions$stepsArgs<ExtArgs>;
@@ -649,13 +463,7 @@ export type $InstructionsPayload<ExtArgs extends runtime.Types.Extensions.Intern
     };
     scalars: runtime.Types.Extensions.GetPayloadResult<{
         id: number;
-        container: runtime.JsonValue | null;
-        title: runtime.JsonValue | null;
-        location: runtime.JsonValue | null;
-        remoteOrHybrid: runtime.JsonValue | null;
-        datePosted: runtime.JsonValue | null;
-        description: runtime.JsonValue | null;
-        anchorHref: runtime.JsonValue | null;
+        extractionInstructions: runtime.JsonValue;
         companyID: number;
     }, ExtArgs["result"]["instructions"]>;
     composites: {};
@@ -1014,13 +822,7 @@ export interface Prisma__InstructionsClient<T, Null = never, ExtArgs extends run
  */
 export interface InstructionsFieldRefs {
     readonly id: Prisma.FieldRef<"Instructions", 'Int'>;
-    readonly container: Prisma.FieldRef<"Instructions", 'Json'>;
-    readonly title: Prisma.FieldRef<"Instructions", 'Json'>;
-    readonly location: Prisma.FieldRef<"Instructions", 'Json'>;
-    readonly remoteOrHybrid: Prisma.FieldRef<"Instructions", 'Json'>;
-    readonly datePosted: Prisma.FieldRef<"Instructions", 'Json'>;
-    readonly description: Prisma.FieldRef<"Instructions", 'Json'>;
-    readonly anchorHref: Prisma.FieldRef<"Instructions", 'Json'>;
+    readonly extractionInstructions: Prisma.FieldRef<"Instructions", 'Json'>;
     readonly companyID: Prisma.FieldRef<"Instructions", 'Int'>;
 }
 /**
@@ -1211,6 +1013,11 @@ export type InstructionsFindManyArgs<ExtArgs extends runtime.Types.Extensions.In
      * Skip the first `n` Instructions.
      */
     skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     *
+     * Filter by unique combinations of Instructions.
+     */
     distinct?: Prisma.InstructionsScalarFieldEnum | Prisma.InstructionsScalarFieldEnum[];
 };
 /**

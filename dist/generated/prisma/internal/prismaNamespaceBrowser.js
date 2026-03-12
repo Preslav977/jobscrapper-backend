@@ -89,13 +89,7 @@ export const JobsScalarFieldEnum = {
 };
 export const InstructionsScalarFieldEnum = {
     id: 'id',
-    container: 'container',
-    title: 'title',
-    location: 'location',
-    remoteOrHybrid: 'remoteOrHybrid',
-    datePosted: 'datePosted',
-    description: 'description',
-    anchorHref: 'anchorHref',
+    extractionInstructions: 'extractionInstructions',
     companyID: 'companyID'
 };
 export const StepsScalarFieldEnum = {
@@ -116,8 +110,7 @@ export const SortOrder = {
     asc: 'asc',
     desc: 'desc'
 };
-export const NullableJsonNullValueInput = {
-    DbNull: DbNull,
+export const JsonNullValueInput = {
     JsonNull: JsonNull
 };
 export const QueryMode = {

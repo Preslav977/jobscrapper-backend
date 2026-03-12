@@ -78,13 +78,7 @@ export declare const JobsScalarFieldEnum: {
 export type JobsScalarFieldEnum = (typeof JobsScalarFieldEnum)[keyof typeof JobsScalarFieldEnum];
 export declare const InstructionsScalarFieldEnum: {
     readonly id: "id";
-    readonly container: "container";
-    readonly title: "title";
-    readonly location: "location";
-    readonly remoteOrHybrid: "remoteOrHybrid";
-    readonly datePosted: "datePosted";
-    readonly description: "description";
-    readonly anchorHref: "anchorHref";
+    readonly extractionInstructions: "extractionInstructions";
     readonly companyID: "companyID";
 };
 export type InstructionsScalarFieldEnum = (typeof InstructionsScalarFieldEnum)[keyof typeof InstructionsScalarFieldEnum];
@@ -109,11 +103,10 @@ export declare const SortOrder: {
     readonly desc: "desc";
 };
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder];
-export declare const NullableJsonNullValueInput: {
-    readonly DbNull: import("@prisma/client-runtime-utils").DbNullClass;
+export declare const JsonNullValueInput: {
     readonly JsonNull: import("@prisma/client-runtime-utils").JsonNullClass;
 };
-export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput];
+export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput];
 export declare const QueryMode: {
     readonly default: "default";
     readonly insensitive: "insensitive";

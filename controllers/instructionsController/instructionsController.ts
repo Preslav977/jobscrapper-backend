@@ -7,25 +7,11 @@ import type { InstructionsInterface } from "../../interfaces/InstructionsInterfa
 async function createScrappingInstructions(req: Request, res: Response) {
   const { companyID } = req.params;
 
-  const {
-    container,
-    title,
-    location,
-    remoteOrHybrid,
-    datePosted,
-    description,
-    anchorHref,
-  }: InstructionsInterface = req.body;
+  const { extractionInstructions }: InstructionsInterface = req.body;
 
   const createInstructionsForCompany = await prisma.instructions.create({
     data: {
-      container,
-      title,
-      location,
-      remoteOrHybrid,
-      datePosted,
-      description,
-      anchorHref,
+      extractionInstructions,
       companyID: Number(companyID),
     },
   });
@@ -59,15 +45,7 @@ async function getScrappingInstructionsDetails(req: Request, res: Response) {
 async function updateScrappingInstructionsDetails(req: Request, res: Response) {
   const { companyID, id } = req.params;
 
-  const {
-    container,
-    title,
-    location,
-    remoteOrHybrid,
-    datePosted,
-    description,
-    anchorHref,
-  }: InstructionsInterface = req.body;
+  const { extractionInstructions }: InstructionsInterface = req.body;
 
   const updateInstructionsDetails = await prisma.instructions.update({
     where: {
@@ -76,13 +54,7 @@ async function updateScrappingInstructionsDetails(req: Request, res: Response) {
     },
 
     data: {
-      container,
-      title,
-      location,
-      remoteOrHybrid,
-      datePosted,
-      description,
-      anchorHref,
+      extractionInstructions,
       companyID: Number(companyID),
     },
   });
