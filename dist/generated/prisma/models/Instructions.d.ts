@@ -153,14 +153,12 @@ export type InstructionsWhereInput = {
     extractionInstructions?: Prisma.JsonFilter<"Instructions">;
     companyID?: Prisma.IntFilter<"Instructions"> | number;
     company?: Prisma.XOR<Prisma.CompanyScalarRelationFilter, Prisma.CompanyWhereInput>;
-    steps?: Prisma.StepsListRelationFilter;
 };
 export type InstructionsOrderByWithRelationInput = {
     id?: Prisma.SortOrder;
     extractionInstructions?: Prisma.SortOrder;
     companyID?: Prisma.SortOrder;
     company?: Prisma.CompanyOrderByWithRelationInput;
-    steps?: Prisma.StepsOrderByRelationAggregateInput;
 };
 export type InstructionsWhereUniqueInput = Prisma.AtLeast<{
     id?: number;
@@ -170,7 +168,6 @@ export type InstructionsWhereUniqueInput = Prisma.AtLeast<{
     extractionInstructions?: Prisma.JsonFilter<"Instructions">;
     companyID?: Prisma.IntFilter<"Instructions"> | number;
     company?: Prisma.XOR<Prisma.CompanyScalarRelationFilter, Prisma.CompanyWhereInput>;
-    steps?: Prisma.StepsListRelationFilter;
 }, "id">;
 export type InstructionsOrderByWithAggregationInput = {
     id?: Prisma.SortOrder;
@@ -193,24 +190,20 @@ export type InstructionsScalarWhereWithAggregatesInput = {
 export type InstructionsCreateInput = {
     extractionInstructions: Prisma.JsonNullValueInput | runtime.InputJsonValue;
     company: Prisma.CompanyCreateNestedOneWithoutInstructionsInput;
-    steps?: Prisma.StepsCreateNestedManyWithoutInstructionsInput;
 };
 export type InstructionsUncheckedCreateInput = {
     id?: number;
     extractionInstructions: Prisma.JsonNullValueInput | runtime.InputJsonValue;
     companyID: number;
-    steps?: Prisma.StepsUncheckedCreateNestedManyWithoutInstructionsInput;
 };
 export type InstructionsUpdateInput = {
     extractionInstructions?: Prisma.JsonNullValueInput | runtime.InputJsonValue;
     company?: Prisma.CompanyUpdateOneRequiredWithoutInstructionsNestedInput;
-    steps?: Prisma.StepsUpdateManyWithoutInstructionsNestedInput;
 };
 export type InstructionsUncheckedUpdateInput = {
     id?: Prisma.IntFieldUpdateOperationsInput | number;
     extractionInstructions?: Prisma.JsonNullValueInput | runtime.InputJsonValue;
     companyID?: Prisma.IntFieldUpdateOperationsInput | number;
-    steps?: Prisma.StepsUncheckedUpdateManyWithoutInstructionsNestedInput;
 };
 export type InstructionsCreateManyInput = {
     id?: number;
@@ -254,10 +247,6 @@ export type InstructionsSumOrderByAggregateInput = {
     id?: Prisma.SortOrder;
     companyID?: Prisma.SortOrder;
 };
-export type InstructionsScalarRelationFilter = {
-    is?: Prisma.InstructionsWhereInput;
-    isNot?: Prisma.InstructionsWhereInput;
-};
 export type InstructionsCreateNestedManyWithoutCompanyInput = {
     create?: Prisma.XOR<Prisma.InstructionsCreateWithoutCompanyInput, Prisma.InstructionsUncheckedCreateWithoutCompanyInput> | Prisma.InstructionsCreateWithoutCompanyInput[] | Prisma.InstructionsUncheckedCreateWithoutCompanyInput[];
     connectOrCreate?: Prisma.InstructionsCreateOrConnectWithoutCompanyInput | Prisma.InstructionsCreateOrConnectWithoutCompanyInput[];
@@ -296,26 +285,12 @@ export type InstructionsUncheckedUpdateManyWithoutCompanyNestedInput = {
     updateMany?: Prisma.InstructionsUpdateManyWithWhereWithoutCompanyInput | Prisma.InstructionsUpdateManyWithWhereWithoutCompanyInput[];
     deleteMany?: Prisma.InstructionsScalarWhereInput | Prisma.InstructionsScalarWhereInput[];
 };
-export type InstructionsCreateNestedOneWithoutStepsInput = {
-    create?: Prisma.XOR<Prisma.InstructionsCreateWithoutStepsInput, Prisma.InstructionsUncheckedCreateWithoutStepsInput>;
-    connectOrCreate?: Prisma.InstructionsCreateOrConnectWithoutStepsInput;
-    connect?: Prisma.InstructionsWhereUniqueInput;
-};
-export type InstructionsUpdateOneRequiredWithoutStepsNestedInput = {
-    create?: Prisma.XOR<Prisma.InstructionsCreateWithoutStepsInput, Prisma.InstructionsUncheckedCreateWithoutStepsInput>;
-    connectOrCreate?: Prisma.InstructionsCreateOrConnectWithoutStepsInput;
-    upsert?: Prisma.InstructionsUpsertWithoutStepsInput;
-    connect?: Prisma.InstructionsWhereUniqueInput;
-    update?: Prisma.XOR<Prisma.XOR<Prisma.InstructionsUpdateToOneWithWhereWithoutStepsInput, Prisma.InstructionsUpdateWithoutStepsInput>, Prisma.InstructionsUncheckedUpdateWithoutStepsInput>;
-};
 export type InstructionsCreateWithoutCompanyInput = {
     extractionInstructions: Prisma.JsonNullValueInput | runtime.InputJsonValue;
-    steps?: Prisma.StepsCreateNestedManyWithoutInstructionsInput;
 };
 export type InstructionsUncheckedCreateWithoutCompanyInput = {
     id?: number;
     extractionInstructions: Prisma.JsonNullValueInput | runtime.InputJsonValue;
-    steps?: Prisma.StepsUncheckedCreateNestedManyWithoutInstructionsInput;
 };
 export type InstructionsCreateOrConnectWithoutCompanyInput = {
     where: Prisma.InstructionsWhereUniqueInput;
@@ -346,85 +321,26 @@ export type InstructionsScalarWhereInput = {
     extractionInstructions?: Prisma.JsonFilter<"Instructions">;
     companyID?: Prisma.IntFilter<"Instructions"> | number;
 };
-export type InstructionsCreateWithoutStepsInput = {
-    extractionInstructions: Prisma.JsonNullValueInput | runtime.InputJsonValue;
-    company: Prisma.CompanyCreateNestedOneWithoutInstructionsInput;
-};
-export type InstructionsUncheckedCreateWithoutStepsInput = {
-    id?: number;
-    extractionInstructions: Prisma.JsonNullValueInput | runtime.InputJsonValue;
-    companyID: number;
-};
-export type InstructionsCreateOrConnectWithoutStepsInput = {
-    where: Prisma.InstructionsWhereUniqueInput;
-    create: Prisma.XOR<Prisma.InstructionsCreateWithoutStepsInput, Prisma.InstructionsUncheckedCreateWithoutStepsInput>;
-};
-export type InstructionsUpsertWithoutStepsInput = {
-    update: Prisma.XOR<Prisma.InstructionsUpdateWithoutStepsInput, Prisma.InstructionsUncheckedUpdateWithoutStepsInput>;
-    create: Prisma.XOR<Prisma.InstructionsCreateWithoutStepsInput, Prisma.InstructionsUncheckedCreateWithoutStepsInput>;
-    where?: Prisma.InstructionsWhereInput;
-};
-export type InstructionsUpdateToOneWithWhereWithoutStepsInput = {
-    where?: Prisma.InstructionsWhereInput;
-    data: Prisma.XOR<Prisma.InstructionsUpdateWithoutStepsInput, Prisma.InstructionsUncheckedUpdateWithoutStepsInput>;
-};
-export type InstructionsUpdateWithoutStepsInput = {
-    extractionInstructions?: Prisma.JsonNullValueInput | runtime.InputJsonValue;
-    company?: Prisma.CompanyUpdateOneRequiredWithoutInstructionsNestedInput;
-};
-export type InstructionsUncheckedUpdateWithoutStepsInput = {
-    id?: Prisma.IntFieldUpdateOperationsInput | number;
-    extractionInstructions?: Prisma.JsonNullValueInput | runtime.InputJsonValue;
-    companyID?: Prisma.IntFieldUpdateOperationsInput | number;
-};
 export type InstructionsCreateManyCompanyInput = {
     id?: number;
     extractionInstructions: Prisma.JsonNullValueInput | runtime.InputJsonValue;
 };
 export type InstructionsUpdateWithoutCompanyInput = {
     extractionInstructions?: Prisma.JsonNullValueInput | runtime.InputJsonValue;
-    steps?: Prisma.StepsUpdateManyWithoutInstructionsNestedInput;
 };
 export type InstructionsUncheckedUpdateWithoutCompanyInput = {
     id?: Prisma.IntFieldUpdateOperationsInput | number;
     extractionInstructions?: Prisma.JsonNullValueInput | runtime.InputJsonValue;
-    steps?: Prisma.StepsUncheckedUpdateManyWithoutInstructionsNestedInput;
 };
 export type InstructionsUncheckedUpdateManyWithoutCompanyInput = {
     id?: Prisma.IntFieldUpdateOperationsInput | number;
     extractionInstructions?: Prisma.JsonNullValueInput | runtime.InputJsonValue;
-};
-/**
- * Count Type InstructionsCountOutputType
- */
-export type InstructionsCountOutputType = {
-    steps: number;
-};
-export type InstructionsCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-    steps?: boolean | InstructionsCountOutputTypeCountStepsArgs;
-};
-/**
- * InstructionsCountOutputType without action
- */
-export type InstructionsCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the InstructionsCountOutputType
-     */
-    select?: Prisma.InstructionsCountOutputTypeSelect<ExtArgs> | null;
-};
-/**
- * InstructionsCountOutputType without action
- */
-export type InstructionsCountOutputTypeCountStepsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-    where?: Prisma.StepsWhereInput;
 };
 export type InstructionsSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
     id?: boolean;
     extractionInstructions?: boolean;
     companyID?: boolean;
     company?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>;
-    steps?: boolean | Prisma.Instructions$stepsArgs<ExtArgs>;
-    _count?: boolean | Prisma.InstructionsCountOutputTypeDefaultArgs<ExtArgs>;
 }, ExtArgs["result"]["instructions"]>;
 export type InstructionsSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
     id?: boolean;
@@ -446,8 +362,6 @@ export type InstructionsSelectScalar = {
 export type InstructionsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "extractionInstructions" | "companyID", ExtArgs["result"]["instructions"]>;
 export type InstructionsInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     company?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>;
-    steps?: boolean | Prisma.Instructions$stepsArgs<ExtArgs>;
-    _count?: boolean | Prisma.InstructionsCountOutputTypeDefaultArgs<ExtArgs>;
 };
 export type InstructionsIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     company?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>;
@@ -459,7 +373,6 @@ export type $InstructionsPayload<ExtArgs extends runtime.Types.Extensions.Intern
     name: "Instructions";
     objects: {
         company: Prisma.$CompanyPayload<ExtArgs>;
-        steps: Prisma.$StepsPayload<ExtArgs>[];
     };
     scalars: runtime.Types.Extensions.GetPayloadResult<{
         id: number;
@@ -795,7 +708,6 @@ export interface InstructionsDelegate<ExtArgs extends runtime.Types.Extensions.I
 export interface Prisma__InstructionsClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise";
     company<T extends Prisma.CompanyDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CompanyDefaultArgs<ExtArgs>>): Prisma.Prisma__CompanyClient<runtime.Types.Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>;
-    steps<T extends Prisma.Instructions$stepsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Instructions$stepsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StepsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>;
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1206,29 +1118,6 @@ export type InstructionsDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.
      * Limit how many Instructions to delete.
      */
     limit?: number;
-};
-/**
- * Instructions.steps
- */
-export type Instructions$stepsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Steps
-     */
-    select?: Prisma.StepsSelect<ExtArgs> | null;
-    /**
-     * Omit specific fields from the Steps
-     */
-    omit?: Prisma.StepsOmit<ExtArgs> | null;
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: Prisma.StepsInclude<ExtArgs> | null;
-    where?: Prisma.StepsWhereInput;
-    orderBy?: Prisma.StepsOrderByWithRelationInput | Prisma.StepsOrderByWithRelationInput[];
-    cursor?: Prisma.StepsWhereUniqueInput;
-    take?: number;
-    skip?: number;
-    distinct?: Prisma.StepsScalarFieldEnum | Prisma.StepsScalarFieldEnum[];
 };
 /**
  * Instructions without action

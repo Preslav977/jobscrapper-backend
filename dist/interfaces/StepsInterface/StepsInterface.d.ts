@@ -3,6 +3,8 @@ export interface StepsInterface {
     order: number;
     action: string;
     selector: string;
+    option: string;
+    url: string;
     companyID: number;
     instructionsID: number;
 }

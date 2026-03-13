@@ -68,20 +68,19 @@ model Instructions {
   extractionInstructions Json
   company                Company @relation(fields: [companyID], references: [id], onDelete: Cascade)
   companyID              Int
-  steps                  Steps[]
 
   @@map("instructions")
 }
 
 model Steps {
-  id             Int          @id @default(autoincrement())
-  order          Int
-  action         String
-  selector       String
-  instructions   Instructions @relation(fields: [instructionsID], references: [id], onDelete: Cascade)
-  instructionsID Int
-  company        Company      @relation(fields: [companyID], references: [id])
-  companyID      Int
+  id           Int      @id @default(autoincrement())
+  order        Int
+  action       String
+  selector     String
+  selectOption String?
+  url          String?
+  company      Company? @relation(fields: [companyID], references: [id])
+  companyID    Int?
 
   @@map("steps")
 }

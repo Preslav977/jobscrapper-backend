@@ -306,6 +306,10 @@ export type CompanyScalarRelationFilter = {
     is?: Prisma.CompanyWhereInput;
     isNot?: Prisma.CompanyWhereInput;
 };
+export type CompanyNullableScalarRelationFilter = {
+    is?: Prisma.CompanyWhereInput | null;
+    isNot?: Prisma.CompanyWhereInput | null;
+};
 export type CompanyCreateNestedOneWithoutJobsInput = {
     create?: Prisma.XOR<Prisma.CompanyCreateWithoutJobsInput, Prisma.CompanyUncheckedCreateWithoutJobsInput>;
     connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutJobsInput;
@@ -335,10 +339,12 @@ export type CompanyCreateNestedOneWithoutStepsInput = {
     connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutStepsInput;
     connect?: Prisma.CompanyWhereUniqueInput;
 };
-export type CompanyUpdateOneRequiredWithoutStepsNestedInput = {
+export type CompanyUpdateOneWithoutStepsNestedInput = {
     create?: Prisma.XOR<Prisma.CompanyCreateWithoutStepsInput, Prisma.CompanyUncheckedCreateWithoutStepsInput>;
     connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutStepsInput;
     upsert?: Prisma.CompanyUpsertWithoutStepsInput;
+    disconnect?: Prisma.CompanyWhereInput | boolean;
+    delete?: Prisma.CompanyWhereInput | boolean;
     connect?: Prisma.CompanyWhereUniqueInput;
     update?: Prisma.XOR<Prisma.XOR<Prisma.CompanyUpdateToOneWithWhereWithoutStepsInput, Prisma.CompanyUpdateWithoutStepsInput>, Prisma.CompanyUncheckedUpdateWithoutStepsInput>;
 };

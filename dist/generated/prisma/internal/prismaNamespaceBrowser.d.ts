@@ -87,7 +87,8 @@ export declare const StepsScalarFieldEnum: {
     readonly order: "order";
     readonly action: "action";
     readonly selector: "selector";
-    readonly instructionsID: "instructionsID";
+    readonly selectOption: "selectOption";
+    readonly url: "url";
     readonly companyID: "companyID";
 };
 export type StepsScalarFieldEnum = (typeof StepsScalarFieldEnum)[keyof typeof StepsScalarFieldEnum];
