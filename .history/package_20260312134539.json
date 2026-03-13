@@ -44,7 +44,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "tsc -w & node --watch ./dist/app.js",
-    "seed": "tsc -w & node --watch ./dist/seed/companySeed.js",
+    "startSeed": "tsc -w && node --watch ./dist/seed/companySeed.js"
     "migrate": "npx prisma migrate dev --name init"
   },
   "repository": {

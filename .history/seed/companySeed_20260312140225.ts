@@ -34,18 +34,21 @@ import { prisma } from "../db/client.js";
           order: 1,
           action: "click",
           selector: "text/Careers",
+          companyID: 2,
           instructionsID: 2,
         },
         {
           order: 2,
           action: "click",
           selector: "text/Search for jobs",
+          companyID: 2,
           instructionsID: 2,
         },
         {
           order: 3,
           action: "click",
           selector: "text/Software Engineering",
+          companyID: 2,
           instructionsID: 2,
         },
       ],
@@ -55,6 +58,8 @@ import { prisma } from "../db/client.js";
   for (const company of companies) {
     const { name, URL, extractionInstructions, steps } = company;
 
+    console.log(name, URL);
+
     try {
       await prisma.company.create({
         data: {
@@ -63,9 +68,6 @@ import { prisma } from "../db/client.js";
           browserNavigation: null,
           instructions: {
             create: { extractionInstructions },
-          },
-          steps: {
-            create: steps,
           },
         },
       });

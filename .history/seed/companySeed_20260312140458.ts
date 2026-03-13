@@ -55,6 +55,8 @@ import { prisma } from "../db/client.js";
   for (const company of companies) {
     const { name, URL, extractionInstructions, steps } = company;
 
+    console.log(name, URL);
+
     try {
       await prisma.company.create({
         data: {

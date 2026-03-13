@@ -1,17 +1,24 @@
 import { prisma } from "../../db/client.js";
 async function createScrappingSteps(req, res) {
     const { companyID, instructionsID } = req.params;
-    const { order, action, selector } = req.body;
-    const createStepsForInstructions = await prisma.steps.create({
-        data: {
-            order,
-            action,
-            selector,
-            companyID: Number(companyID),
-            instructionsID: Number(instructionsID),
-        },
-    });
-    res.json(createStepsForInstructions);
+    if (req.body.length === 0) {
+        res.json({
+            message: "Failed to create scraping steps for company!",
+        });
+    }
+    else {
+        const stepsArray = req.body.map((step) => {
+            return {
+                ...step,
+                companyID: Number(companyID),
+                instructionsID: Number(instructionsID),
+            };
+        });
+        const createStepsForCompany = await prisma.steps.createManyAndReturn({
+            data: stepsArray,
+        });
+        res.json(createStepsForCompany);
+    }
 }
 async function getScrappingStepsDetails(req, res) {
     const { companyID, instructionsID } = req.params;

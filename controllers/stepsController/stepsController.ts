@@ -7,19 +7,25 @@ import type { StepsInterface } from "../../interfaces/StepsInterface/StepsInterf
 async function createScrappingSteps(req: Request, res: Response) {
   const { companyID, instructionsID } = req.params;
 
-  const { order, action, selector }: StepsInterface = req.body;
+  if (req.body.length === 0) {
+    res.json({
+      message: "Failed to create scraping steps for company!",
+    });
+  } else {
+    const stepsArray: StepsInterface = req.body.map((step: StepsInterface) => {
+      return {
+        ...step,
+        companyID: Number(companyID),
+        instructionsID: Number(instructionsID),
+      };
+    });
 
-  const createStepsForInstructions = await prisma.steps.create({
-    data: {
-      order,
-      action,
-      selector,
-      companyID: Number(companyID),
-      instructionsID: Number(instructionsID),
-    },
-  });
+    const createStepsForCompany = await prisma.steps.createManyAndReturn({
+      data: stepsArray,
+    });
 
-  res.json(createStepsForInstructions);
+    res.json(createStepsForCompany);
+  }
 }
 
 async function getScrappingStepsDetails(req: Request, res: Response) {
