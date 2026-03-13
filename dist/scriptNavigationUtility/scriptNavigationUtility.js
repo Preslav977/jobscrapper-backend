@@ -29,7 +29,7 @@ async function tryClickEvaluate(page, instruction, maxAttempt) {
     return "failure";
 }
 async function tryClickLoadMore(page, instruction, maxAttempt) {
-    for (let attempt = 0; attempt < maxAttempt; attempt++) {
+    for (let attempt = 0; attempt <= maxAttempt; attempt++) {
         let loadMoreJobs = true;
         const loadMoreButton = (await page.waitForSelector(instruction));
         const loadMoreButtonText = await loadMoreButton.evaluate((btn) => btn.outerHTML);
@@ -51,5 +51,20 @@ async function tryClickLoadMore(page, instruction, maxAttempt) {
     }
     return "failure";
 }
-export { tryClick, tryClickEvaluate, tryClickLoadMore };
+async function selectOptionFromDropDown(page, selectElement, selectOption, maxAttempt) {
+    for (let attempt = 0; attempt <= maxAttempt; attempt++) {
+        try {
+            await page.waitForSelector(selectElement);
+            await page.select(selectElement, selectOption);
+            return "success";
+        }
+        catch (error) {
+            if (attempt === maxAttempt) {
+                console.log(`This instruction doesn't exists and is not selectable: ${error}`);
+            }
+        }
+    }
+    return "failure";
+}
+export { selectOptionFromDropDown, tryClick, tryClickEvaluate, tryClickLoadMore, };
 //# sourceMappingURL=scriptNavigationUtility.js.map

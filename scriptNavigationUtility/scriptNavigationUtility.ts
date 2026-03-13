@@ -49,7 +49,7 @@ async function tryClickLoadMore(
   instruction: string,
   maxAttempt: number,
 ): Promise<string> {
-  for (let attempt = 0; attempt < maxAttempt; attempt++) {
+  for (let attempt = 0; attempt <= maxAttempt; attempt++) {
     let loadMoreJobs = true;
 
     const loadMoreButton = (await page.waitForSelector(
@@ -83,4 +83,33 @@ async function tryClickLoadMore(
   return "failure";
 }
 
-export { tryClick, tryClickEvaluate, tryClickLoadMore };
+async function selectOptionFromDropDown(
+  page: Page,
+  selectElement: string,
+  selectOption: string,
+  maxAttempt: number,
+): Promise<string> {
+  for (let attempt = 0; attempt <= maxAttempt; attempt++) {
+    try {
+      await page.waitForSelector(selectElement);
+
+      await page.select(selectElement, selectOption);
+
+      return "success";
+    } catch (error) {
+      if (attempt === maxAttempt) {
+        console.log(
+          `This instruction doesn't exists and is not selectable: ${error}`,
+        );
+      }
+    }
+  }
+  return "failure";
+}
+
+export {
+  selectOptionFromDropDown,
+  tryClick,
+  tryClickEvaluate,
+  tryClickLoadMore,
+};
