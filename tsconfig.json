@@ -9,7 +9,7 @@
     "target": "esnext",
     "esModuleInterop": true,
     // "types": [],
-    "lib": ["esnext"],
+    "lib": ["esnext", "DOM"],
     "types": ["node"],
 
     "sourceMap": true,

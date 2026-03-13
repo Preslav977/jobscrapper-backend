@@ -1,4 +1,4 @@
-import type { Page } from "puppeteer";
+import type { ElementHandle, Page } from "puppeteer";
 
 async function tryClick(
   page: Page,
@@ -14,11 +14,34 @@ async function tryClick(
       return "success";
     } catch (error) {
       if (attempt === maxAttempt) {
-        console.log(`Failed  to find and query ${error}`);
+        console.log(`Failed to find and query ${error}`);
       }
     }
   }
   return "failure";
 }
 
-export { tryClick };
+async function tryClickEvaluate(
+  page: Page,
+  instruction: string,
+  maxAttempt: number,
+): Promise<string> {
+  for (let attempt = 1; attempt <= maxAttempt; attempt++) {
+    try {
+      const clickedInstruction = (await page.waitForSelector(
+        instruction,
+      )) as ElementHandle<HTMLElement>;
+
+      await clickedInstruction.evaluate((element) => element.click());
+
+      return "success";
+    } catch (error) {
+      if (attempt === maxAttempt) {
+        console.log(`Failed to find and query ${error}`);
+      }
+    }
+  }
+  return "failure";
+}
+
+export { tryClick, tryClickEvaluate };
