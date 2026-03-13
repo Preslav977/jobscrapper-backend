@@ -44,4 +44,43 @@ async function tryClickEvaluate(
   return "failure";
 }
 
-export { tryClick, tryClickEvaluate };
+async function tryClickLoadMore(
+  page: Page,
+  instruction: string,
+  maxAttempt: number,
+): Promise<string> {
+  for (let attempt = 0; attempt < maxAttempt; attempt++) {
+    let loadMoreJobs = true;
+
+    const loadMoreButton = (await page.waitForSelector(
+      instruction,
+    )) as ElementHandle<HTMLElement>;
+
+    const loadMoreButtonText = await loadMoreButton.evaluate(
+      (btn) => btn.outerHTML,
+    );
+
+    while (loadMoreJobs) {
+      try {
+        if (loadMoreButtonText !== null) {
+          await loadMoreButton.click();
+
+          await loadMoreButton.evaluate((element) => element.scrollIntoView());
+        }
+      } catch (error) {
+        if (attempt === maxAttempt) {
+          loadMoreJobs = false;
+
+          await loadMoreButton.dispose();
+
+          console.log(
+            `This instruction doesn't exists and is not clickable: ${error}`,
+          );
+        }
+      }
+    }
+  }
+  return "failure";
+}
+
+export { tryClick, tryClickEvaluate, tryClickLoadMore };
