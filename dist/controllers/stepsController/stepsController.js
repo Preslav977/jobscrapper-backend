@@ -23,9 +23,9 @@ async function createScrappingSteps(req, res) {
 async function getScrappingStepsDetails(req, res) {
     const { companyID, instructionsID } = req.params;
     const getStepsDetails = await prisma.steps.findMany({
-        include: {
-            instructions: true,
-        },
+        // include: {
+        //   instructions: true,
+        // },
         where: {
             companyID: Number(companyID),
             instructionsID: Number(instructionsID),

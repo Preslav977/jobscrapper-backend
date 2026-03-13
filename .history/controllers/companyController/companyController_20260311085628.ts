@@ -48,7 +48,6 @@ async function getCompanies(req: Request, res: Response) {
     include: {
       jobs: true,
       instructions: true,
-      steps: true,
     },
   });
 

@@ -37,6 +37,7 @@ async function getCompanies(req, res) {
         include: {
             jobs: true,
             instructions: true,
+            steps: true,
         },
     });
     if (companiesGet.length === 0) {

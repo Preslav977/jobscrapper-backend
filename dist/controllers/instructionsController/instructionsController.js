@@ -12,7 +12,7 @@ async function createScrappingInstructions(req, res) {
 }
 async function getScrappingInstructionsDetails(req, res) {
     const { companyID, id } = req.params;
-    const getInstructionsDetails = await prisma.instructions.findFirst({
+    const getInstructionsDetails = await prisma.instructions.findMany({
         include: {
             company: true,
         },
