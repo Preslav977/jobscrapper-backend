@@ -5,7 +5,7 @@ import type { Request, Response } from "express";
 import type { StepsInterface } from "../../interfaces/StepsInterface/StepsInterface.js";
 
 async function createScrappingSteps(req: Request, res: Response) {
-  const { companyID, instructionsID } = req.params;
+  const { companyID } = req.params;
 
   if (req.body.length === 0) {
     res.json({
@@ -16,7 +16,6 @@ async function createScrappingSteps(req: Request, res: Response) {
       return {
         ...step,
         companyID: Number(companyID),
-        instructionsID: Number(instructionsID),
       };
     });
 
@@ -29,16 +28,11 @@ async function createScrappingSteps(req: Request, res: Response) {
 }
 
 async function getScrappingStepsDetails(req: Request, res: Response) {
-  const { companyID, instructionsID } = req.params;
+  const { companyID } = req.params;
 
   const getStepsDetails = await prisma.steps.findMany({
-    // include: {
-    //   instructions: true,
-    // },
-
     where: {
       companyID: Number(companyID),
-      instructionsID: Number(instructionsID),
     },
   });
 
@@ -53,14 +47,13 @@ async function getScrappingStepsDetails(req: Request, res: Response) {
 }
 
 async function updateScrappingStepsDetails(req: Request, res: Response) {
-  const { companyID, instructionsID, id } = req.params;
+  const { companyID, id } = req.params;
 
   const { order, action, selector }: StepsInterface = req.body;
 
   const updateStepsDetails = await prisma.steps.update({
     where: {
       companyID: Number(companyID),
-      instructionsID: Number(instructionsID),
       id: Number(id),
     },
 
@@ -75,12 +68,11 @@ async function updateScrappingStepsDetails(req: Request, res: Response) {
 }
 
 async function deleteScrappingStepsDetails(req: Request, res: Response) {
-  const { companyID, instructionsID } = req.params;
+  const { companyID } = req.params;
 
   await prisma.steps.deleteMany({
     where: {
       companyID: Number(companyID),
-      instructionsID: Number(instructionsID),
     },
   });
 

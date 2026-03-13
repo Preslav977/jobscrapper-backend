@@ -6,6 +6,5 @@ export interface StepsInterface {
     option: string;
     url: string;
     companyID: number;
-    instructionsID: number;
 }
 //# sourceMappingURL=StepsInterface.d.ts.map

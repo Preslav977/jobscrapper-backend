@@ -6,5 +6,4 @@ export interface StepsInterface {
   option: string;
   url: string;
   companyID: number;
-  instructionsID: number;
 }

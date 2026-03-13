@@ -1,6 +1,6 @@
 import { prisma } from "../../db/client.js";
 async function createScrappingSteps(req, res) {
-    const { companyID, instructionsID } = req.params;
+    const { companyID } = req.params;
     if (req.body.length === 0) {
         res.json({
             message: "Failed to create scraping steps for company!",
@@ -11,7 +11,6 @@ async function createScrappingSteps(req, res) {
             return {
                 ...step,
                 companyID: Number(companyID),
-                instructionsID: Number(instructionsID),
             };
         });
         const createStepsForCompany = await prisma.steps.createManyAndReturn({
@@ -21,14 +20,10 @@ async function createScrappingSteps(req, res) {
     }
 }
 async function getScrappingStepsDetails(req, res) {
-    const { companyID, instructionsID } = req.params;
+    const { companyID } = req.params;
     const getStepsDetails = await prisma.steps.findMany({
-        // include: {
-        //   instructions: true,
-        // },
         where: {
             companyID: Number(companyID),
-            instructionsID: Number(instructionsID),
         },
     });
     if (getStepsDetails.length === 0) {
@@ -41,12 +36,11 @@ async function getScrappingStepsDetails(req, res) {
     }
 }
 async function updateScrappingStepsDetails(req, res) {
-    const { companyID, instructionsID, id } = req.params;
+    const { companyID, id } = req.params;
     const { order, action, selector } = req.body;
     const updateStepsDetails = await prisma.steps.update({
         where: {
             companyID: Number(companyID),
-            instructionsID: Number(instructionsID),
             id: Number(id),
         },
         data: {
@@ -58,11 +52,10 @@ async function updateScrappingStepsDetails(req, res) {
     res.json(updateStepsDetails);
 }
 async function deleteScrappingStepsDetails(req, res) {
-    const { companyID, instructionsID } = req.params;
+    const { companyID } = req.params;
     await prisma.steps.deleteMany({
         where: {
             companyID: Number(companyID),
-            instructionsID: Number(instructionsID),
         },
     });
     res.json({
