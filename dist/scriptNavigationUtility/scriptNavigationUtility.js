@@ -29,7 +29,7 @@ async function tryClickEvaluate(page, instruction, maxAttempt) {
     return "failure";
 }
 async function tryClickLoadMore(page, instruction, maxAttempt) {
-    for (let attempt = 0; attempt <= maxAttempt; attempt++) {
+    for (let attempt = 1; attempt <= maxAttempt; attempt++) {
         let loadMoreJobs = true;
         const loadMoreButton = (await page.waitForSelector(instruction));
         const loadMoreButtonText = await loadMoreButton.evaluate((btn) => btn.outerHTML);
@@ -52,7 +52,7 @@ async function tryClickLoadMore(page, instruction, maxAttempt) {
     return "failure";
 }
 async function selectOptionFromDropDown(page, selectElement, selectOption, maxAttempt) {
-    for (let attempt = 0; attempt <= maxAttempt; attempt++) {
+    for (let attempt = 1; attempt <= maxAttempt; attempt++) {
         try {
             await page.waitForSelector(selectElement);
             await page.select(selectElement, selectOption);
@@ -66,5 +66,29 @@ async function selectOptionFromDropDown(page, selectElement, selectOption, maxAt
     }
     return "failure";
 }
-export { selectOptionFromDropDown, tryClick, tryClickEvaluate, tryClickLoadMore, };
+async function tryEventLocator(page, instruction, event, maxAttempt) {
+    for (let attempt = 1; attempt <= maxAttempt; attempt++) {
+        try {
+            switch (event) {
+                case "click":
+                    await page.locator(instruction).click();
+                    break;
+                case "fill":
+                    break;
+                case "scroll":
+                    break;
+                default:
+                    break;
+            }
+            return "success";
+        }
+        catch (error) {
+            if (attempt === maxAttempt) {
+                console.log(`This instruction doesn't exist: ${error}`);
+            }
+        }
+    }
+    return "failure";
+}
+export { selectOptionFromDropDown, tryClick, tryClickEvaluate, tryClickLoadMore, tryEventLocator, };
 //# sourceMappingURL=scriptNavigationUtility.js.map

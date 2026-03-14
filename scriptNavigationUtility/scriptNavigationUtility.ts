@@ -145,4 +145,5 @@ export {
   tryClick,
   tryClickEvaluate,
   tryClickLoadMore,
+  tryEventLocator,
 };
