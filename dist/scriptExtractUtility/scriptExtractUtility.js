@@ -1,5 +1,3 @@
-async function extractJobsText(page, { container }) {
-    console.log(container.extractType);
-}
+async function extractJobsText(page, { container, title, location, remoteOrHybrid, datePosted, anchorHref, }) { }
 export {};
 //# sourceMappingURL=scriptExtractUtility.js.map
