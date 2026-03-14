@@ -49,7 +49,7 @@ async function tryClickLoadMore(
   instruction: string,
   maxAttempt: number,
 ): Promise<string> {
-  for (let attempt = 0; attempt <= maxAttempt; attempt++) {
+  for (let attempt = 1; attempt <= maxAttempt; attempt++) {
     let loadMoreJobs = true;
 
     const loadMoreButton = (await page.waitForSelector(
@@ -89,7 +89,7 @@ async function selectOptionFromDropDown(
   selectOption: string,
   maxAttempt: number,
 ): Promise<string> {
-  for (let attempt = 0; attempt <= maxAttempt; attempt++) {
+  for (let attempt = 1; attempt <= maxAttempt; attempt++) {
     try {
       await page.waitForSelector(selectElement);
 
@@ -104,6 +104,39 @@ async function selectOptionFromDropDown(
       }
     }
   }
+  return "failure";
+}
+
+async function tryEventLocator(
+  page: Page,
+  instruction: string,
+  event: string,
+  maxAttempt: number,
+): Promise<string> {
+  for (let attempt = 1; attempt <= maxAttempt; attempt++) {
+    try {
+      switch (event) {
+        case "click":
+          await page.locator(instruction).click();
+          break;
+
+        case "fill":
+          break;
+
+        case "scroll":
+          break;
+
+        default:
+          break;
+      }
+      return "success";
+    } catch (error) {
+      if (attempt === maxAttempt) {
+        console.log(`This instruction doesn't exist: ${error}`);
+      }
+    }
+  }
+
   return "failure";
 }
 
