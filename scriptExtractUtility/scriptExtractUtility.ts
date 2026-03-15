@@ -1,5 +1,6 @@
 import type { ElementHandle, Page } from "puppeteer";
 import type { ExtractionConfig } from "../interfaces/InstructionsInterface/InstructionsInterface.js";
+import type { ScrapedJobsObjectType } from "../interfaces/JobsInterface/JobsInterface.js";
 
 async function extractJobsText(
   page: Page,
@@ -44,18 +45,6 @@ async function extractJobsText(
           }
           return;
         }
-
-        type ScrapedJobsObjectType = {
-          success: true | false | null;
-          jobs: Array<{
-            title: string | null | undefined;
-            location: string | null | undefined;
-            remoteOrHybrid: string | null | undefined;
-            datePosted: string | null | undefined;
-            anchorHref: string | null | undefined;
-          }>;
-          err: string | null | unknown;
-        };
 
         const scrapedJobsObject: ScrapedJobsObjectType = {
           success: null,
@@ -115,4 +104,15 @@ async function extractJobsText(
   return;
 }
 
-export { extractJobsText };
+async function extractJobsJSON(attribute: string) {
+  const queryElementByAttribute = document.querySelector(`${[attribute]}`);
+
+  const getElementAttribute = queryElementByAttribute!.getAttribute(attribute)!;
+
+  const parseAttributeToJSON: ScrapedJobsObjectType =
+    JSON.parse(getElementAttribute);
+
+  return parseAttributeToJSON;
+}
+
+export { extractJobsJSON, extractJobsText };

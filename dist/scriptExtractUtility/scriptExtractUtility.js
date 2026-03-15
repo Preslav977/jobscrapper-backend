@@ -54,5 +54,11 @@ async function extractJobsText(page, { container, title, location, remoteOrHybri
     }
     return;
 }
-export { extractJobsText };
+async function extractJobsJSON(attribute) {
+    const queryElementByAttribute = document.querySelector(`${[attribute]}`);
+    const getElementAttribute = queryElementByAttribute.getAttribute(attribute);
+    const parseAttributeToJSON = JSON.parse(getElementAttribute);
+    return parseAttributeToJSON;
+}
+export { extractJobsJSON, extractJobsText };
 //# sourceMappingURL=scriptExtractUtility.js.map
