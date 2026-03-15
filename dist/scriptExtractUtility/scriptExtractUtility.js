@@ -3,8 +3,9 @@ async function extractJobsText(page, { container, title, location, remoteOrHybri
     if (doesJobContainerExists) {
         const result = await page.evaluate((container, title, location, remoteOrHybrid, datePosted, anchorHref) => {
             function extractField(HTMLElement, elementField) {
-                if (HTMLElement === null || elementField === null)
+                if (HTMLElement === null || elementField === null) {
                     return null;
+                }
                 if (elementField.extractType === "text") {
                     return HTMLElement.querySelector(elementField.selector)
                         ?.textContent.trim()
@@ -16,9 +17,42 @@ async function extractJobsText(page, { container, title, location, remoteOrHybri
                 if (elementField.extractType === "parentElementAttribute") {
                     return HTMLElement.querySelector(elementField.selector)?.getAttribute(elementField.attr);
                 }
+                return;
+            }
+            const scrapedJobsObject = {
+                success: null,
+                jobs: [],
+                err: null,
+            };
+            const queryAllJobsContainers = document.querySelectorAll(container.selector);
+            try {
+                queryAllJobsContainers.forEach((queryJobContainer) => {
+                    const jobTitle = extractField(queryJobContainer, title);
+                    const jobLocation = extractField(queryJobContainer, location);
+                    const jobRemoteOrHybrid = extractField(queryJobContainer, remoteOrHybrid);
+                    const jobDatePosted = extractField(queryJobContainer, datePosted);
+                    const jobAnchorHref = extractField(queryJobContainer, anchorHref);
+                    const jobsObject = {
+                        title: jobTitle,
+                        location: jobLocation,
+                        remoteOrHybrid: jobRemoteOrHybrid,
+                        datePosted: jobDatePosted,
+                        anchorHref: jobAnchorHref,
+                    };
+                    scrapedJobsObject.success = true;
+                    scrapedJobsObject.jobs.push(jobsObject);
+                });
+                return scrapedJobsObject;
+            }
+            catch (error) {
+                scrapedJobsObject.success = false;
+                scrapedJobsObject.err = error;
+                return scrapedJobsObject;
             }
         }, container, title, location, remoteOrHybrid, datePosted, anchorHref);
+        return result;
     }
+    return;
 }
-export {};
+export { extractJobsText };
 //# sourceMappingURL=scriptExtractUtility.js.map
