@@ -60,5 +60,20 @@ async function extractJobsJSON(attribute) {
     const parseAttributeToJSON = JSON.parse(getElementAttribute);
     return parseAttributeToJSON;
 }
-export { extractJobsJSON, extractJobsText };
+async function extractJobsFetchURL(url) {
+    try {
+        const fetchJobsByURL = await fetch(url, {
+            mode: "cors",
+        });
+        if (fetchJobsByURL.status >= 200) {
+            throw new Error(`Failed to fetch jobs reason: ${fetchJobsByURL.statusText}`);
+        }
+        const getJobs = await fetchJobsByURL.json();
+        return getJobs;
+    }
+    catch (error) {
+        console.log(error);
+    }
+}
+export { extractJobsFetchURL, extractJobsJSON, extractJobsText };
 //# sourceMappingURL=scriptExtractUtility.js.map

@@ -115,4 +115,23 @@ async function extractJobsJSON(attribute: string) {
   return parseAttributeToJSON;
 }
 
-export { extractJobsJSON, extractJobsText };
+async function extractJobsFetchURL(url: string) {
+  try {
+    const fetchJobsByURL = await fetch(url, {
+      mode: "cors",
+    });
+
+    if (fetchJobsByURL.status >= 200) {
+      throw new Error(
+        `Failed to fetch jobs reason: ${fetchJobsByURL.statusText}`,
+      );
+    }
+    const getJobs: ScrapedJobsObjectType = await fetchJobsByURL.json();
+
+    return getJobs;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export { extractJobsFetchURL, extractJobsJSON, extractJobsText };
