@@ -74,6 +74,7 @@ async function extractJobsFetchURL(url) {
     catch (error) {
         console.log(error);
     }
+    return;
 }
 export { extractJobsFetchURL, extractJobsJSON, extractJobsText };
 //# sourceMappingURL=scriptExtractUtility.js.map

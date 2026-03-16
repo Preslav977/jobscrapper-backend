@@ -132,6 +132,7 @@ async function extractJobsFetchURL(url: string) {
   } catch (error) {
     console.log(error);
   }
+  return;
 }
 
 export { extractJobsFetchURL, extractJobsJSON, extractJobsText };
