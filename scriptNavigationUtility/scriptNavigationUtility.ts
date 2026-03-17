@@ -12,6 +12,8 @@ async function tryClick(
 
       await page.click(instruction);
 
+      await sleepDelay(3000);
+
       return "success";
     } catch (error) {
       if (attempt === maxAttempt) {
@@ -35,6 +37,8 @@ async function tryClickEvaluate(
       )) as ElementHandle<HTMLElement>;
 
       await clickedInstruction.evaluate((element) => element.click());
+
+      await sleepDelay(3000);
 
       return "success";
     } catch (error) {
@@ -70,6 +74,8 @@ async function tryClickLoadMore(
 
         await loadMoreButton.evaluate((element) => element.scrollIntoView());
 
+        await sleepDelay(5000);
+
         clickedMoreButtonCount++;
       }
     } catch (error) {
@@ -101,6 +107,8 @@ async function selectOptionFromDropDown(
       await page.waitForSelector(selectElement);
 
       await page.select(selectElement, selectOption);
+
+      await sleepDelay(2500);
 
       return "success";
     } catch (error) {
@@ -146,8 +154,15 @@ async function tryEventLocator(
   return "";
 }
 
+async function sleepDelay(timeout: number): Promise<void> {
+  return new Promise((resolve) =>
+    setTimeout(resolve, Math.floor(Math.random() * timeout)),
+  );
+}
+
 export {
   selectOptionFromDropDown,
+  sleepDelay,
   tryClick,
   tryClickEvaluate,
   tryClickLoadMore,
