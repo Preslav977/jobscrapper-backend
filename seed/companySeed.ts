@@ -5,7 +5,6 @@ import { prisma } from "../db/client.js";
     {
       name: "A1 Bulgaria",
       URL: "http://a1.bg/bg",
-      browserNavigation: null,
       extractionInstructions: {
         container: {
           extractType: "text",
@@ -49,7 +48,6 @@ import { prisma } from "../db/client.js";
     {
       name: "Accenture",
       URL: "https://www.accenture.com/bg-en",
-      browserNavigation: null,
       extractionInstructions: {
         container: {
           extractType: "text",
@@ -90,7 +88,6 @@ import { prisma } from "../db/client.js";
     {
       name: "Acronis",
       URL: "https://www.acronis.com/en/",
-      browserNavigation: null,
       extractionInstructions: {
         container: { extractType: "text", selector: ".careers-job" },
         title: { extractType: "text", selector: ".a-dangerous-html" },
@@ -145,7 +142,6 @@ import { prisma } from "../db/client.js";
     {
       name: "Adastra",
       URL: "https://jobs.adastracorp.com/bulgaria/go/Applications-Development-&-Programming/9023855/",
-      browserNavigation: null,
       extractionInstructions: {
         container: { extractType: "text", selector: ".data-row" },
         title: { extractType: "text", selector: "a" },
@@ -160,7 +156,6 @@ import { prisma } from "../db/client.js";
     {
       name: "Adstart Media",
       URL: "https://adstartmedia.com/",
-      browserNavigation: null,
       extractionInstructions: {
         container: {
           extractType: "text",
@@ -194,7 +189,6 @@ import { prisma } from "../db/client.js";
     {
       name: "AIOpsGroup",
       URL: "https://aiopsgroup.com/",
-      browserNavigation: null,
       extractionInstructions: {
         container: {
           extractType: "text",
@@ -228,7 +222,6 @@ import { prisma } from "../db/client.js";
     {
       name: "Amdaris",
       URL: "https://amdaris.com/",
-      browserNavigation: null,
       extractionInstructions: {
         container: {
           extractType: "text",
@@ -262,7 +255,6 @@ import { prisma } from "../db/client.js";
     {
       name: "Ampeco",
       URL: "https://ampeco.com/",
-      browserNavigation: null,
       extractionInstructions: {
         container: { extractType: "text", selector: ".open_positions > li" },
         title: { extractType: "text", selector: ".position" },
@@ -288,7 +280,6 @@ import { prisma } from "../db/client.js";
     {
       name: "Amusnet",
       URL: "https://careers-amusnet.com/jobs",
-      browserNavigation: null,
       extractionInstructions: {
         container: { extractType: "text", selector: ".job-position" },
         title: { extractType: "text", selector: "h3 > a" },
@@ -319,7 +310,6 @@ import { prisma } from "../db/client.js";
     {
       name: "Anthill",
       URL: "https://anthill.bamboohr.com/careers",
-      browserNavigation: null,
       extractionInstructions: {
         container: null,
         title: null,
@@ -355,7 +345,6 @@ import { prisma } from "../db/client.js";
           data: {
             name,
             URL,
-            browserNavigation: null,
             instructions: {
               create: { extractionInstructions },
             },

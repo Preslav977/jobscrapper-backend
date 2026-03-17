@@ -1,3 +1,4 @@
+import console from "node:console";
 import type { ElementHandle, Page } from "puppeteer";
 
 async function tryClick(
@@ -14,11 +15,12 @@ async function tryClick(
       return "success";
     } catch (error) {
       if (attempt === maxAttempt) {
-        console.log(`Failed to find and query ${error}`);
+        console.log(`Failed to query and click: ${error}`);
+        return "failure";
       }
     }
   }
-  return "failure";
+  return "";
 }
 
 async function tryClickEvaluate(
@@ -37,50 +39,55 @@ async function tryClickEvaluate(
       return "success";
     } catch (error) {
       if (attempt === maxAttempt) {
-        console.log(`Failed to find and query ${error}`);
+        console.log(`Failed to query and click ${error}`);
+        return "failure";
       }
     }
   }
-  return "failure";
+  return "";
 }
 
 async function tryClickLoadMore(
   page: Page,
   instruction: string,
-  maxAttempt: number,
 ): Promise<string> {
-  for (let attempt = 1; attempt <= maxAttempt; attempt++) {
-    let loadMoreJobs = true;
+  let loadMoreJobs = true;
 
-    const loadMoreButton = (await page.waitForSelector(
-      instruction,
-    )) as ElementHandle<HTMLElement>;
+  let clickedMoreButtonCount = 0;
 
-    const loadMoreButtonText = await loadMoreButton.evaluate(
-      (btn) => btn.outerHTML,
-    );
+  while (loadMoreJobs) {
+    try {
+      const loadMoreButton = (await page.waitForSelector(
+        instruction,
+      )) as ElementHandle<HTMLElement>;
 
-    while (loadMoreJobs) {
-      try {
-        if (loadMoreButtonText !== null) {
-          await loadMoreButton.click();
+      const loadMoreButtonText = await loadMoreButton.evaluate(
+        (btn) => btn.textContent,
+      );
 
-          await loadMoreButton.evaluate((element) => element.scrollIntoView());
-        }
-      } catch (error) {
-        if (attempt === maxAttempt) {
-          loadMoreJobs = false;
+      if (loadMoreButtonText !== null) {
+        await loadMoreButton.click();
 
-          await loadMoreButton.dispose();
+        await loadMoreButton.evaluate((element) => element.scrollIntoView());
 
-          console.log(
-            `This instruction doesn't exists and is not clickable: ${error}`,
-          );
-        }
+        clickedMoreButtonCount++;
+      }
+    } catch (error) {
+      if (clickedMoreButtonCount > 5) {
+        loadMoreJobs = false;
+
+        return "success";
+      } else {
+        loadMoreJobs = false;
+
+        console.log(`Failed to query and click: ${error}`);
+
+        return "failure";
       }
     }
   }
-  return "failure";
+
+  return "";
 }
 
 async function selectOptionFromDropDown(
@@ -98,13 +105,12 @@ async function selectOptionFromDropDown(
       return "success";
     } catch (error) {
       if (attempt === maxAttempt) {
-        console.log(
-          `This instruction doesn't exists and is not selectable: ${error}`,
-        );
+        console.log(`Failed to query and select: ${error}`);
+        return "failure";
       }
     }
   }
-  return "failure";
+  return "";
 }
 
 async function tryEventLocator(
@@ -132,12 +138,12 @@ async function tryEventLocator(
       return "success";
     } catch (error) {
       if (attempt === maxAttempt) {
-        console.log(`This instruction doesn't exist: ${error}`);
+        console.log(`Failed to query and ${event}: ${error}`);
+        return "failure";
       }
     }
   }
-
-  return "failure";
+  return "";
 }
 
 export {
