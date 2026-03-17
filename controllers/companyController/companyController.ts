@@ -24,7 +24,6 @@ async function createCompany(req: Request, res: Response) {
           name,
           logo,
           URL,
-          browserNavigation: null,
         },
       });
 
@@ -34,7 +33,6 @@ async function createCompany(req: Request, res: Response) {
         data: {
           name,
           URL,
-          browserNavigation: null,
         },
       });
 

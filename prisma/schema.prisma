@@ -37,14 +37,13 @@ model User {
 }
 
 model Company {
-  id                Int            @id @default(autoincrement())
-  name              String         @unique
-  logo              String?
-  jobs              Jobs[]
-  URL               String
-  browserNavigation String?
-  instructions      Instructions[]
-  steps             Steps[]
+  id           Int            @id @default(autoincrement())
+  name         String         @unique
+  logo         String?
+  jobs         Jobs[]
+  URL          String
+  instructions Instructions[]
+  steps        Steps[]
 
   @@map("company")
 }
