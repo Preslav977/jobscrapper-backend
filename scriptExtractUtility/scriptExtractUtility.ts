@@ -123,7 +123,7 @@ async function extractJobsFetchURL(url: string) {
 
     if (fetchJobsByURL.status >= 200) {
       throw new Error(
-        `Failed to fetch jobs reason: ${fetchJobsByURL.statusText}`,
+        `Failed to fetch jobs, reason: ${fetchJobsByURL.statusText}`,
       );
     }
     const getJobs: ScrapedJobsObjectType = await fetchJobsByURL.json();

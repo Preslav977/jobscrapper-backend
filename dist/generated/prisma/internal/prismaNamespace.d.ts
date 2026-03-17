@@ -752,7 +752,6 @@ export declare const CompanyScalarFieldEnum: {
     readonly name: "name";
     readonly logo: "logo";
     readonly URL: "URL";
-    readonly browserNavigation: "browserNavigation";
 };
 export type CompanyScalarFieldEnum = (typeof CompanyScalarFieldEnum)[keyof typeof CompanyScalarFieldEnum];
 export declare const JobsScalarFieldEnum: {

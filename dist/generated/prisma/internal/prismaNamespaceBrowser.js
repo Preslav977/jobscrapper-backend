@@ -74,8 +74,7 @@ export const CompanyScalarFieldEnum = {
     id: 'id',
     name: 'name',
     logo: 'logo',
-    URL: 'URL',
-    browserNavigation: 'browserNavigation'
+    URL: 'URL'
 };
 export const JobsScalarFieldEnum = {
     id: 'id',

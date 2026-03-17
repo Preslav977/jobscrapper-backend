@@ -21,7 +21,7 @@ export async function scriptScrapJobsSites(companySite) {
         for (const step of steps) {
             switch (step.action) {
                 case "click":
-                    await tryClick(page, step.selector, 5);
+                    await tryClick(page, step.selector, 3);
                     break;
                 default:
                     break;

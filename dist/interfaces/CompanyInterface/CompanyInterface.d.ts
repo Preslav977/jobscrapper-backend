@@ -6,7 +6,6 @@ export interface CompanyInterface {
     name: string;
     logo?: string;
     URL: string;
-    browserNavigation: string;
     jobs: JobsInterface[];
     instructions: InstructionsInterface[];
     steps: StepsInterface[];

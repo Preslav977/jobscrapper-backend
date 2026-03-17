@@ -15,7 +15,6 @@ async function createCompany(req, res) {
                     name,
                     logo,
                     URL,
-                    browserNavigation: null,
                 },
             });
             res.json(createCompany);
@@ -25,7 +24,6 @@ async function createCompany(req, res) {
                 data: {
                     name,
                     URL,
-                    browserNavigation: null,
                 },
             });
             res.json(createCompany);

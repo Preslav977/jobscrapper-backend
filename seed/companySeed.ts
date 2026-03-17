@@ -70,17 +70,17 @@ import { prisma } from "../db/client.js";
       steps: [
         {
           order: 1,
-          action: "click",
+          action: "clickEvaluate",
           selector: "text/Careers",
         },
         {
           order: 2,
-          action: "click",
+          action: "clickEvaluate",
           selector: "text/Search for jobs",
         },
         {
           order: 3,
-          action: "click",
+          action: "clickEvaluate",
           selector: "text/Software Engineering",
         },
       ],
@@ -95,7 +95,7 @@ import { prisma } from "../db/client.js";
         remoteOrHybrid: null,
         dataPosted: null,
         anchorHref: {
-          extractType: "elementAttribute",
+          extractType: "parentElementAttribute",
           selector: ".careers-job > a",
           attr: "href",
         },
@@ -159,7 +159,7 @@ import { prisma } from "../db/client.js";
       extractionInstructions: {
         container: {
           extractType: "text",
-          selector: ".job-listing-gridwrapper > li",
+          selector: ".job-listing-gridwrapper li",
         },
         title: { extractType: "text", selector: "a" },
         location: { extractType: "text", selector: "lyte-text" },
@@ -232,7 +232,7 @@ import { prisma } from "../db/client.js";
         remoteOrHybrid: null,
         dataPosted: null,
         anchorHref: {
-          extractType: "elementAttribute",
+          extractType: "parentElementAttribute",
           selector: "td > a",
           attr: "href",
         },

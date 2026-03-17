@@ -66,7 +66,7 @@ async function extractJobsFetchURL(url) {
             mode: "cors",
         });
         if (fetchJobsByURL.status >= 200) {
-            throw new Error(`Failed to fetch jobs reason: ${fetchJobsByURL.statusText}`);
+            throw new Error(`Failed to fetch jobs, reason: ${fetchJobsByURL.statusText}`);
         }
         const getJobs = await fetchJobsByURL.json();
         return getJobs;
