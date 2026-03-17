@@ -1,5 +1,6 @@
 import puppeteer from "puppeteer-extra";
 import StealthPlugin from "puppeteer-extra-plugin-stealth";
+import { extractJobsText } from "../scriptExtractUtility/scriptExtractUtility.js";
 import { getRandomTimezone, height, width, } from "../scriptHelperUtilities/scriptHelperUtilities.js";
 import { selectOptionFromDropDown, sleepDelay, tryClick, tryClickEvaluate, tryClickLoadMore, } from "../scriptNavigationUtility/scriptNavigationUtility.js";
 puppeteer.default.use(StealthPlugin());
@@ -19,7 +20,7 @@ export async function scriptScrapJobsSites(companySite) {
     await page.evaluate(() => {
         window.scrollTo(0, document.body.scrollHeight);
     });
-    const navigationResults = [];
+    let navigationResults = [];
     try {
         for (const step of steps) {
             switch (step.action) {
@@ -62,13 +63,26 @@ export async function scriptScrapJobsSites(companySite) {
         }
     }
     catch (error) {
-        console.log(error);
+        console.log(`Navigation script failed, reason: ${error}`);
+        return error;
     }
     finally {
-        //if browserNavigation is successful
-        for (const instruction of instructions) {
-            const { container, title, location, remoteOrHybrid, datePosted, anchorHref, } = instruction.extractionInstructions;
+        for (const navigationResult of navigationResults) {
+            if (navigationResult.status === "success" || steps.length === 0) {
+                for (const instruction of instructions) {
+                    const jobScrapingResult = await extractJobsText(page, instruction.extractionInstructions);
+                    navigationResults = [];
+                    await browser.close();
+                    // eslint-disable-next-line no-unsafe-finally
+                    return jobScrapingResult;
+                }
+            }
+            else {
+                navigationResults = [];
+                await browser.close();
+            }
         }
     }
+    return "Jobs has been successfully scraped";
 }
 //# sourceMappingURL=scriptScrapingJobsSites.js.map

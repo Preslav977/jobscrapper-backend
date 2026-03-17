@@ -1,6 +1,7 @@
 import puppeteer from "puppeteer-extra";
 import StealthPlugin from "puppeteer-extra-plugin-stealth";
 import type { CompanyInterface } from "../interfaces/CompanyInterface/CompanyInterface.js";
+import { extractJobsText } from "../scriptExtractUtility/scriptExtractUtility.js";
 import {
   getRandomTimezone,
   height,
@@ -40,7 +41,7 @@ export async function scriptScrapJobsSites(companySite: CompanyInterface) {
     window.scrollTo(0, document.body.scrollHeight);
   });
 
-  const navigationResults = [];
+  let navigationResults = [];
 
   try {
     for (const step of steps) {
@@ -107,19 +108,32 @@ export async function scriptScrapJobsSites(companySite: CompanyInterface) {
       }
     }
   } catch (error) {
-    console.log(error);
-  } finally {
-    //if browserNavigation is successful
+    console.log(`Navigation script failed, reason: ${error}`);
 
-    for (const instruction of instructions) {
-      const {
-        container,
-        title,
-        location,
-        remoteOrHybrid,
-        datePosted,
-        anchorHref,
-      } = instruction.extractionInstructions;
+    return error;
+  } finally {
+    for (const navigationResult of navigationResults) {
+      if (navigationResult.status === "success" || steps.length === 0) {
+        for (const instruction of instructions) {
+          const jobScrapingResult = await extractJobsText(
+            page,
+            instruction.extractionInstructions,
+          );
+
+          navigationResults = [];
+
+          await browser.close();
+
+          // eslint-disable-next-line no-unsafe-finally
+          return jobScrapingResult;
+        }
+      } else {
+        navigationResults = [];
+
+        await browser.close();
+      }
     }
   }
+
+  return "Jobs has been successfully scraped";
 }
