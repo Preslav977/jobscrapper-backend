@@ -7,7 +7,7 @@ export interface CompanyInterface {
     logo?: string | null;
     URL: string;
     jobs?: JobsInterface[];
-    instructions?: InstructionsInterface[];
-    steps?: StepsInterface[];
+    instructions: InstructionsInterface[];
+    steps: StepsInterface[];
 }
 //# sourceMappingURL=CompanyInterface.d.ts.map

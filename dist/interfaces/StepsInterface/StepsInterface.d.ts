@@ -3,7 +3,7 @@ export interface StepsInterface {
     order: number;
     action: string;
     selector: string;
-    option?: string;
+    selectOption?: string;
     url?: string;
     companyID?: number;
 }

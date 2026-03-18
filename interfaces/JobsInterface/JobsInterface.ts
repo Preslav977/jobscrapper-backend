@@ -12,11 +12,11 @@ export interface JobsInterface {
 export type ScrapedJobsObjectType = {
   success: true | false | null;
   jobs: Array<{
-    title: string | null | undefined;
-    location: string | null | undefined;
-    remoteOrHybrid: string | null | undefined;
-    datePosted: string | null | undefined;
-    anchorHref: string | null | undefined;
+    title: string | null;
+    location: string | null;
+    remoteOrHybrid: string | null;
+    datePosted: string | null;
+    anchorHref: string | null;
   }>;
   err: string | null | unknown;
 };

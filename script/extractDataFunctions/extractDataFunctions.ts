@@ -22,7 +22,11 @@ async function extractJobsText(
       (container, title, location, remoteOrHybrid, datePosted, anchorHref) => {
         function extractField(
           HTMLElement: Element,
-          elementField: { extractType: string; selector: string; attr: string },
+          elementField: {
+            extractType: string;
+            selector: string;
+            attr: string;
+          },
         ) {
           if (HTMLElement === null || elementField === null) {
             return null;
@@ -59,18 +63,18 @@ async function extractJobsText(
 
         try {
           queryAllJobsContainers.forEach((queryJobContainer) => {
-            const jobTitle = extractField(queryJobContainer, title);
+            const jobTitle = extractField(queryJobContainer, title)!;
 
-            const jobLocation = extractField(queryJobContainer, location);
+            const jobLocation = extractField(queryJobContainer, location)!;
 
             const jobRemoteOrHybrid = extractField(
               queryJobContainer,
               remoteOrHybrid,
-            );
+            )!;
 
-            const jobDatePosted = extractField(queryJobContainer, datePosted);
+            const jobDatePosted = extractField(queryJobContainer, datePosted)!;
 
-            const jobAnchorHref = extractField(queryJobContainer, anchorHref);
+            const jobAnchorHref = extractField(queryJobContainer, anchorHref)!;
 
             const jobsObject = {
               title: jobTitle,

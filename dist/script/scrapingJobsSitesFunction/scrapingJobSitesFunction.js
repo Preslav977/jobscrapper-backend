@@ -49,7 +49,7 @@ export async function scriptScrapJobsSites(companySite) {
                     break;
                 }
                 case "select": {
-                    const selectOptionFromDropDownResult = await selectOptionFromDropDown(page, step.selector, step.option, 3);
+                    const selectOptionFromDropDownResult = await selectOptionFromDropDown(page, step.selector, step.selectOption, 3);
                     navigationResults.push({
                         step: step.selector,
                         status: selectOptionFromDropDownResult,

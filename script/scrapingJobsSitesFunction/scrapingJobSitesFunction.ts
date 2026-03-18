@@ -90,7 +90,7 @@ export async function scriptScrapJobsSites(companySite: CompanyInterface) {
           const selectOptionFromDropDownResult = await selectOptionFromDropDown(
             page,
             step.selector,
-            step.option,
+            step.selectOption!,
             3,
           );
 
