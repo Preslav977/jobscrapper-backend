@@ -5,7 +5,7 @@ import { getRandomTimezone, height, width, } from "../scriptHelperUtilities/scri
 import { selectOptionFromDropDown, sleepDelay, tryClick, tryClickEvaluate, tryClickLoadMore, } from "../scriptNavigationUtility/scriptNavigationUtility.js";
 puppeteer.default.use(StealthPlugin());
 export async function scriptScrapJobsSites(companySite) {
-    const { URL, name, instructions, steps } = companySite;
+    const { URL, instructions, steps } = companySite;
     const browser = await puppeteer.default.launch({
         headless: false,
         args: ["--no-sandbox"],
@@ -64,7 +64,6 @@ export async function scriptScrapJobsSites(companySite) {
     }
     catch (error) {
         console.log(`Navigation script failed, reason: ${error}`);
-        return error;
     }
     finally {
         for (const navigationResult of navigationResults) {
@@ -83,6 +82,6 @@ export async function scriptScrapJobsSites(companySite) {
             }
         }
     }
-    return "Jobs has been successfully scraped";
+    return navigationResults;
 }
 //# sourceMappingURL=scriptScrapingJobsSites.js.map

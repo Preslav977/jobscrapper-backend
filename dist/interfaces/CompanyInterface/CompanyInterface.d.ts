@@ -4,9 +4,9 @@ import type { StepsInterface } from "../StepsInterface/StepsInterface.js";
 export interface CompanyInterface {
     id?: number;
     name: string;
-    logo?: string;
+    logo?: string | null;
     URL: string;
-    jobs: JobsInterface[];
+    jobs?: JobsInterface[];
     instructions: InstructionsInterface[];
     steps: StepsInterface[];
 }

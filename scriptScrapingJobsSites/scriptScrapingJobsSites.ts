@@ -18,7 +18,7 @@ import {
 puppeteer.default.use(StealthPlugin());
 
 export async function scriptScrapJobsSites(companySite: CompanyInterface) {
-  const { URL, name, instructions, steps } = companySite;
+  const { URL, instructions, steps } = companySite;
 
   const browser = await puppeteer.default.launch({
     headless: false,
@@ -109,8 +109,6 @@ export async function scriptScrapJobsSites(companySite: CompanyInterface) {
     }
   } catch (error) {
     console.log(`Navigation script failed, reason: ${error}`);
-
-    return error;
   } finally {
     for (const navigationResult of navigationResults) {
       if (navigationResult.status === "success" || steps.length === 0) {
@@ -134,6 +132,5 @@ export async function scriptScrapJobsSites(companySite: CompanyInterface) {
       }
     }
   }
-
-  return "Jobs has been successfully scraped";
+  return navigationResults;
 }

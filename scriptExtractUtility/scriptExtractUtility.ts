@@ -43,7 +43,8 @@ async function extractJobsText(
               elementField.selector,
             )?.getAttribute(elementField.attr);
           }
-          return;
+
+          return null;
         }
 
         const scrapedJobsObject: ScrapedJobsObjectType = {

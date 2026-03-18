@@ -3,8 +3,8 @@ export interface StepsInterface {
     order: number;
     action: string;
     selector: string;
-    option: string;
-    url: string;
-    companyID: number;
+    option?: string;
+    url?: string;
+    companyID?: number;
 }
 //# sourceMappingURL=StepsInterface.d.ts.map

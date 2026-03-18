@@ -17,7 +17,7 @@ async function extractJobsText(page, { container, title, location, remoteOrHybri
                 if (elementField.extractType === "parentElementAttribute") {
                     return HTMLElement.querySelector(elementField.selector)?.getAttribute(elementField.attr);
                 }
-                return;
+                return null;
             }
             const scrapedJobsObject = {
                 success: null,
