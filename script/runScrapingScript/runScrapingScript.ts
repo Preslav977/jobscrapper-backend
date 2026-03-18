@@ -1,10 +1,22 @@
-// import { prisma } from "../db/client.js";
-// import type { CompanyInterface } from "../interfaces/CompanyInterface/CompanyInterface.js";
+import { prisma } from "../../db/client.js";
+import type { Company } from "../../generated/prisma/client.js";
 
-// (async () => {
-//   const companies: CompanyInterface = await prisma.company.findMany({});
+(async () => {
+  try {
+    const companies: Company[] = await prisma.company.findMany({
+      include: {
+        jobs: true,
+        instructions: true,
+        steps: true,
+      },
+    });
 
-//   console.log(companies);
+    console.log(companies);
 
-//   // console.log(scriptScrapJobsSites(companies));
-// })();
+    for (const company of companies) {
+      console.log(company);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+})();

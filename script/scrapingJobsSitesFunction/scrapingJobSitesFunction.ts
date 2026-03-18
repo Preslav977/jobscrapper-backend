@@ -17,7 +17,7 @@ import {
 
 puppeteer.default.use(StealthPlugin());
 
-export async function scriptScrapJobsSites(companySite: CompanyInterface) {
+export async function scrapingJobSitesFunction(companySite: CompanyInterface) {
   const { URL, instructions, steps } = companySite;
 
   const browser = await puppeteer.default.launch({
@@ -44,7 +44,7 @@ export async function scriptScrapJobsSites(companySite: CompanyInterface) {
   let navigationResults = [];
 
   try {
-    for (const step of steps) {
+    for (const step of steps!) {
       switch (step.action) {
         case "click": {
           const tryClickResult = await tryClick(page, step.selector, 3);
@@ -111,8 +111,8 @@ export async function scriptScrapJobsSites(companySite: CompanyInterface) {
     console.log(`Navigation script failed, reason: ${error}`);
   } finally {
     for (const navigationResult of navigationResults) {
-      if (navigationResult.status === "success" || steps.length === 0) {
-        for (const instruction of instructions) {
+      if (navigationResult.status === "success" || steps!.length === 0) {
+        for (const instruction of instructions!) {
           const jobScrapingResult = await extractJobsText(
             page,
             instruction.extractionInstructions,

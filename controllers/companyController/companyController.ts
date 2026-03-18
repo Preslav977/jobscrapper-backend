@@ -50,7 +50,9 @@ async function getCompanies(req: Request, res: Response) {
     },
   });
 
-  if (companiesGet.length !== 0) {
+  console.log(companiesGet);
+
+  if (companiesGet.length === 0) {
     res.json({ message: "No companies has been found!" });
   } else {
     res.json(companiesGet);

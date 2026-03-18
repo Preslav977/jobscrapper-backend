@@ -4,7 +4,7 @@ import { extractJobsText } from "../extractDataFunctions/extractDataFunctions.js
 import { getRandomTimezone, height, width, } from "../helperUtilities/helperUtilities.js";
 import { selectOptionFromDropDown, sleepDelay, tryClick, tryClickEvaluate, tryClickLoadMore, } from "../navigationFunctions/navigationsFunctions.js";
 puppeteer.default.use(StealthPlugin());
-export async function scriptScrapJobsSites(companySite) {
+export async function scrapingJobSitesFunction(companySite) {
     const { URL, instructions, steps } = companySite;
     const browser = await puppeteer.default.launch({
         headless: false,
