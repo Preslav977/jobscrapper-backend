@@ -7,16 +7,27 @@ import type { InstructionsInterface } from "../../interfaces/InstructionsInterfa
 async function createScrappingInstructions(req: Request, res: Response) {
   const { companyID } = req.params;
 
-  const { extractionInstructions }: InstructionsInterface = req.body;
+  if (req.body.length === 0) {
+    res.json({
+      message: "Failed to create instructions for company!",
+    });
+  } else {
+    const instructionsArray: InstructionsInterface = req.body.map(
+      (instruction: InstructionsInterface) => {
+        return {
+          ...instruction,
+          companyID: Number(companyID),
+        };
+      },
+    );
 
-  const createInstructionsForCompany = await prisma.instructions.create({
-    data: {
-      extractionInstructions,
-      companyID: Number(companyID),
-    },
-  });
+    const createInstructionsForCompany =
+      await prisma.instructions.createManyAndReturn({
+        data: instructionsArray,
+      });
 
-  res.json(createInstructionsForCompany);
+    res.json(createInstructionsForCompany);
+  }
 }
 
 async function getScrappingInstructionsDetails(req: Request, res: Response) {

@@ -15,7 +15,7 @@ export type ExtractionConfig = {
 
 export interface InstructionsInterface {
   id?: number;
-  companyID?: number;
+  companyID: number;
   extractionInstructions: ExtractionConfig;
   steps?: StepsInterface[];
 }

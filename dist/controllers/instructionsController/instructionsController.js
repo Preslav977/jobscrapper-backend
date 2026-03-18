@@ -1,14 +1,23 @@
 import { prisma } from "../../db/client.js";
 async function createScrappingInstructions(req, res) {
     const { companyID } = req.params;
-    const { extractionInstructions } = req.body;
-    const createInstructionsForCompany = await prisma.instructions.create({
-        data: {
-            extractionInstructions,
-            companyID: Number(companyID),
-        },
-    });
-    res.json(createInstructionsForCompany);
+    if (req.body.length === 0) {
+        res.json({
+            message: "Failed to create instructions for company!",
+        });
+    }
+    else {
+        const instructionsArray = req.body.map((instruction) => {
+            return {
+                ...instruction,
+                companyID: Number(companyID),
+            };
+        });
+        const createInstructionsForCompany = await prisma.instructions.createManyAndReturn({
+            data: instructionsArray,
+        });
+        res.json(createInstructionsForCompany);
+    }
 }
 async function getScrappingInstructionsDetails(req, res) {
     const { companyID, id } = req.params;
