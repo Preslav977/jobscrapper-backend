@@ -1,19 +1,19 @@
 import puppeteer from "puppeteer-extra";
 import StealthPlugin from "puppeteer-extra-plugin-stealth";
-import type { CompanyInterface } from "../interfaces/CompanyInterface/CompanyInterface.js";
-import { extractJobsText } from "../scriptExtractUtility/scriptExtractUtility.js";
+import type { CompanyInterface } from "../../interfaces/CompanyInterface/CompanyInterface.js";
+import { extractJobsText } from "../extractDataFunctions/extractDataFunctions.js";
 import {
   getRandomTimezone,
   height,
   width,
-} from "../scriptHelperUtilities/scriptHelperUtilities.js";
+} from "../helperUtilities/helperUtilities.js";
 import {
   selectOptionFromDropDown,
   sleepDelay,
   tryClick,
   tryClickEvaluate,
   tryClickLoadMore,
-} from "../scriptNavigationUtility/scriptNavigationUtility.js";
+} from "../navigationFunctions/navigationsFunctions.js";
 
 puppeteer.default.use(StealthPlugin());
 

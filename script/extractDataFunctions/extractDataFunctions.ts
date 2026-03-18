@@ -1,6 +1,6 @@
 import type { ElementHandle, Page } from "puppeteer";
-import type { ExtractionConfig } from "../interfaces/InstructionsInterface/InstructionsInterface.js";
-import type { ScrapedJobsObjectType } from "../interfaces/JobsInterface/JobsInterface.js";
+import type { ExtractionConfig } from "../../interfaces/InstructionsInterface/InstructionsInterface.js";
+import type { ScrapedJobsObjectType } from "../../interfaces/JobsInterface/JobsInterface.js";
 
 async function extractJobsText(
   page: Page,
