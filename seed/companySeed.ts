@@ -1,7 +1,8 @@
 import { prisma } from "../db/client.js";
+import type { CompanyInterface } from "../interfaces/CompanyInterface/CompanyInterface.js";
 
 (async () => {
-  const companies = [
+  const companies: CompanyInterface[] = [
     {
       name: "A1 Bulgaria",
       URL: "http://a1.bg/bg",
@@ -19,7 +20,7 @@ import { prisma } from "../db/client.js";
               extractType: "text",
               selector: "span:nth-child(3)",
             },
-            dataPosted: null,
+            datePosted: null,
             anchorHref: { extractType: "attribute", attr: "href" },
           },
         },

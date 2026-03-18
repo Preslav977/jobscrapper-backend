@@ -42,19 +42,19 @@ async function createCompany(req: Request, res: Response) {
 }
 
 async function getCompanies(req: Request, res: Response) {
-  const companiesGet = await prisma.company.findFirst({
-    where: {
-      id: 1,
+  const companiesGet = await prisma.company.findMany({
+    include: {
+      jobs: true,
+      instructions: true,
+      steps: true,
     },
   });
 
-  console.log(companiesGet);
-
-  // if (companiesGet.length === 0) {
-  //   res.json({ message: "No companies has been found!" });
-  // } else {
-  //   res.json(companiesGet);
-  // }
+  if (companiesGet.length !== 0) {
+    res.json({ message: "No companies has been found!" });
+  } else {
+    res.json(companiesGet);
+  }
 }
 
 async function getCompanyByName(req: Request, res: Response) {

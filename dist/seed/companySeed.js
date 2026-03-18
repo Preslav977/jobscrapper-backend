@@ -18,7 +18,7 @@ import { prisma } from "../db/client.js";
                             extractType: "text",
                             selector: "span:nth-child(3)",
                         },
-                        dataPosted: null,
+                        datePosted: null,
                         anchorHref: { extractType: "attribute", attr: "href" },
                     },
                 },
