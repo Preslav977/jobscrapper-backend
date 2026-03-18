@@ -14,7 +14,7 @@ async function extractJobsText(
   }: ExtractionConfig,
 ) {
   const doesJobContainerExists = (await page.waitForSelector(
-    container.selector,
+    container.selector!,
   )) as ElementHandle<HTMLElement>;
 
   if (doesJobContainerExists) {
@@ -24,28 +24,28 @@ async function extractJobsText(
           HTMLElement: Element,
           elementField: {
             extractType: string;
-            selector: string;
-            attr: string;
-          },
+            selector?: string;
+            attr?: string;
+          } | null,
         ) {
           if (HTMLElement === null || elementField === null) {
             return null;
           }
 
           if (elementField.extractType === "text") {
-            return HTMLElement.querySelector(elementField.selector)
+            return HTMLElement.querySelector(elementField.selector!)
               ?.textContent.trim()
               .replace("\n", "");
           }
 
           if (elementField.extractType === "attribute") {
-            return HTMLElement.getAttribute(elementField.attr);
+            return HTMLElement.getAttribute(elementField.attr!);
           }
 
           if (elementField.extractType === "parentElementAttribute") {
             return HTMLElement.querySelector(
-              elementField.selector,
-            )?.getAttribute(elementField.attr);
+              elementField.selector!,
+            )?.getAttribute(elementField.attr!);
           }
 
           return null;
@@ -58,7 +58,7 @@ async function extractJobsText(
         };
 
         const queryAllJobsContainers = document.querySelectorAll(
-          container.selector,
+          container.selector!,
         );
 
         try {

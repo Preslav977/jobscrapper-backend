@@ -63,10 +63,10 @@ model Jobs {
 }
 
 model Instructions {
-  id                     Int     @id @default(autoincrement())
+  id                     Int      @id @default(autoincrement())
   extractionInstructions Json
-  company                Company @relation(fields: [companyID], references: [id], onDelete: Cascade)
-  companyID              Int
+  company                Company? @relation(fields: [companyID], references: [id], onDelete: Cascade)
+  companyID              Int?
 
   @@map("instructions")
 }

@@ -305,10 +305,12 @@ export type CompanyCreateNestedOneWithoutInstructionsInput = {
     connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutInstructionsInput;
     connect?: Prisma.CompanyWhereUniqueInput;
 };
-export type CompanyUpdateOneRequiredWithoutInstructionsNestedInput = {
+export type CompanyUpdateOneWithoutInstructionsNestedInput = {
     create?: Prisma.XOR<Prisma.CompanyCreateWithoutInstructionsInput, Prisma.CompanyUncheckedCreateWithoutInstructionsInput>;
     connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutInstructionsInput;
     upsert?: Prisma.CompanyUpsertWithoutInstructionsInput;
+    disconnect?: Prisma.CompanyWhereInput | boolean;
+    delete?: Prisma.CompanyWhereInput | boolean;
     connect?: Prisma.CompanyWhereUniqueInput;
     update?: Prisma.XOR<Prisma.XOR<Prisma.CompanyUpdateToOneWithWhereWithoutInstructionsInput, Prisma.CompanyUpdateWithoutInstructionsInput>, Prisma.CompanyUncheckedUpdateWithoutInstructionsInput>;
 };

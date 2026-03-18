@@ -135,7 +135,7 @@ export type InstructionsGroupByArgs<ExtArgs extends runtime.Types.Extensions.Int
 export type InstructionsGroupByOutputType = {
     id: number;
     extractionInstructions: runtime.JsonValue;
-    companyID: number;
+    companyID: number | null;
     _count: InstructionsCountAggregateOutputType | null;
     _avg: InstructionsAvgAggregateOutputType | null;
     _sum: InstructionsSumAggregateOutputType | null;
@@ -151,13 +151,13 @@ export type InstructionsWhereInput = {
     NOT?: Prisma.InstructionsWhereInput | Prisma.InstructionsWhereInput[];
     id?: Prisma.IntFilter<"Instructions"> | number;
     extractionInstructions?: Prisma.JsonFilter<"Instructions">;
-    companyID?: Prisma.IntFilter<"Instructions"> | number;
-    company?: Prisma.XOR<Prisma.CompanyScalarRelationFilter, Prisma.CompanyWhereInput>;
+    companyID?: Prisma.IntNullableFilter<"Instructions"> | number | null;
+    company?: Prisma.XOR<Prisma.CompanyNullableScalarRelationFilter, Prisma.CompanyWhereInput> | null;
 };
 export type InstructionsOrderByWithRelationInput = {
     id?: Prisma.SortOrder;
     extractionInstructions?: Prisma.SortOrder;
-    companyID?: Prisma.SortOrder;
+    companyID?: Prisma.SortOrderInput | Prisma.SortOrder;
     company?: Prisma.CompanyOrderByWithRelationInput;
 };
 export type InstructionsWhereUniqueInput = Prisma.AtLeast<{
@@ -166,13 +166,13 @@ export type InstructionsWhereUniqueInput = Prisma.AtLeast<{
     OR?: Prisma.InstructionsWhereInput[];
     NOT?: Prisma.InstructionsWhereInput | Prisma.InstructionsWhereInput[];
     extractionInstructions?: Prisma.JsonFilter<"Instructions">;
-    companyID?: Prisma.IntFilter<"Instructions"> | number;
-    company?: Prisma.XOR<Prisma.CompanyScalarRelationFilter, Prisma.CompanyWhereInput>;
+    companyID?: Prisma.IntNullableFilter<"Instructions"> | number | null;
+    company?: Prisma.XOR<Prisma.CompanyNullableScalarRelationFilter, Prisma.CompanyWhereInput> | null;
 }, "id">;
 export type InstructionsOrderByWithAggregationInput = {
     id?: Prisma.SortOrder;
     extractionInstructions?: Prisma.SortOrder;
-    companyID?: Prisma.SortOrder;
+    companyID?: Prisma.SortOrderInput | Prisma.SortOrder;
     _count?: Prisma.InstructionsCountOrderByAggregateInput;
     _avg?: Prisma.InstructionsAvgOrderByAggregateInput;
     _max?: Prisma.InstructionsMaxOrderByAggregateInput;
@@ -185,30 +185,30 @@ export type InstructionsScalarWhereWithAggregatesInput = {
     NOT?: Prisma.InstructionsScalarWhereWithAggregatesInput | Prisma.InstructionsScalarWhereWithAggregatesInput[];
     id?: Prisma.IntWithAggregatesFilter<"Instructions"> | number;
     extractionInstructions?: Prisma.JsonWithAggregatesFilter<"Instructions">;
-    companyID?: Prisma.IntWithAggregatesFilter<"Instructions"> | number;
+    companyID?: Prisma.IntNullableWithAggregatesFilter<"Instructions"> | number | null;
 };
 export type InstructionsCreateInput = {
     extractionInstructions: Prisma.JsonNullValueInput | runtime.InputJsonValue;
-    company: Prisma.CompanyCreateNestedOneWithoutInstructionsInput;
+    company?: Prisma.CompanyCreateNestedOneWithoutInstructionsInput;
 };
 export type InstructionsUncheckedCreateInput = {
     id?: number;
     extractionInstructions: Prisma.JsonNullValueInput | runtime.InputJsonValue;
-    companyID: number;
+    companyID?: number | null;
 };
 export type InstructionsUpdateInput = {
     extractionInstructions?: Prisma.JsonNullValueInput | runtime.InputJsonValue;
-    company?: Prisma.CompanyUpdateOneRequiredWithoutInstructionsNestedInput;
+    company?: Prisma.CompanyUpdateOneWithoutInstructionsNestedInput;
 };
 export type InstructionsUncheckedUpdateInput = {
     id?: Prisma.IntFieldUpdateOperationsInput | number;
     extractionInstructions?: Prisma.JsonNullValueInput | runtime.InputJsonValue;
-    companyID?: Prisma.IntFieldUpdateOperationsInput | number;
+    companyID?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
 };
 export type InstructionsCreateManyInput = {
     id?: number;
     extractionInstructions: Prisma.JsonNullValueInput | runtime.InputJsonValue;
-    companyID: number;
+    companyID?: number | null;
 };
 export type InstructionsUpdateManyMutationInput = {
     extractionInstructions?: Prisma.JsonNullValueInput | runtime.InputJsonValue;
@@ -216,7 +216,7 @@ export type InstructionsUpdateManyMutationInput = {
 export type InstructionsUncheckedUpdateManyInput = {
     id?: Prisma.IntFieldUpdateOperationsInput | number;
     extractionInstructions?: Prisma.JsonNullValueInput | runtime.InputJsonValue;
-    companyID?: Prisma.IntFieldUpdateOperationsInput | number;
+    companyID?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
 };
 export type InstructionsListRelationFilter = {
     every?: Prisma.InstructionsWhereInput;
@@ -319,7 +319,7 @@ export type InstructionsScalarWhereInput = {
     NOT?: Prisma.InstructionsScalarWhereInput | Prisma.InstructionsScalarWhereInput[];
     id?: Prisma.IntFilter<"Instructions"> | number;
     extractionInstructions?: Prisma.JsonFilter<"Instructions">;
-    companyID?: Prisma.IntFilter<"Instructions"> | number;
+    companyID?: Prisma.IntNullableFilter<"Instructions"> | number | null;
 };
 export type InstructionsCreateManyCompanyInput = {
     id?: number;
@@ -340,19 +340,19 @@ export type InstructionsSelect<ExtArgs extends runtime.Types.Extensions.Internal
     id?: boolean;
     extractionInstructions?: boolean;
     companyID?: boolean;
-    company?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>;
+    company?: boolean | Prisma.Instructions$companyArgs<ExtArgs>;
 }, ExtArgs["result"]["instructions"]>;
 export type InstructionsSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
     id?: boolean;
     extractionInstructions?: boolean;
     companyID?: boolean;
-    company?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>;
+    company?: boolean | Prisma.Instructions$companyArgs<ExtArgs>;
 }, ExtArgs["result"]["instructions"]>;
 export type InstructionsSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
     id?: boolean;
     extractionInstructions?: boolean;
     companyID?: boolean;
-    company?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>;
+    company?: boolean | Prisma.Instructions$companyArgs<ExtArgs>;
 }, ExtArgs["result"]["instructions"]>;
 export type InstructionsSelectScalar = {
     id?: boolean;
@@ -361,23 +361,23 @@ export type InstructionsSelectScalar = {
 };
 export type InstructionsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "extractionInstructions" | "companyID", ExtArgs["result"]["instructions"]>;
 export type InstructionsInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-    company?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>;
+    company?: boolean | Prisma.Instructions$companyArgs<ExtArgs>;
 };
 export type InstructionsIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-    company?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>;
+    company?: boolean | Prisma.Instructions$companyArgs<ExtArgs>;
 };
 export type InstructionsIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-    company?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>;
+    company?: boolean | Prisma.Instructions$companyArgs<ExtArgs>;
 };
 export type $InstructionsPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     name: "Instructions";
     objects: {
-        company: Prisma.$CompanyPayload<ExtArgs>;
+        company: Prisma.$CompanyPayload<ExtArgs> | null;
     };
     scalars: runtime.Types.Extensions.GetPayloadResult<{
         id: number;
         extractionInstructions: runtime.JsonValue;
-        companyID: number;
+        companyID: number | null;
     }, ExtArgs["result"]["instructions"]>;
     composites: {};
 };
@@ -707,7 +707,7 @@ export interface InstructionsDelegate<ExtArgs extends runtime.Types.Extensions.I
  */
 export interface Prisma__InstructionsClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise";
-    company<T extends Prisma.CompanyDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CompanyDefaultArgs<ExtArgs>>): Prisma.Prisma__CompanyClient<runtime.Types.Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>;
+    company<T extends Prisma.Instructions$companyArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Instructions$companyArgs<ExtArgs>>): Prisma.Prisma__CompanyClient<runtime.Types.Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>;
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1118,6 +1118,24 @@ export type InstructionsDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.
      * Limit how many Instructions to delete.
      */
     limit?: number;
+};
+/**
+ * Instructions.company
+ */
+export type Instructions$companyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Company
+     */
+    select?: Prisma.CompanySelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Company
+     */
+    omit?: Prisma.CompanyOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.CompanyInclude<ExtArgs> | null;
+    where?: Prisma.CompanyWhereInput;
 };
 /**
  * Instructions without action
