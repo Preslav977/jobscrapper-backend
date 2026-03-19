@@ -8,7 +8,10 @@ export interface CompanyInterface {
   name: string;
   logo?: string | null;
   URL: string;
-  jobs?: JobsInterface[];
-  instructions?: InstructionsInterface[];
-  steps?: StepsInterface[];
+  instructions: InstructionsInterface[];
+  steps: StepsInterface[];
 }
+
+export type CompanyMappedType = {
+  [key: number]: JobsInterface[];
+};

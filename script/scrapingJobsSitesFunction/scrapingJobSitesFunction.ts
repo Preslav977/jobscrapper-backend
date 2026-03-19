@@ -13,7 +13,9 @@ import {
   tryClick,
   tryClickEvaluate,
   tryClickLoadMore,
-} from "../navigationFunctions/navigationsFunctions.js";
+} from "../navigationFunctions/navigationFunctions.js";
+
+import { Page } from "puppeteer";
 
 puppeteer.default.use(StealthPlugin());
 
@@ -25,15 +27,15 @@ export async function scrapingJobSitesFunction(companySite: CompanyInterface) {
     args: ["--no-sandbox"],
   });
 
-  const page = await browser.newPage();
+  const page: Page = await browser.newPage();
 
-  await page!.goto(URL, {
+  await page.goto(URL, {
     waitUntil: "load",
   });
 
-  await page!.setViewport({ width: width, height: height });
+  await page.setViewport({ width: width, height: height });
 
-  await page!.emulateTimezone(`${getRandomTimezone}`);
+  await page.emulateTimezone(`${getRandomTimezone}`);
 
   await sleepDelay(2500);
 
@@ -44,7 +46,7 @@ export async function scrapingJobSitesFunction(companySite: CompanyInterface) {
   let navigationResults = [];
 
   try {
-    for (const step of steps!) {
+    for (const step of steps) {
       switch (step.action) {
         case "click": {
           const tryClickResult = await tryClick(page, step.selector, 3);
@@ -111,8 +113,8 @@ export async function scrapingJobSitesFunction(companySite: CompanyInterface) {
     console.log(`Navigation script failed, reason: ${error}`);
   } finally {
     for (const navigationResult of navigationResults) {
-      if (navigationResult.status === "success" || steps!.length === 0) {
-        for (const instruction of instructions!) {
+      if (navigationResult.status === "success" || steps.length === 0) {
+        for (const instruction of instructions) {
           const jobScrapingResult = await extractJobsText(
             page,
             instruction.extractionInstructions,

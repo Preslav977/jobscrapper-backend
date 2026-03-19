@@ -2,7 +2,8 @@ import puppeteer from "puppeteer-extra";
 import StealthPlugin from "puppeteer-extra-plugin-stealth";
 import { extractJobsText } from "../extractDataFunctions/extractDataFunctions.js";
 import { getRandomTimezone, height, width, } from "../helperUtilities/helperUtilities.js";
-import { selectOptionFromDropDown, sleepDelay, tryClick, tryClickEvaluate, tryClickLoadMore, } from "../navigationFunctions/navigationsFunctions.js";
+import { selectOptionFromDropDown, sleepDelay, tryClick, tryClickEvaluate, tryClickLoadMore, } from "../navigationFunctions/navigationFunctions.js";
+import { Page } from "puppeteer";
 puppeteer.default.use(StealthPlugin());
 export async function scrapingJobSitesFunction(companySite) {
     const { URL, instructions, steps } = companySite;
