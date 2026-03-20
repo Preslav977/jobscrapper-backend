@@ -49,12 +49,12 @@ async function updateJob(req: Request, res: Response) {
   const { id, companyID } = req.params;
 
   const {
-    hybridOrRemote,
-    fullTimeOrNot,
+    title,
     location,
+    remoteOrHybrid,
     datePosted,
-    jobTitle,
-    jobDescription,
+    description,
+    anchorHref,
   }: JobsInterface = req.body;
 
   const updateJobDetails = await prisma.jobs.update({
@@ -68,12 +68,12 @@ async function updateJob(req: Request, res: Response) {
     },
 
     data: {
-      hybridOrRemote,
-      fullTimeOrNot,
+      title,
       location,
+      remoteOrHybrid,
       datePosted,
-      jobTitle,
-      jobDescription,
+      description,
+      anchorHref,
     },
   });
 

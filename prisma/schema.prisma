@@ -43,18 +43,19 @@ model Company {
   jobs         Jobs[]
   URL          String
   instructions Instructions[]
+  steps        Steps[]
 
   @@map("company")
 }
 
 model Jobs {
   id             Int      @id @default(autoincrement())
-  hybridOrRemote String
-  fullTimeOrNot  String
+  title          String
   location       String
+  remoteOrHybrid String
   datePosted     DateTime @updatedAt
-  jobTitle       String
-  jobDescription String
+  description    String
+  anchorHref     String?
   company        Company  @relation(fields: [companyID], references: [id], onDelete: Cascade)
   companyID      Int
 
@@ -62,21 +63,25 @@ model Jobs {
 }
 
 model Instructions {
-  id                Int     @id @default(autoincrement())
-  careersButton     String?
-  joinUsButton      String?
-  loadMoreButton    String?
-  locationSelect    String?
-  jobCategorySelect String?
-  jobTypingInput    String?
-  submitFormButton  String?
-  scrollToContainer String?
-  nextPageButton    String?
-  jobsContainer     String?
-  company           Company @relation(fields: [companyID], references: [id], onDelete: Cascade)
-  companyID         Int
+  id                     Int      @id @default(autoincrement())
+  extractionInstructions Json
+  company                Company? @relation(fields: [companyID], references: [id], onDelete: Cascade)
+  companyID              Int?
 
   @@map("instructions")
+}
+
+model Steps {
+  id           Int      @id @default(autoincrement())
+  order        Int
+  action       String
+  selector     String
+  selectOption String?
+  url          String?
+  company      Company? @relation(fields: [companyID], references: [id])
+  companyID    Int?
+
+  @@map("steps")
 }
 
 model Session {

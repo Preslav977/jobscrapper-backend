@@ -1,10 +1,20 @@
 export interface JobsInterface {
   id: number;
-  hybridOrRemote: string;
-  fullTimeOrNot: string;
+  title: string;
   location: string;
+  remoteOrHybrid: string;
   datePosted: Date;
-  jobTitle: string;
-  jobDescription: string;
+  description: string;
+  anchorHref: string;
   companyID: number;
 }
+
+export type ScrapedJobsObjectType = {
+  jobs: Array<{
+    title: string | null;
+    location: string | null;
+    remoteOrHybrid: string | null;
+    datePosted: string | null;
+    anchorHref: string | null;
+  }>;
+};

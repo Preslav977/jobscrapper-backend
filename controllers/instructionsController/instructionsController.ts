@@ -7,42 +7,33 @@ import type { InstructionsInterface } from "../../interfaces/InstructionsInterfa
 async function createScrappingInstructions(req: Request, res: Response) {
   const { companyID } = req.params;
 
-  const {
-    careersButton,
-    joinUsButton,
-    loadMoreButton,
-    locationSelect,
-    jobCategorySelect,
-    jobTypingInput,
-    submitFormButton,
-    scrollToContainer,
-    nextPageButton,
-    jobsContainer,
-  }: InstructionsInterface = req.body;
+  if (req.body.length === 0) {
+    res.json({
+      message: "Failed to create instructions for company!",
+    });
+  } else {
+    const instructionsArray: InstructionsInterface = req.body.map(
+      (instruction: InstructionsInterface) => {
+        return {
+          ...instruction,
+          companyID: Number(companyID),
+        };
+      },
+    );
 
-  const createInstructionsForCompany = await prisma.instructions.create({
-    data: {
-      careersButton,
-      joinUsButton,
-      loadMoreButton,
-      locationSelect,
-      jobCategorySelect,
-      jobTypingInput,
-      submitFormButton,
-      scrollToContainer,
-      nextPageButton,
-      jobsContainer,
-      companyID: Number(companyID),
-    },
-  });
+    const createInstructionsForCompany =
+      await prisma.instructions.createManyAndReturn({
+        data: instructionsArray,
+      });
 
-  res.json(createInstructionsForCompany);
+    res.json(createInstructionsForCompany);
+  }
 }
 
 async function getScrappingInstructionsDetails(req: Request, res: Response) {
   const { companyID, id } = req.params;
 
-  const getInstructionsDetails = await prisma.instructions.findFirst({
+  const getInstructionsDetails = await prisma.instructions.findMany({
     include: {
       company: true,
     },
@@ -65,36 +56,17 @@ async function getScrappingInstructionsDetails(req: Request, res: Response) {
 async function updateScrappingInstructionsDetails(req: Request, res: Response) {
   const { companyID, id } = req.params;
 
-  const {
-    careersButton,
-    joinUsButton,
-    loadMoreButton,
-    locationSelect,
-    jobCategorySelect,
-    jobTypingInput,
-    submitFormButton,
-    scrollToContainer,
-    nextPageButton,
-    jobsContainer,
-  }: InstructionsInterface = req.body;
+  const { extractionInstructions }: InstructionsInterface = req.body;
 
-  const updateInstructionsDetails = await prisma.instructions.update({
+  const updateInstructionsDetails = await prisma.instructions.updateMany({
     where: {
       companyID: Number(companyID),
       id: Number(id),
     },
 
     data: {
-      careersButton,
-      joinUsButton,
-      loadMoreButton,
-      locationSelect,
-      jobCategorySelect,
-      jobTypingInput,
-      submitFormButton,
-      scrollToContainer,
-      nextPageButton,
-      jobsContainer,
+      extractionInstructions,
+      companyID: Number(companyID),
     },
   });
 
@@ -104,7 +76,7 @@ async function updateScrappingInstructionsDetails(req: Request, res: Response) {
 async function deleteScrappingInstructionsDetails(req: Request, res: Response) {
   const { companyID, id } = req.params;
 
-  const deleteInstructionsDetails = await prisma.instructions.delete({
+  const deleteInstructionsDetails = await prisma.instructions.deleteMany({
     where: {
       companyID: Number(companyID),
       id: Number(id),
@@ -112,7 +84,7 @@ async function deleteScrappingInstructionsDetails(req: Request, res: Response) {
   });
 
   res.json({
-    message: `Instructions with ID: ${deleteInstructionsDetails.id} has been deleted!`,
+    message: `Instructions with ID: ${deleteInstructionsDetails} has been deleted!`,
   });
 }
 

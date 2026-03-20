@@ -24,9 +24,17 @@ import {
   updateScrappingInstructionsDetails,
 } from "../../controllers/instructionsController/instructionsController.js";
 
+import {
+  createScrappingSteps,
+  getScrappingStepsDetails,
+  updateScrappingStepsDetails,
+} from "../../controllers/stepsController/stepsController.js";
+
 import { validateCreatingCompany } from "../../middlewares/validateCreatingCompany/validateCreatingCompany.js";
 
 const companyRouter = Router();
+
+///CRUD company routes
 
 companyRouter.post(
   "/",
@@ -35,31 +43,6 @@ companyRouter.post(
   createCompany,
 );
 
-companyRouter.post("/:id/jobs", createJobs);
-
-companyRouter.post("/:companyID/instructions", createScrappingInstructions);
-
-companyRouter.put(
-  "/:companyID/instructions/:id",
-  updateScrappingInstructionsDetails,
-);
-
-companyRouter.get(
-  "/:companyID/instructions/:id",
-  getScrappingInstructionsDetails,
-);
-
-companyRouter.delete(
-  "/:companyID/instructions/:id",
-  deleteScrappingInstructionsDetails,
-);
-
-companyRouter.get("/:companyID/job/:id", getJobDetails);
-
-companyRouter.put("/:companyID/job/:id", updateJob);
-
-companyRouter.delete("/:companyID/job/:id", deleteJob);
-
 companyRouter.get("/", getCompanies);
 
 companyRouter.get("/:name", getCompanyByName);
@@ -67,5 +50,44 @@ companyRouter.get("/:name", getCompanyByName);
 companyRouter.put("/:id", upload.single("file"), updateCompany);
 
 companyRouter.delete("/:id", deleteCompany);
+
+///CRUD jobs routes
+
+companyRouter.post("/:id/jobs", createJobs);
+
+companyRouter.get("/:companyID/job/:id", getJobDetails);
+
+companyRouter.put("/:companyID/job/:id", updateJob);
+
+companyRouter.delete("/:companyID/job/:id", deleteJob);
+
+///CRUD instructions routes
+
+companyRouter.post("/:companyID/instructions", createScrappingInstructions);
+
+companyRouter.get(
+  "/:companyID/instructions/:id",
+  getScrappingInstructionsDetails,
+);
+
+companyRouter.put(
+  "/:companyID/instructions/:id",
+  updateScrappingInstructionsDetails,
+);
+
+companyRouter.delete(
+  "/:companyID/instructions/:id",
+  deleteScrappingInstructionsDetails,
+);
+
+///CRUD steps routes
+
+companyRouter.post("/:companyID/steps", createScrappingSteps);
+
+companyRouter.get("/:companyID/steps", getScrappingStepsDetails);
+
+companyRouter.put("/:companyID/steps/:id", updateScrappingStepsDetails);
+
+companyRouter.delete("/:companyID/steps", createScrappingSteps);
 
 export { companyRouter };

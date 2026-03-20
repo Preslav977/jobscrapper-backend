@@ -9,8 +9,6 @@ import { validationResult } from "express-validator";
 import { supabaseImageUpload } from "../../helpers/supabaseImageUpload/supabaseImageUpload.js";
 import type { UserInterface } from "../../interfaces/UserInterface/UserInterface.js";
 
-// import type { BearerTokenInterface } from "../../interfaces/BearerTokenInterface/BearerTokenInterface.js";
-
 async function signUpUser(req: Request, res: Response) {
   const { email, password, confirmPassword }: UserInterface = req.body;
 

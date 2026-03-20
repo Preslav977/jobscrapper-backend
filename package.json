@@ -1,7 +1,7 @@
 {
   "dependencies": {
     "@prisma/adapter-pg": "^7.2.0",
-    "@prisma/client": "^7.3.0",
+    "@prisma/client": "^7.5.0",
     "@quixo3/prisma-session-store": "^3.1.19",
     "@supabase/supabase-js": "^2.90.1",
     "@types/express": "^5.0.6",
@@ -17,7 +17,9 @@
     "passport": "^0.7.0",
     "passport-local": "^1.0.0",
     "pg": "^8.16.3",
-    "puppeteer": "^24.34.0"
+    "puppeteer": "^24.39.1",
+    "puppeteer-extra": "^3.3.6",
+    "puppeteer-extra-plugin-stealth": "^2.11.2"
   },
   "name": "jobscrapper-backend",
   "version": "1.0.0",
@@ -36,15 +38,18 @@
     "globals": "^17.0.0",
     "jest": "^30.2.0",
     "prettier": "3.7.4",
-    "prisma": "^7.3.0",
+    "prisma": "^7.5.0",
     "supertest": "^7.2.2",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.52.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "tsc -w & node --watch app",
-    "prisma-migrate": "npx prisma migrate dev --name init"
+    "start": "tsc -w & node --watch ./dist/app.js",
+    "seed": "tsc -w & node --watch ./dist/seed/companySeed.js",
+    "startScript": "tsc -w & node --watch ./dist/script/runScrapingScript/runScrapingScript.js",
+    "migrate": "npx prisma migrate dev --name init",
+    "generate": "npx prisma generate"
   },
   "repository": {
     "type": "git",

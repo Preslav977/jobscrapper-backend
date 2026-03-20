@@ -22,8 +22,8 @@ async function createCompany(req: Request, res: Response) {
       const createCompany = await prisma.company.create({
         data: {
           name,
-          URL,
           logo,
+          URL,
         },
       });
 
@@ -46,8 +46,11 @@ async function getCompanies(req: Request, res: Response) {
     include: {
       jobs: true,
       instructions: true,
+      steps: true,
     },
   });
+
+  console.log(companiesGet);
 
   if (companiesGet.length === 0) {
     res.json({ message: "No companies has been found!" });
