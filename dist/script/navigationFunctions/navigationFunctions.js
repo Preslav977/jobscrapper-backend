@@ -8,12 +8,11 @@ async function tryClick(page, instruction, maxAttempt) {
         }
         catch (error) {
             if (attempt === maxAttempt) {
-                console.log(`Failed to query and click: ${error}`);
+                console.log(`tryClick, failed to query, and click, reason: ${error}`);
                 return "failure";
             }
         }
     }
-    return "";
 }
 async function tryClickEvaluate(page, instruction, maxAttempt) {
     for (let attempt = 1; attempt <= maxAttempt; attempt++) {
@@ -25,12 +24,11 @@ async function tryClickEvaluate(page, instruction, maxAttempt) {
         }
         catch (error) {
             if (attempt === maxAttempt) {
-                console.log(`Failed to query and click ${error}`);
+                console.log(`tryClickEvaluate, failed to query, and click, reason: ${error}`);
                 return "failure";
             }
         }
     }
-    return "";
 }
 async function tryClickLoadMore(page, instruction) {
     let loadMoreJobs = true;
@@ -53,12 +51,11 @@ async function tryClickLoadMore(page, instruction) {
             }
             else {
                 loadMoreJobs = false;
-                console.log(`Failed to query and click: ${error}`);
+                console.log(`tryClickLoadMore, failed to query, and click, reason: ${error}`);
                 return "failure";
             }
         }
     }
-    return "";
 }
 async function selectOptionFromDropDown(page, selectElement, selectOption, maxAttempt) {
     for (let attempt = 1; attempt <= maxAttempt; attempt++) {
@@ -70,12 +67,11 @@ async function selectOptionFromDropDown(page, selectElement, selectOption, maxAt
         }
         catch (error) {
             if (attempt === maxAttempt) {
-                console.log(`Failed to query and select: ${error}`);
+                console.log(`selectOptionFromDropDown, failed to query, and click, reason: ${error}`);
                 return "failure";
             }
         }
     }
-    return "";
 }
 async function tryEventLocator(page, instruction, event, maxAttempt) {
     for (let attempt = 1; attempt <= maxAttempt; attempt++) {
@@ -95,12 +91,11 @@ async function tryEventLocator(page, instruction, event, maxAttempt) {
         }
         catch (error) {
             if (attempt === maxAttempt) {
-                console.log(`Failed to query and ${event}: ${error}`);
+                console.log(`tryEventLocator, failed to query, and click, reason: ${error} at event: ${event}`);
                 return "failure";
             }
         }
     }
-    return "";
 }
 async function sleepDelay(timeout) {
     return new Promise((resolve) => setTimeout(resolve, Math.floor(Math.random() * timeout)));
