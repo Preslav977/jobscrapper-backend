@@ -38,7 +38,6 @@ async function getCompanies(req, res) {
             steps: true,
         },
     });
-    console.log(companiesGet);
     if (companiesGet.length === 0) {
         res.json({ message: "No companies has been found!" });
     }

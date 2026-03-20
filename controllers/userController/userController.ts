@@ -10,7 +10,7 @@ import { supabaseImageUpload } from "../../helpers/supabaseImageUpload/supabaseI
 import type { UserInterface } from "../../interfaces/UserInterface/UserInterface.js";
 
 async function signUpUser(req: Request, res: Response) {
-  const { email, password, confirmPassword }: UserInterface = req.body;
+  const { email, password }: UserInterface = req.body;
 
   const errors = validationResult(req);
 

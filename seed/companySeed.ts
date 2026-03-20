@@ -20,7 +20,7 @@ import type { CompanyInterface } from "../interfaces/CompanyInterface/CompanyInt
               extractType: "text",
               selector: "span:nth-child(3)",
             },
-            datePosted: null,
+            datePosted: { extractType: "", selector: "" },
             anchorHref: { extractType: "attribute", attr: "href" },
           },
         },

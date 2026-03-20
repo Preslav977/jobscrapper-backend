@@ -1,67 +1,76 @@
 import type { ElementHandle, Page } from "puppeteer";
-import type { ExtractionConfig } from "../../interfaces/InstructionsInterface/InstructionsInterface.js";
-import type { ScrapedJobsObjectType } from "../../interfaces/JobsInterface/JobsInterface.js";
+import type {
+  ExtractionConfig,
+  InstructionsInterface,
+} from "../../interfaces/InstructionsInterface/InstructionsInterface.js";
+import type { ScrapedJobsArrayType } from "../../interfaces/JobsInterface/JobsInterface.js";
+import { sleepDelay } from "../navigationFunctions/navigationFunctions.js";
 
-async function extractJobsText(
-  page: Page,
-  {
+async function extractJobsText(page: Page, instruction: InstructionsInterface) {
+  const {
     container,
     title,
     location,
     remoteOrHybrid,
     datePosted,
     anchorHref,
-  }: ExtractionConfig,
-) {
-  const doesJobContainerExists = (await page.waitForSelector(
-    container.selector!,
-  )) as ElementHandle<HTMLElement>;
+  }: ExtractionConfig = instruction.extractionInstructions;
 
-  if (doesJobContainerExists) {
-    const result = await page.evaluate(
-      (container, title, location, remoteOrHybrid, datePosted, anchorHref) => {
-        function extractField(
-          HTMLElement: Element,
-          elementField: {
-            extractType: string;
-            selector?: string;
-            attr?: string;
-          } | null,
-        ) {
-          if (HTMLElement === null || elementField === null) {
+  try {
+    const doesJobContainerExists = (await page.waitForSelector(
+      container.selector!,
+    )) as ElementHandle<HTMLElement>;
+
+    if (doesJobContainerExists) {
+      const result = await page.evaluate(
+        (
+          container,
+          title,
+          location,
+          remoteOrHybrid,
+          datePosted,
+          anchorHref,
+        ) => {
+          function extractField(
+            HTMLElement: Element,
+            elementField: {
+              extractType: string;
+              selector?: string;
+              attr?: string;
+            },
+          ) {
+            if (
+              elementField.extractType === "" ||
+              elementField.selector === ""
+            ) {
+              return null;
+            }
+
+            if (elementField.extractType === "text") {
+              return HTMLElement.querySelector(elementField.selector!)
+                ?.textContent.trim()
+                .replace("\n", "");
+            }
+
+            if (elementField.extractType === "attribute") {
+              return HTMLElement.getAttribute(elementField.attr!);
+            }
+
+            if (elementField.extractType === "parentElementAttribute") {
+              return HTMLElement.querySelector(
+                elementField.selector!,
+              )?.getAttribute(elementField.attr!);
+            }
+
             return null;
           }
 
-          if (elementField.extractType === "text") {
-            return HTMLElement.querySelector(elementField.selector!)
-              ?.textContent.trim()
-              .replace("\n", "");
-          }
+          const scrapedJobs: ScrapedJobsArrayType[] = [];
 
-          if (elementField.extractType === "attribute") {
-            return HTMLElement.getAttribute(elementField.attr!);
-          }
+          const queryAllJobsContainers = document.querySelectorAll(
+            container.selector!,
+          );
 
-          if (elementField.extractType === "parentElementAttribute") {
-            return HTMLElement.querySelector(
-              elementField.selector!,
-            )?.getAttribute(elementField.attr!);
-          }
-
-          return null;
-        }
-
-        const scrapedJobsObject: ScrapedJobsObjectType = {
-          success: null,
-          jobs: [],
-          err: null,
-        };
-
-        const queryAllJobsContainers = document.querySelectorAll(
-          container.selector!,
-        );
-
-        try {
           queryAllJobsContainers.forEach((queryJobContainer) => {
             const jobTitle = extractField(queryJobContainer, title)!;
 
@@ -76,7 +85,7 @@ async function extractJobsText(
 
             const jobAnchorHref = extractField(queryJobContainer, anchorHref)!;
 
-            const jobsObject = {
+            const jobsArray = {
               title: jobTitle,
               location: jobLocation,
               remoteOrHybrid: jobRemoteOrHybrid,
@@ -84,27 +93,27 @@ async function extractJobsText(
               anchorHref: jobAnchorHref,
             };
 
-            scrapedJobsObject.success = true;
-
-            scrapedJobsObject.jobs.push(jobsObject);
+            scrapedJobs.push(jobsArray);
           });
-          return scrapedJobsObject;
-        } catch (error) {
-          scrapedJobsObject.success = false;
 
-          scrapedJobsObject.err = error;
+          return scrapedJobs;
+        },
+        container,
+        title,
+        location,
+        remoteOrHybrid,
+        datePosted,
+        anchorHref,
+      );
 
-          return scrapedJobsObject;
-        }
-      },
-      container,
-      title,
-      location,
-      remoteOrHybrid,
-      datePosted,
-      anchorHref,
-    );
-    return result;
+      sleepDelay(3000);
+
+      return result;
+    }
+  } catch (error) {
+    console.log(`Failed to scrap, check selectors, reason: ${error}`);
+
+    throw error;
   }
   return;
 }
@@ -114,7 +123,7 @@ async function extractJobsJSON(attribute: string) {
 
   const getElementAttribute = queryElementByAttribute!.getAttribute(attribute)!;
 
-  const parseAttributeToJSON: ScrapedJobsObjectType =
+  const parseAttributeToJSON: ScrapedJobsArrayType =
     JSON.parse(getElementAttribute);
 
   return parseAttributeToJSON;
@@ -131,7 +140,7 @@ async function extractJobsFetchURL(url: string) {
         `Failed to fetch jobs, reason: ${fetchJobsByURL.statusText}`,
       );
     }
-    const getJobs: ScrapedJobsObjectType = await fetchJobsByURL.json();
+    const getJobs: ScrapedJobsArrayType = await fetchJobsByURL.json();
 
     return getJobs;
   } catch (error) {

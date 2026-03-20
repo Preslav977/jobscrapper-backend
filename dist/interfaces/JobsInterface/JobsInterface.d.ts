@@ -8,15 +8,11 @@ export interface JobsInterface {
     anchorHref: string;
     companyID: number;
 }
-export type ScrapedJobsObjectType = {
-    success: true | false | null;
-    jobs: Array<{
-        title: string | null;
-        location: string | null;
-        remoteOrHybrid: string | null;
-        datePosted: string | null;
-        anchorHref: string | null;
-    }>;
-    err: string | null | unknown;
+export type ScrapedJobsArrayType = {
+    title: string | null;
+    location: string | null;
+    remoteOrHybrid: string | null;
+    datePosted: string | null;
+    anchorHref: string | null;
 };
 //# sourceMappingURL=JobsInterface.d.ts.map

@@ -1,56 +1,54 @@
-async function extractJobsText(page, { container, title, location, remoteOrHybrid, datePosted, anchorHref, }) {
-    const doesJobContainerExists = (await page.waitForSelector(container.selector));
-    if (doesJobContainerExists) {
-        const result = await page.evaluate((container, title, location, remoteOrHybrid, datePosted, anchorHref) => {
-            function extractField(HTMLElement, elementField) {
-                if (HTMLElement === null || elementField === null) {
+import { sleepDelay } from "../navigationFunctions/navigationFunctions.js";
+async function extractJobsText(page, instruction) {
+    const { container, title, location, remoteOrHybrid, datePosted, anchorHref, } = instruction.extractionInstructions;
+    try {
+        const doesJobContainerExists = (await page.waitForSelector(container.selector));
+        if (doesJobContainerExists) {
+            const result = await page.evaluate((container, title, location, remoteOrHybrid, datePosted, anchorHref) => {
+                function extractField(HTMLElement, elementField) {
+                    if (elementField.extractType === "" ||
+                        elementField.selector === "") {
+                        return null;
+                    }
+                    if (elementField.extractType === "text") {
+                        return HTMLElement.querySelector(elementField.selector)
+                            ?.textContent.trim()
+                            .replace("\n", "");
+                    }
+                    if (elementField.extractType === "attribute") {
+                        return HTMLElement.getAttribute(elementField.attr);
+                    }
+                    if (elementField.extractType === "parentElementAttribute") {
+                        return HTMLElement.querySelector(elementField.selector)?.getAttribute(elementField.attr);
+                    }
                     return null;
                 }
-                if (elementField.extractType === "text") {
-                    return HTMLElement.querySelector(elementField.selector)
-                        ?.textContent.trim()
-                        .replace("\n", "");
-                }
-                if (elementField.extractType === "attribute") {
-                    return HTMLElement.getAttribute(elementField.attr);
-                }
-                if (elementField.extractType === "parentElementAttribute") {
-                    return HTMLElement.querySelector(elementField.selector)?.getAttribute(elementField.attr);
-                }
-                return null;
-            }
-            const scrapedJobsObject = {
-                success: null,
-                jobs: [],
-                err: null,
-            };
-            const queryAllJobsContainers = document.querySelectorAll(container.selector);
-            try {
+                const scrapedJobs = [];
+                const queryAllJobsContainers = document.querySelectorAll(container.selector);
                 queryAllJobsContainers.forEach((queryJobContainer) => {
                     const jobTitle = extractField(queryJobContainer, title);
                     const jobLocation = extractField(queryJobContainer, location);
                     const jobRemoteOrHybrid = extractField(queryJobContainer, remoteOrHybrid);
                     const jobDatePosted = extractField(queryJobContainer, datePosted);
                     const jobAnchorHref = extractField(queryJobContainer, anchorHref);
-                    const jobsObject = {
+                    const jobsArray = {
                         title: jobTitle,
                         location: jobLocation,
                         remoteOrHybrid: jobRemoteOrHybrid,
                         datePosted: jobDatePosted,
                         anchorHref: jobAnchorHref,
                     };
-                    scrapedJobsObject.success = true;
-                    scrapedJobsObject.jobs.push(jobsObject);
+                    scrapedJobs.push(jobsArray);
                 });
-                return scrapedJobsObject;
-            }
-            catch (error) {
-                scrapedJobsObject.success = false;
-                scrapedJobsObject.err = error;
-                return scrapedJobsObject;
-            }
-        }, container, title, location, remoteOrHybrid, datePosted, anchorHref);
-        return result;
+                return scrapedJobs;
+            }, container, title, location, remoteOrHybrid, datePosted, anchorHref);
+            sleepDelay(3000);
+            return result;
+        }
+    }
+    catch (error) {
+        console.log(`Failed to scrap, check selectors, reason: ${error}`);
+        throw error;
     }
     return;
 }

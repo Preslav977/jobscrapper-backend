@@ -44,7 +44,7 @@ async function getScrappingInstructionsDetails(req: Request, res: Response) {
     },
   });
 
-  if (getInstructionsDetails === null) {
+  if (getInstructionsDetails.length === 0) {
     res.json({
       message: "No instructions has been found with that ID for that company!",
     });

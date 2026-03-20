@@ -68,9 +68,9 @@ export async function scrapingJobSitesFunction(companySite) {
     }
     finally {
         for (const navigationResult of navigationResults) {
-            if (navigationResult.status === "success" || steps.length === 0) {
+            if (navigationResult.status === "success") {
                 for (const instruction of instructions) {
-                    const jobScrapingResult = await extractJobsText(page, instruction.extractionInstructions);
+                    const jobScrapingResult = await extractJobsText(page, instruction);
                     navigationResults = [];
                     await browser.close();
                     // return jobScrapingResult;
