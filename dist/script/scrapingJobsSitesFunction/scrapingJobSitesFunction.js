@@ -85,6 +85,6 @@ export async function scrapingJobSitesFunction(companySite) {
         navigationResults = [];
         await browser.close();
     }
-    return;
+    return navigationResults;
 }
 //# sourceMappingURL=scrapingJobSitesFunction.js.map

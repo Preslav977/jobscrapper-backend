@@ -6,7 +6,10 @@ import type {
 import type { ScrapedJobsArrayType } from "../../interfaces/JobsInterface/JobsInterface.js";
 import { sleepDelay } from "../navigationFunctions/navigationFunctions.js";
 
-async function extractJobsText(page: Page, instruction: InstructionsInterface) {
+async function extractJobsText(
+  page: Page,
+  instruction: InstructionsInterface,
+): Promise<ScrapedJobsArrayType[]> {
   const {
     container,
     title,
@@ -16,6 +19,8 @@ async function extractJobsText(page: Page, instruction: InstructionsInterface) {
     anchorHref,
   }: ExtractionConfig = instruction.extractionInstructions;
 
+  const scrapedJobs: ScrapedJobsArrayType[] = [];
+
   try {
     const doesJobContainerExists = (await page.waitForSelector(
       container.selector!,
@@ -24,6 +29,7 @@ async function extractJobsText(page: Page, instruction: InstructionsInterface) {
     if (doesJobContainerExists) {
       const result = await page.evaluate(
         (
+          scrapedJobs,
           container,
           title,
           location,
@@ -65,8 +71,6 @@ async function extractJobsText(page: Page, instruction: InstructionsInterface) {
             return null;
           }
 
-          const scrapedJobs: ScrapedJobsArrayType[] = [];
-
           const queryAllJobsContainers = document.querySelectorAll(
             container.selector!,
           );
@@ -98,6 +102,7 @@ async function extractJobsText(page: Page, instruction: InstructionsInterface) {
 
           return scrapedJobs;
         },
+        scrapedJobs,
         container,
         title,
         location,
@@ -115,7 +120,8 @@ async function extractJobsText(page: Page, instruction: InstructionsInterface) {
 
     throw error;
   }
-  return;
+
+  return scrapedJobs;
 }
 
 async function extractJobsJSON(attribute: string) {

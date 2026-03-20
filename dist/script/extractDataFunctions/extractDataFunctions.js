@@ -1,10 +1,11 @@
 import { sleepDelay } from "../navigationFunctions/navigationFunctions.js";
 async function extractJobsText(page, instruction) {
     const { container, title, location, remoteOrHybrid, datePosted, anchorHref, } = instruction.extractionInstructions;
+    const scrapedJobs = [];
     try {
         const doesJobContainerExists = (await page.waitForSelector(container.selector));
         if (doesJobContainerExists) {
-            const result = await page.evaluate((container, title, location, remoteOrHybrid, datePosted, anchorHref) => {
+            const result = await page.evaluate((scrapedJobs, container, title, location, remoteOrHybrid, datePosted, anchorHref) => {
                 function extractField(HTMLElement, elementField) {
                     if (elementField.extractType === "" ||
                         elementField.selector === "") {
@@ -23,7 +24,6 @@ async function extractJobsText(page, instruction) {
                     }
                     return null;
                 }
-                const scrapedJobs = [];
                 const queryAllJobsContainers = document.querySelectorAll(container.selector);
                 queryAllJobsContainers.forEach((queryJobContainer) => {
                     const jobTitle = extractField(queryJobContainer, title);
@@ -41,7 +41,7 @@ async function extractJobsText(page, instruction) {
                     scrapedJobs.push(jobsArray);
                 });
                 return scrapedJobs;
-            }, container, title, location, remoteOrHybrid, datePosted, anchorHref);
+            }, scrapedJobs, container, title, location, remoteOrHybrid, datePosted, anchorHref);
             sleepDelay(3000);
             return result;
         }
@@ -50,7 +50,7 @@ async function extractJobsText(page, instruction) {
         console.log(`Failed to scrap, check selectors, reason: ${error}`);
         throw error;
     }
-    return;
+    return scrapedJobs;
 }
 async function extractJobsJSON(attribute) {
     const queryElementByAttribute = document.querySelector(`${[attribute]}`);

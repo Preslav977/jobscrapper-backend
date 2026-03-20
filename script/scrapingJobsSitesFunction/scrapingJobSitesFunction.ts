@@ -16,10 +16,14 @@ import {
 } from "../navigationFunctions/navigationFunctions.js";
 
 import { Page } from "puppeteer";
+import type { ScrapedJobsArrayType } from "../../interfaces/JobsInterface/JobsInterface.js";
+import type { UtilityInterface } from "../../interfaces/UtilityInterface/UtilityInterface.js";
 
 puppeteer.default.use(StealthPlugin());
 
-export async function scrapingJobSitesFunction(companySite: CompanyInterface) {
+export async function scrapingJobSitesFunction(
+  companySite: CompanyInterface,
+): Promise<ScrapedJobsArrayType[] | UtilityInterface[]> {
   const { URL, instructions, steps } = companySite;
 
   const browser = await puppeteer.default.launch({
@@ -43,7 +47,7 @@ export async function scrapingJobSitesFunction(companySite: CompanyInterface) {
     window.scrollTo(0, document.body.scrollHeight);
   });
 
-  let navigationResults = [];
+  let navigationResults: UtilityInterface[] = [];
 
   try {
     for (const step of steps) {
@@ -136,5 +140,6 @@ export async function scrapingJobSitesFunction(companySite: CompanyInterface) {
 
     await browser.close();
   }
-  return;
+
+  return navigationResults;
 }
