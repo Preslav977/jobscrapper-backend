@@ -39,7 +39,7 @@ export async function scrapingJobSitesFunction(companySite: CompanyInterface) {
 
   await sleepDelay(2500);
 
-  await page!.evaluate(() => {
+  await page.evaluate(() => {
     window.scrollTo(0, document.body.scrollHeight);
   });
 
@@ -49,7 +49,7 @@ export async function scrapingJobSitesFunction(companySite: CompanyInterface) {
     for (const step of steps) {
       switch (step.action) {
         case "click": {
-          const tryClickResult = await tryClick(page, step.selector, 3);
+          const tryClickResult = await tryClick(page, step.selector, 5);
 
           navigationResults.push({
             step: step.selector,
@@ -63,7 +63,7 @@ export async function scrapingJobSitesFunction(companySite: CompanyInterface) {
           const tryClickEvaluateResult = await tryClickEvaluate(
             page,
             step.selector,
-            3,
+            5,
           );
 
           navigationResults.push({
@@ -93,7 +93,7 @@ export async function scrapingJobSitesFunction(companySite: CompanyInterface) {
             page,
             step.selector,
             step.selectOption!,
-            3,
+            5,
           );
 
           navigationResults.push({
@@ -109,26 +109,32 @@ export async function scrapingJobSitesFunction(companySite: CompanyInterface) {
         }
       }
     }
-  } catch (error) {
-    console.log(`Navigation script failed, reason: ${error}`);
-  } finally {
+
     for (const navigationResult of navigationResults) {
       if (navigationResult.status === "success") {
         for (const instruction of instructions) {
           const jobScrapingResult = await extractJobsText(page, instruction);
 
-          navigationResults = [];
+          if (jobScrapingResult) {
+            await sleepDelay(5000);
 
-          await browser.close();
-
-          // return jobScrapingResult;
+            return jobScrapingResult;
+          }
         }
-      } else {
-        navigationResults = [];
-
-        await browser.close();
       }
     }
+  } catch (error) {
+    console.log(`Navigation script failed, reason: ${error}`);
+
+    if (error) {
+      navigationResults = [];
+
+      await browser.close();
+    }
+  } finally {
+    navigationResults = [];
+
+    await browser.close();
   }
-  return navigationResults;
+  return;
 }

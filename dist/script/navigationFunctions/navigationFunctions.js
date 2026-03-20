@@ -1,4 +1,3 @@
-import console from "node:console";
 async function tryClick(page, instruction, maxAttempt) {
     for (let attempt = 1; attempt <= maxAttempt; attempt++) {
         try {

@@ -1,4 +1,3 @@
-import console from "node:console";
 import type { ElementHandle, Page } from "puppeteer";
 
 async function tryClick(

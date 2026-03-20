@@ -26,7 +26,7 @@ export async function scrapingJobSitesFunction(companySite) {
         for (const step of steps) {
             switch (step.action) {
                 case "click": {
-                    const tryClickResult = await tryClick(page, step.selector, 3);
+                    const tryClickResult = await tryClick(page, step.selector, 5);
                     navigationResults.push({
                         step: step.selector,
                         status: tryClickResult,
@@ -34,7 +34,7 @@ export async function scrapingJobSitesFunction(companySite) {
                     break;
                 }
                 case "clickEvaluate": {
-                    const tryClickEvaluateResult = await tryClickEvaluate(page, step.selector, 3);
+                    const tryClickEvaluateResult = await tryClickEvaluate(page, step.selector, 5);
                     navigationResults.push({
                         step: step.selector,
                         status: tryClickEvaluateResult,
@@ -50,7 +50,7 @@ export async function scrapingJobSitesFunction(companySite) {
                     break;
                 }
                 case "select": {
-                    const selectOptionFromDropDownResult = await selectOptionFromDropDown(page, step.selector, step.selectOption, 3);
+                    const selectOptionFromDropDownResult = await selectOptionFromDropDown(page, step.selector, step.selectOption, 5);
                     navigationResults.push({
                         step: step.selector,
                         status: selectOptionFromDropDownResult,
@@ -62,26 +62,29 @@ export async function scrapingJobSitesFunction(companySite) {
                 }
             }
         }
-    }
-    catch (error) {
-        console.log(`Navigation script failed, reason: ${error}`);
-    }
-    finally {
         for (const navigationResult of navigationResults) {
             if (navigationResult.status === "success") {
                 for (const instruction of instructions) {
                     const jobScrapingResult = await extractJobsText(page, instruction);
-                    navigationResults = [];
-                    await browser.close();
-                    // return jobScrapingResult;
+                    if (jobScrapingResult) {
+                        await sleepDelay(5000);
+                        return jobScrapingResult;
+                    }
                 }
-            }
-            else {
-                navigationResults = [];
-                await browser.close();
             }
         }
     }
-    return navigationResults;
+    catch (error) {
+        console.log(`Navigation script failed, reason: ${error}`);
+        if (error) {
+            navigationResults = [];
+            await browser.close();
+        }
+    }
+    finally {
+        navigationResults = [];
+        await browser.close();
+    }
+    return;
 }
 //# sourceMappingURL=scrapingJobSitesFunction.js.map
