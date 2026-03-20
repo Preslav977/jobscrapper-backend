@@ -10,7 +10,6 @@ export interface JobsInterface {
 }
 
 export type ScrapedJobsObjectType = {
-  success: true | false | null;
   jobs: Array<{
     title: string | null;
     location: string | null;
@@ -18,5 +17,4 @@ export type ScrapedJobsObjectType = {
     datePosted: string | null;
     anchorHref: string | null;
   }>;
-  err: string | null | unknown;
 };

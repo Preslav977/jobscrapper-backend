@@ -73,8 +73,7 @@ export async function scrapingJobSitesFunction(companySite) {
                     const jobScrapingResult = await extractJobsText(page, instruction.extractionInstructions);
                     navigationResults = [];
                     await browser.close();
-                    // eslint-disable-next-line no-unsafe-finally
-                    return jobScrapingResult;
+                    // return jobScrapingResult;
                 }
             }
             else {

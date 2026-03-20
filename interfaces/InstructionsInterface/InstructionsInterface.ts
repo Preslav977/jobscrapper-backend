@@ -1,14 +1,14 @@
 export type ExtractionConfig = {
   container: { extractType: string; selector?: string; attr?: string };
-  title: { extractType: string; selector?: string; attr?: string } | null;
-  location: { extractType: string; selector?: string; attr?: string } | null;
+  title: { extractType: string; selector?: string; attr?: string };
+  location: { extractType: string; selector?: string; attr?: string };
   remoteOrHybrid: {
     extractType: string;
     selector?: string;
     attr?: string;
-  } | null;
-  datePosted: { extractType: string; selector?: string; attr?: string } | null;
-  anchorHref: { extractType: string; selector?: string; attr?: string } | null;
+  };
+  datePosted: { extractType: string; selector?: string; attr?: string };
+  anchorHref: { extractType: string; selector?: string; attr?: string };
 };
 
 export interface InstructionsInterface {

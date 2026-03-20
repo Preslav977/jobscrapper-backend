@@ -113,7 +113,7 @@ export async function scrapingJobSitesFunction(companySite: CompanyInterface) {
     console.log(`Navigation script failed, reason: ${error}`);
   } finally {
     for (const navigationResult of navigationResults) {
-      if (navigationResult.status === "success" || steps.length === 0) {
+      if (navigationResult.status === "success") {
         for (const instruction of instructions) {
           const jobScrapingResult = await extractJobsText(
             page,
@@ -124,8 +124,7 @@ export async function scrapingJobSitesFunction(companySite: CompanyInterface) {
 
           await browser.close();
 
-          // eslint-disable-next-line no-unsafe-finally
-          return jobScrapingResult;
+          // return jobScrapingResult;
         }
       } else {
         navigationResults = [];
