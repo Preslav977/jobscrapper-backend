@@ -40,19 +40,19 @@ async function getScrappingInstructionsDetails(req, res) {
     }
 }
 async function updateScrappingInstructionsDetails(req, res) {
-    const { companyID, id } = req.params;
-    const { extractionInstructions } = req.body;
-    const updateInstructionsDetails = await prisma.instructions.updateMany({
-        where: {
-            companyID: Number(companyID),
-            id: Number(id),
-        },
-        data: {
-            extractionInstructions,
-            companyID: Number(companyID),
-        },
-    });
-    res.json(updateInstructionsDetails);
+    // const { companyID, id } = req.params;
+    // const { extractionInstructions }: InstructionsUpdateInput = req.body
+    // const updateInstructionsDetails = await prisma.instructions.update({
+    //   where: {
+    //     companyID: Number(companyID),
+    //     id: Number(id),
+    //   },
+    //   data: {
+    //     extractionInstructions,
+    //     companyID: Number(companyID),
+    //   },
+    // });
+    // res.json(updateInstructionsDetails);
 }
 async function deleteScrappingInstructionsDetails(req, res) {
     const { companyID, id } = req.params;

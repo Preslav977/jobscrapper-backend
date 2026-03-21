@@ -320,7 +320,6 @@ import { prisma } from "../db/client.js";
                     action: "select",
                     selector: "[name='countries']",
                     selectOption: "sofia",
-                    selectOption: null,
                     url: null,
                 },
             ],

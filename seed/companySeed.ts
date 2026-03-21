@@ -323,7 +323,6 @@ import type { CompanyWithSelectedFieldsType } from "../interfaces/CompanyInterfa
           action: "select",
           selector: "[name='countries']",
           selectOption: "sofia",
-          selectOption: null,
           url: null,
         },
       ],
