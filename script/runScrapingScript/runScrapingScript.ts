@@ -1,0 +1,26 @@
+import { prisma } from "../../db/client.js";
+import { scrapingJobSitesFunction } from "../scrapingJobsSitesFunction/scrapingJobSitesFunction.js";
+
+(async () => {
+  try {
+    const getCompanies = await prisma.company.findMany({
+      include: {
+        jobs: true,
+        instructions: true,
+        steps: true,
+      },
+    });
+
+    for (const company of getCompanies) {
+      const result = await scrapingJobSitesFunction(company);
+
+      if (Array.isArray(result)) {
+        await prisma.jobs.createManyAndReturn({
+          data: result,
+        });
+      }
+    }
+  } catch (error) {
+    console.log(error);
+  }
+})();

@@ -15,17 +15,17 @@ import {
 } from "../navigationFunctions/navigationFunctions.js";
 
 import { Page } from "puppeteer";
-import type { ScrapedJobsArrayType } from "../../interfaces/JobsInterface/JobsInterface.js";
 import type { UtilityInterface } from "../../interfaces/UtilityInterface/UtilityInterface.js";
 
+import type { JobsCreateManyInput } from "../../generated/prisma/models.js";
 import type { CompanyWithRelationsType } from "../../interfaces/CompanyInterface/CompanyInterface.js";
 
 puppeteer.default.use(StealthPlugin());
 
 export async function scrapingJobSitesFunction(
   companySite: CompanyWithRelationsType,
-): Promise<ScrapedJobsArrayType[] | UtilityInterface[]> {
-  const { URL, instructions, steps } = companySite;
+): Promise<JobsCreateManyInput[] | []> {
+  const { URL, instructions, steps, jobs } = companySite;
 
   const browser = await puppeteer.default.launch({
     headless: false,
@@ -118,12 +118,21 @@ export async function scrapingJobSitesFunction(
     for (const navigationResult of navigationResults) {
       if (navigationResult.status === "success") {
         for (const instruction of instructions) {
-          const jobScrapingResult = await extractJobsText(page, instruction);
+          for (const job of jobs) {
+            const { description, companyID } = job;
 
-          if (jobScrapingResult) {
-            await sleepDelay(5000);
+            const jobScrapingResult = await extractJobsText(
+              page,
+              instruction,
+              description,
+              companyID,
+            );
 
-            return jobScrapingResult;
+            if (jobScrapingResult) {
+              await sleepDelay(5000);
+
+              return jobScrapingResult;
+            }
           }
         }
       }
@@ -142,5 +151,5 @@ export async function scrapingJobSitesFunction(
     await browser.close();
   }
 
-  return navigationResults;
+  return [];
 }

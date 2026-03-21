@@ -1,5 +1,6 @@
 import type { ElementHandle, Page } from "puppeteer";
 import type { Instructions } from "../../generated/prisma/client.js";
+import type { JobsCreateManyInput } from "../../generated/prisma/models.js";
 import type { ExtractionConfig } from "../../interfaces/InstructionsInterface/InstructionsInterface.js";
 import type { ScrapedJobsArrayType } from "../../interfaces/JobsInterface/JobsInterface.js";
 import { sleepDelay } from "../navigationFunctions/navigationFunctions.js";
@@ -7,11 +8,13 @@ import { sleepDelay } from "../navigationFunctions/navigationFunctions.js";
 async function extractJobsText(
   page: Page,
   instruction: Instructions,
-): Promise<ScrapedJobsArrayType[]> {
+  description: string,
+  companyID: number,
+): Promise<JobsCreateManyInput[]> {
   const { container, title, location, remoteOrHybrid, datePosted, anchorHref } =
     instruction.extractionInstructions as ExtractionConfig;
 
-  const scrapedJobs: ScrapedJobsArrayType[] = [];
+  const scrapedJobs: JobsCreateManyInput[] = [];
 
   try {
     const doesJobContainerExists = (await page.waitForSelector(
@@ -28,6 +31,8 @@ async function extractJobsText(
           remoteOrHybrid,
           datePosted,
           anchorHref,
+          description,
+          companyID,
         ) => {
           function extractField(
             HTMLElement: Element,
@@ -87,6 +92,8 @@ async function extractJobsText(
               remoteOrHybrid: jobRemoteOrHybrid,
               datePosted: jobDatePosted,
               anchorHref: jobAnchorHref,
+              description: "",
+              companyID: companyID,
             };
 
             scrapedJobs.push(jobsArray);
@@ -101,6 +108,8 @@ async function extractJobsText(
         remoteOrHybrid,
         datePosted,
         anchorHref,
+        description,
+        companyID,
       );
 
       sleepDelay(3000);

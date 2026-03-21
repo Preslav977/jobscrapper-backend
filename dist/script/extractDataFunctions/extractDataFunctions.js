@@ -1,11 +1,11 @@
 import { sleepDelay } from "../navigationFunctions/navigationFunctions.js";
-async function extractJobsText(page, instruction) {
+async function extractJobsText(page, instruction, description, companyID) {
     const { container, title, location, remoteOrHybrid, datePosted, anchorHref } = instruction.extractionInstructions;
     const scrapedJobs = [];
     try {
         const doesJobContainerExists = (await page.waitForSelector(container.selector));
         if (doesJobContainerExists) {
-            const result = await page.evaluate((scrapedJobs, container, title, location, remoteOrHybrid, datePosted, anchorHref) => {
+            const result = await page.evaluate((scrapedJobs, container, title, location, remoteOrHybrid, datePosted, anchorHref, description, companyID) => {
                 function extractField(HTMLElement, elementField) {
                     if (elementField.extractType === "" ||
                         elementField.selector === "") {
@@ -37,11 +37,13 @@ async function extractJobsText(page, instruction) {
                         remoteOrHybrid: jobRemoteOrHybrid,
                         datePosted: jobDatePosted,
                         anchorHref: jobAnchorHref,
+                        description: "",
+                        companyID: companyID,
                     };
                     scrapedJobs.push(jobsArray);
                 });
                 return scrapedJobs;
-            }, scrapedJobs, container, title, location, remoteOrHybrid, datePosted, anchorHref);
+            }, scrapedJobs, container, title, location, remoteOrHybrid, datePosted, anchorHref, description, companyID);
             sleepDelay(3000);
             return result;
         }

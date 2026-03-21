@@ -425,10 +425,10 @@ import type { CompanyWithSelectedFieldsType } from "../interfaces/CompanyInterfa
             name,
             URL,
             instructions: {
-              create: instructions!,
+              create: instructions,
             },
             steps: {
-              create: steps!,
+              create: steps,
             },
           },
         });

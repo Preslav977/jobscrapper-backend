@@ -15,6 +15,7 @@ export type CompanyWithRelationsType = Prisma.CompanyGetPayload<{
     include: {
         instructions: true;
         steps: true;
+        jobs: true;
     };
 }>;
 export type CompanyWithSelectedFieldsType = Prisma.CompanyGetPayload<{
