@@ -1,6 +1,5 @@
 import puppeteer from "puppeteer-extra";
 import StealthPlugin from "puppeteer-extra-plugin-stealth";
-import type { CompanyRelationInterface } from "../../interfaces/CompanyInterface/CompanyInterface.js";
 import { extractJobsText } from "../extractDataFunctions/extractDataFunctions.js";
 import {
   getRandomTimezone,
@@ -19,10 +18,12 @@ import { Page } from "puppeteer";
 import type { ScrapedJobsArrayType } from "../../interfaces/JobsInterface/JobsInterface.js";
 import type { UtilityInterface } from "../../interfaces/UtilityInterface/UtilityInterface.js";
 
+import type { CompanyWithRelationsType } from "../../interfaces/CompanyInterface/CompanyInterface.js";
+
 puppeteer.default.use(StealthPlugin());
 
 export async function scrapingJobSitesFunction(
-  companySite: CompanyRelationInterface,
+  companySite: CompanyWithRelationsType,
 ): Promise<ScrapedJobsArrayType[] | UtilityInterface[]> {
   const { URL, instructions, steps } = companySite;
 
