@@ -3,7 +3,10 @@ import { prisma } from "../../db/client.js";
 import type { Request, Response } from "express";
 
 import type { Instructions } from "../../generated/prisma/client.js";
-import type { InstructionsCreateInput } from "../../generated/prisma/models.js";
+import type {
+  InstructionsCreateInput,
+  InstructionsUpdateInput,
+} from "../../generated/prisma/models.js";
 
 async function createScrappingInstructions(req: Request, res: Response) {
   const { companyID } = req.params;
@@ -55,19 +58,25 @@ async function getScrappingInstructionsDetails(req: Request, res: Response) {
 }
 
 async function updateScrappingInstructionsDetails(req: Request, res: Response) {
-  // const { companyID, id } = req.params;
-  // const { extractionInstructions }: InstructionsUpdateInput = req.body
-  // const updateInstructionsDetails = await prisma.instructions.update({
-  //   where: {
-  //     companyID: Number(companyID),
-  //     id: Number(id),
-  //   },
-  //   data: {
-  //     extractionInstructions,
-  //     companyID: Number(companyID),
-  //   },
-  // });
-  // res.json(updateInstructionsDetails);
+  const { companyID, id } = req.params;
+
+  const { extractionInstructions }: InstructionsUpdateInput = req.body;
+
+  if (extractionInstructions) {
+    const updateInstructionsDetails = await prisma.instructions.updateMany({
+      where: {
+        companyID: Number(companyID),
+        id: Number(id),
+      },
+
+      data: {
+        extractionInstructions,
+        companyID: Number(companyID),
+      },
+    });
+
+    res.json(updateInstructionsDetails);
+  }
 }
 
 async function deleteScrappingInstructionsDetails(req: Request, res: Response) {
