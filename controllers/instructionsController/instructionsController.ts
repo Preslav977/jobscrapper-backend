@@ -2,7 +2,8 @@ import { prisma } from "../../db/client.js";
 
 import type { Request, Response } from "express";
 
-import type { InstructionsInterface } from "../../interfaces/InstructionsInterface/InstructionsInterface.js";
+import type { Instructions } from "../../generated/prisma/client.js";
+import type { InstructionsCreateInput } from "../../generated/prisma/models.js";
 
 async function createScrappingInstructions(req: Request, res: Response) {
   const { companyID } = req.params;
@@ -12,8 +13,8 @@ async function createScrappingInstructions(req: Request, res: Response) {
       message: "Failed to create instructions for company!",
     });
   } else {
-    const instructionsArray: InstructionsInterface = req.body.map(
-      (instruction: InstructionsInterface) => {
+    const instructionsArray: InstructionsCreateInput = req.body.map(
+      (instruction: Instructions) => {
         return {
           ...instruction,
           companyID: Number(companyID),
@@ -56,7 +57,7 @@ async function getScrappingInstructionsDetails(req: Request, res: Response) {
 async function updateScrappingInstructionsDetails(req: Request, res: Response) {
   const { companyID, id } = req.params;
 
-  const { extractionInstructions }: InstructionsInterface = req.body;
+  const { extractionInstructions }: InstructionsCreateInput = req.body;
 
   const updateInstructionsDetails = await prisma.instructions.updateMany({
     where: {
