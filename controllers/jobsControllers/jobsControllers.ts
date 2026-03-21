@@ -1,6 +1,6 @@
 import type { Request, Response } from "express";
 import { prisma } from "../../db/client.js";
-import type { JobsInterface } from "../../interfaces/JobsInterface/JobsInterface.js";
+import type { Jobs } from "../../generated/prisma/client.js";
 
 async function createJobs(req: Request, res: Response) {
   const { id } = req.params;
@@ -8,7 +8,7 @@ async function createJobs(req: Request, res: Response) {
   if (req.body.length === 0) {
     res.json({ message: "No jobs has been created. Scrapping failed!" });
   } else {
-    const jobsArray: JobsInterface = req.body.map((job: JobsInterface) => {
+    const jobsArray: Jobs = req.body.map((job: Jobs) => {
       return {
         ...job,
         companyID: Number(id),
@@ -55,7 +55,7 @@ async function updateJob(req: Request, res: Response) {
     datePosted,
     description,
     anchorHref,
-  }: JobsInterface = req.body;
+  }: Jobs = req.body;
 
   const updateJobDetails = await prisma.jobs.update({
     include: {

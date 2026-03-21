@@ -2,7 +2,7 @@ import { prisma } from "../../db/client.js";
 
 import type { Request, Response } from "express";
 
-import type { StepsInterface } from "../../interfaces/StepsInterface/StepsInterface.js";
+import type { Steps } from "../../generated/prisma/client.js";
 
 async function createScrappingSteps(req: Request, res: Response) {
   const { companyID } = req.params;
@@ -12,7 +12,7 @@ async function createScrappingSteps(req: Request, res: Response) {
       message: "Failed to create scraping steps for company!",
     });
   } else {
-    const stepsArray: StepsInterface = req.body.map((step: StepsInterface) => {
+    const stepsArray: Steps = req.body.map((step: Steps) => {
       return {
         ...step,
         companyID: Number(companyID),
@@ -49,7 +49,7 @@ async function getScrappingStepsDetails(req: Request, res: Response) {
 async function updateScrappingStepsDetails(req: Request, res: Response) {
   const { companyID, id } = req.params;
 
-  const { order, action, selector }: StepsInterface = req.body;
+  const { order, action, selector }: Steps = req.body;
 
   const updateStepsDetails = await prisma.steps.updateMany({
     where: {

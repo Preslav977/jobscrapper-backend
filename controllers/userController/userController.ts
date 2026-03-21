@@ -6,11 +6,11 @@ import jwt from "jsonwebtoken";
 
 import bcrypt from "bcryptjs";
 import { validationResult } from "express-validator";
+import type { User } from "../../generated/prisma/client.js";
 import { supabaseImageUpload } from "../../helpers/supabaseImageUpload/supabaseImageUpload.js";
-import type { UserInterface } from "../../interfaces/UserInterface/UserInterface.js";
 
 async function signUpUser(req: Request, res: Response) {
-  const { email, password }: UserInterface = req.body;
+  const { email, password }: User = req.body;
 
   const errors = validationResult(req);
 
@@ -38,7 +38,7 @@ async function signUpUser(req: Request, res: Response) {
 }
 
 async function userLogin(req: Request, res: Response) {
-  const { id } = req.user as UserInterface;
+  const { id } = req.user as User;
 
   jwt.sign(
     { id },
@@ -84,7 +84,7 @@ async function userUpdateDetails(req: Request, res: Response) {
     linkedInURL,
     githubURL,
     portfolioURL,
-  }: UserInterface = req.body;
+  }: User = req.body;
 
   if (req.file) {
     const logo = await supabaseImageUpload(req.file);
