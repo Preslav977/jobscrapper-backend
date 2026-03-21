@@ -1,4 +1,5 @@
-import type { Instructions, Steps } from "../../generated/prisma/client.js";
+import type { InstructionsInterface } from "../InstructionsInterface/InstructionsInterface.js";
+import type { StepsInterface } from "../StepsInterface/StepsInterface.js";
 
 export interface CompanyInterface {
   id?: number;
@@ -8,6 +9,6 @@ export interface CompanyInterface {
 }
 
 export interface CompanyRelationInterface extends CompanyInterface {
-  instructions: Instructions[];
-  steps: Steps[];
+  instructions: InstructionsInterface[];
+  steps: StepsInterface[];
 }

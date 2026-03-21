@@ -1,4 +1,5 @@
-import type { Instructions, Steps } from "../../generated/prisma/client.js";
+import type { InstructionsInterface } from "../InstructionsInterface/InstructionsInterface.js";
+import type { StepsInterface } from "../StepsInterface/StepsInterface.js";
 export interface CompanyInterface {
     id?: number;
     name: string;
@@ -6,7 +7,7 @@ export interface CompanyInterface {
     URL: string;
 }
 export interface CompanyRelationInterface extends CompanyInterface {
-    instructions: Instructions[];
-    steps: Steps[];
+    instructions: InstructionsInterface[];
+    steps: StepsInterface[];
 }
 //# sourceMappingURL=CompanyInterface.d.ts.map

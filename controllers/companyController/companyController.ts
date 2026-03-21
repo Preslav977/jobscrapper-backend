@@ -4,12 +4,12 @@ import type { Request, Response } from "express";
 
 import { validationResult } from "express-validator";
 
-import type { CompanyInterface } from "../../interfaces/CompanyInterface/CompanyInterface.js";
+import type { Company } from "../../generated/prisma/client.js";
 
 import { supabaseImageUpload } from "../../helpers/supabaseImageUpload/supabaseImageUpload.js";
 
 async function createCompany(req: Request, res: Response) {
-  const { name, URL }: CompanyInterface = req.body;
+  const { name, URL }: Company = req.body;
 
   const errors = validationResult(req);
 
@@ -60,7 +60,7 @@ async function getCompanies(req: Request, res: Response) {
 }
 
 async function getCompanyByName(req: Request, res: Response) {
-  const { name }: CompanyInterface = req.body;
+  const { name }: Company = req.body;
 
   const trimCompanyNameSpace = name.trim();
 
@@ -88,7 +88,7 @@ async function getCompanyByName(req: Request, res: Response) {
 async function updateCompany(req: Request, res: Response) {
   const { id } = req.params;
 
-  const { name, URL }: CompanyInterface = req.body;
+  const { name, URL }: Company = req.body;
 
   if (req.file) {
     const logo = await supabaseImageUpload(req.file);
