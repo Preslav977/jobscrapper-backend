@@ -110,7 +110,8 @@ export const SortOrder = {
     asc: 'asc',
     desc: 'desc'
 };
-export const JsonNullValueInput = {
+export const NullableJsonNullValueInput = {
+    DbNull: DbNull,
     JsonNull: JsonNull
 };
 export const QueryMode = {

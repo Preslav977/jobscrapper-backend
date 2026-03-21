@@ -1,23 +1,14 @@
 import type { ElementHandle, Page } from "puppeteer";
-import type {
-  ExtractionConfig,
-  InstructionsInterface,
-} from "../../interfaces/InstructionsInterface/InstructionsInterface.js";
+import type { Instructions } from "../../generated/prisma/client.js";
 import type { ScrapedJobsArrayType } from "../../interfaces/JobsInterface/JobsInterface.js";
 import { sleepDelay } from "../navigationFunctions/navigationFunctions.js";
 
 async function extractJobsText(
   page: Page,
-  instruction: InstructionsInterface,
+  instruction: Instructions,
 ): Promise<ScrapedJobsArrayType[]> {
-  const {
-    container,
-    title,
-    location,
-    remoteOrHybrid,
-    datePosted,
-    anchorHref,
-  }: ExtractionConfig = instruction.extractionInstructions;
+  const { container, title, location, remoteOrHybrid, datePosted, anchorHref } =
+    instruction.extractionInstructions;
 
   const scrapedJobs: ScrapedJobsArrayType[] = [];
 

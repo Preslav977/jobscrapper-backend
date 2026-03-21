@@ -1,6 +1,6 @@
 import { sleepDelay } from "../navigationFunctions/navigationFunctions.js";
 async function extractJobsText(page, instruction) {
-    const { container, title, location, remoteOrHybrid, datePosted, anchorHref, } = instruction.extractionInstructions;
+    const { container, title, location, remoteOrHybrid, datePosted, anchorHref } = instruction.extractionInstructions;
     const scrapedJobs = [];
     try {
         const doesJobContainerExists = (await page.waitForSelector(container.selector));
