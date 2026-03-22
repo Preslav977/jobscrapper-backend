@@ -8,8 +8,7 @@ import { sleepDelay } from "../navigationFunctions/navigationFunctions.js";
 async function extractJobsText(
   page: Page,
   instruction: Instructions,
-  description: string,
-  companyID: number,
+  id: number,
 ): Promise<JobsCreateManyInput[]> {
   const { container, title, location, remoteOrHybrid, datePosted, anchorHref } =
     instruction.extractionInstructions as ExtractionConfig;
@@ -31,8 +30,7 @@ async function extractJobsText(
           remoteOrHybrid,
           datePosted,
           anchorHref,
-          description,
-          companyID,
+          id,
         ) => {
           function extractField(
             HTMLElement: Element,
@@ -59,7 +57,7 @@ async function extractJobsText(
               return HTMLElement.getAttribute(elementField.attr!);
             }
 
-            if (elementField.extractType === "parentElementAttribute") {
+            if (elementField.extractType === "elementAttribute") {
               return HTMLElement.querySelector(
                 elementField.selector!,
               )?.getAttribute(elementField.attr!);
@@ -86,17 +84,22 @@ async function extractJobsText(
 
             const jobAnchorHref = extractField(queryJobContainer, anchorHref)!;
 
-            const jobsArray = {
+            const jobsObject = {
               title: jobTitle,
               location: jobLocation,
               remoteOrHybrid: jobRemoteOrHybrid,
               datePosted: jobDatePosted,
               anchorHref: jobAnchorHref,
               description: "",
-              companyID: companyID,
+              companyID: id,
             };
 
-            scrapedJobs.push(jobsArray);
+            if (
+              jobsObject.title.includes("Developer") ||
+              jobsObject.title.includes("Engineer")
+            ) {
+              scrapedJobs.push(jobsObject);
+            }
           });
 
           return scrapedJobs;
@@ -108,8 +111,7 @@ async function extractJobsText(
         remoteOrHybrid,
         datePosted,
         anchorHref,
-        description,
-        companyID,
+        id,
       );
 
       sleepDelay(3000);

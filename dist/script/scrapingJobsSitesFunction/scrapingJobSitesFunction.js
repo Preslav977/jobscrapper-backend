@@ -6,7 +6,9 @@ import { selectOptionFromDropDown, sleepDelay, tryClick, tryClickEvaluate, tryCl
 import { Page } from "puppeteer";
 puppeteer.default.use(StealthPlugin());
 export async function scrapingJobSitesFunction(companySite) {
-    const { URL, instructions, steps, jobs } = companySite;
+    const { id, URL, instructions, steps } = companySite;
+    let scrapingJobsResult = [];
+    let navigationResults = [];
     const browser = await puppeteer.default.launch({
         headless: false,
         args: ["--no-sandbox"],
@@ -21,7 +23,6 @@ export async function scrapingJobSitesFunction(companySite) {
     await page.evaluate(() => {
         window.scrollTo(0, document.body.scrollHeight);
     });
-    let navigationResults = [];
     try {
         for (const step of steps) {
             switch (step.action) {
@@ -65,13 +66,12 @@ export async function scrapingJobSitesFunction(companySite) {
         for (const navigationResult of navigationResults) {
             if (navigationResult.status === "success") {
                 for (const instruction of instructions) {
-                    for (const job of jobs) {
-                        const { description, companyID } = job;
-                        const jobScrapingResult = await extractJobsText(page, instruction, description, companyID);
-                        if (jobScrapingResult) {
-                            await sleepDelay(5000);
-                            return jobScrapingResult;
-                        }
+                    const jobScrapingResult = await extractJobsText(page, instruction, id);
+                    if (jobScrapingResult.length > 0) {
+                        scrapingJobsResult = [...jobScrapingResult];
+                        await sleepDelay(5000);
+                        navigationResults = [];
+                        return jobScrapingResult;
                     }
                 }
             }
@@ -79,15 +79,10 @@ export async function scrapingJobSitesFunction(companySite) {
     }
     catch (error) {
         console.log(`Navigation script failed, reason: ${error}`);
-        if (error) {
-            navigationResults = [];
-            await browser.close();
-        }
-    }
-    finally {
         navigationResults = [];
         await browser.close();
+        throw error;
     }
-    return [];
+    return scrapingJobsResult;
 }
 //# sourceMappingURL=scrapingJobSitesFunction.js.map

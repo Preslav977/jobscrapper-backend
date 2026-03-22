@@ -1,11 +1,11 @@
 import { sleepDelay } from "../navigationFunctions/navigationFunctions.js";
-async function extractJobsText(page, instruction, description, companyID) {
+async function extractJobsText(page, instruction, id) {
     const { container, title, location, remoteOrHybrid, datePosted, anchorHref } = instruction.extractionInstructions;
     const scrapedJobs = [];
     try {
         const doesJobContainerExists = (await page.waitForSelector(container.selector));
         if (doesJobContainerExists) {
-            const result = await page.evaluate((scrapedJobs, container, title, location, remoteOrHybrid, datePosted, anchorHref, description, companyID) => {
+            const result = await page.evaluate((scrapedJobs, container, title, location, remoteOrHybrid, datePosted, anchorHref, id) => {
                 function extractField(HTMLElement, elementField) {
                     if (elementField.extractType === "" ||
                         elementField.selector === "") {
@@ -19,7 +19,7 @@ async function extractJobsText(page, instruction, description, companyID) {
                     if (elementField.extractType === "attribute") {
                         return HTMLElement.getAttribute(elementField.attr);
                     }
-                    if (elementField.extractType === "parentElementAttribute") {
+                    if (elementField.extractType === "elementAttribute") {
                         return HTMLElement.querySelector(elementField.selector)?.getAttribute(elementField.attr);
                     }
                     return null;
@@ -31,19 +31,22 @@ async function extractJobsText(page, instruction, description, companyID) {
                     const jobRemoteOrHybrid = extractField(queryJobContainer, remoteOrHybrid);
                     const jobDatePosted = extractField(queryJobContainer, datePosted);
                     const jobAnchorHref = extractField(queryJobContainer, anchorHref);
-                    const jobsArray = {
+                    const jobsObject = {
                         title: jobTitle,
                         location: jobLocation,
                         remoteOrHybrid: jobRemoteOrHybrid,
                         datePosted: jobDatePosted,
                         anchorHref: jobAnchorHref,
                         description: "",
-                        companyID: companyID,
+                        companyID: id,
                     };
-                    scrapedJobs.push(jobsArray);
+                    if (jobsObject.title.includes("Developer") ||
+                        jobsObject.title.includes("Engineer")) {
+                        scrapedJobs.push(jobsObject);
+                    }
                 });
                 return scrapedJobs;
-            }, scrapedJobs, container, title, location, remoteOrHybrid, datePosted, anchorHref, description, companyID);
+            }, scrapedJobs, container, title, location, remoteOrHybrid, datePosted, anchorHref, id);
             sleepDelay(3000);
             return result;
         }

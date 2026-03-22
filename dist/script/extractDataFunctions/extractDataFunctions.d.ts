@@ -2,7 +2,7 @@ import type { Page } from "puppeteer";
 import type { Instructions } from "../../generated/prisma/client.js";
 import type { JobsCreateManyInput } from "../../generated/prisma/models.js";
 import type { ScrapedJobsArrayType } from "../../interfaces/JobsInterface/JobsInterface.js";
-declare function extractJobsText(page: Page, instruction: Instructions, description: string, companyID: number): Promise<JobsCreateManyInput[]>;
+declare function extractJobsText(page: Page, instruction: Instructions, id: number): Promise<JobsCreateManyInput[]>;
 declare function extractJobsJSON(attribute: string): Promise<ScrapedJobsArrayType>;
 declare function extractJobsFetchURL(url: string): Promise<ScrapedJobsArrayType | undefined>;
 export { extractJobsFetchURL, extractJobsJSON, extractJobsText };

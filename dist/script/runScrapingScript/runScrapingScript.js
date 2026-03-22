@@ -8,14 +8,20 @@ import { scrapingJobSitesFunction } from "../scrapingJobsSitesFunction/scrapingJ
                 instructions: true,
                 steps: true,
             },
+            where: {
+                id: 2,
+            },
         });
+        console.log(getCompanies);
         for (const company of getCompanies) {
             const result = await scrapingJobSitesFunction(company);
-            if (Array.isArray(result)) {
-                await prisma.jobs.createManyAndReturn({
-                    data: result,
-                });
-            }
+            console.log("Job Scraping Result", result);
+            // if (Array.isArray(result)) {
+            //   const jobs = await prisma.jobs.createManyAndReturn({
+            //     data: result,
+            //   });
+            //   console.log(jobs);
+            // }
         }
     }
     catch (error) {

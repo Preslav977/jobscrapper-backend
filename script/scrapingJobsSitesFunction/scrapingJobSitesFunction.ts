@@ -24,8 +24,12 @@ puppeteer.default.use(StealthPlugin());
 
 export async function scrapingJobSitesFunction(
   companySite: CompanyWithRelationsType,
-): Promise<JobsCreateManyInput[] | []> {
-  const { URL, instructions, steps, jobs } = companySite;
+): Promise<JobsCreateManyInput[]> {
+  const { id, URL, instructions, steps } = companySite;
+
+  let scrapingJobsResult: JobsCreateManyInput[] = [];
+
+  let navigationResults: UtilityInterface[] = [];
 
   const browser = await puppeteer.default.launch({
     headless: false,
@@ -47,8 +51,6 @@ export async function scrapingJobSitesFunction(
   await page.evaluate(() => {
     window.scrollTo(0, document.body.scrollHeight);
   });
-
-  let navigationResults: UtilityInterface[] = [];
 
   try {
     for (const step of steps) {
@@ -118,21 +120,20 @@ export async function scrapingJobSitesFunction(
     for (const navigationResult of navigationResults) {
       if (navigationResult.status === "success") {
         for (const instruction of instructions) {
-          for (const job of jobs) {
-            const { description, companyID } = job;
+          const jobScrapingResult = await extractJobsText(
+            page,
+            instruction,
+            id,
+          );
 
-            const jobScrapingResult = await extractJobsText(
-              page,
-              instruction,
-              description,
-              companyID,
-            );
+          if (jobScrapingResult.length > 0) {
+            scrapingJobsResult = [...jobScrapingResult];
 
-            if (jobScrapingResult) {
-              await sleepDelay(5000);
+            await sleepDelay(5000);
 
-              return jobScrapingResult;
-            }
+            navigationResults = [];
+
+            return jobScrapingResult;
           }
         }
       }
@@ -140,16 +141,12 @@ export async function scrapingJobSitesFunction(
   } catch (error) {
     console.log(`Navigation script failed, reason: ${error}`);
 
-    if (error) {
-      navigationResults = [];
-
-      await browser.close();
-    }
-  } finally {
     navigationResults = [];
 
     await browser.close();
+
+    throw error;
   }
 
-  return [];
+  return scrapingJobsResult;
 }
