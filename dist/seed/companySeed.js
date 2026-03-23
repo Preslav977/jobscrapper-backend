@@ -397,7 +397,7 @@ import { prisma } from "../db/client.js";
                 },
                 {
                     order: 3,
-                    action: "click",
+                    action: "clickEvaluate",
                     selector: '[value="TechOps & Development"]',
                     selectOption: null,
                     url: null,

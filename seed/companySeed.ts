@@ -400,7 +400,7 @@ import type { CompanyWithSelectedFieldsType } from "../interfaces/CompanyInterfa
         },
         {
           order: 3,
-          action: "click",
+          action: "clickEvaluate",
           selector: '[value="TechOps & Development"]',
           selectOption: null,
           url: null,

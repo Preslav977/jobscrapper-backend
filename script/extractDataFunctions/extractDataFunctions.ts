@@ -2,7 +2,6 @@ import type { ElementHandle, Page } from "puppeteer";
 import type { Instructions } from "../../generated/prisma/client.js";
 import type { JobsCreateManyInput } from "../../generated/prisma/models.js";
 import type { ExtractionConfig } from "../../interfaces/InstructionsInterface/InstructionsInterface.js";
-import type { ScrapedJobsArrayType } from "../../interfaces/JobsInterface/JobsInterface.js";
 import { sleepDelay } from "../navigationFunctions/navigationFunctions.js";
 
 async function extractJobsText(
@@ -132,13 +131,15 @@ async function extractJobsJSON(attribute: string) {
 
   const getElementAttribute = queryElementByAttribute!.getAttribute(attribute)!;
 
-  const parseAttributeToJSON: ScrapedJobsArrayType =
+  const parseAttributeToJSON: JobsCreateManyInput[] =
     JSON.parse(getElementAttribute);
 
   return parseAttributeToJSON;
 }
 
 async function extractJobsFetchURL(url: string) {
+  let retrieveFetchedJobs: JobsCreateManyInput[] = [];
+
   try {
     const fetchJobsByURL = await fetch(url, {
       mode: "cors",
@@ -149,13 +150,15 @@ async function extractJobsFetchURL(url: string) {
         `Failed to fetch jobs, reason: ${fetchJobsByURL.statusText}`,
       );
     }
-    const getJobs: ScrapedJobsArrayType = await fetchJobsByURL.json();
+    const getJobs: JobsCreateManyInput[] = await fetchJobsByURL.json();
+
+    retrieveFetchedJobs = [...getJobs];
 
     return getJobs;
   } catch (error) {
     console.log(error);
   }
-  return;
+  return retrieveFetchedJobs;
 }
 
 export { extractJobsFetchURL, extractJobsJSON, extractJobsText };

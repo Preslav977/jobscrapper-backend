@@ -224,6 +224,9 @@ export type SessionMinOrderByAggregateInput = {
     data?: Prisma.SortOrder;
     expiresAt?: Prisma.SortOrder;
 };
+export type DateTimeFieldUpdateOperationsInput = {
+    set?: Date | string;
+};
 export type SessionSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
     id?: boolean;
     sid?: boolean;

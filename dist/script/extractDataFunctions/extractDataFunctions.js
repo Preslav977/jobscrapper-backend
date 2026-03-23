@@ -64,6 +64,7 @@ async function extractJobsJSON(attribute) {
     return parseAttributeToJSON;
 }
 async function extractJobsFetchURL(url) {
+    let retrieveFetchedJobs = [];
     try {
         const fetchJobsByURL = await fetch(url, {
             mode: "cors",
@@ -72,12 +73,13 @@ async function extractJobsFetchURL(url) {
             throw new Error(`Failed to fetch jobs, reason: ${fetchJobsByURL.statusText}`);
         }
         const getJobs = await fetchJobsByURL.json();
+        retrieveFetchedJobs = [...getJobs];
         return getJobs;
     }
     catch (error) {
         console.log(error);
     }
-    return;
+    return retrieveFetchedJobs;
 }
 export { extractJobsFetchURL, extractJobsJSON, extractJobsText };
 //# sourceMappingURL=extractDataFunctions.js.map

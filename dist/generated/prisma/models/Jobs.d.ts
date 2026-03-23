@@ -171,7 +171,7 @@ export type JobsGroupByOutputType = {
     title: string;
     location: string;
     remoteOrHybrid: string;
-    datePosted: Date;
+    datePosted: Date | null;
     description: string;
     anchorHref: string | null;
     companyID: number;
@@ -192,7 +192,7 @@ export type JobsWhereInput = {
     title?: Prisma.StringFilter<"Jobs"> | string;
     location?: Prisma.StringFilter<"Jobs"> | string;
     remoteOrHybrid?: Prisma.StringFilter<"Jobs"> | string;
-    datePosted?: Prisma.DateTimeFilter<"Jobs"> | Date | string;
+    datePosted?: Prisma.DateTimeNullableFilter<"Jobs"> | Date | string | null;
     description?: Prisma.StringFilter<"Jobs"> | string;
     anchorHref?: Prisma.StringNullableFilter<"Jobs"> | string | null;
     companyID?: Prisma.IntFilter<"Jobs"> | number;
@@ -203,7 +203,7 @@ export type JobsOrderByWithRelationInput = {
     title?: Prisma.SortOrder;
     location?: Prisma.SortOrder;
     remoteOrHybrid?: Prisma.SortOrder;
-    datePosted?: Prisma.SortOrder;
+    datePosted?: Prisma.SortOrderInput | Prisma.SortOrder;
     description?: Prisma.SortOrder;
     anchorHref?: Prisma.SortOrderInput | Prisma.SortOrder;
     companyID?: Prisma.SortOrder;
@@ -217,7 +217,7 @@ export type JobsWhereUniqueInput = Prisma.AtLeast<{
     title?: Prisma.StringFilter<"Jobs"> | string;
     location?: Prisma.StringFilter<"Jobs"> | string;
     remoteOrHybrid?: Prisma.StringFilter<"Jobs"> | string;
-    datePosted?: Prisma.DateTimeFilter<"Jobs"> | Date | string;
+    datePosted?: Prisma.DateTimeNullableFilter<"Jobs"> | Date | string | null;
     description?: Prisma.StringFilter<"Jobs"> | string;
     anchorHref?: Prisma.StringNullableFilter<"Jobs"> | string | null;
     companyID?: Prisma.IntFilter<"Jobs"> | number;
@@ -228,7 +228,7 @@ export type JobsOrderByWithAggregationInput = {
     title?: Prisma.SortOrder;
     location?: Prisma.SortOrder;
     remoteOrHybrid?: Prisma.SortOrder;
-    datePosted?: Prisma.SortOrder;
+    datePosted?: Prisma.SortOrderInput | Prisma.SortOrder;
     description?: Prisma.SortOrder;
     anchorHref?: Prisma.SortOrderInput | Prisma.SortOrder;
     companyID?: Prisma.SortOrder;
@@ -246,7 +246,7 @@ export type JobsScalarWhereWithAggregatesInput = {
     title?: Prisma.StringWithAggregatesFilter<"Jobs"> | string;
     location?: Prisma.StringWithAggregatesFilter<"Jobs"> | string;
     remoteOrHybrid?: Prisma.StringWithAggregatesFilter<"Jobs"> | string;
-    datePosted?: Prisma.DateTimeWithAggregatesFilter<"Jobs"> | Date | string;
+    datePosted?: Prisma.DateTimeNullableWithAggregatesFilter<"Jobs"> | Date | string | null;
     description?: Prisma.StringWithAggregatesFilter<"Jobs"> | string;
     anchorHref?: Prisma.StringNullableWithAggregatesFilter<"Jobs"> | string | null;
     companyID?: Prisma.IntWithAggregatesFilter<"Jobs"> | number;
@@ -255,7 +255,7 @@ export type JobsCreateInput = {
     title: string;
     location: string;
     remoteOrHybrid: string;
-    datePosted?: Date | string;
+    datePosted?: Date | string | null;
     description: string;
     anchorHref?: string | null;
     company: Prisma.CompanyCreateNestedOneWithoutJobsInput;
@@ -265,7 +265,7 @@ export type JobsUncheckedCreateInput = {
     title: string;
     location: string;
     remoteOrHybrid: string;
-    datePosted?: Date | string;
+    datePosted?: Date | string | null;
     description: string;
     anchorHref?: string | null;
     companyID: number;
@@ -274,7 +274,7 @@ export type JobsUpdateInput = {
     title?: Prisma.StringFieldUpdateOperationsInput | string;
     location?: Prisma.StringFieldUpdateOperationsInput | string;
     remoteOrHybrid?: Prisma.StringFieldUpdateOperationsInput | string;
-    datePosted?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    datePosted?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
     description?: Prisma.StringFieldUpdateOperationsInput | string;
     anchorHref?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     company?: Prisma.CompanyUpdateOneRequiredWithoutJobsNestedInput;
@@ -284,7 +284,7 @@ export type JobsUncheckedUpdateInput = {
     title?: Prisma.StringFieldUpdateOperationsInput | string;
     location?: Prisma.StringFieldUpdateOperationsInput | string;
     remoteOrHybrid?: Prisma.StringFieldUpdateOperationsInput | string;
-    datePosted?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    datePosted?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
     description?: Prisma.StringFieldUpdateOperationsInput | string;
     anchorHref?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     companyID?: Prisma.IntFieldUpdateOperationsInput | number;
@@ -294,7 +294,7 @@ export type JobsCreateManyInput = {
     title: string;
     location: string;
     remoteOrHybrid: string;
-    datePosted?: Date | string;
+    datePosted?: Date | string | null;
     description: string;
     anchorHref?: string | null;
     companyID: number;
@@ -303,7 +303,7 @@ export type JobsUpdateManyMutationInput = {
     title?: Prisma.StringFieldUpdateOperationsInput | string;
     location?: Prisma.StringFieldUpdateOperationsInput | string;
     remoteOrHybrid?: Prisma.StringFieldUpdateOperationsInput | string;
-    datePosted?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    datePosted?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
     description?: Prisma.StringFieldUpdateOperationsInput | string;
     anchorHref?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
 };
@@ -312,7 +312,7 @@ export type JobsUncheckedUpdateManyInput = {
     title?: Prisma.StringFieldUpdateOperationsInput | string;
     location?: Prisma.StringFieldUpdateOperationsInput | string;
     remoteOrHybrid?: Prisma.StringFieldUpdateOperationsInput | string;
-    datePosted?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    datePosted?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
     description?: Prisma.StringFieldUpdateOperationsInput | string;
     anchorHref?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     companyID?: Prisma.IntFieldUpdateOperationsInput | number;
@@ -401,14 +401,14 @@ export type JobsUncheckedUpdateManyWithoutCompanyNestedInput = {
     updateMany?: Prisma.JobsUpdateManyWithWhereWithoutCompanyInput | Prisma.JobsUpdateManyWithWhereWithoutCompanyInput[];
     deleteMany?: Prisma.JobsScalarWhereInput | Prisma.JobsScalarWhereInput[];
 };
-export type DateTimeFieldUpdateOperationsInput = {
-    set?: Date | string;
+export type NullableDateTimeFieldUpdateOperationsInput = {
+    set?: Date | string | null;
 };
 export type JobsCreateWithoutCompanyInput = {
     title: string;
     location: string;
     remoteOrHybrid: string;
-    datePosted?: Date | string;
+    datePosted?: Date | string | null;
     description: string;
     anchorHref?: string | null;
 };
@@ -417,7 +417,7 @@ export type JobsUncheckedCreateWithoutCompanyInput = {
     title: string;
     location: string;
     remoteOrHybrid: string;
-    datePosted?: Date | string;
+    datePosted?: Date | string | null;
     description: string;
     anchorHref?: string | null;
 };
@@ -450,7 +450,7 @@ export type JobsScalarWhereInput = {
     title?: Prisma.StringFilter<"Jobs"> | string;
     location?: Prisma.StringFilter<"Jobs"> | string;
     remoteOrHybrid?: Prisma.StringFilter<"Jobs"> | string;
-    datePosted?: Prisma.DateTimeFilter<"Jobs"> | Date | string;
+    datePosted?: Prisma.DateTimeNullableFilter<"Jobs"> | Date | string | null;
     description?: Prisma.StringFilter<"Jobs"> | string;
     anchorHref?: Prisma.StringNullableFilter<"Jobs"> | string | null;
     companyID?: Prisma.IntFilter<"Jobs"> | number;
@@ -460,7 +460,7 @@ export type JobsCreateManyCompanyInput = {
     title: string;
     location: string;
     remoteOrHybrid: string;
-    datePosted?: Date | string;
+    datePosted?: Date | string | null;
     description: string;
     anchorHref?: string | null;
 };
@@ -468,7 +468,7 @@ export type JobsUpdateWithoutCompanyInput = {
     title?: Prisma.StringFieldUpdateOperationsInput | string;
     location?: Prisma.StringFieldUpdateOperationsInput | string;
     remoteOrHybrid?: Prisma.StringFieldUpdateOperationsInput | string;
-    datePosted?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    datePosted?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
     description?: Prisma.StringFieldUpdateOperationsInput | string;
     anchorHref?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
 };
@@ -477,7 +477,7 @@ export type JobsUncheckedUpdateWithoutCompanyInput = {
     title?: Prisma.StringFieldUpdateOperationsInput | string;
     location?: Prisma.StringFieldUpdateOperationsInput | string;
     remoteOrHybrid?: Prisma.StringFieldUpdateOperationsInput | string;
-    datePosted?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    datePosted?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
     description?: Prisma.StringFieldUpdateOperationsInput | string;
     anchorHref?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
 };
@@ -486,7 +486,7 @@ export type JobsUncheckedUpdateManyWithoutCompanyInput = {
     title?: Prisma.StringFieldUpdateOperationsInput | string;
     location?: Prisma.StringFieldUpdateOperationsInput | string;
     remoteOrHybrid?: Prisma.StringFieldUpdateOperationsInput | string;
-    datePosted?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    datePosted?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
     description?: Prisma.StringFieldUpdateOperationsInput | string;
     anchorHref?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
 };
@@ -553,7 +553,7 @@ export type $JobsPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
         title: string;
         location: string;
         remoteOrHybrid: string;
-        datePosted: Date;
+        datePosted: Date | null;
         description: string;
         anchorHref: string | null;
         companyID: number;
