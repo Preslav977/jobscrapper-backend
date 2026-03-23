@@ -38,7 +38,7 @@ async function getScrappingStepsDetails(req, res) {
 async function updateScrappingStepsDetails(req, res) {
     const { companyID, id } = req.params;
     const { order, action, selector } = req.body;
-    const updateStepsDetails = await prisma.steps.updateMany({
+    const updateStepsDetails = await prisma.steps.update({
         where: {
             companyID: Number(companyID),
             id: Number(id),

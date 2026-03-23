@@ -8,11 +8,7 @@ import { scrapingJobSitesFunction } from "../scrapingJobsSitesFunction/scrapingJ
                 instructions: true,
                 steps: true,
             },
-            where: {
-                id: 2,
-            },
         });
-        console.log(getCompanies);
         for (const company of getCompanies) {
             const result = await scrapingJobSitesFunction(company);
             console.log("Job Scraping Result", result);

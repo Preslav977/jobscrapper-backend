@@ -133,6 +133,8 @@ export async function scrapingJobSitesFunction(
 
             navigationResults = [];
 
+            await browser.close();
+
             return jobScrapingResult;
           }
         }
@@ -147,6 +149,10 @@ export async function scrapingJobSitesFunction(
 
     throw error;
   }
+
+  navigationResults = [];
+
+  await browser.close();
 
   return scrapingJobsResult;
 }

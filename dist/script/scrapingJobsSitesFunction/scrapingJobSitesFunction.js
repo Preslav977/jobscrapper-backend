@@ -71,6 +71,7 @@ export async function scrapingJobSitesFunction(companySite) {
                         scrapingJobsResult = [...jobScrapingResult];
                         await sleepDelay(5000);
                         navigationResults = [];
+                        await browser.close();
                         return jobScrapingResult;
                     }
                 }
@@ -83,6 +84,8 @@ export async function scrapingJobSitesFunction(companySite) {
         await browser.close();
         throw error;
     }
+    navigationResults = [];
+    await browser.close();
     return scrapingJobsResult;
 }
 //# sourceMappingURL=scrapingJobSitesFunction.js.map
