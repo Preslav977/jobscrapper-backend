@@ -41,9 +41,10 @@ async function getScrappingInstructionsDetails(req, res) {
 }
 async function updateScrappingInstructionsDetails(req, res) {
     const { companyID, id } = req.params;
-    const { extractionInstructions } = req.body;
+    //pass an array of instructions skipping id, companyID and extractionInstructions
+    const [extractionInstructions] = req.body;
     if (extractionInstructions) {
-        const updateInstructionsDetails = await prisma.instructions.updateMany({
+        const updateInstructionsDetails = await prisma.instructions.update({
             where: {
                 companyID: Number(companyID),
                 id: Number(id),

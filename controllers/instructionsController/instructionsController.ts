@@ -3,10 +3,7 @@ import { prisma } from "../../db/client.js";
 import type { Request, Response } from "express";
 
 import type { Instructions } from "../../generated/prisma/client.js";
-import type {
-  InstructionsCreateInput,
-  InstructionsUpdateInput,
-} from "../../generated/prisma/models.js";
+import type { InstructionsCreateInput } from "../../generated/prisma/models.js";
 
 async function createScrappingInstructions(req: Request, res: Response) {
   const { companyID } = req.params;
@@ -60,21 +57,21 @@ async function getScrappingInstructionsDetails(req: Request, res: Response) {
 async function updateScrappingInstructionsDetails(req: Request, res: Response) {
   const { companyID, id } = req.params;
 
-  const { extractionInstructions }: InstructionsUpdateInput = req.body;
+  //pass an array of instructions skipping id, companyID and extractionInstructions
+
+  const [extractionInstructions]: Instructions[] = req.body;
 
   if (extractionInstructions) {
-    const updateInstructionsDetails = await prisma.instructions.updateMany({
+    const updateInstructionsDetails = await prisma.instructions.update({
       where: {
         companyID: Number(companyID),
         id: Number(id),
       },
-
       data: {
         extractionInstructions,
         companyID: Number(companyID),
       },
     });
-
     res.json(updateInstructionsDetails);
   }
 }
