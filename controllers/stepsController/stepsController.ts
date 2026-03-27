@@ -47,24 +47,22 @@ async function getScrappingStepsDetails(req: Request, res: Response) {
 }
 
 async function updateScrappingStepsDetails(req: Request, res: Response) {
-  const { companyID, id } = req.params;
+  const updateSteps = await Promise.all(
+    req.body.map((step: Steps) =>
+      prisma.steps.update({
+        where: { id: step.id, companyID: step.companyID },
+        data: {
+          order: step.order,
+          action: step.action,
+          selector: step.selector,
+          selectOption: step.selectOption,
+          url: step.url,
+        },
+      }),
+    ),
+  );
 
-  const { order, action, selector }: Steps = req.body;
-
-  const updateStepsDetails = await prisma.steps.update({
-    where: {
-      companyID: Number(companyID),
-      id: Number(id),
-    },
-
-    data: {
-      order,
-      action,
-      selector,
-    },
-  });
-
-  res.json(updateStepsDetails);
+  res.json(updateSteps);
 }
 
 async function deleteScrappingStepsDetails(req: Request, res: Response) {

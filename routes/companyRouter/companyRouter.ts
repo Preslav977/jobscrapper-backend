@@ -86,7 +86,7 @@ companyRouter.post("/:companyID/steps", createScrappingSteps);
 
 companyRouter.get("/:companyID/steps", getScrappingStepsDetails);
 
-companyRouter.put("/:companyID/steps/:id", updateScrappingStepsDetails);
+companyRouter.put("/:companyID/steps", updateScrappingStepsDetails);
 
 companyRouter.delete("/:companyID/steps", createScrappingSteps);
 

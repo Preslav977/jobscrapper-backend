@@ -25,7 +25,7 @@ companyRouter.delete("/:companyID/instructions/:id", deleteScrappingInstructions
 ///CRUD steps routes
 companyRouter.post("/:companyID/steps", createScrappingSteps);
 companyRouter.get("/:companyID/steps", getScrappingStepsDetails);
-companyRouter.put("/:companyID/steps/:id", updateScrappingStepsDetails);
+companyRouter.put("/:companyID/steps", updateScrappingStepsDetails);
 companyRouter.delete("/:companyID/steps", createScrappingSteps);
 export { companyRouter };
 //# sourceMappingURL=companyRouter.js.map
