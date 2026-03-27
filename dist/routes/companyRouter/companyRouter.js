@@ -14,7 +14,7 @@ companyRouter.put("/:id", upload.single("file"), updateCompany);
 companyRouter.delete("/:id", deleteCompany);
 ///CRUD jobs routes
 companyRouter.post("/:id/jobs", createJobs);
-companyRouter.get("/:companyID/job/:id", getJobDetails);
+companyRouter.get("/:companyID/jobs", getJobDetails);
 companyRouter.put("/:companyID/job/:id", updateJob);
 companyRouter.delete("/:companyID/job/:id", deleteJob);
 ///CRUD instructions routes
