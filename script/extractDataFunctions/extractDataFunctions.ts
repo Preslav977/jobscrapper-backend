@@ -146,7 +146,7 @@ interface ResponseResult {
 
 interface ApiResponse<T> {
   meta: { totalCount: number };
-  results: T[];
+  result: T[];
   status: string;
 }
 
@@ -157,15 +157,16 @@ function transform<T>(results: T[], mapper: (item: T) => JobsCreateManyInput) {
 async function extractJobsFetchURL(
   id: number,
   url: string,
+  companyURL: string,
 ): Promise<JobsCreateManyInput[]> {
-  let retrieveFetchedJobs: JobsCreateManyInput[] | string = [];
+  let retrieveFetchedJobs: JobsCreateManyInput[] = [];
 
   try {
     const fetchJobsByURL = await fetch(url, {
       mode: "cors",
     });
 
-    if (fetchJobsByURL.status >= 200) {
+    if (fetchJobsByURL.status >= 400) {
       throw new Error(
         `Failed to fetch jobs, reason: ${fetchJobsByURL.statusText}`,
       );
@@ -173,11 +174,11 @@ async function extractJobsFetchURL(
     const getJobs =
       (await fetchJobsByURL.json()) as ApiResponse<ResponseResult>;
 
-    const result = transform(getJobs.results, (job: ResponseResult) => ({
+    const result = transform(getJobs.result, (job: ResponseResult) => ({
       title: job.jobOpeningName,
       location: job.location.city,
       remoteOrHybrid: job.isRemote,
-      anchorHref: `${url}${job.id}`,
+      anchorHref: `${companyURL}${job.id}`,
       description: "",
       companyID: id,
     }));

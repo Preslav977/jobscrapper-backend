@@ -59,12 +59,13 @@ export async function scrapingJobSitesFunction(companySite) {
                     break;
                 }
                 case "fetch": {
-                    const extractJobsFetchURLResult = await extractJobsFetchURL(id, step.url);
+                    const extractJobsFetchURLResult = await extractJobsFetchURL(id, step.url, URL);
                     navigationResults.push({
                         step: step.url,
                         status: extractJobsFetchURLResult.length > 0 ? "success" : "failure",
                     });
                     scrapingJobsResult = [...extractJobsFetchURLResult];
+                    console.log(scrapingJobsResult);
                     break;
                 }
                 default: {
@@ -86,6 +87,7 @@ export async function scrapingJobSitesFunction(companySite) {
         else if (!checkForNavigationResultsFailures && scrapMode === "FETCH") {
             navigationResults = [];
             await browser.close();
+            return scrapingJobsResult;
         }
     }
     catch (error) {

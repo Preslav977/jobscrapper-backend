@@ -12,17 +12,17 @@ import { scrapingJobSitesFunction } from "../scrapingJobsSitesFunction/scrapingJ
     });
 
     for (const company of getCompanies) {
-      if (company.jobs.length === 0) {
-        const result = await scrapingJobSitesFunction(company);
+      const result = await scrapingJobSitesFunction(company);
 
-        if (Array.isArray(result)) {
-          const jobs = await prisma.jobs.createManyAndReturn({
-            data: result,
-          });
+      console.log(result);
 
-          console.log(jobs);
-        }
-      }
+      // if (Array.isArray(result)) {
+      //   const jobs = await prisma.jobs.createManyAndReturn({
+      //     data: result,
+      //   });
+
+      //   console.log(jobs);
+      // }
     }
   } catch (error) {
     console.log(error);

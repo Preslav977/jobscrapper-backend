@@ -66,21 +66,21 @@ async function extractJobsJSON(attribute) {
 function transform(results, mapper) {
     return results.map(mapper);
 }
-async function extractJobsFetchURL(id, url) {
+async function extractJobsFetchURL(id, url, companyURL) {
     let retrieveFetchedJobs = [];
     try {
         const fetchJobsByURL = await fetch(url, {
             mode: "cors",
         });
-        if (fetchJobsByURL.status >= 200) {
+        if (fetchJobsByURL.status >= 400) {
             throw new Error(`Failed to fetch jobs, reason: ${fetchJobsByURL.statusText}`);
         }
         const getJobs = (await fetchJobsByURL.json());
-        const result = transform(getJobs.results, (job) => ({
+        const result = transform(getJobs.result, (job) => ({
             title: job.jobOpeningName,
             location: job.location.city,
             remoteOrHybrid: job.isRemote,
-            anchorHref: `${url}${job.id}`,
+            anchorHref: `${companyURL}${job.id}`,
             description: "",
             companyID: id,
         }));

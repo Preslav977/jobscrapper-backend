@@ -118,6 +118,7 @@ export async function scrapingJobSitesFunction(
           const extractJobsFetchURLResult = await extractJobsFetchURL(
             id,
             step.url!,
+            URL,
           );
 
           navigationResults.push({
@@ -127,6 +128,8 @@ export async function scrapingJobSitesFunction(
           });
 
           scrapingJobsResult = [...extractJobsFetchURLResult];
+
+          console.log(scrapingJobsResult);
 
           break;
         }
@@ -159,6 +162,8 @@ export async function scrapingJobSitesFunction(
       navigationResults = [];
 
       await browser.close();
+
+      return scrapingJobsResult;
     }
   } catch (error) {
     console.log(`Navigation script failed, reason: ${error}`);
