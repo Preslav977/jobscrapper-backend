@@ -1,6 +1,9 @@
 import puppeteer from "puppeteer-extra";
 import StealthPlugin from "puppeteer-extra-plugin-stealth";
-import { extractJobsText } from "../extractDataFunctions/extractDataFunctions.js";
+import {
+  extractJobsFetchURL,
+  extractJobsText,
+} from "../extractDataFunctions/extractDataFunctions.js";
 import {
   getRandomTimezone,
   height,
@@ -106,6 +109,18 @@ export async function scrapingJobSitesFunction(
           navigationResults.push({
             step: step.selector,
             status: selectOptionFromDropDownResult,
+          });
+
+          break;
+        }
+
+        case "fetch": {
+          const extractJobsFetchURLResult = await extractJobsFetchURL(
+            step.url!,
+          );
+
+          navigationResults.push({
+            step: step.url!,
           });
 
           break;

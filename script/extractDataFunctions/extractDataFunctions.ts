@@ -83,7 +83,7 @@ async function extractJobsText(
 
             const jobAnchorHref = extractField(queryJobContainer, anchorHref)!;
 
-            const jobsObject = {
+            const jobsjobect = {
               title: jobTitle,
               location: jobLocation,
               remoteOrHybrid: jobRemoteOrHybrid,
@@ -94,10 +94,10 @@ async function extractJobsText(
             };
 
             if (
-              jobsObject.title.includes("Developer") ||
-              jobsObject.title.includes("Engineer")
+              jobsjobect.title.includes("Developer") ||
+              jobsjobect.title.includes("Engineer")
             ) {
-              scrapedJobs.push(jobsObject);
+              scrapedJobs.push(jobsjobect);
             }
           });
 
@@ -137,8 +137,28 @@ async function extractJobsJSON(attribute: string) {
   return parseAttributeToJSON;
 }
 
-async function extractJobsFetchURL(url: string) {
-  let retrieveFetchedJobs: JobsCreateManyInput[] = [];
+interface ResponseResult {
+  id: string;
+  jobOpeningName: string;
+  location: { city: string };
+  isRemote: null | string;
+}
+
+interface ApiResponse<T> {
+  meta: { totalCount: number };
+  results: T[];
+  status: string;
+}
+
+function transform<T>(results: T[], mapper: (item: T) => JobsCreateManyInput) {
+  return results.map(mapper);
+}
+
+async function extractJobsFetchURL(
+  id: number,
+  url: string,
+): Promise<JobsCreateManyInput[] | string> {
+  let retrieveFetchedJobs: JobsCreateManyInput[] | string = [];
 
   try {
     const fetchJobsByURL = await fetch(url, {
@@ -150,13 +170,23 @@ async function extractJobsFetchURL(url: string) {
         `Failed to fetch jobs, reason: ${fetchJobsByURL.statusText}`,
       );
     }
-    const getJobs: JobsCreateManyInput[] = await fetchJobsByURL.json();
+    const getJobs =
+      (await fetchJobsByURL.json()) as ApiResponse<ResponseResult>;
 
-    retrieveFetchedJobs = [...getJobs];
+    const result = transform(getJobs.results, (job: ResponseResult) => ({
+      title: job.jobOpeningName,
+      location: job.location.city,
+      remoteOrHybrid: job.isRemote,
+      anchorHref: `${url}${job.id}`,
+      description: "",
+      companyID: id,
+    }));
 
-    return getJobs;
+    retrieveFetchedJobs = [...result];
   } catch (error) {
     console.log(error);
+
+    return "failure";
   }
   return retrieveFetchedJobs;
 }

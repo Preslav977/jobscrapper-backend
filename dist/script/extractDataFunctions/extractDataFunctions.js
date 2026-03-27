@@ -31,7 +31,7 @@ async function extractJobsText(page, instruction, id) {
                     const jobRemoteOrHybrid = extractField(queryJobContainer, remoteOrHybrid);
                     const jobDatePosted = extractField(queryJobContainer, datePosted);
                     const jobAnchorHref = extractField(queryJobContainer, anchorHref);
-                    const jobsObject = {
+                    const jobsjobect = {
                         title: jobTitle,
                         location: jobLocation,
                         remoteOrHybrid: jobRemoteOrHybrid,
@@ -40,9 +40,9 @@ async function extractJobsText(page, instruction, id) {
                         description: "",
                         companyID: id,
                     };
-                    if (jobsObject.title.includes("Developer") ||
-                        jobsObject.title.includes("Engineer")) {
-                        scrapedJobs.push(jobsObject);
+                    if (jobsjobect.title.includes("Developer") ||
+                        jobsjobect.title.includes("Engineer")) {
+                        scrapedJobs.push(jobsjobect);
                     }
                 });
                 return scrapedJobs;
@@ -63,7 +63,10 @@ async function extractJobsJSON(attribute) {
     const parseAttributeToJSON = JSON.parse(getElementAttribute);
     return parseAttributeToJSON;
 }
-async function extractJobsFetchURL(url) {
+function transform(results, mapper) {
+    return results.map(mapper);
+}
+async function extractJobsFetchURL(id, url) {
     let retrieveFetchedJobs = [];
     try {
         const fetchJobsByURL = await fetch(url, {
@@ -72,12 +75,20 @@ async function extractJobsFetchURL(url) {
         if (fetchJobsByURL.status >= 200) {
             throw new Error(`Failed to fetch jobs, reason: ${fetchJobsByURL.statusText}`);
         }
-        const getJobs = await fetchJobsByURL.json();
-        retrieveFetchedJobs = [...getJobs];
-        return getJobs;
+        const getJobs = (await fetchJobsByURL.json());
+        const result = transform(getJobs.results, (job) => ({
+            title: job.jobOpeningName,
+            location: job.location.city,
+            remoteOrHybrid: job.isRemote,
+            anchorHref: `${url}${job.id}`,
+            description: "",
+            companyID: id,
+        }));
+        retrieveFetchedJobs = [...result];
     }
     catch (error) {
         console.log(error);
+        return "failure";
     }
     return retrieveFetchedJobs;
 }
