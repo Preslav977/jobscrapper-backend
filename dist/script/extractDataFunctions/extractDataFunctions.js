@@ -88,7 +88,6 @@ async function extractJobsFetchURL(id, url) {
     }
     catch (error) {
         console.log(error);
-        return "failure";
     }
     return retrieveFetchedJobs;
 }

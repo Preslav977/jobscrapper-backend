@@ -157,7 +157,7 @@ function transform<T>(results: T[], mapper: (item: T) => JobsCreateManyInput) {
 async function extractJobsFetchURL(
   id: number,
   url: string,
-): Promise<JobsCreateManyInput[] | string> {
+): Promise<JobsCreateManyInput[]> {
   let retrieveFetchedJobs: JobsCreateManyInput[] | string = [];
 
   try {
@@ -185,8 +185,6 @@ async function extractJobsFetchURL(
     retrieveFetchedJobs = [...result];
   } catch (error) {
     console.log(error);
-
-    return "failure";
   }
   return retrieveFetchedJobs;
 }

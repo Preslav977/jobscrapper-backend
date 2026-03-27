@@ -116,12 +116,17 @@ export async function scrapingJobSitesFunction(
 
         case "fetch": {
           const extractJobsFetchURLResult = await extractJobsFetchURL(
+            id,
             step.url!,
           );
 
           navigationResults.push({
             step: step.url!,
+            status:
+              extractJobsFetchURLResult.length > 0 ? "success" : "failure",
           });
+
+          scrapingJobsResult = [...extractJobsFetchURLResult];
 
           break;
         }
@@ -132,27 +137,23 @@ export async function scrapingJobSitesFunction(
       }
     }
 
-    for (const navigationResult of navigationResults) {
-      if (navigationResult.status === "success") {
-        for (const instruction of instructions) {
-          const jobScrapingResult = await extractJobsText(
-            page,
-            instruction,
-            id,
-          );
+    const checkForNavigationResultsFailures = navigationResults.some(
+      (res) => res.status === "failure",
+    );
 
-          if (jobScrapingResult.length > 0) {
-            scrapingJobsResult = [...jobScrapingResult];
+    if (!checkForNavigationResultsFailures) {
+      for (const instruction of instructions) {
+        const jobScrapingResult = await extractJobsText(page, instruction, id);
 
-            await sleepDelay(5000);
+        scrapingJobsResult = [...jobScrapingResult];
 
-            navigationResults = [];
+        await sleepDelay(5000);
 
-            await browser.close();
+        navigationResults = [];
 
-            return jobScrapingResult;
-          }
-        }
+        await browser.close();
+
+        return jobScrapingResult;
       }
     }
   } catch (error) {
