@@ -751,6 +751,7 @@ export declare const CompanyScalarFieldEnum: {
     readonly id: "id";
     readonly name: "name";
     readonly logo: "logo";
+    readonly scrapMode: "scrapMode";
     readonly URL: "URL";
 };
 export type CompanyScalarFieldEnum = (typeof CompanyScalarFieldEnum)[keyof typeof CompanyScalarFieldEnum];
@@ -841,6 +842,14 @@ export type EnumRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel
  * Reference to a field of type 'Role[]'
  */
 export type ListEnumRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Role[]'>;
+/**
+ * Reference to a field of type 'ScrapMode'
+ */
+export type EnumScrapModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ScrapMode'>;
+/**
+ * Reference to a field of type 'ScrapMode[]'
+ */
+export type ListEnumScrapModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ScrapMode[]'>;
 /**
  * Reference to a field of type 'Json'
  */

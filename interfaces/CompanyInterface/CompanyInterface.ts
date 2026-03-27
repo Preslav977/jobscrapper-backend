@@ -27,6 +27,7 @@ export type CompanyWithSelectedFieldsType = Prisma.CompanyGetPayload<{
     name: true;
     URL: true;
     logo: true;
+    scrapMode: true;
     instructions: {
       omit: {
         id: true;

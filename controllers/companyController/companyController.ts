@@ -9,7 +9,7 @@ import type { Company } from "../../generated/prisma/client.js";
 import { supabaseImageUpload } from "../../helpers/supabaseImageUpload/supabaseImageUpload.js";
 
 async function createCompany(req: Request, res: Response) {
-  const { name, URL }: Company = req.body;
+  const { name, URL, scrapMode }: Company = req.body;
 
   const errors = validationResult(req);
 
@@ -24,6 +24,7 @@ async function createCompany(req: Request, res: Response) {
           name,
           logo,
           URL,
+          scrapMode,
         },
       });
 
@@ -33,6 +34,7 @@ async function createCompany(req: Request, res: Response) {
         data: {
           name,
           URL,
+          scrapMode,
         },
       });
 

@@ -11,4 +11,10 @@ export const Role = {
     USER: 'USER',
     ADMIN: 'ADMIN'
 };
+export const ScrapMode = {
+    NAVIGATION: 'NAVIGATION',
+    DIRECT: 'DIRECT',
+    FETCH: 'FETCH',
+    JSON: 'JSON'
+};
 //# sourceMappingURL=enums.js.map

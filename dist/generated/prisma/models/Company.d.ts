@@ -1,4 +1,5 @@
 import type * as runtime from "@prisma/client/runtime/client";
+import type * as $Enums from "../enums.js";
 import type * as Prisma from "../internal/prismaNamespace.js";
 /**
  * Model Company
@@ -22,18 +23,21 @@ export type CompanyMinAggregateOutputType = {
     id: number | null;
     name: string | null;
     logo: string | null;
+    scrapMode: $Enums.ScrapMode | null;
     URL: string | null;
 };
 export type CompanyMaxAggregateOutputType = {
     id: number | null;
     name: string | null;
     logo: string | null;
+    scrapMode: $Enums.ScrapMode | null;
     URL: string | null;
 };
 export type CompanyCountAggregateOutputType = {
     id: number;
     name: number;
     logo: number;
+    scrapMode: number;
     URL: number;
     _all: number;
 };
@@ -47,18 +51,21 @@ export type CompanyMinAggregateInputType = {
     id?: true;
     name?: true;
     logo?: true;
+    scrapMode?: true;
     URL?: true;
 };
 export type CompanyMaxAggregateInputType = {
     id?: true;
     name?: true;
     logo?: true;
+    scrapMode?: true;
     URL?: true;
 };
 export type CompanyCountAggregateInputType = {
     id?: true;
     name?: true;
     logo?: true;
+    scrapMode?: true;
     URL?: true;
     _all?: true;
 };
@@ -142,6 +149,7 @@ export type CompanyGroupByOutputType = {
     id: number;
     name: string;
     logo: string | null;
+    scrapMode: $Enums.ScrapMode;
     URL: string;
     _count: CompanyCountAggregateOutputType | null;
     _avg: CompanyAvgAggregateOutputType | null;
@@ -159,6 +167,7 @@ export type CompanyWhereInput = {
     id?: Prisma.IntFilter<"Company"> | number;
     name?: Prisma.StringFilter<"Company"> | string;
     logo?: Prisma.StringNullableFilter<"Company"> | string | null;
+    scrapMode?: Prisma.EnumScrapModeFilter<"Company"> | $Enums.ScrapMode;
     URL?: Prisma.StringFilter<"Company"> | string;
     jobs?: Prisma.JobsListRelationFilter;
     instructions?: Prisma.InstructionsListRelationFilter;
@@ -168,6 +177,7 @@ export type CompanyOrderByWithRelationInput = {
     id?: Prisma.SortOrder;
     name?: Prisma.SortOrder;
     logo?: Prisma.SortOrderInput | Prisma.SortOrder;
+    scrapMode?: Prisma.SortOrder;
     URL?: Prisma.SortOrder;
     jobs?: Prisma.JobsOrderByRelationAggregateInput;
     instructions?: Prisma.InstructionsOrderByRelationAggregateInput;
@@ -180,6 +190,7 @@ export type CompanyWhereUniqueInput = Prisma.AtLeast<{
     OR?: Prisma.CompanyWhereInput[];
     NOT?: Prisma.CompanyWhereInput | Prisma.CompanyWhereInput[];
     logo?: Prisma.StringNullableFilter<"Company"> | string | null;
+    scrapMode?: Prisma.EnumScrapModeFilter<"Company"> | $Enums.ScrapMode;
     URL?: Prisma.StringFilter<"Company"> | string;
     jobs?: Prisma.JobsListRelationFilter;
     instructions?: Prisma.InstructionsListRelationFilter;
@@ -189,6 +200,7 @@ export type CompanyOrderByWithAggregationInput = {
     id?: Prisma.SortOrder;
     name?: Prisma.SortOrder;
     logo?: Prisma.SortOrderInput | Prisma.SortOrder;
+    scrapMode?: Prisma.SortOrder;
     URL?: Prisma.SortOrder;
     _count?: Prisma.CompanyCountOrderByAggregateInput;
     _avg?: Prisma.CompanyAvgOrderByAggregateInput;
@@ -203,11 +215,13 @@ export type CompanyScalarWhereWithAggregatesInput = {
     id?: Prisma.IntWithAggregatesFilter<"Company"> | number;
     name?: Prisma.StringWithAggregatesFilter<"Company"> | string;
     logo?: Prisma.StringNullableWithAggregatesFilter<"Company"> | string | null;
+    scrapMode?: Prisma.EnumScrapModeWithAggregatesFilter<"Company"> | $Enums.ScrapMode;
     URL?: Prisma.StringWithAggregatesFilter<"Company"> | string;
 };
 export type CompanyCreateInput = {
     name: string;
     logo?: string | null;
+    scrapMode: $Enums.ScrapMode;
     URL: string;
     jobs?: Prisma.JobsCreateNestedManyWithoutCompanyInput;
     instructions?: Prisma.InstructionsCreateNestedManyWithoutCompanyInput;
@@ -217,6 +231,7 @@ export type CompanyUncheckedCreateInput = {
     id?: number;
     name: string;
     logo?: string | null;
+    scrapMode: $Enums.ScrapMode;
     URL: string;
     jobs?: Prisma.JobsUncheckedCreateNestedManyWithoutCompanyInput;
     instructions?: Prisma.InstructionsUncheckedCreateNestedManyWithoutCompanyInput;
@@ -225,6 +240,7 @@ export type CompanyUncheckedCreateInput = {
 export type CompanyUpdateInput = {
     name?: Prisma.StringFieldUpdateOperationsInput | string;
     logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    scrapMode?: Prisma.EnumScrapModeFieldUpdateOperationsInput | $Enums.ScrapMode;
     URL?: Prisma.StringFieldUpdateOperationsInput | string;
     jobs?: Prisma.JobsUpdateManyWithoutCompanyNestedInput;
     instructions?: Prisma.InstructionsUpdateManyWithoutCompanyNestedInput;
@@ -234,6 +250,7 @@ export type CompanyUncheckedUpdateInput = {
     id?: Prisma.IntFieldUpdateOperationsInput | number;
     name?: Prisma.StringFieldUpdateOperationsInput | string;
     logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    scrapMode?: Prisma.EnumScrapModeFieldUpdateOperationsInput | $Enums.ScrapMode;
     URL?: Prisma.StringFieldUpdateOperationsInput | string;
     jobs?: Prisma.JobsUncheckedUpdateManyWithoutCompanyNestedInput;
     instructions?: Prisma.InstructionsUncheckedUpdateManyWithoutCompanyNestedInput;
@@ -243,23 +260,27 @@ export type CompanyCreateManyInput = {
     id?: number;
     name: string;
     logo?: string | null;
+    scrapMode: $Enums.ScrapMode;
     URL: string;
 };
 export type CompanyUpdateManyMutationInput = {
     name?: Prisma.StringFieldUpdateOperationsInput | string;
     logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    scrapMode?: Prisma.EnumScrapModeFieldUpdateOperationsInput | $Enums.ScrapMode;
     URL?: Prisma.StringFieldUpdateOperationsInput | string;
 };
 export type CompanyUncheckedUpdateManyInput = {
     id?: Prisma.IntFieldUpdateOperationsInput | number;
     name?: Prisma.StringFieldUpdateOperationsInput | string;
     logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    scrapMode?: Prisma.EnumScrapModeFieldUpdateOperationsInput | $Enums.ScrapMode;
     URL?: Prisma.StringFieldUpdateOperationsInput | string;
 };
 export type CompanyCountOrderByAggregateInput = {
     id?: Prisma.SortOrder;
     name?: Prisma.SortOrder;
     logo?: Prisma.SortOrder;
+    scrapMode?: Prisma.SortOrder;
     URL?: Prisma.SortOrder;
 };
 export type CompanyAvgOrderByAggregateInput = {
@@ -269,12 +290,14 @@ export type CompanyMaxOrderByAggregateInput = {
     id?: Prisma.SortOrder;
     name?: Prisma.SortOrder;
     logo?: Prisma.SortOrder;
+    scrapMode?: Prisma.SortOrder;
     URL?: Prisma.SortOrder;
 };
 export type CompanyMinOrderByAggregateInput = {
     id?: Prisma.SortOrder;
     name?: Prisma.SortOrder;
     logo?: Prisma.SortOrder;
+    scrapMode?: Prisma.SortOrder;
     URL?: Prisma.SortOrder;
 };
 export type CompanySumOrderByAggregateInput = {
@@ -287,6 +310,9 @@ export type CompanyScalarRelationFilter = {
 export type CompanyNullableScalarRelationFilter = {
     is?: Prisma.CompanyWhereInput | null;
     isNot?: Prisma.CompanyWhereInput | null;
+};
+export type EnumScrapModeFieldUpdateOperationsInput = {
+    set?: $Enums.ScrapMode;
 };
 export type CompanyCreateNestedOneWithoutJobsInput = {
     create?: Prisma.XOR<Prisma.CompanyCreateWithoutJobsInput, Prisma.CompanyUncheckedCreateWithoutJobsInput>;
@@ -331,6 +357,7 @@ export type CompanyUpdateOneWithoutStepsNestedInput = {
 export type CompanyCreateWithoutJobsInput = {
     name: string;
     logo?: string | null;
+    scrapMode: $Enums.ScrapMode;
     URL: string;
     instructions?: Prisma.InstructionsCreateNestedManyWithoutCompanyInput;
     steps?: Prisma.StepsCreateNestedManyWithoutCompanyInput;
@@ -339,6 +366,7 @@ export type CompanyUncheckedCreateWithoutJobsInput = {
     id?: number;
     name: string;
     logo?: string | null;
+    scrapMode: $Enums.ScrapMode;
     URL: string;
     instructions?: Prisma.InstructionsUncheckedCreateNestedManyWithoutCompanyInput;
     steps?: Prisma.StepsUncheckedCreateNestedManyWithoutCompanyInput;
@@ -359,6 +387,7 @@ export type CompanyUpdateToOneWithWhereWithoutJobsInput = {
 export type CompanyUpdateWithoutJobsInput = {
     name?: Prisma.StringFieldUpdateOperationsInput | string;
     logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    scrapMode?: Prisma.EnumScrapModeFieldUpdateOperationsInput | $Enums.ScrapMode;
     URL?: Prisma.StringFieldUpdateOperationsInput | string;
     instructions?: Prisma.InstructionsUpdateManyWithoutCompanyNestedInput;
     steps?: Prisma.StepsUpdateManyWithoutCompanyNestedInput;
@@ -367,6 +396,7 @@ export type CompanyUncheckedUpdateWithoutJobsInput = {
     id?: Prisma.IntFieldUpdateOperationsInput | number;
     name?: Prisma.StringFieldUpdateOperationsInput | string;
     logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    scrapMode?: Prisma.EnumScrapModeFieldUpdateOperationsInput | $Enums.ScrapMode;
     URL?: Prisma.StringFieldUpdateOperationsInput | string;
     instructions?: Prisma.InstructionsUncheckedUpdateManyWithoutCompanyNestedInput;
     steps?: Prisma.StepsUncheckedUpdateManyWithoutCompanyNestedInput;
@@ -374,6 +404,7 @@ export type CompanyUncheckedUpdateWithoutJobsInput = {
 export type CompanyCreateWithoutInstructionsInput = {
     name: string;
     logo?: string | null;
+    scrapMode: $Enums.ScrapMode;
     URL: string;
     jobs?: Prisma.JobsCreateNestedManyWithoutCompanyInput;
     steps?: Prisma.StepsCreateNestedManyWithoutCompanyInput;
@@ -382,6 +413,7 @@ export type CompanyUncheckedCreateWithoutInstructionsInput = {
     id?: number;
     name: string;
     logo?: string | null;
+    scrapMode: $Enums.ScrapMode;
     URL: string;
     jobs?: Prisma.JobsUncheckedCreateNestedManyWithoutCompanyInput;
     steps?: Prisma.StepsUncheckedCreateNestedManyWithoutCompanyInput;
@@ -402,6 +434,7 @@ export type CompanyUpdateToOneWithWhereWithoutInstructionsInput = {
 export type CompanyUpdateWithoutInstructionsInput = {
     name?: Prisma.StringFieldUpdateOperationsInput | string;
     logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    scrapMode?: Prisma.EnumScrapModeFieldUpdateOperationsInput | $Enums.ScrapMode;
     URL?: Prisma.StringFieldUpdateOperationsInput | string;
     jobs?: Prisma.JobsUpdateManyWithoutCompanyNestedInput;
     steps?: Prisma.StepsUpdateManyWithoutCompanyNestedInput;
@@ -410,6 +443,7 @@ export type CompanyUncheckedUpdateWithoutInstructionsInput = {
     id?: Prisma.IntFieldUpdateOperationsInput | number;
     name?: Prisma.StringFieldUpdateOperationsInput | string;
     logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    scrapMode?: Prisma.EnumScrapModeFieldUpdateOperationsInput | $Enums.ScrapMode;
     URL?: Prisma.StringFieldUpdateOperationsInput | string;
     jobs?: Prisma.JobsUncheckedUpdateManyWithoutCompanyNestedInput;
     steps?: Prisma.StepsUncheckedUpdateManyWithoutCompanyNestedInput;
@@ -417,6 +451,7 @@ export type CompanyUncheckedUpdateWithoutInstructionsInput = {
 export type CompanyCreateWithoutStepsInput = {
     name: string;
     logo?: string | null;
+    scrapMode: $Enums.ScrapMode;
     URL: string;
     jobs?: Prisma.JobsCreateNestedManyWithoutCompanyInput;
     instructions?: Prisma.InstructionsCreateNestedManyWithoutCompanyInput;
@@ -425,6 +460,7 @@ export type CompanyUncheckedCreateWithoutStepsInput = {
     id?: number;
     name: string;
     logo?: string | null;
+    scrapMode: $Enums.ScrapMode;
     URL: string;
     jobs?: Prisma.JobsUncheckedCreateNestedManyWithoutCompanyInput;
     instructions?: Prisma.InstructionsUncheckedCreateNestedManyWithoutCompanyInput;
@@ -445,6 +481,7 @@ export type CompanyUpdateToOneWithWhereWithoutStepsInput = {
 export type CompanyUpdateWithoutStepsInput = {
     name?: Prisma.StringFieldUpdateOperationsInput | string;
     logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    scrapMode?: Prisma.EnumScrapModeFieldUpdateOperationsInput | $Enums.ScrapMode;
     URL?: Prisma.StringFieldUpdateOperationsInput | string;
     jobs?: Prisma.JobsUpdateManyWithoutCompanyNestedInput;
     instructions?: Prisma.InstructionsUpdateManyWithoutCompanyNestedInput;
@@ -453,6 +490,7 @@ export type CompanyUncheckedUpdateWithoutStepsInput = {
     id?: Prisma.IntFieldUpdateOperationsInput | number;
     name?: Prisma.StringFieldUpdateOperationsInput | string;
     logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    scrapMode?: Prisma.EnumScrapModeFieldUpdateOperationsInput | $Enums.ScrapMode;
     URL?: Prisma.StringFieldUpdateOperationsInput | string;
     jobs?: Prisma.JobsUncheckedUpdateManyWithoutCompanyNestedInput;
     instructions?: Prisma.InstructionsUncheckedUpdateManyWithoutCompanyNestedInput;
@@ -501,6 +539,7 @@ export type CompanySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     id?: boolean;
     name?: boolean;
     logo?: boolean;
+    scrapMode?: boolean;
     URL?: boolean;
     jobs?: boolean | Prisma.Company$jobsArgs<ExtArgs>;
     instructions?: boolean | Prisma.Company$instructionsArgs<ExtArgs>;
@@ -511,21 +550,24 @@ export type CompanySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
     id?: boolean;
     name?: boolean;
     logo?: boolean;
+    scrapMode?: boolean;
     URL?: boolean;
 }, ExtArgs["result"]["company"]>;
 export type CompanySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
     id?: boolean;
     name?: boolean;
     logo?: boolean;
+    scrapMode?: boolean;
     URL?: boolean;
 }, ExtArgs["result"]["company"]>;
 export type CompanySelectScalar = {
     id?: boolean;
     name?: boolean;
     logo?: boolean;
+    scrapMode?: boolean;
     URL?: boolean;
 };
-export type CompanyOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "logo" | "URL", ExtArgs["result"]["company"]>;
+export type CompanyOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "logo" | "scrapMode" | "URL", ExtArgs["result"]["company"]>;
 export type CompanyInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     jobs?: boolean | Prisma.Company$jobsArgs<ExtArgs>;
     instructions?: boolean | Prisma.Company$instructionsArgs<ExtArgs>;
@@ -545,6 +587,7 @@ export type $CompanyPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
         id: number;
         name: string;
         logo: string | null;
+        scrapMode: $Enums.ScrapMode;
         URL: string;
     }, ExtArgs["result"]["company"]>;
     composites: {};
@@ -906,6 +949,7 @@ export interface CompanyFieldRefs {
     readonly id: Prisma.FieldRef<"Company", 'Int'>;
     readonly name: Prisma.FieldRef<"Company", 'String'>;
     readonly logo: Prisma.FieldRef<"Company", 'String'>;
+    readonly scrapMode: Prisma.FieldRef<"Company", 'ScrapMode'>;
     readonly URL: Prisma.FieldRef<"Company", 'String'>;
 }
 /**

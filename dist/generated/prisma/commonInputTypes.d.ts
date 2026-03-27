@@ -132,6 +132,21 @@ export type EnumRoleWithAggregatesFilter<$PrismaModel = never> = {
     _min?: Prisma.NestedEnumRoleFilter<$PrismaModel>;
     _max?: Prisma.NestedEnumRoleFilter<$PrismaModel>;
 };
+export type EnumScrapModeFilter<$PrismaModel = never> = {
+    equals?: $Enums.ScrapMode | Prisma.EnumScrapModeFieldRefInput<$PrismaModel>;
+    in?: $Enums.ScrapMode[] | Prisma.ListEnumScrapModeFieldRefInput<$PrismaModel>;
+    notIn?: $Enums.ScrapMode[] | Prisma.ListEnumScrapModeFieldRefInput<$PrismaModel>;
+    not?: Prisma.NestedEnumScrapModeFilter<$PrismaModel> | $Enums.ScrapMode;
+};
+export type EnumScrapModeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ScrapMode | Prisma.EnumScrapModeFieldRefInput<$PrismaModel>;
+    in?: $Enums.ScrapMode[] | Prisma.ListEnumScrapModeFieldRefInput<$PrismaModel>;
+    notIn?: $Enums.ScrapMode[] | Prisma.ListEnumScrapModeFieldRefInput<$PrismaModel>;
+    not?: Prisma.NestedEnumScrapModeWithAggregatesFilter<$PrismaModel> | $Enums.ScrapMode;
+    _count?: Prisma.NestedIntFilter<$PrismaModel>;
+    _min?: Prisma.NestedEnumScrapModeFilter<$PrismaModel>;
+    _max?: Prisma.NestedEnumScrapModeFilter<$PrismaModel>;
+};
 export type JsonNullableFilter<$PrismaModel = never> = Prisma.PatchUndefined<Prisma.Either<Required<JsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>, Required<JsonNullableFilterBase<$PrismaModel>>> | Prisma.OptionalFlat<Omit<Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>;
 export type JsonNullableFilterBase<$PrismaModel = never> = {
     equals?: runtime.InputJsonValue | Prisma.JsonFieldRefInput<$PrismaModel> | Prisma.JsonNullValueFilter;
@@ -334,6 +349,21 @@ export type NestedEnumRoleWithAggregatesFilter<$PrismaModel = never> = {
     _count?: Prisma.NestedIntFilter<$PrismaModel>;
     _min?: Prisma.NestedEnumRoleFilter<$PrismaModel>;
     _max?: Prisma.NestedEnumRoleFilter<$PrismaModel>;
+};
+export type NestedEnumScrapModeFilter<$PrismaModel = never> = {
+    equals?: $Enums.ScrapMode | Prisma.EnumScrapModeFieldRefInput<$PrismaModel>;
+    in?: $Enums.ScrapMode[] | Prisma.ListEnumScrapModeFieldRefInput<$PrismaModel>;
+    notIn?: $Enums.ScrapMode[] | Prisma.ListEnumScrapModeFieldRefInput<$PrismaModel>;
+    not?: Prisma.NestedEnumScrapModeFilter<$PrismaModel> | $Enums.ScrapMode;
+};
+export type NestedEnumScrapModeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ScrapMode | Prisma.EnumScrapModeFieldRefInput<$PrismaModel>;
+    in?: $Enums.ScrapMode[] | Prisma.ListEnumScrapModeFieldRefInput<$PrismaModel>;
+    notIn?: $Enums.ScrapMode[] | Prisma.ListEnumScrapModeFieldRefInput<$PrismaModel>;
+    not?: Prisma.NestedEnumScrapModeWithAggregatesFilter<$PrismaModel> | $Enums.ScrapMode;
+    _count?: Prisma.NestedIntFilter<$PrismaModel>;
+    _min?: Prisma.NestedEnumScrapModeFilter<$PrismaModel>;
+    _max?: Prisma.NestedEnumScrapModeFilter<$PrismaModel>;
 };
 export type NestedJsonNullableFilter<$PrismaModel = never> = Prisma.PatchUndefined<Prisma.Either<Required<NestedJsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>, Required<NestedJsonNullableFilterBase<$PrismaModel>>> | Prisma.OptionalFlat<Omit<Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>;
 export type NestedJsonNullableFilterBase<$PrismaModel = never> = {

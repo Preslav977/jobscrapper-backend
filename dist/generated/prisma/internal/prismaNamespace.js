@@ -103,6 +103,7 @@ export const CompanyScalarFieldEnum = {
     id: 'id',
     name: 'name',
     logo: 'logo',
+    scrapMode: 'scrapMode',
     URL: 'URL'
 };
 export const JobsScalarFieldEnum = {

@@ -61,6 +61,7 @@ export declare const CompanyScalarFieldEnum: {
     readonly id: "id";
     readonly name: "name";
     readonly logo: "logo";
+    readonly scrapMode: "scrapMode";
     readonly URL: "URL";
 };
 export type CompanyScalarFieldEnum = (typeof CompanyScalarFieldEnum)[keyof typeof CompanyScalarFieldEnum];

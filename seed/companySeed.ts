@@ -7,6 +7,7 @@ import type { CompanyWithSelectedFieldsType } from "../interfaces/CompanyInterfa
       name: "A1 Bulgaria",
       logo: null,
       URL: "http://a1.bg/bg",
+      scrapMode: "NAVIGATION",
       instructions: [
         {
           extractionInstructions: {
@@ -76,6 +77,7 @@ import type { CompanyWithSelectedFieldsType } from "../interfaces/CompanyInterfa
       name: "Accenture",
       logo: null,
       URL: "http://accenture.bg/en",
+      scrapMode: "NAVIGATION",
       instructions: [
         {
           extractionInstructions: {
@@ -133,6 +135,7 @@ import type { CompanyWithSelectedFieldsType } from "../interfaces/CompanyInterfa
       name: "Acronis",
       logo: null,
       URL: "https://www.acronis.com/en/",
+      scrapMode: "NAVIGATION",
       instructions: [
         {
           extractionInstructions: {
@@ -205,6 +208,7 @@ import type { CompanyWithSelectedFieldsType } from "../interfaces/CompanyInterfa
       name: "Adstart Media",
       logo: null,
       URL: "https://adstartmedia.com/",
+      scrapMode: "NAVIGATION",
       instructions: [
         {
           extractionInstructions: {
@@ -252,6 +256,7 @@ import type { CompanyWithSelectedFieldsType } from "../interfaces/CompanyInterfa
       name: "AIOpsGroup",
       logo: null,
       URL: "https://aiopsgroup.com/",
+      scrapMode: "NAVIGATION",
       instructions: [
         {
           extractionInstructions: {
@@ -295,6 +300,7 @@ import type { CompanyWithSelectedFieldsType } from "../interfaces/CompanyInterfa
       name: "Amdaris",
       logo: null,
       URL: "https://amdaris.com/",
+      scrapMode: "NAVIGATION",
       instructions: [
         {
           extractionInstructions: {
@@ -335,6 +341,7 @@ import type { CompanyWithSelectedFieldsType } from "../interfaces/CompanyInterfa
       name: "Ampeco",
       logo: null,
       URL: "https://ampeco.com/",
+      scrapMode: "NAVIGATION",
       instructions: [
         {
           extractionInstructions: {
@@ -375,6 +382,7 @@ import type { CompanyWithSelectedFieldsType } from "../interfaces/CompanyInterfa
       name: "Amusnet",
       logo: null,
       URL: "https://careers-amusnet.com/jobs",
+      scrapMode: "NAVIGATION",
       instructions: [
         {
           extractionInstructions: {
@@ -418,7 +426,7 @@ import type { CompanyWithSelectedFieldsType } from "../interfaces/CompanyInterfa
   ];
 
   for (const company of companies) {
-    const { name, URL, instructions, steps } = company;
+    const { name, URL, scrapMode, instructions, steps } = company;
 
     try {
       const doesCompanyAlreadyExits = await prisma.company.findUnique({
@@ -432,6 +440,7 @@ import type { CompanyWithSelectedFieldsType } from "../interfaces/CompanyInterfa
           data: {
             name,
             URL,
+            scrapMode,
             instructions: {
               create: instructions,
             },

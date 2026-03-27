@@ -6,7 +6,7 @@ import { selectOptionFromDropDown, sleepDelay, tryClick, tryClickEvaluate, tryCl
 import { Page } from "puppeteer";
 puppeteer.default.use(StealthPlugin());
 export async function scrapingJobSitesFunction(companySite) {
-    const { id, URL, instructions, steps } = companySite;
+    const { id, URL, scrapMode, instructions, steps } = companySite;
     let scrapingJobsResult = [];
     let navigationResults = [];
     const browser = await puppeteer.default.launch({
@@ -73,7 +73,7 @@ export async function scrapingJobSitesFunction(companySite) {
             }
         }
         const checkForNavigationResultsFailures = navigationResults.some((res) => res.status === "failure");
-        if (!checkForNavigationResultsFailures) {
+        if (!checkForNavigationResultsFailures && scrapMode === "NAVIGATION") {
             for (const instruction of instructions) {
                 const jobScrapingResult = await extractJobsText(page, instruction, id);
                 scrapingJobsResult = [...jobScrapingResult];
@@ -82,6 +82,10 @@ export async function scrapingJobSitesFunction(companySite) {
                 await browser.close();
                 return jobScrapingResult;
             }
+        }
+        else if (!checkForNavigationResultsFailures && scrapMode === "FETCH") {
+            navigationResults = [];
+            await browser.close();
         }
     }
     catch (error) {

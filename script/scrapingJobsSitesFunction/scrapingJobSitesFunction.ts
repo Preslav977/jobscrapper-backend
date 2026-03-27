@@ -28,7 +28,7 @@ puppeteer.default.use(StealthPlugin());
 export async function scrapingJobSitesFunction(
   companySite: CompanyWithRelationsType,
 ): Promise<JobsCreateManyInput[]> {
-  const { id, URL, instructions, steps } = companySite;
+  const { id, URL, scrapMode, instructions, steps } = companySite;
 
   let scrapingJobsResult: JobsCreateManyInput[] = [];
 
@@ -141,7 +141,7 @@ export async function scrapingJobSitesFunction(
       (res) => res.status === "failure",
     );
 
-    if (!checkForNavigationResultsFailures) {
+    if (!checkForNavigationResultsFailures && scrapMode === "NAVIGATION") {
       for (const instruction of instructions) {
         const jobScrapingResult = await extractJobsText(page, instruction, id);
 
@@ -155,6 +155,10 @@ export async function scrapingJobSitesFunction(
 
         return jobScrapingResult;
       }
+    } else if (!checkForNavigationResultsFailures && scrapMode === "FETCH") {
+      navigationResults = [];
+
+      await browser.close();
     }
   } catch (error) {
     console.log(`Navigation script failed, reason: ${error}`);
