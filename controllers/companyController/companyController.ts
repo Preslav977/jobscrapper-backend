@@ -64,6 +64,8 @@ async function getCompanies(req: Request, res: Response) {
 async function getCompanyByName(req: Request, res: Response) {
   const { name }: Company = req.body;
 
+  console.log(name);
+
   const trimCompanyNameSpace = name.trim();
 
   const companyGetByName = await prisma.company.findFirst({

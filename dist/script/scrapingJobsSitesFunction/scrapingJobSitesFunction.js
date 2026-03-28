@@ -87,7 +87,6 @@ export async function scrapingJobSitesFunction(companySite) {
         else if (!checkForNavigationResultsFailures && scrapMode === "FETCH") {
             navigationResults = [];
             await browser.close();
-            return scrapingJobsResult;
         }
     }
     catch (error) {

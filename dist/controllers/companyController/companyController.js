@@ -50,6 +50,7 @@ async function getCompanies(req, res) {
 }
 async function getCompanyByName(req, res) {
     const { name } = req.body;
+    console.log(name);
     const trimCompanyNameSpace = name.trim();
     const companyGetByName = await prisma.company.findFirst({
         where: {

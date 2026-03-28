@@ -83,7 +83,7 @@ async function extractJobsText(
 
             const jobAnchorHref = extractField(queryJobContainer, anchorHref)!;
 
-            const jobsjobect = {
+            const jobsObject = {
               title: jobTitle,
               location: jobLocation,
               remoteOrHybrid: jobRemoteOrHybrid,
@@ -94,10 +94,10 @@ async function extractJobsText(
             };
 
             if (
-              jobsjobect.title.includes("Developer") ||
-              jobsjobect.title.includes("Engineer")
+              jobsObject.title.includes("Developer") ||
+              jobsObject.title.includes("Engineer")
             ) {
-              scrapedJobs.push(jobsjobect);
+              scrapedJobs.push(jobsObject);
             }
           });
 

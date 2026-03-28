@@ -8,16 +8,27 @@ import { scrapingJobSitesFunction } from "../scrapingJobsSitesFunction/scrapingJ
                 instructions: true,
                 steps: true,
             },
+            where: {
+                id: 2,
+            },
         });
+        // console.log(getCompanies);
         for (const company of getCompanies) {
+            // console.log("Company", company.jobs);
+            const existingJobsInDatabase = new Map(company.jobs.map((job) => [job.title, job]));
+            // console.log(existingJobsInDatabase);
             const result = await scrapingJobSitesFunction(company);
-            console.log(result);
-            // if (Array.isArray(result)) {
-            //   const jobs = await prisma.jobs.createManyAndReturn({
-            //     data: result,
-            //   });
-            //   console.log(jobs);
-            // }
+            for (const scrapedJobs of result) {
+                const existingJob = existingJobsInDatabase.get(scrapedJobs.title);
+                if (existingJob) {
+                    console.log(scrapedJobs, existingJob);
+                }
+                else {
+                    await prisma.jobs.createManyAndReturn({
+                        data: result,
+                    });
+                }
+            }
         }
     }
     catch (error) {
