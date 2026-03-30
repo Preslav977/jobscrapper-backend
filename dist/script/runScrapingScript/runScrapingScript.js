@@ -18,9 +18,22 @@ import { scrapingJobSitesFunction } from "../scrapingJobsSitesFunction/scrapingJ
             for (const scrapedJob of scrapedJobs) {
                 //does scraped jobs existing in the Database
                 const existingJob = existingJobsMap.get(scrapedJob.anchorHref);
-                // console.log(scrapedJob);
                 if (existingJob) {
-                    //   console.log(hasJobChanged(existingJob, scrapedJob as Jobs));
+                    // console.log(hasJobChanged(existingJob, scrapedJob as Jobs));
+                    console.log(existingJob);
+                }
+                else {
+                    await prisma.jobs.create({
+                        data: {
+                            title: scrapedJob.title,
+                            location: scrapedJob.location,
+                            remoteOrHybrid: scrapedJob.remoteOrHybrid,
+                            datePosted: scrapedJob.datePosted,
+                            anchorHref: scrapedJob.anchorHref,
+                            description: scrapedJob.description,
+                            companyID: scrapedJob.companyID,
+                        },
+                    });
                 }
             }
         }
