@@ -14,28 +14,21 @@ import { scrapingJobSitesFunction } from "../scrapingJobsSitesFunction/scrapingJ
       },
     });
 
-    // console.log(getCompanies);
-
     for (const company of getCompanies) {
-      // console.log("Company", company.jobs);
-
-      const existingJobsInDatabase = new Map(
-        company.jobs.map((job) => [job.title, job]),
+      const existingJobsMap = new Map(
+        company.jobs.map((job) => [job.anchorHref!, job]),
       );
 
-      // console.log(existingJobsInDatabase);
+      const scrapedJobs = await scrapingJobSitesFunction(company);
 
-      const result = await scrapingJobSitesFunction(company);
+      for (const scrapedJob of scrapedJobs) {
+        //does scraped jobs existing in the Database
+        const existingJob = existingJobsMap.get(scrapedJob.anchorHref!);
 
-      for (const scrapedJobs of result) {
-        const existingJob = existingJobsInDatabase.get(scrapedJobs.title);
+        // console.log(scrapedJob);
 
         if (existingJob) {
-          console.log(scrapedJobs, existingJob);
-        } else {
-          await prisma.jobs.createManyAndReturn({
-            data: result,
-          });
+          //   console.log(hasJobChanged(existingJob, scrapedJob as Jobs));
         }
       }
     }
