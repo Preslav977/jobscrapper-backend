@@ -1,4 +1,5 @@
 import { prisma } from "../../db/client.js";
+import { hasJobChanged } from "../helperUtilities/helperUtilities.js";
 import { scrapingJobSitesFunction } from "../scrapingJobsSitesFunction/scrapingJobSitesFunction.js";
 (async () => {
     try {
@@ -19,8 +20,24 @@ import { scrapingJobSitesFunction } from "../scrapingJobsSitesFunction/scrapingJ
                 //does scraped jobs existing in the Database
                 const existingJob = existingJobsMap.get(scrapedJob.anchorHref);
                 if (existingJob) {
-                    // console.log(hasJobChanged(existingJob, scrapedJob as Jobs));
-                    console.log(existingJob);
+                    const hasAnyScrapedJobChanged = hasJobChanged(existingJob, scrapedJob);
+                    if (hasAnyScrapedJobChanged) {
+                        await prisma.jobs.update({
+                            where: {
+                                id: existingJob.id,
+                                companyID: scrapedJob.companyID,
+                            },
+                            data: {
+                                title: scrapedJob.title,
+                                location: scrapedJob.location,
+                                remoteOrHybrid: scrapedJob.remoteOrHybrid,
+                                datePosted: scrapedJob.datePosted,
+                                anchorHref: scrapedJob.anchorHref,
+                                description: scrapedJob.description,
+                                companyID: scrapedJob.companyID,
+                            },
+                        });
+                    }
                 }
                 else {
                     await prisma.jobs.create({

@@ -78,9 +78,13 @@ function hasJobChanged(existingJob: Jobs, scrapedJob: Jobs): boolean {
 
       if (existingJobObject[existingJobKey] !== scrapedJob[scrapedJobKey]) {
         result = true;
+
+        return result;
       }
 
       result = false;
+
+      return result;
     }
   }
 

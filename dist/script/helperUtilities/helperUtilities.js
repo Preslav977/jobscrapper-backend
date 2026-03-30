@@ -54,8 +54,10 @@ function hasJobChanged(existingJob, scrapedJob) {
             const scrapedJobKey = propInScrapedJob;
             if (existingJobObject[existingJobKey] !== scrapedJob[scrapedJobKey]) {
                 result = true;
+                return result;
             }
             result = false;
+            return result;
         }
     }
     return result;
