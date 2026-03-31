@@ -3,7 +3,7 @@ import { hasJobChanged } from "../helperUtilities/helperUtilities.js";
 import { scrapingJobSitesFunction } from "../scrapingJobsSitesFunction/scrapingJobSitesFunction.js";
 (async () => {
     try {
-        const getCompanies = await prisma.company.findMany({
+        const companies = await prisma.company.findMany({
             include: {
                 jobs: true,
                 instructions: true,
@@ -13,18 +13,25 @@ import { scrapingJobSitesFunction } from "../scrapingJobsSitesFunction/scrapingJ
                 id: 2,
             },
         });
-        for (const company of getCompanies) {
-            const existingJobsMap = new Map(company.jobs.map((job) => [job.anchorHref, job]));
+        for (const company of companies) {
+            //creating a map of anchorHref, since it is more unique than using titles and etc.
+            const databaseSavedJobsMap = new Map(company.jobs.map((job) => [job.anchorHref, job]));
+            //create a set of all jobs IDs
+            const databaseSavedJobsSetIDs = new Set(company.jobs.map((job) => job.id));
             const scrapedJobs = await scrapingJobSitesFunction(company);
+            //create a set of scraped jobs IDS
+            const scrapedJobsSetIds = new Set();
             for (const scrapedJob of scrapedJobs) {
                 //does scraped jobs existing in the Database
-                const existingJob = existingJobsMap.get(scrapedJob.anchorHref);
-                if (existingJob) {
-                    const hasAnyScrapedJobChanged = hasJobChanged(existingJob, scrapedJob);
+                const doesScrapedJobExistsInDatabase = databaseSavedJobsMap.get(scrapedJob.anchorHref);
+                if (doesScrapedJobExistsInDatabase) {
+                    scrapedJobsSetIds.add(doesScrapedJobExistsInDatabase.id);
+                    //if any job has changed should return true
+                    const hasAnyScrapedJobChanged = hasJobChanged(doesScrapedJobExistsInDatabase, scrapedJob);
                     if (hasAnyScrapedJobChanged) {
                         await prisma.jobs.update({
                             where: {
-                                id: existingJob.id,
+                                id: doesScrapedJobExistsInDatabase.id,
                                 companyID: scrapedJob.companyID,
                             },
                             data: {
@@ -52,6 +59,14 @@ import { scrapingJobSitesFunction } from "../scrapingJobsSitesFunction/scrapingJ
                         },
                     });
                 }
+            }
+            const getJobsIDsThatNeedsToBeDeleted = databaseSavedJobsSetIDs.difference(scrapedJobsSetIds);
+            for (const jobID of getJobsIDsThatNeedsToBeDeleted) {
+                await prisma.jobs.delete({
+                    where: {
+                        id: jobID,
+                    },
+                });
             }
         }
     }
