@@ -91,4 +91,16 @@ function hasJobChanged(existingJob: Jobs, scrapedJob: Jobs): boolean {
   return result;
 }
 
-export { getRandomTimezone, hasJobChanged, height, width };
+function buildData(job: Jobs) {
+  return {
+    title: job.title,
+    location: job.location!,
+    remoteOrHybrid: job.remoteOrHybrid!,
+    datePosted: job.datePosted!,
+    anchorHref: job.anchorHref!,
+    description: job.description,
+    companyID: job.companyID,
+  };
+}
+
+export { buildData, getRandomTimezone, hasJobChanged, height, width };

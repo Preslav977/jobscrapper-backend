@@ -62,5 +62,16 @@ function hasJobChanged(existingJob, scrapedJob) {
     }
     return result;
 }
-export { getRandomTimezone, hasJobChanged, height, width };
+function buildData(job) {
+    return {
+        title: job.title,
+        location: job.location,
+        remoteOrHybrid: job.remoteOrHybrid,
+        datePosted: job.datePosted,
+        anchorHref: job.anchorHref,
+        description: job.description,
+        companyID: job.companyID,
+    };
+}
+export { buildData, getRandomTimezone, hasJobChanged, height, width };
 //# sourceMappingURL=helperUtilities.js.map
