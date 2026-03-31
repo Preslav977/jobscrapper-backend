@@ -20,63 +20,59 @@ import { scrapingJobSitesFunction } from "../scrapingJobsSitesFunction/scrapingJ
     });
 
     for (const company of companies) {
-      //creating a map of anchorHref, since it is more unique than using titles and etc.
-      const databaseSavedJobsMap = new Map(
+      const scrapedJobs = await scrapingJobSitesFunction(company);
+
+      const existingJobsMap = new Map(
         company.jobs.map((job) => [job.anchorHref!, job]),
       );
 
-      //create a set of all jobs IDs
-      const databaseSavedJobsSetIDs = new Set(
-        company.jobs.map((job) => job.id),
-      );
+      const existingJobsIds = new Set(company.jobs.map((job) => job.id));
 
-      const scrapedJobs = await scrapingJobSitesFunction(company);
+      const scrapedJobsIds: Set<number> = new Set();
 
-      //create a set of scraped jobs IDS
-      const scrapedJobsSetIds: Set<number> = new Set();
+      await prisma.$transaction(async (tx) => {
+        scrapedJobs.map((scrapedJob) => {
+          const existingJob = existingJobsMap.get(scrapedJob.anchorHref!);
 
-      for (const scrapedJob of scrapedJobs) {
-        //does scraped jobs existing in the Database
-        const doesScrapedJobExistsInDatabase = databaseSavedJobsMap.get(
-          scrapedJob.anchorHref!,
-        );
-
-        if (doesScrapedJobExistsInDatabase) {
-          scrapedJobsSetIds.add(doesScrapedJobExistsInDatabase.id);
-
-          //if any job has changed should return true
-          const hasAnyScrapedJobChanged = hasJobChanged(
-            doesScrapedJobExistsInDatabase,
+          const scrapedJobChanged = hasJobChanged(
+            existingJob!,
             scrapedJob as Jobs,
           );
 
-          if (hasAnyScrapedJobChanged) {
-            await prisma.jobs.update({
+          if (existingJob) {
+            scrapedJobsIds.add(existingJob.id);
+          } else if (scrapedJobChanged) {
+            tx.jobs.update({
               where: {
-                id: doesScrapedJobExistsInDatabase.id,
-                companyID: scrapedJob.companyID,
+                id: existingJob!.id,
               },
               data: buildData(scrapedJob as Jobs),
             });
+          } else {
+            tx.jobs.create({
+              data: buildData(scrapedJob as Jobs),
+            });
           }
-        } else {
-          await prisma.jobs.create({
-            data: buildData(scrapedJob as Jobs),
+        });
+
+        const jobsToDelete = Array.from(
+          existingJobsIds.difference(scrapedJobsIds),
+        );
+
+        console.log(jobsToDelete);
+
+        if (jobsToDelete.length > 0) {
+          tx.jobs.deleteMany({
+            where: {
+              id: {
+                in: jobsToDelete,
+              },
+            },
           });
         }
-      }
-      const getJobsIDsThatNeedsToBeDeleted =
-        databaseSavedJobsSetIDs.difference(scrapedJobsSetIds);
-
-      for (const jobID of getJobsIDsThatNeedsToBeDeleted) {
-        await prisma.jobs.delete({
-          where: {
-            id: jobID,
-          },
-        });
-      }
+      });
     }
   } catch (error) {
-    console.log(error);
+    console.error(`Failed to sync company:`, error);
   }
 })();

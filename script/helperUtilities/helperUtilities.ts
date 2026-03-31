@@ -91,13 +91,13 @@ function hasJobChanged(existingJob: Jobs, scrapedJob: Jobs): boolean {
   return result;
 }
 
-function buildData(job: Jobs) {
+function buildData(job: Jobs): Omit<Jobs, "id"> {
   return {
     title: job.title,
-    location: job.location!,
-    remoteOrHybrid: job.remoteOrHybrid!,
-    datePosted: job.datePosted!,
-    anchorHref: job.anchorHref!,
+    location: job.location,
+    remoteOrHybrid: job.remoteOrHybrid,
+    datePosted: job.datePosted,
+    anchorHref: job.anchorHref,
     description: job.description,
     companyID: job.companyID,
   };
