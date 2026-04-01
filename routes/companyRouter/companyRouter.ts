@@ -55,7 +55,7 @@ companyRouter.delete("/:id", deleteCompany);
 
 companyRouter.post("/:id/jobs", createJobs);
 
-companyRouter.get("/:companyID/job/:id", getJobDetails);
+companyRouter.get("/:companyID/jobs", getJobDetails);
 
 companyRouter.put("/:companyID/job/:id", updateJob);
 
@@ -86,7 +86,7 @@ companyRouter.post("/:companyID/steps", createScrappingSteps);
 
 companyRouter.get("/:companyID/steps", getScrappingStepsDetails);
 
-companyRouter.put("/:companyID/steps/:id", updateScrappingStepsDetails);
+companyRouter.put("/:companyID/steps", updateScrappingStepsDetails);
 
 companyRouter.delete("/:companyID/steps", createScrappingSteps);
 

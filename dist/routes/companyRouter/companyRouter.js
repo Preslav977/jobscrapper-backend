@@ -14,7 +14,7 @@ companyRouter.put("/:id", upload.single("file"), updateCompany);
 companyRouter.delete("/:id", deleteCompany);
 ///CRUD jobs routes
 companyRouter.post("/:id/jobs", createJobs);
-companyRouter.get("/:companyID/job/:id", getJobDetails);
+companyRouter.get("/:companyID/jobs", getJobDetails);
 companyRouter.put("/:companyID/job/:id", updateJob);
 companyRouter.delete("/:companyID/job/:id", deleteJob);
 ///CRUD instructions routes
@@ -25,7 +25,7 @@ companyRouter.delete("/:companyID/instructions/:id", deleteScrappingInstructions
 ///CRUD steps routes
 companyRouter.post("/:companyID/steps", createScrappingSteps);
 companyRouter.get("/:companyID/steps", getScrappingStepsDetails);
-companyRouter.put("/:companyID/steps/:id", updateScrappingStepsDetails);
+companyRouter.put("/:companyID/steps", updateScrappingStepsDetails);
 companyRouter.delete("/:companyID/steps", createScrappingSteps);
 export { companyRouter };
 //# sourceMappingURL=companyRouter.js.map

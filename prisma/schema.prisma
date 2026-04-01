@@ -18,6 +18,13 @@ enum Role {
   ADMIN
 }
 
+enum ScrapMode {
+  NAVIGATION
+  DIRECT
+  FETCH
+  JSON
+}
+
 model User {
   id              Int     @id @default(autoincrement())
   firstName       String?
@@ -40,6 +47,7 @@ model Company {
   id           Int            @id @default(autoincrement())
   name         String         @unique
   logo         String?
+  scrapMode    ScrapMode
   jobs         Jobs[]
   URL          String
   instructions Instructions[]
@@ -49,14 +57,14 @@ model Company {
 }
 
 model Jobs {
-  id             Int      @id @default(autoincrement())
+  id             Int     @id @default(autoincrement())
   title          String
-  location       String
-  remoteOrHybrid String
-  datePosted     DateTime @updatedAt
+  location       String?
+  remoteOrHybrid String?
+  datePosted     String?
   description    String
   anchorHref     String?
-  company        Company  @relation(fields: [companyID], references: [id], onDelete: Cascade)
+  company        Company @relation(fields: [companyID], references: [id], onDelete: Cascade)
   companyID      Int
 
   @@map("jobs")
@@ -64,7 +72,7 @@ model Jobs {
 
 model Instructions {
   id                     Int      @id @default(autoincrement())
-  extractionInstructions Json
+  extractionInstructions Json?
   company                Company? @relation(fields: [companyID], references: [id], onDelete: Cascade)
   companyID              Int?
 

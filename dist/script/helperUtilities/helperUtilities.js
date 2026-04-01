@@ -36,5 +36,44 @@ const arrayOfDifferentTimezones = [
 ];
 const shuffleArrayTimezones = Math.floor(Math.random() * arrayOfDifferentTimezones.length);
 const getRandomTimezone = arrayOfDifferentTimezones[shuffleArrayTimezones];
-export { getRandomTimezone, height, width };
+function hasJobChanged(existingJob, scrapedJob) {
+    let result = false;
+    if (existingJob && scrapedJob) {
+        const { title, location, remoteOrHybrid, datePosted, description, anchorHref, companyID, } = existingJob;
+        const existingJobObject = {
+            title,
+            location,
+            remoteOrHybrid,
+            datePosted,
+            description,
+            anchorHref,
+            companyID,
+        };
+        for (const propInExistingJob in existingJobObject) {
+            for (const propInScrapedJob in scrapedJob) {
+                const existingJobKey = propInExistingJob;
+                const scrapedJobKey = propInScrapedJob;
+                if (existingJobObject[existingJobKey] !== scrapedJob[scrapedJobKey]) {
+                    result = true;
+                    return result;
+                }
+                result = false;
+                return result;
+            }
+        }
+    }
+    return result;
+}
+function buildData(job) {
+    return {
+        title: job.title,
+        location: job.location,
+        remoteOrHybrid: job.remoteOrHybrid,
+        datePosted: job.datePosted,
+        anchorHref: job.anchorHref,
+        description: job.description,
+        companyID: job.companyID,
+    };
+}
+export { buildData, getRandomTimezone, hasJobChanged, height, width };
 //# sourceMappingURL=helperUtilities.js.map

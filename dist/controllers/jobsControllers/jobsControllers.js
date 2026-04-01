@@ -18,17 +18,16 @@ async function createJobs(req, res) {
     }
 }
 async function getJobDetails(req, res) {
-    const { id, companyID } = req.params;
-    const getJobDetails = await prisma.jobs.findFirst({
+    const { companyID } = req.params;
+    const getJobDetails = await prisma.jobs.findMany({
         include: {
             company: true,
         },
         where: {
             companyID: Number(companyID),
-            id: Number(id),
         },
     });
-    if (getJobDetails === null) {
+    if (getJobDetails.length === 0) {
         res.json({
             message: "No job has been found with that ID in that company!",
         });

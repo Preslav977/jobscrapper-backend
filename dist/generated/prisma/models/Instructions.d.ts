@@ -134,7 +134,7 @@ export type InstructionsGroupByArgs<ExtArgs extends runtime.Types.Extensions.Int
 };
 export type InstructionsGroupByOutputType = {
     id: number;
-    extractionInstructions: runtime.JsonValue;
+    extractionInstructions: runtime.JsonValue | null;
     companyID: number | null;
     _count: InstructionsCountAggregateOutputType | null;
     _avg: InstructionsAvgAggregateOutputType | null;
@@ -150,13 +150,13 @@ export type InstructionsWhereInput = {
     OR?: Prisma.InstructionsWhereInput[];
     NOT?: Prisma.InstructionsWhereInput | Prisma.InstructionsWhereInput[];
     id?: Prisma.IntFilter<"Instructions"> | number;
-    extractionInstructions?: Prisma.JsonFilter<"Instructions">;
+    extractionInstructions?: Prisma.JsonNullableFilter<"Instructions">;
     companyID?: Prisma.IntNullableFilter<"Instructions"> | number | null;
     company?: Prisma.XOR<Prisma.CompanyNullableScalarRelationFilter, Prisma.CompanyWhereInput> | null;
 };
 export type InstructionsOrderByWithRelationInput = {
     id?: Prisma.SortOrder;
-    extractionInstructions?: Prisma.SortOrder;
+    extractionInstructions?: Prisma.SortOrderInput | Prisma.SortOrder;
     companyID?: Prisma.SortOrderInput | Prisma.SortOrder;
     company?: Prisma.CompanyOrderByWithRelationInput;
 };
@@ -165,13 +165,13 @@ export type InstructionsWhereUniqueInput = Prisma.AtLeast<{
     AND?: Prisma.InstructionsWhereInput | Prisma.InstructionsWhereInput[];
     OR?: Prisma.InstructionsWhereInput[];
     NOT?: Prisma.InstructionsWhereInput | Prisma.InstructionsWhereInput[];
-    extractionInstructions?: Prisma.JsonFilter<"Instructions">;
+    extractionInstructions?: Prisma.JsonNullableFilter<"Instructions">;
     companyID?: Prisma.IntNullableFilter<"Instructions"> | number | null;
     company?: Prisma.XOR<Prisma.CompanyNullableScalarRelationFilter, Prisma.CompanyWhereInput> | null;
 }, "id">;
 export type InstructionsOrderByWithAggregationInput = {
     id?: Prisma.SortOrder;
-    extractionInstructions?: Prisma.SortOrder;
+    extractionInstructions?: Prisma.SortOrderInput | Prisma.SortOrder;
     companyID?: Prisma.SortOrderInput | Prisma.SortOrder;
     _count?: Prisma.InstructionsCountOrderByAggregateInput;
     _avg?: Prisma.InstructionsAvgOrderByAggregateInput;
@@ -184,38 +184,38 @@ export type InstructionsScalarWhereWithAggregatesInput = {
     OR?: Prisma.InstructionsScalarWhereWithAggregatesInput[];
     NOT?: Prisma.InstructionsScalarWhereWithAggregatesInput | Prisma.InstructionsScalarWhereWithAggregatesInput[];
     id?: Prisma.IntWithAggregatesFilter<"Instructions"> | number;
-    extractionInstructions?: Prisma.JsonWithAggregatesFilter<"Instructions">;
+    extractionInstructions?: Prisma.JsonNullableWithAggregatesFilter<"Instructions">;
     companyID?: Prisma.IntNullableWithAggregatesFilter<"Instructions"> | number | null;
 };
 export type InstructionsCreateInput = {
-    extractionInstructions: Prisma.JsonNullValueInput | runtime.InputJsonValue;
+    extractionInstructions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
     company?: Prisma.CompanyCreateNestedOneWithoutInstructionsInput;
 };
 export type InstructionsUncheckedCreateInput = {
     id?: number;
-    extractionInstructions: Prisma.JsonNullValueInput | runtime.InputJsonValue;
+    extractionInstructions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
     companyID?: number | null;
 };
 export type InstructionsUpdateInput = {
-    extractionInstructions?: Prisma.JsonNullValueInput | runtime.InputJsonValue;
+    extractionInstructions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
     company?: Prisma.CompanyUpdateOneWithoutInstructionsNestedInput;
 };
 export type InstructionsUncheckedUpdateInput = {
     id?: Prisma.IntFieldUpdateOperationsInput | number;
-    extractionInstructions?: Prisma.JsonNullValueInput | runtime.InputJsonValue;
+    extractionInstructions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
     companyID?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
 };
 export type InstructionsCreateManyInput = {
     id?: number;
-    extractionInstructions: Prisma.JsonNullValueInput | runtime.InputJsonValue;
+    extractionInstructions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
     companyID?: number | null;
 };
 export type InstructionsUpdateManyMutationInput = {
-    extractionInstructions?: Prisma.JsonNullValueInput | runtime.InputJsonValue;
+    extractionInstructions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
 };
 export type InstructionsUncheckedUpdateManyInput = {
     id?: Prisma.IntFieldUpdateOperationsInput | number;
-    extractionInstructions?: Prisma.JsonNullValueInput | runtime.InputJsonValue;
+    extractionInstructions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
     companyID?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
 };
 export type InstructionsListRelationFilter = {
@@ -286,11 +286,11 @@ export type InstructionsUncheckedUpdateManyWithoutCompanyNestedInput = {
     deleteMany?: Prisma.InstructionsScalarWhereInput | Prisma.InstructionsScalarWhereInput[];
 };
 export type InstructionsCreateWithoutCompanyInput = {
-    extractionInstructions: Prisma.JsonNullValueInput | runtime.InputJsonValue;
+    extractionInstructions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
 };
 export type InstructionsUncheckedCreateWithoutCompanyInput = {
     id?: number;
-    extractionInstructions: Prisma.JsonNullValueInput | runtime.InputJsonValue;
+    extractionInstructions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
 };
 export type InstructionsCreateOrConnectWithoutCompanyInput = {
     where: Prisma.InstructionsWhereUniqueInput;
@@ -318,23 +318,23 @@ export type InstructionsScalarWhereInput = {
     OR?: Prisma.InstructionsScalarWhereInput[];
     NOT?: Prisma.InstructionsScalarWhereInput | Prisma.InstructionsScalarWhereInput[];
     id?: Prisma.IntFilter<"Instructions"> | number;
-    extractionInstructions?: Prisma.JsonFilter<"Instructions">;
+    extractionInstructions?: Prisma.JsonNullableFilter<"Instructions">;
     companyID?: Prisma.IntNullableFilter<"Instructions"> | number | null;
 };
 export type InstructionsCreateManyCompanyInput = {
     id?: number;
-    extractionInstructions: Prisma.JsonNullValueInput | runtime.InputJsonValue;
+    extractionInstructions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
 };
 export type InstructionsUpdateWithoutCompanyInput = {
-    extractionInstructions?: Prisma.JsonNullValueInput | runtime.InputJsonValue;
+    extractionInstructions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
 };
 export type InstructionsUncheckedUpdateWithoutCompanyInput = {
     id?: Prisma.IntFieldUpdateOperationsInput | number;
-    extractionInstructions?: Prisma.JsonNullValueInput | runtime.InputJsonValue;
+    extractionInstructions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
 };
 export type InstructionsUncheckedUpdateManyWithoutCompanyInput = {
     id?: Prisma.IntFieldUpdateOperationsInput | number;
-    extractionInstructions?: Prisma.JsonNullValueInput | runtime.InputJsonValue;
+    extractionInstructions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
 };
 export type InstructionsSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
     id?: boolean;
@@ -376,7 +376,7 @@ export type $InstructionsPayload<ExtArgs extends runtime.Types.Extensions.Intern
     };
     scalars: runtime.Types.Extensions.GetPayloadResult<{
         id: number;
-        extractionInstructions: runtime.JsonValue;
+        extractionInstructions: runtime.JsonValue | null;
         companyID: number | null;
     }, ExtArgs["result"]["instructions"]>;
     composites: {};
@@ -951,7 +951,7 @@ export type InstructionsCreateArgs<ExtArgs extends runtime.Types.Extensions.Inte
     /**
      * The data needed to create a Instructions.
      */
-    data: Prisma.XOR<Prisma.InstructionsCreateInput, Prisma.InstructionsUncheckedCreateInput>;
+    data?: Prisma.XOR<Prisma.InstructionsCreateInput, Prisma.InstructionsUncheckedCreateInput>;
 };
 /**
  * Instructions createMany

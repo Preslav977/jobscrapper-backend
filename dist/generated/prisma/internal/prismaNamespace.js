@@ -103,6 +103,7 @@ export const CompanyScalarFieldEnum = {
     id: 'id',
     name: 'name',
     logo: 'logo',
+    scrapMode: 'scrapMode',
     URL: 'URL'
 };
 export const JobsScalarFieldEnum = {
@@ -139,7 +140,8 @@ export const SortOrder = {
     asc: 'asc',
     desc: 'desc'
 };
-export const JsonNullValueInput = {
+export const NullableJsonNullValueInput = {
+    DbNull: DbNull,
     JsonNull: JsonNull
 };
 export const QueryMode = {

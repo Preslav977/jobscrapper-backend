@@ -1,11 +1,10 @@
-import console from "node:console";
 import type { ElementHandle, Page } from "puppeteer";
 
 async function tryClick(
   page: Page,
   instruction: string,
   maxAttempt: number,
-): Promise<string> {
+): Promise<string | void> {
   for (let attempt = 1; attempt <= maxAttempt; attempt++) {
     try {
       await page.waitForSelector(instruction);
@@ -17,19 +16,18 @@ async function tryClick(
       return "success";
     } catch (error) {
       if (attempt === maxAttempt) {
-        console.log(`Failed to query and click: ${error}`);
+        console.log(`tryClick, failed to query, and click, reason: ${error}`);
         return "failure";
       }
     }
   }
-  return "";
 }
 
 async function tryClickEvaluate(
   page: Page,
   instruction: string,
   maxAttempt: number,
-): Promise<string> {
+): Promise<string | void> {
   for (let attempt = 1; attempt <= maxAttempt; attempt++) {
     try {
       const clickedInstruction = (await page.waitForSelector(
@@ -43,18 +41,19 @@ async function tryClickEvaluate(
       return "success";
     } catch (error) {
       if (attempt === maxAttempt) {
-        console.log(`Failed to query and click ${error}`);
+        console.log(
+          `tryClickEvaluate, failed to query, and click, reason: ${error}`,
+        );
         return "failure";
       }
     }
   }
-  return "";
 }
 
 async function tryClickLoadMore(
   page: Page,
   instruction: string,
-): Promise<string> {
+): Promise<string | void> {
   let loadMoreJobs = true;
 
   let clickedMoreButtonCount = 0;
@@ -86,14 +85,14 @@ async function tryClickLoadMore(
       } else {
         loadMoreJobs = false;
 
-        console.log(`Failed to query and click: ${error}`);
+        console.log(
+          `tryClickLoadMore, failed to query, and click, reason: ${error}`,
+        );
 
         return "failure";
       }
     }
   }
-
-  return "";
 }
 
 async function selectOptionFromDropDown(
@@ -101,7 +100,7 @@ async function selectOptionFromDropDown(
   selectElement: string,
   selectOption: string,
   maxAttempt: number,
-): Promise<string> {
+): Promise<string | void> {
   for (let attempt = 1; attempt <= maxAttempt; attempt++) {
     try {
       await page.waitForSelector(selectElement);
@@ -113,12 +112,13 @@ async function selectOptionFromDropDown(
       return "success";
     } catch (error) {
       if (attempt === maxAttempt) {
-        console.log(`Failed to query and select: ${error}`);
+        console.log(
+          `selectOptionFromDropDown, failed to query, and click, reason: ${error}`,
+        );
         return "failure";
       }
     }
   }
-  return "";
 }
 
 async function tryEventLocator(
@@ -126,7 +126,7 @@ async function tryEventLocator(
   instruction: string,
   event: string,
   maxAttempt: number,
-): Promise<string> {
+): Promise<string | void> {
   for (let attempt = 1; attempt <= maxAttempt; attempt++) {
     try {
       switch (event) {
@@ -146,12 +146,13 @@ async function tryEventLocator(
       return "success";
     } catch (error) {
       if (attempt === maxAttempt) {
-        console.log(`Failed to query and ${event}: ${error}`);
+        console.log(
+          `tryEventLocator, failed to query, and click, reason: ${error} at event: ${event}`,
+        );
         return "failure";
       }
     }
   }
-  return "";
 }
 
 async function sleepDelay(timeout: number): Promise<void> {

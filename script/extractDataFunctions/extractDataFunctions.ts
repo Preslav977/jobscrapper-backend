@@ -1,67 +1,74 @@
 import type { ElementHandle, Page } from "puppeteer";
+import type { Instructions } from "../../generated/prisma/client.js";
+import type { JobsCreateManyInput } from "../../generated/prisma/models.js";
 import type { ExtractionConfig } from "../../interfaces/InstructionsInterface/InstructionsInterface.js";
-import type { ScrapedJobsObjectType } from "../../interfaces/JobsInterface/JobsInterface.js";
+import { sleepDelay } from "../navigationFunctions/navigationFunctions.js";
 
 async function extractJobsText(
   page: Page,
-  {
-    container,
-    title,
-    location,
-    remoteOrHybrid,
-    datePosted,
-    anchorHref,
-  }: ExtractionConfig,
-) {
-  const doesJobContainerExists = (await page.waitForSelector(
-    container.selector!,
-  )) as ElementHandle<HTMLElement>;
+  instruction: Instructions,
+  id: number,
+): Promise<JobsCreateManyInput[]> {
+  const { container, title, location, remoteOrHybrid, datePosted, anchorHref } =
+    instruction.extractionInstructions as ExtractionConfig;
 
-  if (doesJobContainerExists) {
-    const result = await page.evaluate(
-      (container, title, location, remoteOrHybrid, datePosted, anchorHref) => {
-        function extractField(
-          HTMLElement: Element,
-          elementField: {
-            extractType: string;
-            selector?: string;
-            attr?: string;
-          } | null,
-        ) {
-          if (HTMLElement === null || elementField === null) {
+  const scrapedJobs: JobsCreateManyInput[] = [];
+
+  try {
+    const doesJobContainerExists = (await page.waitForSelector(
+      container.selector!,
+    )) as ElementHandle<HTMLElement>;
+
+    if (doesJobContainerExists) {
+      const result = await page.evaluate(
+        (
+          scrapedJobs,
+          container,
+          title,
+          location,
+          remoteOrHybrid,
+          datePosted,
+          anchorHref,
+          id,
+        ) => {
+          function extractField(
+            HTMLElement: Element,
+            elementField: {
+              extractType: string;
+              selector?: string;
+              attr?: string;
+            },
+          ) {
+            if (
+              elementField.extractType === "" ||
+              elementField.selector === ""
+            ) {
+              return null;
+            }
+
+            if (elementField.extractType === "text") {
+              return HTMLElement.querySelector(elementField.selector!)
+                ?.textContent.trim()
+                .replace("\n", "");
+            }
+
+            if (elementField.extractType === "attribute") {
+              return HTMLElement.getAttribute(elementField.attr!);
+            }
+
+            if (elementField.extractType === "elementAttribute") {
+              return HTMLElement.querySelector(
+                elementField.selector!,
+              )?.getAttribute(elementField.attr!);
+            }
+
             return null;
           }
 
-          if (elementField.extractType === "text") {
-            return HTMLElement.querySelector(elementField.selector!)
-              ?.textContent.trim()
-              .replace("\n", "");
-          }
+          const queryAllJobsContainers = document.querySelectorAll(
+            container.selector!,
+          );
 
-          if (elementField.extractType === "attribute") {
-            return HTMLElement.getAttribute(elementField.attr!);
-          }
-
-          if (elementField.extractType === "parentElementAttribute") {
-            return HTMLElement.querySelector(
-              elementField.selector!,
-            )?.getAttribute(elementField.attr!);
-          }
-
-          return null;
-        }
-
-        const scrapedJobsObject: ScrapedJobsObjectType = {
-          success: null,
-          jobs: [],
-          err: null,
-        };
-
-        const queryAllJobsContainers = document.querySelectorAll(
-          container.selector!,
-        );
-
-        try {
           queryAllJobsContainers.forEach((queryJobContainer) => {
             const jobTitle = extractField(queryJobContainer, title)!;
 
@@ -82,31 +89,41 @@ async function extractJobsText(
               remoteOrHybrid: jobRemoteOrHybrid,
               datePosted: jobDatePosted,
               anchorHref: jobAnchorHref,
+              description: "",
+              companyID: id,
             };
 
-            scrapedJobsObject.success = true;
-
-            scrapedJobsObject.jobs.push(jobsObject);
+            if (
+              jobsObject.title.includes("Developer") ||
+              jobsObject.title.includes("Engineer")
+            ) {
+              scrapedJobs.push(jobsObject);
+            }
           });
-          return scrapedJobsObject;
-        } catch (error) {
-          scrapedJobsObject.success = false;
 
-          scrapedJobsObject.err = error;
+          return scrapedJobs;
+        },
+        scrapedJobs,
+        container,
+        title,
+        location,
+        remoteOrHybrid,
+        datePosted,
+        anchorHref,
+        id,
+      );
 
-          return scrapedJobsObject;
-        }
-      },
-      container,
-      title,
-      location,
-      remoteOrHybrid,
-      datePosted,
-      anchorHref,
-    );
-    return result;
+      sleepDelay(3000);
+
+      return result;
+    }
+  } catch (error) {
+    console.log(`Failed to scrap, check selectors, reason: ${error}`);
+
+    throw error;
   }
-  return;
+
+  return scrapedJobs;
 }
 
 async function extractJobsJSON(attribute: string) {
@@ -114,30 +131,63 @@ async function extractJobsJSON(attribute: string) {
 
   const getElementAttribute = queryElementByAttribute!.getAttribute(attribute)!;
 
-  const parseAttributeToJSON: ScrapedJobsObjectType =
+  const parseAttributeToJSON: JobsCreateManyInput[] =
     JSON.parse(getElementAttribute);
 
   return parseAttributeToJSON;
 }
 
-async function extractJobsFetchURL(url: string) {
+interface ResponseResult {
+  id: string;
+  jobOpeningName: string;
+  location: { city: string };
+  isRemote: null | string;
+}
+
+interface ApiResponse<T> {
+  meta: { totalCount: number };
+  result: T[];
+  status: string;
+}
+
+function transform<T>(results: T[], mapper: (item: T) => JobsCreateManyInput) {
+  return results.map(mapper);
+}
+
+async function extractJobsFetchURL(
+  id: number,
+  url: string,
+  companyURL: string,
+): Promise<JobsCreateManyInput[]> {
+  let retrieveFetchedJobs: JobsCreateManyInput[] = [];
+
   try {
     const fetchJobsByURL = await fetch(url, {
       mode: "cors",
     });
 
-    if (fetchJobsByURL.status >= 200) {
+    if (fetchJobsByURL.status >= 400) {
       throw new Error(
         `Failed to fetch jobs, reason: ${fetchJobsByURL.statusText}`,
       );
     }
-    const getJobs: ScrapedJobsObjectType = await fetchJobsByURL.json();
+    const getJobs =
+      (await fetchJobsByURL.json()) as ApiResponse<ResponseResult>;
 
-    return getJobs;
+    const result = transform(getJobs.result, (job: ResponseResult) => ({
+      title: job.jobOpeningName,
+      location: job.location.city,
+      remoteOrHybrid: job.isRemote,
+      anchorHref: `${companyURL}${job.id}`,
+      description: "",
+      companyID: id,
+    }));
+
+    retrieveFetchedJobs = [...result];
   } catch (error) {
     console.log(error);
   }
-  return;
+  return retrieveFetchedJobs;
 }
 
 export { extractJobsFetchURL, extractJobsJSON, extractJobsText };

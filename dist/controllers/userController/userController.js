@@ -4,7 +4,7 @@ import bcrypt from "bcryptjs";
 import { validationResult } from "express-validator";
 import { supabaseImageUpload } from "../../helpers/supabaseImageUpload/supabaseImageUpload.js";
 async function signUpUser(req, res) {
-    const { email, password, confirmPassword } = req.body;
+    const { email, password } = req.body;
     const errors = validationResult(req);
     bcrypt.hash(password, 10, async (error, hashedPassword) => {
         if (error) {

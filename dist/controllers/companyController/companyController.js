@@ -2,7 +2,7 @@ import { prisma } from "../../db/client.js";
 import { validationResult } from "express-validator";
 import { supabaseImageUpload } from "../../helpers/supabaseImageUpload/supabaseImageUpload.js";
 async function createCompany(req, res) {
-    const { name, URL } = req.body;
+    const { name, URL, scrapMode } = req.body;
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         res.status(400).send(errors.array());
@@ -15,6 +15,7 @@ async function createCompany(req, res) {
                     name,
                     logo,
                     URL,
+                    scrapMode,
                 },
             });
             res.json(createCompany);
@@ -24,6 +25,7 @@ async function createCompany(req, res) {
                 data: {
                     name,
                     URL,
+                    scrapMode,
                 },
             });
             res.json(createCompany);
@@ -48,6 +50,7 @@ async function getCompanies(req, res) {
 }
 async function getCompanyByName(req, res) {
     const { name } = req.body;
+    console.log(name);
     const trimCompanyNameSpace = name.trim();
     const companyGetByName = await prisma.company.findFirst({
         where: {

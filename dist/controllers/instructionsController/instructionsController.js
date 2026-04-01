@@ -30,7 +30,7 @@ async function getScrappingInstructionsDetails(req, res) {
             id: Number(id),
         },
     });
-    if (getInstructionsDetails === null) {
+    if (getInstructionsDetails.length === 0) {
         res.json({
             message: "No instructions has been found with that ID for that company!",
         });
@@ -41,18 +41,21 @@ async function getScrappingInstructionsDetails(req, res) {
 }
 async function updateScrappingInstructionsDetails(req, res) {
     const { companyID, id } = req.params;
-    const { extractionInstructions } = req.body;
-    const updateInstructionsDetails = await prisma.instructions.updateMany({
-        where: {
-            companyID: Number(companyID),
-            id: Number(id),
-        },
-        data: {
-            extractionInstructions,
-            companyID: Number(companyID),
-        },
-    });
-    res.json(updateInstructionsDetails);
+    //pass an array of instructions skipping id, companyID and extractionInstructions
+    const [extractionInstructions] = req.body;
+    if (extractionInstructions) {
+        const updateInstructionsDetails = await prisma.instructions.update({
+            where: {
+                companyID: Number(companyID),
+                id: Number(id),
+            },
+            data: {
+                extractionInstructions,
+                companyID: Number(companyID),
+            },
+        });
+        res.json(updateInstructionsDetails);
+    }
 }
 async function deleteScrappingInstructionsDetails(req, res) {
     const { companyID, id } = req.params;

@@ -2,7 +2,7 @@ import { prisma } from "../../db/client.js";
 
 import type { Request, Response } from "express";
 
-import type { StepsInterface } from "../../interfaces/StepsInterface/StepsInterface.js";
+import type { Steps } from "../../generated/prisma/client.js";
 
 async function createScrappingSteps(req: Request, res: Response) {
   const { companyID } = req.params;
@@ -12,7 +12,7 @@ async function createScrappingSteps(req: Request, res: Response) {
       message: "Failed to create scraping steps for company!",
     });
   } else {
-    const stepsArray: StepsInterface = req.body.map((step: StepsInterface) => {
+    const stepsArray: Steps = req.body.map((step: Steps) => {
       return {
         ...step,
         companyID: Number(companyID),
@@ -47,24 +47,22 @@ async function getScrappingStepsDetails(req: Request, res: Response) {
 }
 
 async function updateScrappingStepsDetails(req: Request, res: Response) {
-  const { companyID, id } = req.params;
+  const updateSteps = await Promise.all(
+    req.body.map((step: Steps) =>
+      prisma.steps.update({
+        where: { id: step.id, companyID: step.companyID },
+        data: {
+          order: step.order,
+          action: step.action,
+          selector: step.selector,
+          selectOption: step.selectOption,
+          url: step.url,
+        },
+      }),
+    ),
+  );
 
-  const { order, action, selector }: StepsInterface = req.body;
-
-  const updateStepsDetails = await prisma.steps.updateMany({
-    where: {
-      companyID: Number(companyID),
-      id: Number(id),
-    },
-
-    data: {
-      order,
-      action,
-      selector,
-    },
-  });
-
-  res.json(updateStepsDetails);
+  res.json(updateSteps);
 }
 
 async function deleteScrappingStepsDetails(req: Request, res: Response) {

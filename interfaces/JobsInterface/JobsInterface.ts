@@ -9,12 +9,10 @@ export interface JobsInterface {
   companyID: number;
 }
 
-export type ScrapedJobsObjectType = {
-  jobs: Array<{
-    title: string | null;
-    location: string | null;
-    remoteOrHybrid: string | null;
-    datePosted: string | null;
-    anchorHref: string | null;
-  }>;
+export type ScrapedJobsArrayType = {
+  title: string | null;
+  location: string | null;
+  remoteOrHybrid: string | null;
+  datePosted: string | null;
+  anchorHref: string | null;
 };

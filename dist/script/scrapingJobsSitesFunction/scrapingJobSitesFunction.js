@@ -1,12 +1,14 @@
 import puppeteer from "puppeteer-extra";
 import StealthPlugin from "puppeteer-extra-plugin-stealth";
-import { extractJobsText } from "../extractDataFunctions/extractDataFunctions.js";
+import { extractJobsFetchURL, extractJobsText, } from "../extractDataFunctions/extractDataFunctions.js";
 import { getRandomTimezone, height, width, } from "../helperUtilities/helperUtilities.js";
 import { selectOptionFromDropDown, sleepDelay, tryClick, tryClickEvaluate, tryClickLoadMore, } from "../navigationFunctions/navigationFunctions.js";
 import { Page } from "puppeteer";
 puppeteer.default.use(StealthPlugin());
 export async function scrapingJobSitesFunction(companySite) {
-    const { URL, instructions, steps } = companySite;
+    const { id, URL, scrapMode, instructions, steps } = companySite;
+    let scrapingJobsResult = [];
+    let navigationResults = [];
     const browser = await puppeteer.default.launch({
         headless: false,
         args: ["--no-sandbox"],
@@ -21,12 +23,11 @@ export async function scrapingJobSitesFunction(companySite) {
     await page.evaluate(() => {
         window.scrollTo(0, document.body.scrollHeight);
     });
-    let navigationResults = [];
     try {
         for (const step of steps) {
             switch (step.action) {
                 case "click": {
-                    const tryClickResult = await tryClick(page, step.selector, 3);
+                    const tryClickResult = await tryClick(page, step.selector, 5);
                     navigationResults.push({
                         step: step.selector,
                         status: tryClickResult,
@@ -34,7 +35,7 @@ export async function scrapingJobSitesFunction(companySite) {
                     break;
                 }
                 case "clickEvaluate": {
-                    const tryClickEvaluateResult = await tryClickEvaluate(page, step.selector, 3);
+                    const tryClickEvaluateResult = await tryClickEvaluate(page, step.selector, 5);
                     navigationResults.push({
                         step: step.selector,
                         status: tryClickEvaluateResult,
@@ -50,11 +51,21 @@ export async function scrapingJobSitesFunction(companySite) {
                     break;
                 }
                 case "select": {
-                    const selectOptionFromDropDownResult = await selectOptionFromDropDown(page, step.selector, step.selectOption, 3);
+                    const selectOptionFromDropDownResult = await selectOptionFromDropDown(page, step.selector, step.selectOption, 5);
                     navigationResults.push({
                         step: step.selector,
                         status: selectOptionFromDropDownResult,
                     });
+                    break;
+                }
+                case "fetch": {
+                    const extractJobsFetchURLResult = await extractJobsFetchURL(id, step.url, URL);
+                    navigationResults.push({
+                        step: step.url,
+                        status: extractJobsFetchURLResult.length > 0 ? "success" : "failure",
+                    });
+                    scrapingJobsResult = [...extractJobsFetchURLResult];
+                    console.log(scrapingJobsResult);
                     break;
                 }
                 default: {
@@ -62,26 +73,30 @@ export async function scrapingJobSitesFunction(companySite) {
                 }
             }
         }
+        const checkForNavigationResultsFailures = navigationResults.some((res) => res.status === "failure");
+        if (!checkForNavigationResultsFailures && scrapMode === "NAVIGATION") {
+            for (const instruction of instructions) {
+                const jobScrapingResult = await extractJobsText(page, instruction, id);
+                scrapingJobsResult = [...jobScrapingResult];
+                await sleepDelay(5000);
+                navigationResults = [];
+                await browser.close();
+                return jobScrapingResult;
+            }
+        }
+        else if (!checkForNavigationResultsFailures && scrapMode === "FETCH") {
+            navigationResults = [];
+            await browser.close();
+        }
     }
     catch (error) {
         console.log(`Navigation script failed, reason: ${error}`);
+        navigationResults = [];
+        await browser.close();
+        throw error;
     }
-    finally {
-        for (const navigationResult of navigationResults) {
-            if (navigationResult.status === "success" || steps.length === 0) {
-                for (const instruction of instructions) {
-                    const jobScrapingResult = await extractJobsText(page, instruction.extractionInstructions);
-                    navigationResults = [];
-                    await browser.close();
-                    // return jobScrapingResult;
-                }
-            }
-            else {
-                navigationResults = [];
-                await browser.close();
-            }
-        }
-    }
-    return navigationResults;
+    navigationResults = [];
+    await browser.close();
+    return scrapingJobsResult;
 }
 //# sourceMappingURL=scrapingJobSitesFunction.js.map

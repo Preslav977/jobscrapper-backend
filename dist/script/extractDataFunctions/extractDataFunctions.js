@@ -1,31 +1,30 @@
-async function extractJobsText(page, { container, title, location, remoteOrHybrid, datePosted, anchorHref, }) {
-    const doesJobContainerExists = (await page.waitForSelector(container.selector));
-    if (doesJobContainerExists) {
-        const result = await page.evaluate((container, title, location, remoteOrHybrid, datePosted, anchorHref) => {
-            function extractField(HTMLElement, elementField) {
-                if (HTMLElement === null || elementField === null) {
+import { sleepDelay } from "../navigationFunctions/navigationFunctions.js";
+async function extractJobsText(page, instruction, id) {
+    const { container, title, location, remoteOrHybrid, datePosted, anchorHref } = instruction.extractionInstructions;
+    const scrapedJobs = [];
+    try {
+        const doesJobContainerExists = (await page.waitForSelector(container.selector));
+        if (doesJobContainerExists) {
+            const result = await page.evaluate((scrapedJobs, container, title, location, remoteOrHybrid, datePosted, anchorHref, id) => {
+                function extractField(HTMLElement, elementField) {
+                    if (elementField.extractType === "" ||
+                        elementField.selector === "") {
+                        return null;
+                    }
+                    if (elementField.extractType === "text") {
+                        return HTMLElement.querySelector(elementField.selector)
+                            ?.textContent.trim()
+                            .replace("\n", "");
+                    }
+                    if (elementField.extractType === "attribute") {
+                        return HTMLElement.getAttribute(elementField.attr);
+                    }
+                    if (elementField.extractType === "elementAttribute") {
+                        return HTMLElement.querySelector(elementField.selector)?.getAttribute(elementField.attr);
+                    }
                     return null;
                 }
-                if (elementField.extractType === "text") {
-                    return HTMLElement.querySelector(elementField.selector)
-                        ?.textContent.trim()
-                        .replace("\n", "");
-                }
-                if (elementField.extractType === "attribute") {
-                    return HTMLElement.getAttribute(elementField.attr);
-                }
-                if (elementField.extractType === "parentElementAttribute") {
-                    return HTMLElement.querySelector(elementField.selector)?.getAttribute(elementField.attr);
-                }
-                return null;
-            }
-            const scrapedJobsObject = {
-                success: null,
-                jobs: [],
-                err: null,
-            };
-            const queryAllJobsContainers = document.querySelectorAll(container.selector);
-            try {
+                const queryAllJobsContainers = document.querySelectorAll(container.selector);
                 queryAllJobsContainers.forEach((queryJobContainer) => {
                     const jobTitle = extractField(queryJobContainer, title);
                     const jobLocation = extractField(queryJobContainer, location);
@@ -38,21 +37,25 @@ async function extractJobsText(page, { container, title, location, remoteOrHybri
                         remoteOrHybrid: jobRemoteOrHybrid,
                         datePosted: jobDatePosted,
                         anchorHref: jobAnchorHref,
+                        description: "",
+                        companyID: id,
                     };
-                    scrapedJobsObject.success = true;
-                    scrapedJobsObject.jobs.push(jobsObject);
+                    if (jobsObject.title.includes("Developer") ||
+                        jobsObject.title.includes("Engineer")) {
+                        scrapedJobs.push(jobsObject);
+                    }
                 });
-                return scrapedJobsObject;
-            }
-            catch (error) {
-                scrapedJobsObject.success = false;
-                scrapedJobsObject.err = error;
-                return scrapedJobsObject;
-            }
-        }, container, title, location, remoteOrHybrid, datePosted, anchorHref);
-        return result;
+                return scrapedJobs;
+            }, scrapedJobs, container, title, location, remoteOrHybrid, datePosted, anchorHref, id);
+            sleepDelay(3000);
+            return result;
+        }
     }
-    return;
+    catch (error) {
+        console.log(`Failed to scrap, check selectors, reason: ${error}`);
+        throw error;
+    }
+    return scrapedJobs;
 }
 async function extractJobsJSON(attribute) {
     const queryElementByAttribute = document.querySelector(`${[attribute]}`);
@@ -60,21 +63,33 @@ async function extractJobsJSON(attribute) {
     const parseAttributeToJSON = JSON.parse(getElementAttribute);
     return parseAttributeToJSON;
 }
-async function extractJobsFetchURL(url) {
+function transform(results, mapper) {
+    return results.map(mapper);
+}
+async function extractJobsFetchURL(id, url, companyURL) {
+    let retrieveFetchedJobs = [];
     try {
         const fetchJobsByURL = await fetch(url, {
             mode: "cors",
         });
-        if (fetchJobsByURL.status >= 200) {
+        if (fetchJobsByURL.status >= 400) {
             throw new Error(`Failed to fetch jobs, reason: ${fetchJobsByURL.statusText}`);
         }
-        const getJobs = await fetchJobsByURL.json();
-        return getJobs;
+        const getJobs = (await fetchJobsByURL.json());
+        const result = transform(getJobs.result, (job) => ({
+            title: job.jobOpeningName,
+            location: job.location.city,
+            remoteOrHybrid: job.isRemote,
+            anchorHref: `${companyURL}${job.id}`,
+            description: "",
+            companyID: id,
+        }));
+        retrieveFetchedJobs = [...result];
     }
     catch (error) {
         console.log(error);
     }
-    return;
+    return retrieveFetchedJobs;
 }
 export { extractJobsFetchURL, extractJobsJSON, extractJobsText };
 //# sourceMappingURL=extractDataFunctions.js.map

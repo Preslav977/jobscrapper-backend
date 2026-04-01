@@ -2,7 +2,8 @@ import { prisma } from "../../db/client.js";
 
 import type { Request, Response } from "express";
 
-import type { InstructionsInterface } from "../../interfaces/InstructionsInterface/InstructionsInterface.js";
+import type { Instructions } from "../../generated/prisma/client.js";
+import type { InstructionsCreateInput } from "../../generated/prisma/models.js";
 
 async function createScrappingInstructions(req: Request, res: Response) {
   const { companyID } = req.params;
@@ -12,8 +13,8 @@ async function createScrappingInstructions(req: Request, res: Response) {
       message: "Failed to create instructions for company!",
     });
   } else {
-    const instructionsArray: InstructionsInterface = req.body.map(
-      (instruction: InstructionsInterface) => {
+    const instructionsArray: InstructionsCreateInput = req.body.map(
+      (instruction: Instructions) => {
         return {
           ...instruction,
           companyID: Number(companyID),
@@ -44,7 +45,7 @@ async function getScrappingInstructionsDetails(req: Request, res: Response) {
     },
   });
 
-  if (getInstructionsDetails === null) {
+  if (getInstructionsDetails.length === 0) {
     res.json({
       message: "No instructions has been found with that ID for that company!",
     });
@@ -56,21 +57,23 @@ async function getScrappingInstructionsDetails(req: Request, res: Response) {
 async function updateScrappingInstructionsDetails(req: Request, res: Response) {
   const { companyID, id } = req.params;
 
-  const { extractionInstructions }: InstructionsInterface = req.body;
+  //pass an array of instructions skipping id, companyID and extractionInstructions
 
-  const updateInstructionsDetails = await prisma.instructions.updateMany({
-    where: {
-      companyID: Number(companyID),
-      id: Number(id),
-    },
+  const [extractionInstructions]: Instructions[] = req.body;
 
-    data: {
-      extractionInstructions,
-      companyID: Number(companyID),
-    },
-  });
-
-  res.json(updateInstructionsDetails);
+  if (extractionInstructions) {
+    const updateInstructionsDetails = await prisma.instructions.update({
+      where: {
+        companyID: Number(companyID),
+        id: Number(id),
+      },
+      data: {
+        extractionInstructions,
+        companyID: Number(companyID),
+      },
+    });
+    res.json(updateInstructionsDetails);
+  }
 }
 
 async function deleteScrappingInstructionsDetails(req: Request, res: Response) {
