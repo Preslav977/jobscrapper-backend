@@ -54,4 +54,4 @@ import { scrapingJobSitesFunction } from "../scrapingJobsSitesFunction/scrapingJ
         console.error(`Failed to sync company:`, error);
     }
 })();
-//# sourceMappingURL=runScrapingScript.js.map
+//# sourceMappingURL=scrapeJobs.js.map

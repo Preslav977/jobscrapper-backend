@@ -14,9 +14,6 @@ import { scrapingJobSitesFunction } from "../scrapingJobsSitesFunction/scrapingJ
         instructions: true,
         steps: true,
       },
-      where: {
-        id: 2,
-      },
     });
 
     for (const company of companies) {
