@@ -23,7 +23,7 @@ import { scrapingJobSitesFunction } from "../scrapingJobsSitesFunction/scrapingJ
       const scrapedJobs = await scrapingJobSitesFunction(company);
 
       const existingJobsMap = new Map(
-        company.jobs.map((job) => [job.anchorHref!, job]),
+        company.jobs.map((job) => [job.anchorHref, job]),
       );
 
       const existingJobsIds = new Set(company.jobs.map((job) => job.id));
@@ -31,29 +31,31 @@ import { scrapingJobSitesFunction } from "../scrapingJobsSitesFunction/scrapingJ
       const scrapedJobsIds: Set<number> = new Set();
 
       await prisma.$transaction(async (tx) => {
-        scrapedJobs.map((scrapedJob) => {
+        for (const scrapedJob of scrapedJobs) {
           const existingJob = existingJobsMap.get(scrapedJob.anchorHref!);
-
-          const scrapedJobChanged = hasJobChanged(
-            existingJob!,
-            scrapedJob as Jobs,
-          );
 
           if (existingJob) {
             scrapedJobsIds.add(existingJob.id);
-          } else if (scrapedJobChanged) {
-            tx.jobs.update({
-              where: {
-                id: existingJob!.id,
-              },
-              data: buildData(scrapedJob as Jobs),
-            });
+
+            const scrapedJobChanged = hasJobChanged(
+              existingJob!,
+              scrapedJob as Jobs,
+            );
+
+            if (scrapedJobChanged) {
+              await tx.jobs.update({
+                where: {
+                  id: existingJob.id,
+                },
+                data: buildData(scrapedJob as Jobs),
+              });
+            }
           } else {
-            tx.jobs.create({
+            await tx.jobs.create({
               data: buildData(scrapedJob as Jobs),
             });
           }
-        });
+        }
 
         const jobsToDelete = Array.from(
           existingJobsIds.difference(scrapedJobsIds),
@@ -62,7 +64,7 @@ import { scrapingJobSitesFunction } from "../scrapingJobsSitesFunction/scrapingJ
         console.log(jobsToDelete);
 
         if (jobsToDelete.length > 0) {
-          tx.jobs.deleteMany({
+          await tx.jobs.deleteMany({
             where: {
               id: {
                 in: jobsToDelete,

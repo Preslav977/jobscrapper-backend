@@ -19,30 +19,30 @@ import { scrapingJobSitesFunction } from "../scrapingJobsSitesFunction/scrapingJ
             const existingJobsIds = new Set(company.jobs.map((job) => job.id));
             const scrapedJobsIds = new Set();
             await prisma.$transaction(async (tx) => {
-                scrapedJobs.map((scrapedJob) => {
+                for (const scrapedJob of scrapedJobs) {
                     const existingJob = existingJobsMap.get(scrapedJob.anchorHref);
-                    const scrapedJobChanged = hasJobChanged(existingJob, scrapedJob);
                     if (existingJob) {
                         scrapedJobsIds.add(existingJob.id);
-                    }
-                    else if (scrapedJobChanged) {
-                        tx.jobs.update({
-                            where: {
-                                id: existingJob.id,
-                            },
-                            data: buildData(scrapedJob),
-                        });
+                        const scrapedJobChanged = hasJobChanged(existingJob, scrapedJob);
+                        if (scrapedJobChanged) {
+                            await tx.jobs.update({
+                                where: {
+                                    id: existingJob.id,
+                                },
+                                data: buildData(scrapedJob),
+                            });
+                        }
                     }
                     else {
-                        tx.jobs.create({
+                        await tx.jobs.create({
                             data: buildData(scrapedJob),
                         });
                     }
-                });
+                }
                 const jobsToDelete = Array.from(existingJobsIds.difference(scrapedJobsIds));
                 console.log(jobsToDelete);
                 if (jobsToDelete.length > 0) {
-                    tx.jobs.deleteMany({
+                    await tx.jobs.deleteMany({
                         where: {
                             id: {
                                 in: jobsToDelete,

@@ -38,26 +38,28 @@ const shuffleArrayTimezones = Math.floor(Math.random() * arrayOfDifferentTimezon
 const getRandomTimezone = arrayOfDifferentTimezones[shuffleArrayTimezones];
 function hasJobChanged(existingJob, scrapedJob) {
     let result = false;
-    const { title, location, remoteOrHybrid, datePosted, description, anchorHref, companyID, } = existingJob;
-    const existingJobObject = {
-        title,
-        location,
-        remoteOrHybrid,
-        datePosted,
-        description,
-        anchorHref,
-        companyID,
-    };
-    for (const propInExistingJob in existingJobObject) {
-        for (const propInScrapedJob in scrapedJob) {
-            const existingJobKey = propInExistingJob;
-            const scrapedJobKey = propInScrapedJob;
-            if (existingJobObject[existingJobKey] !== scrapedJob[scrapedJobKey]) {
-                result = true;
+    if (existingJob && scrapedJob) {
+        const { title, location, remoteOrHybrid, datePosted, description, anchorHref, companyID, } = existingJob;
+        const existingJobObject = {
+            title,
+            location,
+            remoteOrHybrid,
+            datePosted,
+            description,
+            anchorHref,
+            companyID,
+        };
+        for (const propInExistingJob in existingJobObject) {
+            for (const propInScrapedJob in scrapedJob) {
+                const existingJobKey = propInExistingJob;
+                const scrapedJobKey = propInScrapedJob;
+                if (existingJobObject[existingJobKey] !== scrapedJob[scrapedJobKey]) {
+                    result = true;
+                    return result;
+                }
+                result = false;
                 return result;
             }
-            result = false;
-            return result;
         }
     }
     return result;
