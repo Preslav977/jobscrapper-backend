@@ -20,10 +20,15 @@ import {
 import { Page } from "puppeteer";
 import type { UtilityInterface } from "../../interfaces/UtilityInterface/UtilityInterface.js";
 
+import UserAgent from "user-agents";
 import type { JobsCreateManyInput } from "../../generated/prisma/models.js";
 import type { CompanyWithRelationsType } from "../../interfaces/CompanyInterface/CompanyInterface.js";
 
-puppeteer.default.use(StealthPlugin());
+const stealthPlugin = StealthPlugin();
+
+stealthPlugin.enabledEvasions.add("user-agent-override");
+
+puppeteer.default.use(stealthPlugin);
 
 export async function scrapingJobSitesFunction(
   companySite: CompanyWithRelationsType,
@@ -35,11 +40,34 @@ export async function scrapingJobSitesFunction(
   let navigationResults: UtilityInterface[] = [];
 
   const browser = await puppeteer.default.launch({
-    headless: false,
-    args: ["--no-sandbox"],
+    headless: true,
+    args: [
+      "--no-sandbox",
+      "--disable-gpu",
+      "--disable-dev-shm-usage",
+      "--disable-setuid-sandbox",
+      "--no-first-run",
+      "--no-zygote",
+      "--enable-webgl",
+      "--use-gl=desktop",
+      "--disable-automation",
+    ],
+    ignoreDefaultArgs: ["--enable-automation"],
   });
 
   const page: Page = await browser.newPage();
+
+  const userAgent = new UserAgent();
+
+  const randomUserAgent = userAgent.toString();
+
+  await page.setUserAgent({ userAgent: randomUserAgent });
+
+  await page.setExtraHTTPHeaders({
+    "Accept-Language": "en-US,en;q=0.9",
+    Accept: "text/html,application/xhtml+xml",
+    "User-Agent": randomUserAgent,
+  });
 
   await page.goto(URL, {
     waitUntil: "load",

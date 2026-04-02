@@ -6,9 +6,16 @@ import { prisma } from "../../db/client.js";
       where: {
         companyID: 2,
       },
+      include: {
+        company: {
+          include: {
+            instructions: true,
+          },
+        },
+      },
     });
 
-    console.log(jobDetails);
+    console.log(jobDetails[0]?.company.instructions);
   } catch (error) {
     console.log(error);
   }

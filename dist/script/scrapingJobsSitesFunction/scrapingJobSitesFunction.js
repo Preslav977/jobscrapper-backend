@@ -4,16 +4,38 @@ import { extractJobsFetchURL, extractJobsText, } from "../extractDataFunctions/e
 import { getRandomTimezone, height, width, } from "../helperUtilities/helperUtilities.js";
 import { selectOptionFromDropDown, sleepDelay, tryClick, tryClickEvaluate, tryClickLoadMore, } from "../navigationFunctions/navigationFunctions.js";
 import { Page } from "puppeteer";
-puppeteer.default.use(StealthPlugin());
+import UserAgent from "user-agents";
+const stealthPlugin = StealthPlugin();
+stealthPlugin.enabledEvasions.add("user-agent-override");
+puppeteer.default.use(stealthPlugin);
 export async function scrapingJobSitesFunction(companySite) {
     const { id, URL, scrapMode, instructions, steps } = companySite;
     let scrapingJobsResult = [];
     let navigationResults = [];
     const browser = await puppeteer.default.launch({
-        headless: false,
-        args: ["--no-sandbox"],
+        headless: true,
+        args: [
+            "--no-sandbox",
+            "--disable-gpu",
+            "--disable-dev-shm-usage",
+            "--disable-setuid-sandbox",
+            "--no-first-run",
+            "--no-zygote",
+            "--enable-webgl",
+            "--use-gl=desktop",
+            "--disable-automation",
+        ],
+        ignoreDefaultArgs: ["--enable-automation"],
     });
     const page = await browser.newPage();
+    const userAgent = new UserAgent();
+    const randomUserAgent = userAgent.toString();
+    await page.setUserAgent({ userAgent: randomUserAgent });
+    await page.setExtraHTTPHeaders({
+        "Accept-Language": "en-US,en;q=0.9",
+        Accept: "text/html,application/xhtml+xml",
+        "User-Agent": randomUserAgent,
+    });
     await page.goto(URL, {
         waitUntil: "load",
     });
