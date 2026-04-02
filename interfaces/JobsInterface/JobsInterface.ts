@@ -1,3 +1,5 @@
+import type { Prisma } from "../../generated/prisma/client.js";
+
 export interface JobsInterface {
   id: number;
   title: string;
@@ -16,3 +18,13 @@ export type ScrapedJobsArrayType = {
   datePosted: string | null;
   anchorHref: string | null;
 };
+
+export type JobsWithRelationsType = Prisma.JobsGetPayload<{
+  include: {
+    company: {
+      include: {
+        instructions: true;
+      };
+    };
+  };
+}>;

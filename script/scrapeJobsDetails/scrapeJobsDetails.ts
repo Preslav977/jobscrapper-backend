@@ -1,8 +1,9 @@
 import { prisma } from "../../db/client.js";
+import { scrapingJobDetailsSitesFunction } from "../scrapingJobsDetailsSitesFunction/scrapingJobsDetailsSitesFunction.js";
 
 (async () => {
   try {
-    const jobDetails = await prisma.jobs.findMany({
+    const jobs = await prisma.jobs.findMany({
       where: {
         companyID: 2,
       },
@@ -15,7 +16,11 @@ import { prisma } from "../../db/client.js";
       },
     });
 
-    console.log(jobDetails[0]?.company.instructions);
+    for (const job of jobs) {
+      const scrapedJobsDetails = await scrapingJobDetailsSitesFunction(job);
+
+      console.log(scrapedJobsDetails);
+    }
   } catch (error) {
     console.log(error);
   }

@@ -58,7 +58,7 @@ import { scrapingJobSitesFunction } from "../scrapingJobsSitesFunction/scrapingJ
           existingJobsIds.difference(scrapedJobsIds),
         );
 
-        console.log(jobsToDelete);
+        // console.log(jobsToDelete);
 
         if (jobsToDelete.length > 0) {
           await tx.jobs.deleteMany({
