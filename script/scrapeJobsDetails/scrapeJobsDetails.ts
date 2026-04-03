@@ -5,8 +5,14 @@ import { scrapingJobDetailsSitesFunction } from "../scrapingJobsDetailsSitesFunc
   try {
     const jobs = await prisma.jobs.findMany({
       where: {
-        companyID: 2,
-        id: 229,
+        company: {
+          OR: [
+            {
+              scrapMode: "NAVIGATION",
+            },
+            { scrapMode: "DIRECT" },
+          ],
+        },
       },
       include: {
         company: {
@@ -18,13 +24,18 @@ import { scrapingJobDetailsSitesFunction } from "../scrapingJobsDetailsSitesFunc
     });
 
     for (const job of jobs) {
-      console.log(job);
-
       const scrapedJobsDetails = await scrapingJobDetailsSitesFunction(job);
 
-      console.log(scrapedJobsDetails);
+      await prisma.jobs.update({
+        where: {
+          id: scrapedJobsDetails.id!,
+        },
+        data: {
+          description: scrapedJobsDetails.description!,
+        },
+      });
     }
   } catch (error) {
-    console.log(error);
+    console.log(`Failed to update job details: ${error}`);
   }
 })();

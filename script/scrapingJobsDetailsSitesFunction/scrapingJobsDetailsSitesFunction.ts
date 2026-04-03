@@ -10,6 +10,7 @@ import {
 import { Page } from "puppeteer";
 
 import UserAgent from "user-agents";
+import type { Jobs } from "../../generated/prisma/client.js";
 import type { JobsWithRelationsType } from "../../interfaces/JobsInterface/JobsInterface.js";
 import { extractJobsDetailsText } from "../extractDataFunctions/extractDataFunctions.js";
 import { sleepDelay } from "../navigationFunctions/navigationFunctions.js";
@@ -26,6 +27,8 @@ export async function scrapingJobDetailsSitesFunction(
   const { id, anchorHref } = job;
 
   const { instructions } = job.company;
+
+  let scrapingJobsDetailsResult: Partial<Jobs> = {};
 
   const browser = await puppeteer.default.launch({
     headless: false,
@@ -71,9 +74,12 @@ export async function scrapingJobDetailsSitesFunction(
     for (const instruction of instructions) {
       const result = await extractJobsDetailsText(page, instruction, id);
 
-      console.log(result);
+      scrapingJobsDetailsResult = { ...result };
+
+      await browser.close();
     }
   } catch (error) {
     console.log(error);
   }
+  return scrapingJobsDetailsResult;
 }

@@ -11,6 +11,7 @@ puppeteer.default.use(stealthPlugin);
 export async function scrapingJobDetailsSitesFunction(job) {
     const { id, anchorHref } = job;
     const { instructions } = job.company;
+    let scrapingJobsDetailsResult = {};
     const browser = await puppeteer.default.launch({
         headless: false,
         args: [
@@ -44,11 +45,13 @@ export async function scrapingJobDetailsSitesFunction(job) {
     try {
         for (const instruction of instructions) {
             const result = await extractJobsDetailsText(page, instruction, id);
-            console.log(result);
+            scrapingJobsDetailsResult = { ...result };
+            await browser.close();
         }
     }
     catch (error) {
         console.log(error);
     }
+    return scrapingJobsDetailsResult;
 }
 //# sourceMappingURL=scrapingJobsDetailsSitesFunction.js.map

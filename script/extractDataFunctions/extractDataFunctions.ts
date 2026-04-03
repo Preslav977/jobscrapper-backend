@@ -1,5 +1,5 @@
 import type { ElementHandle, Page } from "puppeteer";
-import type { Instructions } from "../../generated/prisma/client.js";
+import type { Instructions, Jobs } from "../../generated/prisma/client.js";
 import type { JobsCreateManyInput } from "../../generated/prisma/models.js";
 import type { ExtractionConfig } from "../../interfaces/InstructionsInterface/InstructionsInterface.js";
 import { sleepDelay } from "../navigationFunctions/navigationFunctions.js";
@@ -134,7 +134,7 @@ async function extractJobsDetailsText(
   const { description } =
     instruction.extractionInstructions as ExtractionConfig;
 
-  let scrapeJobsObject = {};
+  let scrapeJobsObject: Partial<Jobs> = {};
 
   try {
     const doesJobDescriptionExists = (await page.waitForSelector(
