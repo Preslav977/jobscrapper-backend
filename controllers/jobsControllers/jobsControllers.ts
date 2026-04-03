@@ -26,7 +26,7 @@ async function createJobs(req: Request, res: Response) {
 async function getJobDetails(req: Request, res: Response) {
   const { companyID } = req.params;
 
-  const getJobDetails = await prisma.jobs.findMany({
+  const jobDetails = await prisma.jobs.findMany({
     include: {
       company: true,
     },
@@ -35,12 +35,12 @@ async function getJobDetails(req: Request, res: Response) {
     },
   });
 
-  if (getJobDetails.length === 0) {
+  if (jobDetails.length === 0) {
     res.json({
-      message: "No job has been found with that ID in that company!",
+      message: `No jobs has been found with that ${companyID} in that company!`,
     });
   } else {
-    res.json(getJobDetails);
+    res.json(jobDetails);
   }
 }
 
@@ -81,8 +81,6 @@ async function updateJob(req: Request, res: Response) {
 
 async function deleteJob(req: Request, res: Response) {
   const { id, companyID } = req.params;
-
-  //TODO: figure out how to check if job has been expired
 
   const jobDelete = await prisma.jobs.delete({
     include: {

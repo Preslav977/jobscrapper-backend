@@ -1,6 +1,10 @@
 import type { ElementHandle, Page } from "puppeteer";
 import type { Instructions, Jobs } from "../../generated/prisma/client.js";
 import type { JobsCreateManyInput } from "../../generated/prisma/models.js";
+import type {
+  ApiResponse,
+  ResponseResult,
+} from "../../interfaces/ApiResponseInterface/ApiResponseInterface.js";
 import type { ExtractionConfig } from "../../interfaces/InstructionsInterface/InstructionsInterface.js";
 import { sleepDelay } from "../navigationFunctions/navigationFunctions.js";
 
@@ -163,7 +167,7 @@ async function extractJobsDetailsText(
       return result;
     }
   } catch (error) {
-    console.log(error);
+    console.log(`Failed to scrap, check selector, reason: ${error}`);
   }
   return scrapeJobsObject;
 }
@@ -177,19 +181,6 @@ async function extractJobsJSON(attribute: string) {
     JSON.parse(getElementAttribute);
 
   return parseAttributeToJSON;
-}
-
-interface ResponseResult {
-  id: string;
-  jobOpeningName: string;
-  location: { city: string };
-  isRemote: null | string;
-}
-
-interface ApiResponse<T> {
-  meta: { totalCount: number };
-  result: T[];
-  status: string;
 }
 
 function transform<T>(results: T[], mapper: (item: T) => JobsCreateManyInput) {

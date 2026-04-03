@@ -28,7 +28,7 @@ async function getScrappingStepsDetails(req, res) {
     });
     if (getStepsDetails.length === 0) {
         res.json({
-            message: "No steps has been found with that ID for the instructions company!",
+            message: `No steps has been found with that ${companyID} for the instructions company!`,
         });
     }
     else {
@@ -56,7 +56,7 @@ async function deleteScrappingStepsDetails(req, res) {
         },
     });
     res.json({
-        message: `Steps related to companyID: ${companyID} has been deleted!`,
+        message: `Steps with ID: ${companyID} has been deleted!`,
     });
 }
 export { createScrappingSteps, deleteScrappingStepsDetails, getScrappingStepsDetails, updateScrappingStepsDetails, };

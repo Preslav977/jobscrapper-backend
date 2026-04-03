@@ -9,7 +9,7 @@ async function supabaseImageUpload(file) {
         contentType: file.mimetype,
     });
     if (error) {
-        return `Failed  to upload the image: ${error.message}`;
+        return `Failed to upload the image: ${error.message}`;
     }
     const { data } = await supabase.storage
         .from("jobscrapper-images")

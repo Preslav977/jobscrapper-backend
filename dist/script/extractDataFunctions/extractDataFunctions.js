@@ -76,7 +76,7 @@ async function extractJobsDetailsText(page, instruction, id) {
         }
     }
     catch (error) {
-        console.log(error);
+        console.log(`Failed to scrap, check selector, reason: ${error}`);
     }
     return scrapeJobsObject;
 }

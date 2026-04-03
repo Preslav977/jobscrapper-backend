@@ -192,7 +192,7 @@ export async function scrapingJobSitesFunction(
       await browser.close();
     }
   } catch (error) {
-    console.log(`Navigation script failed, reason: ${error}`);
+    console.log(`Navigation script for jobs failed, reason: ${error}`);
 
     navigationResults = [];
 

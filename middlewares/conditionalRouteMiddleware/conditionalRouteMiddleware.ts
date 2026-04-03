@@ -1,7 +1,7 @@
 import type { NextFunction, Request, Response } from "express";
 import { verifyBearerToken } from "../verifyBearerToken/verifyBearerToken.js";
 
-export function conditionalMiddleware(
+export function conditionalRouteMiddleware(
   req: Request,
   res: Response,
   next: NextFunction,

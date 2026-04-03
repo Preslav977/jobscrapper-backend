@@ -44,7 +44,7 @@ async function createCompany(req: Request, res: Response) {
 }
 
 async function getCompanies(req: Request, res: Response) {
-  const companiesGet = await prisma.company.findMany({
+  const companies = await prisma.company.findMany({
     include: {
       jobs: true,
       instructions: true,
@@ -52,23 +52,19 @@ async function getCompanies(req: Request, res: Response) {
     },
   });
 
-  console.log(companiesGet);
-
-  if (companiesGet.length === 0) {
+  if (companies.length === 0) {
     res.json({ message: "No companies has been found!" });
   } else {
-    res.json(companiesGet);
+    res.json(companies);
   }
 }
 
 async function getCompanyByName(req: Request, res: Response) {
   const { name }: Company = req.body;
 
-  console.log(name);
-
   const trimCompanyNameSpace = name.trim();
 
-  const companyGetByName = await prisma.company.findFirst({
+  const companyName = await prisma.company.findFirst({
     where: {
       name: {
         mode: "insensitive",
@@ -82,10 +78,10 @@ async function getCompanyByName(req: Request, res: Response) {
     },
   });
 
-  if (companyGetByName === null) {
+  if (companyName === null) {
     res.json({ message: "No company with this name has been found!" });
   } else {
-    res.json(companyGetByName);
+    res.json(companyName);
   }
 }
 

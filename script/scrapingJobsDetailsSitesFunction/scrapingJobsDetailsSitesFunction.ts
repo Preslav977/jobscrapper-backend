@@ -71,15 +71,19 @@ export async function scrapingJobDetailsSitesFunction(
   await sleepDelay(2500);
 
   try {
-    for (const instruction of instructions) {
-      const result = await extractJobsDetailsText(page, instruction, id);
+    if (instructions.length > 0) {
+      for (const instruction of instructions) {
+        const result = await extractJobsDetailsText(page, instruction, id);
 
-      scrapingJobsDetailsResult = { ...result };
+        scrapingJobsDetailsResult = { ...result };
 
-      await browser.close();
+        await browser.close();
+      }
     }
   } catch (error) {
-    console.log(error);
+    console.log(`Navigation script for jobs details failed, reason: ${error}`);
+
+    throw error;
   }
   return scrapingJobsDetailsResult;
 }
