@@ -57,9 +57,9 @@ companyRouter.post("/:id/jobs", createJobs);
 
 companyRouter.get("/:companyID/jobs", getJobDetails);
 
-companyRouter.put("/:companyID/job/:id", updateJob);
+companyRouter.put("/:companyID/jobs/:id", updateJob);
 
-companyRouter.delete("/:companyID/job/:id", deleteJob);
+companyRouter.delete("/:companyID/jobs/:id", deleteJob);
 
 ///CRUD instructions routes
 

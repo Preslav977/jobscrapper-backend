@@ -37,7 +37,7 @@ import { scrapingJobSitesFunction } from "../scrapingJobsSitesFunction/scrapingJ
                     }
                 }
                 const jobsToDelete = Array.from(existingJobsIds.difference(scrapedJobsIds));
-                console.log(jobsToDelete);
+                // console.log(jobsToDelete);
                 if (jobsToDelete.length > 0) {
                     await tx.jobs.deleteMany({
                         where: {

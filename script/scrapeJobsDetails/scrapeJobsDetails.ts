@@ -6,6 +6,7 @@ import { scrapingJobDetailsSitesFunction } from "../scrapingJobsDetailsSitesFunc
     const jobs = await prisma.jobs.findMany({
       where: {
         companyID: 2,
+        id: 229,
       },
       include: {
         company: {
@@ -17,6 +18,8 @@ import { scrapingJobDetailsSitesFunction } from "../scrapingJobsDetailsSitesFunc
     });
 
     for (const job of jobs) {
+      console.log(job);
+
       const scrapedJobsDetails = await scrapingJobDetailsSitesFunction(job);
 
       console.log(scrapedJobsDetails);

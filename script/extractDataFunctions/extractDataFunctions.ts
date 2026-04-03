@@ -126,6 +126,48 @@ async function extractJobsText(
   return scrapedJobs;
 }
 
+async function extractJobsDetailsText(
+  page: Page,
+  instruction: Instructions,
+  id: number,
+) {
+  const { description } =
+    instruction.extractionInstructions as ExtractionConfig;
+
+  let scrapeJobsObject = {};
+
+  try {
+    const doesJobDescriptionExists = (await page.waitForSelector(
+      description.selector!,
+    )) as ElementHandle<HTMLElement>;
+
+    if (doesJobDescriptionExists) {
+      const result = await page.evaluate(
+        (description, id) => {
+          const queryJobDetails = document.querySelector(
+            description.selector!,
+          ) as HTMLElement;
+
+          const jobsObject = {
+            id,
+            description: queryJobDetails.outerHTML,
+          };
+
+          scrapeJobsObject = { ...jobsObject };
+
+          return jobsObject;
+        },
+        description,
+        id,
+      );
+      return result;
+    }
+  } catch (error) {
+    console.log(error);
+  }
+  return scrapeJobsObject;
+}
+
 async function extractJobsJSON(attribute: string) {
   const queryElementByAttribute = document.querySelector(`${[attribute]}`);
 
@@ -190,4 +232,9 @@ async function extractJobsFetchURL(
   return retrieveFetchedJobs;
 }
 
-export { extractJobsFetchURL, extractJobsJSON, extractJobsText };
+export {
+  extractJobsDetailsText,
+  extractJobsFetchURL,
+  extractJobsJSON,
+  extractJobsText,
+};

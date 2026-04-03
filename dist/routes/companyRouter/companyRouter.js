@@ -15,8 +15,8 @@ companyRouter.delete("/:id", deleteCompany);
 ///CRUD jobs routes
 companyRouter.post("/:id/jobs", createJobs);
 companyRouter.get("/:companyID/jobs", getJobDetails);
-companyRouter.put("/:companyID/job/:id", updateJob);
-companyRouter.delete("/:companyID/job/:id", deleteJob);
+companyRouter.put("/:companyID/jobs/:id", updateJob);
+companyRouter.delete("/:companyID/jobs/:id", deleteJob);
 ///CRUD instructions routes
 companyRouter.post("/:companyID/instructions", createScrappingInstructions);
 companyRouter.get("/:companyID/instructions/:id", getScrappingInstructionsDetails);

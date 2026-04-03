@@ -8,7 +8,7 @@ export type ExtractionConfig = {
     attr?: string;
   };
   datePosted: { extractType: string; selector?: string; attr?: string };
-  description?: { extractType: string; selector?: string; attr?: string };
+  description: { extractType: string; selector?: string; attr?: string };
   anchorHref: { extractType: string; selector?: string; attr?: string };
 };
 

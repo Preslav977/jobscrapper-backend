@@ -11,6 +11,7 @@ import { Page } from "puppeteer";
 
 import UserAgent from "user-agents";
 import type { JobsWithRelationsType } from "../../interfaces/JobsInterface/JobsInterface.js";
+import { extractJobsDetailsText } from "../extractDataFunctions/extractDataFunctions.js";
 import { sleepDelay } from "../navigationFunctions/navigationFunctions.js";
 
 const stealthPlugin = StealthPlugin();
@@ -27,7 +28,7 @@ export async function scrapingJobDetailsSitesFunction(
   const { instructions } = job.company;
 
   const browser = await puppeteer.default.launch({
-    headless: true,
+    headless: false,
     args: [
       "--no-sandbox",
       "--disable-gpu",
@@ -67,7 +68,11 @@ export async function scrapingJobDetailsSitesFunction(
   await sleepDelay(2500);
 
   try {
-    //
+    for (const instruction of instructions) {
+      const result = await extractJobsDetailsText(page, instruction, id);
+
+      console.log(result);
+    }
   } catch (error) {
     console.log(error);
   }

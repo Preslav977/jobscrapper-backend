@@ -57,6 +57,29 @@ async function extractJobsText(page, instruction, id) {
     }
     return scrapedJobs;
 }
+async function extractJobsDetailsText(page, instruction, id) {
+    const { description } = instruction.extractionInstructions;
+    let scrapeJobsObject = {};
+    try {
+        const doesJobDescriptionExists = (await page.waitForSelector(description.selector));
+        if (doesJobDescriptionExists) {
+            const result = await page.evaluate((description, id) => {
+                const queryJobDetails = document.querySelector(description.selector);
+                const jobsObject = {
+                    id,
+                    description: queryJobDetails.outerHTML,
+                };
+                scrapeJobsObject = { ...jobsObject };
+                return jobsObject;
+            }, description, id);
+            return result;
+        }
+    }
+    catch (error) {
+        console.log(error);
+    }
+    return scrapeJobsObject;
+}
 async function extractJobsJSON(attribute) {
     const queryElementByAttribute = document.querySelector(`${[attribute]}`);
     const getElementAttribute = queryElementByAttribute.getAttribute(attribute);
@@ -91,5 +114,5 @@ async function extractJobsFetchURL(id, url, companyURL) {
     }
     return retrieveFetchedJobs;
 }
-export { extractJobsFetchURL, extractJobsJSON, extractJobsText };
+export { extractJobsDetailsText, extractJobsFetchURL, extractJobsJSON, extractJobsText, };
 //# sourceMappingURL=extractDataFunctions.js.map
