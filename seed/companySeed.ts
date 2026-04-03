@@ -28,6 +28,10 @@ import type { CompanyWithSelectedFieldsType } from "../interfaces/CompanyInterfa
               extractType: "text",
             },
             datePosted: { extractType: "", selector: "" },
+            description: {
+              extractType: "text",
+              selector: "main > div > div:has(p)",
+            },
             anchorHref: {
               attr: "href",
               extractType: "attribute",
@@ -99,6 +103,10 @@ import type { CompanyWithSelectedFieldsType } from "../interfaces/CompanyInterfa
               selector:
                 ".rad-filters-vertical__job-card-content-job-posted-date-dynamic-text",
             },
+            description: {
+              extractType: "text",
+              selector: ".rad-job-detail__accordion",
+            },
             anchorHref: {
               extractType: "elementAttribute",
               selector: ".rad-filters-vertical__job-card a",
@@ -144,6 +152,7 @@ import type { CompanyWithSelectedFieldsType } from "../interfaces/CompanyInterfa
             location: { extractType: "text", selector: ".location-text" },
             remoteOrHybrid: { extractType: "", selector: "" },
             datePosted: { extractType: "", selector: "" },
+            description: { extractType: "text", selector: ".main-content" },
             anchorHref: {
               extractType: "elementAttribute",
               selector: ".careers-job > a",
@@ -220,6 +229,10 @@ import type { CompanyWithSelectedFieldsType } from "../interfaces/CompanyInterfa
             location: { extractType: "text", selector: "lyte-text" },
             remoteOrHybrid: { extractType: "", selector: "" },
             datePosted: { extractType: "", selector: "" },
+            description: {
+              extractType: "text",
+              selector: "career-website-detail-template-2",
+            },
             anchorHref: {
               extractType: "elementAttribute",
               selector: "a",
@@ -253,6 +266,42 @@ import type { CompanyWithSelectedFieldsType } from "../interfaces/CompanyInterfa
       ],
     },
     {
+      name: "Adastra",
+      logo: null,
+      URL: "https://jobs.adastracorp.com/bulgaria/go/Applications-Development-&-Programming/9023855/",
+      scrapMode: "DIRECT",
+      instructions: [
+        {
+          extractionInstructions: {
+            container: {
+              selector: ".data-row",
+              extractType: "text",
+            },
+            title: {
+              selector: "a",
+              extractType: "text",
+            },
+            location: {
+              extractType: "",
+              attr: "",
+            },
+            remoteOrHybrid: {
+              extractType: "",
+              selector: "",
+            },
+            datePosted: { extractType: "", selector: "" },
+            description: { extractType: "text", selector: ".job" },
+            anchorHref: {
+              extractType: "elementAttribute",
+              selector: "a",
+              attr: "href",
+            },
+          },
+        },
+      ],
+      steps: [],
+    },
+    {
       name: "AIOpsGroup",
       logo: null,
       URL: "https://aiopsgroup.com/",
@@ -271,6 +320,10 @@ import type { CompanyWithSelectedFieldsType } from "../interfaces/CompanyInterfa
             },
             remoteOrHybrid: { extractType: "", selector: "" },
             datePosted: { extractType: "", selector: "" },
+            description: {
+              extractType: "text",
+              selector: "section",
+            },
             anchorHref: {
               extractType: "elementAttribute",
               selector: "li > a",
@@ -312,6 +365,7 @@ import type { CompanyWithSelectedFieldsType } from "../interfaces/CompanyInterfa
             location: { extractType: "text", selector: ".country-role" },
             remoteOrHybrid: { extractType: "", selector: "" },
             datePosted: { extractType: "", selector: "" },
+            description: { extractType: "text", selector: "main" },
             anchorHref: {
               extractType: "elementAttribute",
               selector: "td > a",
@@ -353,6 +407,7 @@ import type { CompanyWithSelectedFieldsType } from "../interfaces/CompanyInterfa
             location: { extractType: "text", selector: ".location" },
             remoteOrHybrid: { extractType: "", selector: "" },
             datePosted: { extractType: "", selector: "" },
+            description: { extractType: "text", selector: "section" },
             anchorHref: {
               extractType: "elementAttribute",
               selector: "a",
@@ -391,6 +446,7 @@ import type { CompanyWithSelectedFieldsType } from "../interfaces/CompanyInterfa
             location: { extractType: "text", selector: ".location-info" },
             remoteOrHybrid: { extractType: "", selector: "" },
             datePosted: { extractType: "", selector: "" },
+            description: { extractType: "text", selector: ".job" },
             anchorHref: {
               extractType: "elementAttribute",
               selector: "a",
@@ -420,6 +476,51 @@ import type { CompanyWithSelectedFieldsType } from "../interfaces/CompanyInterfa
           selector: '[value="TechOps & Development"]',
           selectOption: null,
           url: null,
+        },
+      ],
+    },
+    {
+      name: "Anthill",
+      logo: null,
+      URL: "https://anthill.bamboohr.com/careers/",
+      scrapMode: "FETCH",
+      instructions: [
+        {
+          extractionInstructions: {
+            container: {
+              selector: "",
+              extractType: "",
+              url: "",
+            },
+            title: {
+              selector: "",
+              extractType: "",
+            },
+            location: {
+              extractType: "",
+              attr: "",
+            },
+            remoteOrHybrid: {
+              extractType: "",
+              selector: "",
+            },
+            datePosted: { extractType: "", selector: "" },
+            description: { extractType: "text", selector: "section" },
+            anchorHref: {
+              extractType: "",
+              selector: "",
+              attr: "",
+            },
+          },
+        },
+      ],
+      steps: [
+        {
+          order: 1,
+          action: "fetch",
+          selector: "",
+          selectOption: "",
+          url: "https://anthill.bamboohr.com/careers/list",
         },
       ],
     },
