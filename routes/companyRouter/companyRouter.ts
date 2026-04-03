@@ -65,10 +65,7 @@ companyRouter.delete("/:companyID/jobs/:id", deleteJob);
 
 companyRouter.post("/:companyID/instructions", createScrappingInstructions);
 
-companyRouter.get(
-  "/:companyID/instructions/:id",
-  getScrappingInstructionsDetails,
-);
+companyRouter.get("/:companyID/instructions", getScrappingInstructionsDetails);
 
 companyRouter.put(
   "/:companyID/instructions/:id",

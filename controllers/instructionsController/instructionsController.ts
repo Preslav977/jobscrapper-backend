@@ -32,16 +32,9 @@ async function createScrappingInstructions(req: Request, res: Response) {
 }
 
 async function getScrappingInstructionsDetails(req: Request, res: Response) {
-  const { companyID, id } = req.params;
-
   const getInstructionsDetails = await prisma.instructions.findMany({
     include: {
       company: true,
-    },
-
-    where: {
-      companyID: Number(companyID),
-      id: Number(id),
     },
   });
 

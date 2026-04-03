@@ -25,7 +25,8 @@ import LocalStrategy from "passport-local";
 import bcrypt from "bcryptjs";
 
 import { prisma } from "./db/client.js";
-// import { verifyBearerToken } from "./middlewares/verifyBearerToken/verifyBearerToken.js";
+
+import { conditionalMiddleware } from "./middlewares/conditionalMiddleware/conditionalMiddleware.js";
 
 const app = express();
 
@@ -129,7 +130,7 @@ app.get("users/logout", (req, res, next) => {
 
 app.use(authRouter);
 
-// app.use(verifyBearerToken);
+app.use(conditionalMiddleware);
 
 app.use("/users", userRouter);
 

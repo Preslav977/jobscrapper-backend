@@ -19,7 +19,7 @@ companyRouter.put("/:companyID/jobs/:id", updateJob);
 companyRouter.delete("/:companyID/jobs/:id", deleteJob);
 ///CRUD instructions routes
 companyRouter.post("/:companyID/instructions", createScrappingInstructions);
-companyRouter.get("/:companyID/instructions/:id", getScrappingInstructionsDetails);
+companyRouter.get("/:companyID/instructions", getScrappingInstructionsDetails);
 companyRouter.put("/:companyID/instructions/:id", updateScrappingInstructionsDetails);
 companyRouter.delete("/:companyID/instructions/:id", deleteScrappingInstructionsDetails);
 ///CRUD steps routes
