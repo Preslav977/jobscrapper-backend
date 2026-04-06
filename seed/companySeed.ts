@@ -6,7 +6,7 @@ import type { CompanyWithSelectedFieldsType } from "../interfaces/CompanyInterfa
     {
       name: "A1 Bulgaria",
       logo: null,
-      URL: "http://a1.bg/bg",
+      URL: "https://jobs.a1.com/bg/jobs/?country=bulgaria&job-category=it",
       scrapMode: "NAVIGATION",
       instructions: [
         {
@@ -52,7 +52,7 @@ import type { CompanyWithSelectedFieldsType } from "../interfaces/CompanyInterfa
     {
       name: "Accenture",
       logo: null,
-      URL: "http://accenture.bg/en",
+      URL: "https://www.accenture.com/bg-en/careers/jobsearch?aoi=Software%20Engineering",
       scrapMode: "NAVIGATION",
       instructions: [
         {
@@ -92,7 +92,7 @@ import type { CompanyWithSelectedFieldsType } from "../interfaces/CompanyInterfa
     {
       name: "Acronis",
       logo: null,
-      URL: "https://www.acronis.com/en/",
+      URL: "https://www.acronis.com/en/careers/jobs/",
       scrapMode: "NAVIGATION",
       instructions: [
         {
@@ -145,7 +145,7 @@ import type { CompanyWithSelectedFieldsType } from "../interfaces/CompanyInterfa
     {
       name: "Adstart Media",
       logo: null,
-      URL: "https://adstartmedia.com/",
+      URL: "https://adstartmedia.zohorecruit.com/jobs/Careers",
       scrapMode: "NAVIGATION",
       instructions: [
         {
@@ -226,7 +226,7 @@ import type { CompanyWithSelectedFieldsType } from "../interfaces/CompanyInterfa
     {
       name: "AIOpsGroup",
       logo: null,
-      URL: "https://aiopsgroup.com/",
+      URL: "https://aiopsgroup.com/careers/",
       scrapMode: "NAVIGATION",
       instructions: [
         {
@@ -259,7 +259,7 @@ import type { CompanyWithSelectedFieldsType } from "../interfaces/CompanyInterfa
     {
       name: "Amdaris",
       logo: null,
-      URL: "https://amdaris.com/",
+      URL: "https://amdaris.com/jobs/",
       scrapMode: "NAVIGATION",
       instructions: [
         {

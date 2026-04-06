@@ -4,7 +4,7 @@ import { prisma } from "../db/client.js";
         {
             name: "A1 Bulgaria",
             logo: null,
-            URL: "http://a1.bg/bg",
+            URL: "https://jobs.a1.com/bg/jobs/?country=bulgaria&job-category=it",
             scrapMode: "NAVIGATION",
             instructions: [
                 {
@@ -40,34 +40,6 @@ import { prisma } from "../db/client.js";
             steps: [
                 {
                     order: 1,
-                    action: "click",
-                    selector: "text/Кариера в А1",
-                    selectOption: null,
-                    url: null,
-                },
-                {
-                    order: 2,
-                    action: "click",
-                    selector: "text/Категория",
-                    selectOption: null,
-                    url: null,
-                },
-                {
-                    order: 3,
-                    action: "click",
-                    selector: "[data-key='it']",
-                    selectOption: null,
-                    url: null,
-                },
-                {
-                    order: 4,
-                    action: "click",
-                    selector: "[aria-label='Търсене на обяви за работа']",
-                    selectOption: null,
-                    url: null,
-                },
-                {
-                    order: 5,
                     action: "clickMore",
                     selector: "xpath///button[text()='Load more']",
                     selectOption: null,
@@ -78,7 +50,7 @@ import { prisma } from "../db/client.js";
         {
             name: "Accenture",
             logo: null,
-            URL: "http://accenture.bg/en",
+            URL: "https://www.accenture.com/bg-en/careers/jobsearch?aoi=Software%20Engineering",
             scrapMode: "NAVIGATION",
             instructions: [
                 {
@@ -112,34 +84,12 @@ import { prisma } from "../db/client.js";
                     },
                 },
             ],
-            steps: [
-                {
-                    order: 1,
-                    action: "clickEvaluate",
-                    selector: "text/Careers",
-                    selectOption: null,
-                    url: null,
-                },
-                {
-                    order: 2,
-                    action: "clickEvaluate",
-                    selector: "text/Search for jobs",
-                    selectOption: null,
-                    url: null,
-                },
-                {
-                    order: 3,
-                    action: "clickEvaluate",
-                    selector: "text/Software Engineering",
-                    selectOption: null,
-                    url: null,
-                },
-            ],
+            steps: [],
         },
         {
             name: "Acronis",
             logo: null,
-            URL: "https://www.acronis.com/en/",
+            URL: "https://www.acronis.com/en/careers/jobs/",
             scrapMode: "NAVIGATION",
             instructions: [
                 {
@@ -162,47 +112,26 @@ import { prisma } from "../db/client.js";
                 {
                     order: 1,
                     action: "click",
-                    selector: "text/Accept only necessary",
+                    selector: "[title='Select your location']",
                     selectOption: null,
                     url: null,
                 },
                 {
                     order: 2,
                     action: "click",
-                    selector: "aria/Careers",
+                    selector: "[title='Bulgaria']",
                     selectOption: null,
                     url: null,
                 },
                 {
                     order: 3,
                     action: "click",
-                    selector: "text/Explore jobs",
-                    selectOption: null,
-                    url: null,
-                },
-                {
-                    order: 4,
-                    action: "click",
-                    selector: "[title='Select your location']",
-                    selectOption: null,
-                    url: null,
-                },
-                {
-                    order: 5,
-                    action: "click",
-                    selector: "[title='Bulgaria']",
-                    selectOption: null,
-                    url: null,
-                },
-                {
-                    order: 6,
-                    action: "click",
                     selector: "xpath///button[text()='Research and Development']",
                     selectOption: null,
                     url: null,
                 },
                 {
-                    order: 7,
+                    order: 4,
                     action: "click",
                     selector: "text/Show all open positions",
                     selectOption: null,
@@ -213,7 +142,7 @@ import { prisma } from "../db/client.js";
         {
             name: "Adstart Media",
             logo: null,
-            URL: "https://adstartmedia.com/",
+            URL: "https://adstartmedia.zohorecruit.com/jobs/Careers",
             scrapMode: "NAVIGATION",
             instructions: [
                 {
@@ -241,20 +170,13 @@ import { prisma } from "../db/client.js";
             steps: [
                 {
                     order: 1,
-                    action: "click",
-                    selector: "text/Careers",
-                    selectOption: null,
-                    url: null,
-                },
-                {
-                    order: 2,
-                    action: "click",
+                    action: "clickEvaluate",
                     selector: '[role="combobox"]',
                     selectOption: null,
                     url: null,
                 },
                 {
-                    order: 3,
+                    order: 2,
                     action: "clickEvaluate",
                     selector: '[data-value="IT Services"]',
                     selectOption: null,
@@ -301,7 +223,7 @@ import { prisma } from "../db/client.js";
         {
             name: "AIOpsGroup",
             logo: null,
-            URL: "https://aiopsgroup.com/",
+            URL: "https://aiopsgroup.com/careers/",
             scrapMode: "NAVIGATION",
             instructions: [
                 {
@@ -329,27 +251,12 @@ import { prisma } from "../db/client.js";
                     },
                 },
             ],
-            steps: [
-                {
-                    order: 1,
-                    action: "click",
-                    selector: "text/Careers",
-                    selectOption: null,
-                    url: null,
-                },
-                {
-                    order: 2,
-                    action: "click",
-                    selector: "#career-link",
-                    selectOption: null,
-                    url: null,
-                },
-            ],
+            steps: [],
         },
         {
             name: "Amdaris",
             logo: null,
-            URL: "https://amdaris.com/",
+            URL: "https://amdaris.com/jobs/",
             scrapMode: "NAVIGATION",
             instructions: [
                 {
@@ -374,13 +281,6 @@ import { prisma } from "../db/client.js";
             steps: [
                 {
                     order: 1,
-                    action: "click",
-                    selector: "#menu-item-11245 > a",
-                    selectOption: null,
-                    url: null,
-                },
-                {
-                    order: 2,
                     action: "select",
                     selector: "[name='countries']",
                     selectOption: "sofia",
@@ -548,7 +448,7 @@ import { prisma } from "../db/client.js";
             }
         }
         catch (error) {
-            console.log(`Failed to create company: ${error}`);
+            console.log(`Failed to create company ${company.name}, ${error}`);
         }
     }
 })();

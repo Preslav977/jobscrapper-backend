@@ -48,8 +48,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "tsc -w & node --watch ./dist/app.js",
     "seed": "tsc -w & node --watch ./dist/seed/companySeed.js",
-    "scrapeJobs": "tsc -w & node --watch ./dist/script/scrapeJobs/scrapeJobs.js",
-    "scrapeJobsDetails": "tsc -w & node --watch ./dist/script/scrapeJobsDetails/scrapeJobsDetails.js",
+    "startJobs": "tsc -w & node --watch ./dist/script/scrapeJobs/scrapeJobs.js",
+    "startJobsDetails": "tsc -w & node --watch ./dist/script/scrapeJobsDetails/scrapeJobsDetails.js",
     "migrate": "npx prisma migrate dev --name init",
     "generate": "npx prisma generate"
   },

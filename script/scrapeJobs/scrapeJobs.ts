@@ -4,7 +4,7 @@ import {
   buildData,
   hasJobChanged,
 } from "../helperUtilities/helperUtilities.js";
-import { scrapingJobsFunction } from "../scrapingJobsDetailsFunction/scrapingJobsDetailsFunction.js";
+import { scrapingJobsFunction } from "../scrapingJobsFunction/scrapingJobsFunction.js";
 
 (async () => {
   try {
@@ -28,49 +28,55 @@ import { scrapingJobsFunction } from "../scrapingJobsDetailsFunction/scrapingJob
 
         const scrapedJobsIds: Set<number> = new Set();
 
-        await prisma.$transaction(async (tx) => {
-          for (const scrapedJob of scrapedJobs) {
-            const existingJob = existingJobsMap.get(scrapedJob.anchorHref!);
+        await prisma.$transaction(
+          async (tx) => {
+            for (const scrapedJob of scrapedJobs) {
+              const existingJob = existingJobsMap.get(scrapedJob.anchorHref!);
 
-            if (existingJob) {
-              scrapedJobsIds.add(existingJob.id);
+              if (existingJob) {
+                scrapedJobsIds.add(existingJob.id);
 
-              const scrapedJobChanged = hasJobChanged(
-                existingJob!,
-                scrapedJob as Jobs,
-              );
+                const scrapedJobChanged = hasJobChanged(
+                  existingJob!,
+                  scrapedJob as Jobs,
+                );
 
-              if (scrapedJobChanged) {
-                await tx.jobs.update({
-                  where: {
-                    id: existingJob.id,
-                  },
+                if (scrapedJobChanged) {
+                  await tx.jobs.update({
+                    where: {
+                      id: existingJob.id,
+                    },
+                    data: buildData(scrapedJob as Jobs),
+                  });
+                }
+              } else {
+                await tx.jobs.create({
                   data: buildData(scrapedJob as Jobs),
                 });
               }
-            } else {
-              await tx.jobs.create({
-                data: buildData(scrapedJob as Jobs),
+            }
+
+            const jobsToDelete = Array.from(
+              existingJobsIds.difference(scrapedJobsIds),
+            );
+
+            // console.log(jobsToDelete);
+
+            if (jobsToDelete.length > 0) {
+              await tx.jobs.deleteMany({
+                where: {
+                  id: {
+                    in: jobsToDelete,
+                  },
+                },
               });
             }
-          }
-
-          const jobsToDelete = Array.from(
-            existingJobsIds.difference(scrapedJobsIds),
-          );
-
-          // console.log(jobsToDelete);
-
-          if (jobsToDelete.length > 0) {
-            await tx.jobs.deleteMany({
-              where: {
-                id: {
-                  in: jobsToDelete,
-                },
-              },
-            });
-          }
-        });
+          },
+          {
+            maxWait: 5000,
+            timeout: 20000,
+          },
+        );
       }
     }
   } catch (error) {

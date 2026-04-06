@@ -1,5 +1,5 @@
 import { prisma } from "../../db/client.js";
-import { scrapingJobsDetailsFunction } from "../scrapingJobsFunction/scrapingJobsFunction.js";
+import { scrapingJobsDetailsFunction } from "../scrapingJobsDetailsFunction/scrapingJobsDetailsFunction.js";
 
 (async () => {
   try {

@@ -1,19 +1,28 @@
 import puppeteer from "puppeteer-extra";
 import StealthPlugin from "puppeteer-extra-plugin-stealth";
-
+import {
+  extractJobsFetchURL,
+  extractJobsText,
+} from "../extractDataFunctions/extractDataFunctions.js";
 import {
   getRandomTimezone,
   height,
   width,
 } from "../helperUtilities/helperUtilities.js";
+import {
+  selectOptionFromDropDown,
+  sleepDelay,
+  tryClick,
+  tryClickEvaluate,
+  tryClickLoadMore,
+} from "../navigationFunctions/navigationFunctions.js";
 
 import { Page } from "puppeteer";
+import type { UtilityInterface } from "../../interfaces/UtilityInterface/UtilityInterface.js";
 
 import UserAgent from "user-agents";
-import type { Jobs } from "../../generated/prisma/client.js";
-import type { JobsWithRelationsType } from "../../interfaces/JobsInterface/JobsInterface.js";
-import { extractJobsDetailsText } from "../extractDataFunctions/extractDataFunctions.js";
-import { sleepDelay } from "../navigationFunctions/navigationFunctions.js";
+import type { JobsCreateManyInput } from "../../generated/prisma/models.js";
+import type { CompanyWithRelationsType } from "../../interfaces/CompanyInterface/CompanyInterface.js";
 
 const stealthPlugin = StealthPlugin();
 
@@ -21,15 +30,17 @@ stealthPlugin.enabledEvasions.add("user-agent-override");
 
 puppeteer.default.use(stealthPlugin);
 
-export async function scrapingJobsDetailsFunction(job: JobsWithRelationsType) {
-  const { id, anchorHref } = job;
+export async function scrapingJobsFunction(
+  company: CompanyWithRelationsType,
+): Promise<JobsCreateManyInput[]> {
+  const { id, URL, scrapMode, instructions, steps } = company;
 
-  const { instructions } = job.company;
+  let scrapingJobsResult: JobsCreateManyInput[] = [];
 
-  let scrapingJobsDetailsResult: Partial<Jobs> = {};
+  let navigationResults: UtilityInterface[] = [];
 
   const browser = await puppeteer.default.launch({
-    headless: true,
+    headless: false,
     args: [
       "--no-sandbox",
       "--disable-gpu",
@@ -58,7 +69,7 @@ export async function scrapingJobsDetailsFunction(job: JobsWithRelationsType) {
     "User-Agent": randomUserAgent,
   });
 
-  await page.goto(anchorHref!, {
+  await page.goto(URL, {
     waitUntil: "load",
   });
 
@@ -66,24 +77,135 @@ export async function scrapingJobsDetailsFunction(job: JobsWithRelationsType) {
 
   await page.emulateTimezone(`${getRandomTimezone}`);
 
-  await sleepDelay(2500);
+  // await sleepDelay(2500);
+
+  // await page.evaluate(() => {
+  //   window.scrollTo(0, document.body.scrollHeight);
+  // });
 
   try {
-    if (instructions.length > 0) {
-      for (const instruction of instructions) {
-        const result = await extractJobsDetailsText(page, instruction, id);
+    for (const step of steps) {
+      switch (step.action) {
+        case "click": {
+          const tryClickResult = await tryClick(page, step.selector, 5);
 
-        scrapingJobsDetailsResult = { ...result };
+          navigationResults.push({
+            step: step.selector,
+            status: tryClickResult,
+          });
+
+          break;
+        }
+
+        case "clickEvaluate": {
+          const tryClickEvaluateResult = await tryClickEvaluate(
+            page,
+            step.selector,
+            5,
+          );
+
+          navigationResults.push({
+            step: step.selector,
+            status: tryClickEvaluateResult,
+          });
+
+          break;
+        }
+
+        case "clickMore": {
+          const tryClickMoreResult = await tryClickLoadMore(
+            page,
+            step.selector,
+          );
+
+          navigationResults.push({
+            step: step.selector,
+            status: tryClickMoreResult,
+          });
+
+          break;
+        }
+
+        case "select": {
+          const selectOptionFromDropDownResult = await selectOptionFromDropDown(
+            page,
+            step.selector,
+            step.selectOption!,
+            5,
+          );
+
+          navigationResults.push({
+            step: step.selector,
+            status: selectOptionFromDropDownResult,
+          });
+
+          break;
+        }
+
+        case "fetch": {
+          const extractJobsFetchURLResult = await extractJobsFetchURL(
+            id,
+            step.url!,
+            URL,
+          );
+
+          navigationResults.push({
+            step: step.url!,
+            status:
+              extractJobsFetchURLResult.length > 0 ? "success" : "failure",
+          });
+
+          scrapingJobsResult = [...extractJobsFetchURLResult];
+
+          console.log(scrapingJobsResult);
+
+          break;
+        }
+
+        default: {
+          break;
+        }
+      }
+    }
+
+    const checkForNavigationResultsFailures = navigationResults.some(
+      (res) => res.status === "failure",
+    );
+
+    if (!checkForNavigationResultsFailures && scrapMode === "NAVIGATION") {
+      for (const instruction of instructions) {
+        const jobScrapingResult = await extractJobsText(page, instruction, id);
+
+        scrapingJobsResult = [...jobScrapingResult];
+
+        await sleepDelay(5000);
+
+        navigationResults = [];
 
         await browser.close();
+
+        return jobScrapingResult;
       }
+    } else if (!checkForNavigationResultsFailures && scrapMode === "FETCH") {
+      navigationResults = [];
+
+      await browser.close();
     }
   } catch (error) {
     console.log(
-      `Navigation script for jobs details failed, check the selector, ${error}`,
+      `Navigation script for jobs failed, check the selectors, ${error}`,
     );
+
+    navigationResults = [];
+
+    await browser.close();
 
     throw error;
   }
-  return scrapingJobsDetailsResult;
+
+  navigationResults = [];
+
+  await browser.close();
+
+  return scrapingJobsResult;
 }

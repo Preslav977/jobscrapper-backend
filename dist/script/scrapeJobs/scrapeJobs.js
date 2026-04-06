@@ -1,6 +1,6 @@
 import { prisma } from "../../db/client.js";
 import { buildData, hasJobChanged, } from "../helperUtilities/helperUtilities.js";
-import { scrapingJobSitesFunction } from "../scrapingJobsSitesFunction/scrapingJobSitesFunction.js";
+import { scrapingJobsFunction } from "../scrapingJobsFunction/scrapingJobsFunction.js";
 (async () => {
     try {
         const companies = await prisma.company.findMany({
@@ -10,44 +10,49 @@ import { scrapingJobSitesFunction } from "../scrapingJobsSitesFunction/scrapingJ
                 steps: true,
             },
         });
-        for (const company of companies) {
-            const scrapedJobs = await scrapingJobSitesFunction(company);
-            const existingJobsMap = new Map(company.jobs.map((job) => [job.anchorHref, job]));
-            const existingJobsIds = new Set(company.jobs.map((job) => job.id));
-            const scrapedJobsIds = new Set();
-            await prisma.$transaction(async (tx) => {
-                for (const scrapedJob of scrapedJobs) {
-                    const existingJob = existingJobsMap.get(scrapedJob.anchorHref);
-                    if (existingJob) {
-                        scrapedJobsIds.add(existingJob.id);
-                        const scrapedJobChanged = hasJobChanged(existingJob, scrapedJob);
-                        if (scrapedJobChanged) {
-                            await tx.jobs.update({
-                                where: {
-                                    id: existingJob.id,
-                                },
+        if (companies.length > 0) {
+            for (const company of companies) {
+                const scrapedJobs = await scrapingJobsFunction(company);
+                const existingJobsMap = new Map(company.jobs.map((job) => [job.anchorHref, job]));
+                const existingJobsIds = new Set(company.jobs.map((job) => job.id));
+                const scrapedJobsIds = new Set();
+                await prisma.$transaction(async (tx) => {
+                    for (const scrapedJob of scrapedJobs) {
+                        const existingJob = existingJobsMap.get(scrapedJob.anchorHref);
+                        if (existingJob) {
+                            scrapedJobsIds.add(existingJob.id);
+                            const scrapedJobChanged = hasJobChanged(existingJob, scrapedJob);
+                            if (scrapedJobChanged) {
+                                await tx.jobs.update({
+                                    where: {
+                                        id: existingJob.id,
+                                    },
+                                    data: buildData(scrapedJob),
+                                });
+                            }
+                        }
+                        else {
+                            await tx.jobs.create({
                                 data: buildData(scrapedJob),
                             });
                         }
                     }
-                    else {
-                        await tx.jobs.create({
-                            data: buildData(scrapedJob),
+                    const jobsToDelete = Array.from(existingJobsIds.difference(scrapedJobsIds));
+                    // console.log(jobsToDelete);
+                    if (jobsToDelete.length > 0) {
+                        await tx.jobs.deleteMany({
+                            where: {
+                                id: {
+                                    in: jobsToDelete,
+                                },
+                            },
                         });
                     }
-                }
-                const jobsToDelete = Array.from(existingJobsIds.difference(scrapedJobsIds));
-                // console.log(jobsToDelete);
-                if (jobsToDelete.length > 0) {
-                    await tx.jobs.deleteMany({
-                        where: {
-                            id: {
-                                in: jobsToDelete,
-                            },
-                        },
-                    });
-                }
-            });
+                }, {
+                    maxWait: 5000,
+                    timeout: 20000,
+                });
+            }
         }
     }
     catch (error) {

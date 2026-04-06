@@ -1,18 +1,8 @@
 import { prisma } from "../../db/client.js";
-import { scrapingJobDetailsSitesFunction } from "../scrapingJobsDetailsSitesFunction/scrapingJobsDetailsSitesFunction.js";
+import { scrapingJobsDetailsFunction } from "../scrapingJobsDetailsFunction/scrapingJobsDetailsFunction.js";
 (async () => {
     try {
         const jobs = await prisma.jobs.findMany({
-            where: {
-                company: {
-                    OR: [
-                        {
-                            scrapMode: "NAVIGATION",
-                        },
-                        { scrapMode: "DIRECT" },
-                    ],
-                },
-            },
             include: {
                 company: {
                     include: {
@@ -22,7 +12,7 @@ import { scrapingJobDetailsSitesFunction } from "../scrapingJobsDetailsSitesFunc
             },
         });
         for (const job of jobs) {
-            const scrapedJobsDetails = await scrapingJobDetailsSitesFunction(job);
+            const scrapedJobsDetails = await scrapingJobsDetailsFunction(job);
             await prisma.jobs.update({
                 where: {
                     id: scrapedJobsDetails.id,
