@@ -71,7 +71,7 @@ async function getCompanyByName(req, res) {
 }
 async function updateCompany(req, res) {
     const { id } = req.params;
-    const { name, URL } = req.body;
+    const { name, URL, scrapMode } = req.body;
     if (req.file) {
         const logo = await supabaseImageUpload(req.file);
         const companyUpdateInformation = await prisma.company.update({
@@ -82,6 +82,7 @@ async function updateCompany(req, res) {
                 name,
                 logo,
                 URL,
+                scrapMode,
             },
         });
         res.json(companyUpdateInformation);
@@ -94,6 +95,7 @@ async function updateCompany(req, res) {
             data: {
                 name,
                 URL,
+                scrapMode,
             },
         });
         res.json(companyUpdateInformation);

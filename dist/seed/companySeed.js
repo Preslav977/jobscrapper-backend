@@ -266,7 +266,7 @@ import { prisma } from "../db/client.js";
             name: "Adastra",
             logo: null,
             URL: "https://jobs.adastracorp.com/bulgaria/go/Applications-Development-&-Programming/9023855/",
-            scrapMode: "DIRECT",
+            scrapMode: "NAVIGATION",
             instructions: [
                 {
                     extractionInstructions: {
@@ -544,6 +544,7 @@ import { prisma } from "../db/client.js";
                         },
                     },
                 });
+                console.log("Successfully created all the companies in the script!");
             }
         }
         catch (error) {

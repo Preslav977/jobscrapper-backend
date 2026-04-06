@@ -42,34 +42,6 @@ import type { CompanyWithSelectedFieldsType } from "../interfaces/CompanyInterfa
       steps: [
         {
           order: 1,
-          action: "click",
-          selector: "text/Кариера в А1",
-          selectOption: null,
-          url: null,
-        },
-        {
-          order: 2,
-          action: "click",
-          selector: "text/Категория",
-          selectOption: null,
-          url: null,
-        },
-        {
-          order: 3,
-          action: "click",
-          selector: "[data-key='it']",
-          selectOption: null,
-          url: null,
-        },
-        {
-          order: 4,
-          action: "click",
-          selector: "[aria-label='Търсене на обяви за работа']",
-          selectOption: null,
-          url: null,
-        },
-        {
-          order: 5,
           action: "clickMore",
           selector: "xpath///button[text()='Load more']",
           selectOption: null,
@@ -115,29 +87,7 @@ import type { CompanyWithSelectedFieldsType } from "../interfaces/CompanyInterfa
           },
         },
       ],
-      steps: [
-        {
-          order: 1,
-          action: "clickEvaluate",
-          selector: "text/Careers",
-          selectOption: null,
-          url: null,
-        },
-        {
-          order: 2,
-          action: "clickEvaluate",
-          selector: "text/Search for jobs",
-          selectOption: null,
-          url: null,
-        },
-        {
-          order: 3,
-          action: "clickEvaluate",
-          selector: "text/Software Engineering",
-          selectOption: null,
-          url: null,
-        },
-      ],
+      steps: [],
     },
     {
       name: "Acronis",
@@ -165,47 +115,26 @@ import type { CompanyWithSelectedFieldsType } from "../interfaces/CompanyInterfa
         {
           order: 1,
           action: "click",
-          selector: "text/Accept only necessary",
+          selector: "[title='Select your location']",
           selectOption: null,
           url: null,
         },
         {
           order: 2,
           action: "click",
-          selector: "aria/Careers",
+          selector: "[title='Bulgaria']",
           selectOption: null,
           url: null,
         },
         {
           order: 3,
           action: "click",
-          selector: "text/Explore jobs",
-          selectOption: null,
-          url: null,
-        },
-        {
-          order: 4,
-          action: "click",
-          selector: "[title='Select your location']",
-          selectOption: null,
-          url: null,
-        },
-        {
-          order: 5,
-          action: "click",
-          selector: "[title='Bulgaria']",
-          selectOption: null,
-          url: null,
-        },
-        {
-          order: 6,
-          action: "click",
           selector: "xpath///button[text()='Research and Development']",
           selectOption: null,
           url: null,
         },
         {
-          order: 7,
+          order: 4,
           action: "click",
           selector: "text/Show all open positions",
           selectOption: null,
@@ -244,20 +173,13 @@ import type { CompanyWithSelectedFieldsType } from "../interfaces/CompanyInterfa
       steps: [
         {
           order: 1,
-          action: "click",
-          selector: "text/Careers",
-          selectOption: null,
-          url: null,
-        },
-        {
-          order: 2,
-          action: "click",
+          action: "clickEvaluate",
           selector: '[role="combobox"]',
           selectOption: null,
           url: null,
         },
         {
-          order: 3,
+          order: 2,
           action: "clickEvaluate",
           selector: '[data-value="IT Services"]',
           selectOption: null,
@@ -269,7 +191,7 @@ import type { CompanyWithSelectedFieldsType } from "../interfaces/CompanyInterfa
       name: "Adastra",
       logo: null,
       URL: "https://jobs.adastracorp.com/bulgaria/go/Applications-Development-&-Programming/9023855/",
-      scrapMode: "DIRECT",
+      scrapMode: "NAVIGATION",
       instructions: [
         {
           extractionInstructions: {
@@ -332,22 +254,7 @@ import type { CompanyWithSelectedFieldsType } from "../interfaces/CompanyInterfa
           },
         },
       ],
-      steps: [
-        {
-          order: 1,
-          action: "click",
-          selector: "text/Careers",
-          selectOption: null,
-          url: null,
-        },
-        {
-          order: 2,
-          action: "click",
-          selector: "#career-link",
-          selectOption: null,
-          url: null,
-        },
-      ],
+      steps: [],
     },
     {
       name: "Amdaris",
@@ -377,13 +284,6 @@ import type { CompanyWithSelectedFieldsType } from "../interfaces/CompanyInterfa
       steps: [
         {
           order: 1,
-          action: "click",
-          selector: "#menu-item-11245 > a",
-          selectOption: null,
-          url: null,
-        },
-        {
-          order: 2,
           action: "select",
           selector: "[name='countries']",
           selectOption: "sofia",
@@ -550,9 +450,11 @@ import type { CompanyWithSelectedFieldsType } from "../interfaces/CompanyInterfa
             },
           },
         });
+
+        console.log("Successfully created all the companies in the script!");
       }
     } catch (error) {
-      console.log(`Failed to create company: ${error}`);
+      console.log(`Failed to create company ${company.name}, ${error}`);
     }
   }
 })();

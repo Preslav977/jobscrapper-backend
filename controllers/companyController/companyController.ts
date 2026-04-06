@@ -88,7 +88,7 @@ async function getCompanyByName(req: Request, res: Response) {
 async function updateCompany(req: Request, res: Response) {
   const { id } = req.params;
 
-  const { name, URL }: Company = req.body;
+  const { name, URL, scrapMode }: Company = req.body;
 
   if (req.file) {
     const logo = await supabaseImageUpload(req.file);
@@ -101,6 +101,7 @@ async function updateCompany(req: Request, res: Response) {
         name,
         logo,
         URL,
+        scrapMode,
       },
     });
 
@@ -113,6 +114,7 @@ async function updateCompany(req: Request, res: Response) {
       data: {
         name,
         URL,
+        scrapMode,
       },
     });
 

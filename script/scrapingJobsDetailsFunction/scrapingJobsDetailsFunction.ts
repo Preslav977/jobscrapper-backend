@@ -30,7 +30,7 @@ stealthPlugin.enabledEvasions.add("user-agent-override");
 
 puppeteer.default.use(stealthPlugin);
 
-export async function scrapingJobSitesFunction(
+export async function scrapingJobsFunction(
   companySite: CompanyWithRelationsType,
 ): Promise<JobsCreateManyInput[]> {
   const { id, URL, scrapMode, instructions, steps } = companySite;
@@ -40,7 +40,7 @@ export async function scrapingJobSitesFunction(
   let navigationResults: UtilityInterface[] = [];
 
   const browser = await puppeteer.default.launch({
-    headless: true,
+    headless: false,
     args: [
       "--no-sandbox",
       "--disable-gpu",
@@ -77,11 +77,11 @@ export async function scrapingJobSitesFunction(
 
   await page.emulateTimezone(`${getRandomTimezone}`);
 
-  await sleepDelay(2500);
+  // await sleepDelay(2500);
 
-  await page.evaluate(() => {
-    window.scrollTo(0, document.body.scrollHeight);
-  });
+  // await page.evaluate(() => {
+  //   window.scrollTo(0, document.body.scrollHeight);
+  // });
 
   try {
     for (const step of steps) {
@@ -192,7 +192,9 @@ export async function scrapingJobSitesFunction(
       await browser.close();
     }
   } catch (error) {
-    console.log(`Navigation script for jobs failed, reason: ${error}`);
+    console.log(
+      `Navigation script for jobs failed, check the selectors, ${error}`,
+    );
 
     navigationResults = [];
 

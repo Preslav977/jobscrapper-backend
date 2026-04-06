@@ -21,9 +21,7 @@ stealthPlugin.enabledEvasions.add("user-agent-override");
 
 puppeteer.default.use(stealthPlugin);
 
-export async function scrapingJobDetailsSitesFunction(
-  job: JobsWithRelationsType,
-) {
+export async function scrapingJobsDetailsFunction(job: JobsWithRelationsType) {
   const { id, anchorHref } = job;
 
   const { instructions } = job.company;
@@ -31,7 +29,7 @@ export async function scrapingJobDetailsSitesFunction(
   let scrapingJobsDetailsResult: Partial<Jobs> = {};
 
   const browser = await puppeteer.default.launch({
-    headless: false,
+    headless: true,
     args: [
       "--no-sandbox",
       "--disable-gpu",
@@ -81,7 +79,9 @@ export async function scrapingJobDetailsSitesFunction(
       }
     }
   } catch (error) {
-    console.log(`Navigation script for jobs details failed, reason: ${error}`);
+    console.log(
+      `Navigation script for jobs details failed, check the selector, ${error}`,
+    );
 
     throw error;
   }

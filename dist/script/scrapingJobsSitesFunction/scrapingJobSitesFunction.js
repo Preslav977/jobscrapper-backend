@@ -13,7 +13,7 @@ export async function scrapingJobSitesFunction(companySite) {
     let scrapingJobsResult = [];
     let navigationResults = [];
     const browser = await puppeteer.default.launch({
-        headless: true,
+        headless: false,
         args: [
             "--no-sandbox",
             "--disable-gpu",
