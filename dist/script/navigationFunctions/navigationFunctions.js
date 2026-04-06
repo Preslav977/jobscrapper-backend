@@ -1,9 +1,22 @@
 async function tryClick(page, instruction, maxAttempt) {
+    if (maxAttempt < 1)
+        return "failure";
     for (let attempt = 1; attempt <= maxAttempt; attempt++) {
+        const timeout = attempt * 10000;
         try {
-            await page.waitForSelector(instruction);
+            await page.waitForSelector(instruction, { timeout });
+            const isElementVisible = await page.$eval(instruction, (el) => {
+                const style = window.getComputedStyle(el);
+                return style.display !== "none" && style.visibility !== "hidden";
+            });
+            if (!isElementVisible) {
+                await sleepDelay(3000);
+            }
+            const isElementEnabled = await page.$eval(instruction, (el) => !el.ariaDisabled);
+            if (!isElementEnabled) {
+                await sleepDelay(3000);
+            }
             await page.click(instruction);
-            await sleepDelay(3000);
             return "success";
         }
         catch (error) {

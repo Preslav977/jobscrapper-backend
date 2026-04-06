@@ -87,7 +87,6 @@ export async function scrapingJobsFunction(company) {
                         status: extractJobsFetchURLResult.length > 0 ? "success" : "failure",
                     });
                     scrapingJobsResult = [...extractJobsFetchURLResult];
-                    console.log(scrapingJobsResult);
                     break;
                 }
                 default: {

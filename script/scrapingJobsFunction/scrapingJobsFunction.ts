@@ -157,8 +157,6 @@ export async function scrapingJobsFunction(
 
           scrapingJobsResult = [...extractJobsFetchURLResult];
 
-          console.log(scrapingJobsResult);
-
           break;
         }
 
