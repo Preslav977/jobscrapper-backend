@@ -7,6 +7,8 @@ import {
   width,
 } from "../helperUtilities/helperUtilities.js";
 
+import { URL } from "node:url";
+
 import { Page } from "puppeteer";
 
 import UserAgent from "user-agents";
@@ -25,6 +27,8 @@ export async function scrapingJobsDetailsFunction(job: JobsWithRelationsType) {
   const { id, anchorHref } = job;
 
   const { instructions } = job.company;
+
+  const constructNewURL = new URL(anchorHref!, job.company.URL);
 
   let scrapingJobsDetailsResult: Partial<Jobs> = {};
 
@@ -58,7 +62,7 @@ export async function scrapingJobsDetailsFunction(job: JobsWithRelationsType) {
     "User-Agent": randomUserAgent,
   });
 
-  await page.goto(anchorHref!, {
+  await page.goto(`${constructNewURL.href}`, {
     waitUntil: "load",
   });
 

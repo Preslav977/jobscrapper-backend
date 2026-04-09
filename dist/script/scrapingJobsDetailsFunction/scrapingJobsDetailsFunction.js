@@ -1,6 +1,7 @@
 import puppeteer from "puppeteer-extra";
 import StealthPlugin from "puppeteer-extra-plugin-stealth";
 import { getRandomTimezone, height, width, } from "../helperUtilities/helperUtilities.js";
+import { URL } from "node:url";
 import { Page } from "puppeteer";
 import UserAgent from "user-agents";
 import { extractJobsDetailsText } from "../extractDataFunctions/extractDataFunctions.js";
@@ -11,6 +12,7 @@ puppeteer.default.use(stealthPlugin);
 export async function scrapingJobsDetailsFunction(job) {
     const { id, anchorHref } = job;
     const { instructions } = job.company;
+    const constructNewURL = new URL(anchorHref, job.company.URL);
     let scrapingJobsDetailsResult = {};
     const browser = await puppeteer.default.launch({
         headless: false,
@@ -36,7 +38,7 @@ export async function scrapingJobsDetailsFunction(job) {
         Accept: "text/html,application/xhtml+xml",
         "User-Agent": randomUserAgent,
     });
-    await page.goto(anchorHref, {
+    await page.goto(`${constructNewURL.href}`, {
         waitUntil: "load",
     });
     await page.setViewport({ width: width, height: height });
