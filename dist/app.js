@@ -10,7 +10,7 @@ import passport from "passport";
 import LocalStrategy from "passport-local";
 import bcrypt from "bcryptjs";
 import { prisma } from "./db/client.js";
-// import { conditionalRouteMiddleware } from "./middlewares/conditionalRouteMiddleware/conditionalRouteMiddleware.js";
+import { conditionalRouteMiddleware } from "./middlewares/conditionalRouteMiddleware/conditionalRouteMiddleware.js";
 const app = express();
 const assetsPath = path.join(__dirname, "/public");
 app.use(express.static(assetsPath));
@@ -86,7 +86,7 @@ app.get("users/logout", (req, res, next) => {
     });
 });
 app.use(authRouter);
-// app.use(conditionalRouteMiddleware);
+app.use(conditionalRouteMiddleware);
 app.use("/users", userRouter);
 app.use("/companies", companyRouter);
 app.use((err, req, res, next) => {
@@ -96,11 +96,5 @@ app.use((err, req, res, next) => {
 process.on("warning", (e) => {
     console.warn(e.stack);
 });
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, (error) => {
-    if (error) {
-        throw error;
-    }
-    console.log(`Express app - listening on port ${PORT}`);
-});
+export { app };
 //# sourceMappingURL=app.js.map

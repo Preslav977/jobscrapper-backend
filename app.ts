@@ -26,7 +26,7 @@ import bcrypt from "bcryptjs";
 
 import { prisma } from "./db/client.js";
 
-// import { conditionalRouteMiddleware } from "./middlewares/conditionalRouteMiddleware/conditionalRouteMiddleware.js";
+import { conditionalRouteMiddleware } from "./middlewares/conditionalRouteMiddleware/conditionalRouteMiddleware.js";
 
 const app = express();
 
@@ -130,7 +130,7 @@ app.get("users/logout", (req, res, next) => {
 
 app.use(authRouter);
 
-// app.use(conditionalRouteMiddleware);
+app.use(conditionalRouteMiddleware);
 
 app.use("/users", userRouter);
 
@@ -146,12 +146,4 @@ process.on("warning", (e) => {
   console.warn(e.stack);
 });
 
-const PORT = process.env.PORT || 3000;
-
-app.listen(PORT, (error) => {
-  if (error) {
-    throw error;
-  }
-
-  console.log(`Express app - listening on port ${PORT}`);
-});
+export { app };
