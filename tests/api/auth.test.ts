@@ -127,5 +127,30 @@ describe("testing auth controller and routes", () => {
         "Password must be minimum 8 characters, and contain at least one letter, and one number",
       );
     });
+
+    it("user shouldn't able to signup if passwords don't match", async () => {
+      const { body, header, status } = await request(app).post("/signup").send({
+        firstName: "",
+        lastName: "",
+        password: "12345678BGG",
+        confirmPassword: "12345678BG",
+        location: "",
+        email: "email@test.com",
+        phoneNumber: "",
+        linkedInURL: "",
+        githubURL: "",
+        portfolioURL: "",
+      });
+
+      const findTheSignedUpUser = await prisma.user.findFirst();
+
+      expect(findTheSignedUpUser).toBeNull();
+
+      expect(header["content-type"]).toMatch(/json/);
+
+      expect(status).toBe(400);
+
+      expect(body[0].msg).toEqual("Passwords must match!");
+    });
   });
 });

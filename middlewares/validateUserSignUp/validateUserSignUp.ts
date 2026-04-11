@@ -8,7 +8,7 @@ const emailTakenError = "is already taken!";
 const passwordLengthError =
   "must be minimum 8 characters, and contain at least one letter, and one number";
 
-const passwordMatchError = "must match";
+const passwordMatchError = "must match!";
 
 const validateUserSignUp = [
   body("email")
@@ -42,7 +42,7 @@ const validateUserSignUp = [
     .custom((value, { req }) => {
       return value === req.body.password;
     })
-    .withMessage(`Password ${passwordMatchError}`),
+    .withMessage(`Passwords ${passwordMatchError}`),
 ];
 
 export { validateUserSignUp };
