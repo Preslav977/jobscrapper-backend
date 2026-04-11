@@ -51,6 +51,46 @@ describe("testing auth controller and routes", () => {
       expect(body.password).toMatch(body.confirmPassword);
     });
 
+    it("user shouldn't able to signup if email is taken", async () => {
+      await prisma.user.create({
+        data: {
+          firstName: "",
+          lastName: "",
+          password: "12345678BG",
+          confirmPassword: "12345678BG",
+          location: "",
+          email: "test@abv.bg",
+          phoneNumber: 12345678,
+          linkedInURL: "",
+          githubURL: "",
+          portfolioURL: "",
+        },
+      });
+
+      const { body, header, status } = await request(app).post("/signup").send({
+        firstName: "",
+        lastName: "",
+        password: "12345678BG",
+        confirmPassword: "12345678BG",
+        location: "",
+        email: "test@abv.bg",
+        phoneNumber: "",
+        linkedInURL: "",
+        githubURL: "",
+        portfolioURL: "",
+      });
+
+      const findTheSignedUpUser = await prisma.user.findFirst();
+
+      expect(findTheSignedUpUser).toBeDefined();
+
+      expect(header["content-type"]).toMatch(/json/);
+
+      expect(status).toBe(400);
+
+      expect(body[0].msg).toEqual("Email is already taken!");
+    });
+
     it("user shouldn't able to signup if email not 6 characters", async () => {
       const { body, header, status } = await request(app).post("/signup").send({
         firstName: "",
