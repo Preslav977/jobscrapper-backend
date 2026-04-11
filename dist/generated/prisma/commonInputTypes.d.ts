@@ -1,6 +1,6 @@
 import type * as runtime from "@prisma/client/runtime/client";
-import * as $Enums from "./enums.js";
-import type * as Prisma from "./internal/prismaNamespace.js";
+import * as $Enums from "./enums.ts";
+import type * as Prisma from "./internal/prismaNamespace.ts";
 export type IntFilter<$PrismaModel = never> = {
     equals?: number | Prisma.IntFieldRefInput<$PrismaModel>;
     in?: number[] | Prisma.ListIntFieldRefInput<$PrismaModel>;

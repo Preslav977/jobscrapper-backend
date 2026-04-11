@@ -1,7 +1,7 @@
 import { PrismaPg } from "@prisma/adapter-pg";
 import "dotenv/config";
 
-import { PrismaClient } from "../generated/prisma/client.ts";
+import { PrismaClient } from "../generated/prisma/client.js";
 
 const connectionString: string =
   process.env.NODE_ENV! === "test"

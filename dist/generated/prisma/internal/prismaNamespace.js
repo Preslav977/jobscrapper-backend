@@ -14,7 +14,7 @@
  * model files in the `model` directory!
  */
 import * as runtime from "@prisma/client/runtime/client";
-import {} from "./class.js";
+import {} from "./class.ts";
 /**
  * Prisma Errors
  */
@@ -37,12 +37,12 @@ export const Sql = runtime.Sql;
 export const Decimal = runtime.Decimal;
 export const getExtensionContext = runtime.Extensions.getExtensionContext;
 /**
- * Prisma Client JS version: 7.5.0
- * Query Engine version: 280c870be64f457428992c43c1f6d557fab6e29e
+ * Prisma Client JS version: 7.7.0
+ * Query Engine version: 75cbdc1eb7150937890ad5465d861175c6624711
  */
 export const prismaVersion = {
-    client: "7.5.0",
-    engine: "280c870be64f457428992c43c1f6d557fab6e29e"
+    client: "7.7.0",
+    engine: "75cbdc1eb7150937890ad5465d861175c6624711"
 };
 export const NullTypes = {
     DbNull: runtime.NullTypes.DbNull,

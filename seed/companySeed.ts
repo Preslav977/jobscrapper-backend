@@ -1,4 +1,5 @@
-import { prisma } from "../db/client.js";
+import { prisma } from "../dist/db/client.js";
+
 import type { CompanyWithSelectedFieldsType } from "../interfaces/CompanyInterface/CompanyInterface.js";
 
 (async () => {

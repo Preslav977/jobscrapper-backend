@@ -33,11 +33,18 @@ describe("testing auth controller and routes", () => {
         githubURL: "",
         portfolioURL: "",
       });
-      console.log(body);
+
       const findTheSignedUpUser = await prisma.user.findFirst();
-      console.log(findTheSignedUpUser);
+
+      expect(findTheSignedUpUser).toBeDefined();
+
       expect(status).toBe(200);
+
       expect(header["content-type"]).toMatch(/json/);
+
+      expect(body.email).toMatch("test@abv.bg");
+
+      expect(body.password).toMatch(body.confirmPassword);
     });
   });
 });

@@ -1,5 +1,5 @@
 import type * as runtime from "@prisma/client/runtime/client";
-import type * as Prisma from "../internal/prismaNamespace.js";
+import type * as Prisma from "../internal/prismaNamespace.ts";
 /**
  * Model Session
  *
@@ -119,7 +119,7 @@ export type SessionGroupByOutputType = {
     _min: SessionMinAggregateOutputType | null;
     _max: SessionMaxAggregateOutputType | null;
 };
-type GetSessionGroupByPayload<T extends SessionGroupByArgs> = Prisma.PrismaPromise<Array<Prisma.PickEnumerable<SessionGroupByOutputType, T['by']> & {
+export type GetSessionGroupByPayload<T extends SessionGroupByArgs> = Prisma.PrismaPromise<Array<Prisma.PickEnumerable<SessionGroupByOutputType, T['by']> & {
     [P in ((keyof T) & (keyof SessionGroupByOutputType))]: P extends '_count' ? T[P] extends boolean ? number : Prisma.GetScalarType<T[P], SessionGroupByOutputType[P]> : Prisma.GetScalarType<T[P], SessionGroupByOutputType[P]>;
 }>>;
 export type SessionWhereInput = {
@@ -970,5 +970,4 @@ export type SessionDefaultArgs<ExtArgs extends runtime.Types.Extensions.Internal
      */
     omit?: Prisma.SessionOmit<ExtArgs> | null;
 };
-export {};
 //# sourceMappingURL=Session.d.ts.map

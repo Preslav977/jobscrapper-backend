@@ -1,4 +1,4 @@
-import { prisma } from "../db/client.js";
+import { prisma } from "../dist/db/client.js";
 (async () => {
     const companies = [
         {

@@ -1,5 +1,5 @@
 import type * as runtime from "@prisma/client/runtime/client";
-import type * as Prisma from "../internal/prismaNamespace.js";
+import type * as Prisma from "../internal/prismaNamespace.ts";
 /**
  * Model Steps
  *
@@ -178,7 +178,7 @@ export type StepsGroupByOutputType = {
     _min: StepsMinAggregateOutputType | null;
     _max: StepsMaxAggregateOutputType | null;
 };
-type GetStepsGroupByPayload<T extends StepsGroupByArgs> = Prisma.PrismaPromise<Array<Prisma.PickEnumerable<StepsGroupByOutputType, T['by']> & {
+export type GetStepsGroupByPayload<T extends StepsGroupByArgs> = Prisma.PrismaPromise<Array<Prisma.PickEnumerable<StepsGroupByOutputType, T['by']> & {
     [P in ((keyof T) & (keyof StepsGroupByOutputType))]: P extends '_count' ? T[P] extends boolean ? number : Prisma.GetScalarType<T[P], StepsGroupByOutputType[P]> : Prisma.GetScalarType<T[P], StepsGroupByOutputType[P]>;
 }>>;
 export type StepsWhereInput = {
@@ -1306,5 +1306,4 @@ export type StepsDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
      */
     include?: Prisma.StepsInclude<ExtArgs> | null;
 };
-export {};
 //# sourceMappingURL=Steps.d.ts.map

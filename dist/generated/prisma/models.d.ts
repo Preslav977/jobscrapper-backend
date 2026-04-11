@@ -1,8 +1,8 @@
-export type * from './models/User.js';
-export type * from './models/Company.js';
-export type * from './models/Jobs.js';
-export type * from './models/Instructions.js';
-export type * from './models/Steps.js';
-export type * from './models/Session.js';
-export type * from './commonInputTypes.js';
+export type * from './models/User.ts';
+export type * from './models/Company.ts';
+export type * from './models/Jobs.ts';
+export type * from './models/Instructions.ts';
+export type * from './models/Steps.ts';
+export type * from './models/Session.ts';
+export type * from './commonInputTypes.ts';
 //# sourceMappingURL=models.d.ts.map

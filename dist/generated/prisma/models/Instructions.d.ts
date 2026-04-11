@@ -1,5 +1,5 @@
 import type * as runtime from "@prisma/client/runtime/client";
-import type * as Prisma from "../internal/prismaNamespace.js";
+import type * as Prisma from "../internal/prismaNamespace.ts";
 /**
  * Model Instructions
  *
@@ -142,7 +142,7 @@ export type InstructionsGroupByOutputType = {
     _min: InstructionsMinAggregateOutputType | null;
     _max: InstructionsMaxAggregateOutputType | null;
 };
-type GetInstructionsGroupByPayload<T extends InstructionsGroupByArgs> = Prisma.PrismaPromise<Array<Prisma.PickEnumerable<InstructionsGroupByOutputType, T['by']> & {
+export type GetInstructionsGroupByPayload<T extends InstructionsGroupByArgs> = Prisma.PrismaPromise<Array<Prisma.PickEnumerable<InstructionsGroupByOutputType, T['by']> & {
     [P in ((keyof T) & (keyof InstructionsGroupByOutputType))]: P extends '_count' ? T[P] extends boolean ? number : Prisma.GetScalarType<T[P], InstructionsGroupByOutputType[P]> : Prisma.GetScalarType<T[P], InstructionsGroupByOutputType[P]>;
 }>>;
 export type InstructionsWhereInput = {
@@ -1154,5 +1154,4 @@ export type InstructionsDefaultArgs<ExtArgs extends runtime.Types.Extensions.Int
      */
     include?: Prisma.InstructionsInclude<ExtArgs> | null;
 };
-export {};
 //# sourceMappingURL=Instructions.d.ts.map

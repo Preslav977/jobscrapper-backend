@@ -1,5 +1,5 @@
 import type * as runtime from "@prisma/client/runtime/client";
-import type * as Prisma from "../internal/prismaNamespace.js";
+import type * as Prisma from "../internal/prismaNamespace.ts";
 /**
  * Model Jobs
  *
@@ -181,7 +181,7 @@ export type JobsGroupByOutputType = {
     _min: JobsMinAggregateOutputType | null;
     _max: JobsMaxAggregateOutputType | null;
 };
-type GetJobsGroupByPayload<T extends JobsGroupByArgs> = Prisma.PrismaPromise<Array<Prisma.PickEnumerable<JobsGroupByOutputType, T['by']> & {
+export type GetJobsGroupByPayload<T extends JobsGroupByArgs> = Prisma.PrismaPromise<Array<Prisma.PickEnumerable<JobsGroupByOutputType, T['by']> & {
     [P in ((keyof T) & (keyof JobsGroupByOutputType))]: P extends '_count' ? T[P] extends boolean ? number : Prisma.GetScalarType<T[P], JobsGroupByOutputType[P]> : Prisma.GetScalarType<T[P], JobsGroupByOutputType[P]>;
 }>>;
 export type JobsWhereInput = {
@@ -1317,5 +1317,4 @@ export type JobsDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
      */
     include?: Prisma.JobsInclude<ExtArgs> | null;
 };
-export {};
 //# sourceMappingURL=Jobs.d.ts.map

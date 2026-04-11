@@ -1,6 +1,6 @@
 import type * as runtime from "@prisma/client/runtime/client";
-import type * as $Enums from "../enums.js";
-import type * as Prisma from "../internal/prismaNamespace.js";
+import type * as $Enums from "../enums.ts";
+import type * as Prisma from "../internal/prismaNamespace.ts";
 /**
  * Model Company
  *
@@ -157,7 +157,7 @@ export type CompanyGroupByOutputType = {
     _min: CompanyMinAggregateOutputType | null;
     _max: CompanyMaxAggregateOutputType | null;
 };
-type GetCompanyGroupByPayload<T extends CompanyGroupByArgs> = Prisma.PrismaPromise<Array<Prisma.PickEnumerable<CompanyGroupByOutputType, T['by']> & {
+export type GetCompanyGroupByPayload<T extends CompanyGroupByArgs> = Prisma.PrismaPromise<Array<Prisma.PickEnumerable<CompanyGroupByOutputType, T['by']> & {
     [P in ((keyof T) & (keyof CompanyGroupByOutputType))]: P extends '_count' ? T[P] extends boolean ? number : Prisma.GetScalarType<T[P], CompanyGroupByOutputType[P]> : Prisma.GetScalarType<T[P], CompanyGroupByOutputType[P]>;
 }>>;
 export type CompanyWhereInput = {
@@ -1412,5 +1412,4 @@ export type CompanyDefaultArgs<ExtArgs extends runtime.Types.Extensions.Internal
      */
     include?: Prisma.CompanyInclude<ExtArgs> | null;
 };
-export {};
 //# sourceMappingURL=Company.d.ts.map
