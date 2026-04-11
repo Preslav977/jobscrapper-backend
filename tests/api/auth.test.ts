@@ -100,5 +100,32 @@ describe("testing auth controller and routes", () => {
 
       expect(body[0].msg).toEqual("Must be valid email!");
     });
+
+    it("user shouldn't able to signup if password is not 8 characters", async () => {
+      const { body, header, status } = await request(app).post("/signup").send({
+        firstName: "",
+        lastName: "",
+        password: "12345678",
+        confirmPassword: "12345678",
+        location: "",
+        email: "email@test.com",
+        phoneNumber: "",
+        linkedInURL: "",
+        githubURL: "",
+        portfolioURL: "",
+      });
+
+      const findTheSignedUpUser = await prisma.user.findFirst();
+
+      expect(findTheSignedUpUser).toBeNull();
+
+      expect(header["content-type"]).toMatch(/json/);
+
+      expect(status).toBe(400);
+
+      expect(body[0].msg).toEqual(
+        "Password must be minimum 8 characters, and contain at least one letter, and one number",
+      );
+    });
   });
 });
