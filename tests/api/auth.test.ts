@@ -8,7 +8,7 @@ import request from "supertest";
 
 import type { Response } from "supertest";
 
-// import jwt from 'jsonwebtoken'
+import jwt from "jsonwebtoken";
 
 import { beforeEach, describe, expect, it } from "vitest";
 
@@ -191,6 +191,45 @@ describe("testing auth controller and routes", () => {
       expect(status).toBe(400);
 
       expect(body[0].msg).toEqual("Passwords must match!");
+    });
+  });
+
+  describe("[POST] /login", () => {
+    it("signup user should able to login and get token", async () => {
+      const signupUser = await prisma.user.create({
+        data: {
+          firstName: "",
+          lastName: "",
+          password:
+            "$2b$10$AYGKaAHGZIN73a9eyNp5fuvsdze7No6X/D/6P1zjX51mmrA7gI/ju",
+          confirmPassword:
+            "$2b$10$AYGKaAHGZIN73a9eyNp5fuvsdze7No6X/D/6P1zjX51mmrA7gI/ju",
+          location: "",
+          email: "test1@abv.bg",
+          phoneNumber: 12345678,
+          linkedInURL: "",
+          githubURL: "",
+          portfolioURL: "",
+        },
+      });
+
+      const { body, header, status } = await request(app).post("/login").send({
+        id: signupUser.id,
+        email: "test1@abv.bg",
+        password: "12345678BG",
+      });
+
+      const findTheSignedUpUser = await prisma.user.findFirst();
+
+      expect(findTheSignedUpUser).toBeDefined();
+
+      expect(header["content-type"]).toMatch(/json/);
+
+      expect(status).toBe(200);
+
+      expect(body).toHaveProperty("token");
+
+      expect(jwt.verify(body.token, process.env.SECRET!) === String);
     });
   });
 });
