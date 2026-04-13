@@ -31,5 +31,5 @@
     "skipLibCheck": true
   },
   "include": ["./**/*"],
-  "exclude": ["node_modules", "dist", "db"]
+  "exclude": ["node_modules", "dist"]
 }
