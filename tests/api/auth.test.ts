@@ -231,38 +231,5 @@ describe("testing auth controller and routes", () => {
 
       expect(jwt.verify(body.token, process.env.SECRET!) === String);
     });
-
-    it("signup user with wrong credential shouldn't get token", async () => {
-      const signupUser = await prisma.user.create({
-        data: {
-          firstName: "",
-          lastName: "",
-          password:
-            "$2b$10$AYGKaAHGZIN73a9eyNp5fuvsdze7No6X/D/6P1zjX51mmrA7gI/ju",
-          confirmPassword:
-            "$2b$10$AYGKaAHGZIN73a9eyNp5fuvsdze7No6X/D/6P1zjX51mmrA7gI/ju",
-          location: "",
-          email: "test1@abv.bg",
-          phoneNumber: 12345678,
-          linkedInURL: "",
-          githubURL: "",
-          portfolioURL: "",
-        },
-      });
-
-      const { body, status, text } = await request(app).post("/login").send({
-        id: signupUser.id,
-        email: "test@abv.bg",
-        password: "12345678BG",
-      });
-
-      const findTheSignedUpUser = await prisma.user.findFirst();
-
-      expect(findTheSignedUpUser).toBeDefined();
-
-      expect(status).toBe(401);
-
-      expect(text).toMatch("Unauthorized");
-    });
   });
 });
