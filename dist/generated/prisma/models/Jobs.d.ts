@@ -1,36 +1,26 @@
 import type * as runtime from "@prisma/client/runtime/client";
-import type * as Prisma from "../internal/prismaNamespace.ts";
+import type * as Prisma from "../internal/prismaNamespace.js";
 /**
  * Model Jobs
  *
  */
-export type JobsModel = runtime.Types.Result.DefaultSelection<Prisma.$JobsPayload>;
-export type AggregateJobs = {
+export declare type JobsModel = runtime.Types.Result.DefaultSelection<Prisma.$JobsPayload>;
+export declare type AggregateJobs = {
     _count: JobsCountAggregateOutputType | null;
     _avg: JobsAvgAggregateOutputType | null;
     _sum: JobsSumAggregateOutputType | null;
     _min: JobsMinAggregateOutputType | null;
     _max: JobsMaxAggregateOutputType | null;
 };
-export type JobsAvgAggregateOutputType = {
+export declare type JobsAvgAggregateOutputType = {
     id: number | null;
     companyID: number | null;
 };
-export type JobsSumAggregateOutputType = {
+export declare type JobsSumAggregateOutputType = {
     id: number | null;
     companyID: number | null;
 };
-export type JobsMinAggregateOutputType = {
-    id: number | null;
-    title: string | null;
-    location: string | null;
-    remoteOrHybrid: string | null;
-    datePosted: string | null;
-    description: string | null;
-    anchorHref: string | null;
-    companyID: number | null;
-};
-export type JobsMaxAggregateOutputType = {
+export declare type JobsMinAggregateOutputType = {
     id: number | null;
     title: string | null;
     location: string | null;
@@ -40,7 +30,17 @@ export type JobsMaxAggregateOutputType = {
     anchorHref: string | null;
     companyID: number | null;
 };
-export type JobsCountAggregateOutputType = {
+export declare type JobsMaxAggregateOutputType = {
+    id: number | null;
+    title: string | null;
+    location: string | null;
+    remoteOrHybrid: string | null;
+    datePosted: string | null;
+    description: string | null;
+    anchorHref: string | null;
+    companyID: number | null;
+};
+export declare type JobsCountAggregateOutputType = {
     id: number;
     title: number;
     location: number;
@@ -51,25 +51,15 @@ export type JobsCountAggregateOutputType = {
     companyID: number;
     _all: number;
 };
-export type JobsAvgAggregateInputType = {
+export declare type JobsAvgAggregateInputType = {
     id?: true;
     companyID?: true;
 };
-export type JobsSumAggregateInputType = {
+export declare type JobsSumAggregateInputType = {
     id?: true;
     companyID?: true;
 };
-export type JobsMinAggregateInputType = {
-    id?: true;
-    title?: true;
-    location?: true;
-    remoteOrHybrid?: true;
-    datePosted?: true;
-    description?: true;
-    anchorHref?: true;
-    companyID?: true;
-};
-export type JobsMaxAggregateInputType = {
+export declare type JobsMinAggregateInputType = {
     id?: true;
     title?: true;
     location?: true;
@@ -79,7 +69,17 @@ export type JobsMaxAggregateInputType = {
     anchorHref?: true;
     companyID?: true;
 };
-export type JobsCountAggregateInputType = {
+export declare type JobsMaxAggregateInputType = {
+    id?: true;
+    title?: true;
+    location?: true;
+    remoteOrHybrid?: true;
+    datePosted?: true;
+    description?: true;
+    anchorHref?: true;
+    companyID?: true;
+};
+export declare type JobsCountAggregateInputType = {
     id?: true;
     title?: true;
     location?: true;
@@ -90,7 +90,7 @@ export type JobsCountAggregateInputType = {
     companyID?: true;
     _all?: true;
 };
-export type JobsAggregateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export declare type JobsAggregateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     /**
      * Filter which Jobs to aggregate.
      */
@@ -150,10 +150,10 @@ export type JobsAggregateArgs<ExtArgs extends runtime.Types.Extensions.InternalA
     **/
     _max?: JobsMaxAggregateInputType;
 };
-export type GetJobsAggregateType<T extends JobsAggregateArgs> = {
+export declare type GetJobsAggregateType<T extends JobsAggregateArgs> = {
     [P in keyof T & keyof AggregateJobs]: P extends '_count' | 'count' ? T[P] extends true ? number : Prisma.GetScalarType<T[P], AggregateJobs[P]> : Prisma.GetScalarType<T[P], AggregateJobs[P]>;
 };
-export type JobsGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export declare type JobsGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     where?: Prisma.JobsWhereInput;
     orderBy?: Prisma.JobsOrderByWithAggregationInput | Prisma.JobsOrderByWithAggregationInput[];
     by: Prisma.JobsScalarFieldEnum[] | Prisma.JobsScalarFieldEnum;
@@ -166,7 +166,7 @@ export type JobsGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
     _min?: JobsMinAggregateInputType;
     _max?: JobsMaxAggregateInputType;
 };
-export type JobsGroupByOutputType = {
+export declare type JobsGroupByOutputType = {
     id: number;
     title: string;
     location: string | null;
@@ -181,10 +181,10 @@ export type JobsGroupByOutputType = {
     _min: JobsMinAggregateOutputType | null;
     _max: JobsMaxAggregateOutputType | null;
 };
-export type GetJobsGroupByPayload<T extends JobsGroupByArgs> = Prisma.PrismaPromise<Array<Prisma.PickEnumerable<JobsGroupByOutputType, T['by']> & {
+export declare type GetJobsGroupByPayload<T extends JobsGroupByArgs> = Prisma.PrismaPromise<Array<Prisma.PickEnumerable<JobsGroupByOutputType, T['by']> & {
     [P in ((keyof T) & (keyof JobsGroupByOutputType))]: P extends '_count' ? T[P] extends boolean ? number : Prisma.GetScalarType<T[P], JobsGroupByOutputType[P]> : Prisma.GetScalarType<T[P], JobsGroupByOutputType[P]>;
 }>>;
-export type JobsWhereInput = {
+export declare type JobsWhereInput = {
     AND?: Prisma.JobsWhereInput | Prisma.JobsWhereInput[];
     OR?: Prisma.JobsWhereInput[];
     NOT?: Prisma.JobsWhereInput | Prisma.JobsWhereInput[];
@@ -198,7 +198,7 @@ export type JobsWhereInput = {
     companyID?: Prisma.IntFilter<"Jobs"> | number;
     company?: Prisma.XOR<Prisma.CompanyScalarRelationFilter, Prisma.CompanyWhereInput>;
 };
-export type JobsOrderByWithRelationInput = {
+export declare type JobsOrderByWithRelationInput = {
     id?: Prisma.SortOrder;
     title?: Prisma.SortOrder;
     location?: Prisma.SortOrderInput | Prisma.SortOrder;
@@ -209,7 +209,7 @@ export type JobsOrderByWithRelationInput = {
     companyID?: Prisma.SortOrder;
     company?: Prisma.CompanyOrderByWithRelationInput;
 };
-export type JobsWhereUniqueInput = Prisma.AtLeast<{
+export declare type JobsWhereUniqueInput = Prisma.AtLeast<{
     id?: number;
     AND?: Prisma.JobsWhereInput | Prisma.JobsWhereInput[];
     OR?: Prisma.JobsWhereInput[];
@@ -223,7 +223,7 @@ export type JobsWhereUniqueInput = Prisma.AtLeast<{
     companyID?: Prisma.IntFilter<"Jobs"> | number;
     company?: Prisma.XOR<Prisma.CompanyScalarRelationFilter, Prisma.CompanyWhereInput>;
 }, "id">;
-export type JobsOrderByWithAggregationInput = {
+export declare type JobsOrderByWithAggregationInput = {
     id?: Prisma.SortOrder;
     title?: Prisma.SortOrder;
     location?: Prisma.SortOrderInput | Prisma.SortOrder;
@@ -238,7 +238,7 @@ export type JobsOrderByWithAggregationInput = {
     _min?: Prisma.JobsMinOrderByAggregateInput;
     _sum?: Prisma.JobsSumOrderByAggregateInput;
 };
-export type JobsScalarWhereWithAggregatesInput = {
+export declare type JobsScalarWhereWithAggregatesInput = {
     AND?: Prisma.JobsScalarWhereWithAggregatesInput | Prisma.JobsScalarWhereWithAggregatesInput[];
     OR?: Prisma.JobsScalarWhereWithAggregatesInput[];
     NOT?: Prisma.JobsScalarWhereWithAggregatesInput | Prisma.JobsScalarWhereWithAggregatesInput[];
@@ -251,7 +251,7 @@ export type JobsScalarWhereWithAggregatesInput = {
     anchorHref?: Prisma.StringNullableWithAggregatesFilter<"Jobs"> | string | null;
     companyID?: Prisma.IntWithAggregatesFilter<"Jobs"> | number;
 };
-export type JobsCreateInput = {
+export declare type JobsCreateInput = {
     title: string;
     location?: string | null;
     remoteOrHybrid?: string | null;
@@ -260,7 +260,7 @@ export type JobsCreateInput = {
     anchorHref?: string | null;
     company: Prisma.CompanyCreateNestedOneWithoutJobsInput;
 };
-export type JobsUncheckedCreateInput = {
+export declare type JobsUncheckedCreateInput = {
     id?: number;
     title: string;
     location?: string | null;
@@ -270,7 +270,7 @@ export type JobsUncheckedCreateInput = {
     anchorHref?: string | null;
     companyID: number;
 };
-export type JobsUpdateInput = {
+export declare type JobsUpdateInput = {
     title?: Prisma.StringFieldUpdateOperationsInput | string;
     location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     remoteOrHybrid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
@@ -279,7 +279,7 @@ export type JobsUpdateInput = {
     anchorHref?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     company?: Prisma.CompanyUpdateOneRequiredWithoutJobsNestedInput;
 };
-export type JobsUncheckedUpdateInput = {
+export declare type JobsUncheckedUpdateInput = {
     id?: Prisma.IntFieldUpdateOperationsInput | number;
     title?: Prisma.StringFieldUpdateOperationsInput | string;
     location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
@@ -289,7 +289,7 @@ export type JobsUncheckedUpdateInput = {
     anchorHref?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     companyID?: Prisma.IntFieldUpdateOperationsInput | number;
 };
-export type JobsCreateManyInput = {
+export declare type JobsCreateManyInput = {
     id?: number;
     title: string;
     location?: string | null;
@@ -299,7 +299,7 @@ export type JobsCreateManyInput = {
     anchorHref?: string | null;
     companyID: number;
 };
-export type JobsUpdateManyMutationInput = {
+export declare type JobsUpdateManyMutationInput = {
     title?: Prisma.StringFieldUpdateOperationsInput | string;
     location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     remoteOrHybrid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
@@ -307,7 +307,7 @@ export type JobsUpdateManyMutationInput = {
     description?: Prisma.StringFieldUpdateOperationsInput | string;
     anchorHref?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
 };
-export type JobsUncheckedUpdateManyInput = {
+export declare type JobsUncheckedUpdateManyInput = {
     id?: Prisma.IntFieldUpdateOperationsInput | number;
     title?: Prisma.StringFieldUpdateOperationsInput | string;
     location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
@@ -317,15 +317,15 @@ export type JobsUncheckedUpdateManyInput = {
     anchorHref?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     companyID?: Prisma.IntFieldUpdateOperationsInput | number;
 };
-export type JobsListRelationFilter = {
+export declare type JobsListRelationFilter = {
     every?: Prisma.JobsWhereInput;
     some?: Prisma.JobsWhereInput;
     none?: Prisma.JobsWhereInput;
 };
-export type JobsOrderByRelationAggregateInput = {
+export declare type JobsOrderByRelationAggregateInput = {
     _count?: Prisma.SortOrder;
 };
-export type JobsCountOrderByAggregateInput = {
+export declare type JobsCountOrderByAggregateInput = {
     id?: Prisma.SortOrder;
     title?: Prisma.SortOrder;
     location?: Prisma.SortOrder;
@@ -335,21 +335,11 @@ export type JobsCountOrderByAggregateInput = {
     anchorHref?: Prisma.SortOrder;
     companyID?: Prisma.SortOrder;
 };
-export type JobsAvgOrderByAggregateInput = {
+export declare type JobsAvgOrderByAggregateInput = {
     id?: Prisma.SortOrder;
     companyID?: Prisma.SortOrder;
 };
-export type JobsMaxOrderByAggregateInput = {
-    id?: Prisma.SortOrder;
-    title?: Prisma.SortOrder;
-    location?: Prisma.SortOrder;
-    remoteOrHybrid?: Prisma.SortOrder;
-    datePosted?: Prisma.SortOrder;
-    description?: Prisma.SortOrder;
-    anchorHref?: Prisma.SortOrder;
-    companyID?: Prisma.SortOrder;
-};
-export type JobsMinOrderByAggregateInput = {
+export declare type JobsMaxOrderByAggregateInput = {
     id?: Prisma.SortOrder;
     title?: Prisma.SortOrder;
     location?: Prisma.SortOrder;
@@ -359,23 +349,33 @@ export type JobsMinOrderByAggregateInput = {
     anchorHref?: Prisma.SortOrder;
     companyID?: Prisma.SortOrder;
 };
-export type JobsSumOrderByAggregateInput = {
+export declare type JobsMinOrderByAggregateInput = {
+    id?: Prisma.SortOrder;
+    title?: Prisma.SortOrder;
+    location?: Prisma.SortOrder;
+    remoteOrHybrid?: Prisma.SortOrder;
+    datePosted?: Prisma.SortOrder;
+    description?: Prisma.SortOrder;
+    anchorHref?: Prisma.SortOrder;
+    companyID?: Prisma.SortOrder;
+};
+export declare type JobsSumOrderByAggregateInput = {
     id?: Prisma.SortOrder;
     companyID?: Prisma.SortOrder;
 };
-export type JobsCreateNestedManyWithoutCompanyInput = {
+export declare type JobsCreateNestedManyWithoutCompanyInput = {
     create?: Prisma.XOR<Prisma.JobsCreateWithoutCompanyInput, Prisma.JobsUncheckedCreateWithoutCompanyInput> | Prisma.JobsCreateWithoutCompanyInput[] | Prisma.JobsUncheckedCreateWithoutCompanyInput[];
     connectOrCreate?: Prisma.JobsCreateOrConnectWithoutCompanyInput | Prisma.JobsCreateOrConnectWithoutCompanyInput[];
     createMany?: Prisma.JobsCreateManyCompanyInputEnvelope;
     connect?: Prisma.JobsWhereUniqueInput | Prisma.JobsWhereUniqueInput[];
 };
-export type JobsUncheckedCreateNestedManyWithoutCompanyInput = {
+export declare type JobsUncheckedCreateNestedManyWithoutCompanyInput = {
     create?: Prisma.XOR<Prisma.JobsCreateWithoutCompanyInput, Prisma.JobsUncheckedCreateWithoutCompanyInput> | Prisma.JobsCreateWithoutCompanyInput[] | Prisma.JobsUncheckedCreateWithoutCompanyInput[];
     connectOrCreate?: Prisma.JobsCreateOrConnectWithoutCompanyInput | Prisma.JobsCreateOrConnectWithoutCompanyInput[];
     createMany?: Prisma.JobsCreateManyCompanyInputEnvelope;
     connect?: Prisma.JobsWhereUniqueInput | Prisma.JobsWhereUniqueInput[];
 };
-export type JobsUpdateManyWithoutCompanyNestedInput = {
+export declare type JobsUpdateManyWithoutCompanyNestedInput = {
     create?: Prisma.XOR<Prisma.JobsCreateWithoutCompanyInput, Prisma.JobsUncheckedCreateWithoutCompanyInput> | Prisma.JobsCreateWithoutCompanyInput[] | Prisma.JobsUncheckedCreateWithoutCompanyInput[];
     connectOrCreate?: Prisma.JobsCreateOrConnectWithoutCompanyInput | Prisma.JobsCreateOrConnectWithoutCompanyInput[];
     upsert?: Prisma.JobsUpsertWithWhereUniqueWithoutCompanyInput | Prisma.JobsUpsertWithWhereUniqueWithoutCompanyInput[];
@@ -388,7 +388,7 @@ export type JobsUpdateManyWithoutCompanyNestedInput = {
     updateMany?: Prisma.JobsUpdateManyWithWhereWithoutCompanyInput | Prisma.JobsUpdateManyWithWhereWithoutCompanyInput[];
     deleteMany?: Prisma.JobsScalarWhereInput | Prisma.JobsScalarWhereInput[];
 };
-export type JobsUncheckedUpdateManyWithoutCompanyNestedInput = {
+export declare type JobsUncheckedUpdateManyWithoutCompanyNestedInput = {
     create?: Prisma.XOR<Prisma.JobsCreateWithoutCompanyInput, Prisma.JobsUncheckedCreateWithoutCompanyInput> | Prisma.JobsCreateWithoutCompanyInput[] | Prisma.JobsUncheckedCreateWithoutCompanyInput[];
     connectOrCreate?: Prisma.JobsCreateOrConnectWithoutCompanyInput | Prisma.JobsCreateOrConnectWithoutCompanyInput[];
     upsert?: Prisma.JobsUpsertWithWhereUniqueWithoutCompanyInput | Prisma.JobsUpsertWithWhereUniqueWithoutCompanyInput[];
@@ -401,7 +401,7 @@ export type JobsUncheckedUpdateManyWithoutCompanyNestedInput = {
     updateMany?: Prisma.JobsUpdateManyWithWhereWithoutCompanyInput | Prisma.JobsUpdateManyWithWhereWithoutCompanyInput[];
     deleteMany?: Prisma.JobsScalarWhereInput | Prisma.JobsScalarWhereInput[];
 };
-export type JobsCreateWithoutCompanyInput = {
+export declare type JobsCreateWithoutCompanyInput = {
     title: string;
     location?: string | null;
     remoteOrHybrid?: string | null;
@@ -409,7 +409,7 @@ export type JobsCreateWithoutCompanyInput = {
     description: string;
     anchorHref?: string | null;
 };
-export type JobsUncheckedCreateWithoutCompanyInput = {
+export declare type JobsUncheckedCreateWithoutCompanyInput = {
     id?: number;
     title: string;
     location?: string | null;
@@ -418,28 +418,28 @@ export type JobsUncheckedCreateWithoutCompanyInput = {
     description: string;
     anchorHref?: string | null;
 };
-export type JobsCreateOrConnectWithoutCompanyInput = {
+export declare type JobsCreateOrConnectWithoutCompanyInput = {
     where: Prisma.JobsWhereUniqueInput;
     create: Prisma.XOR<Prisma.JobsCreateWithoutCompanyInput, Prisma.JobsUncheckedCreateWithoutCompanyInput>;
 };
-export type JobsCreateManyCompanyInputEnvelope = {
+export declare type JobsCreateManyCompanyInputEnvelope = {
     data: Prisma.JobsCreateManyCompanyInput | Prisma.JobsCreateManyCompanyInput[];
     skipDuplicates?: boolean;
 };
-export type JobsUpsertWithWhereUniqueWithoutCompanyInput = {
+export declare type JobsUpsertWithWhereUniqueWithoutCompanyInput = {
     where: Prisma.JobsWhereUniqueInput;
     update: Prisma.XOR<Prisma.JobsUpdateWithoutCompanyInput, Prisma.JobsUncheckedUpdateWithoutCompanyInput>;
     create: Prisma.XOR<Prisma.JobsCreateWithoutCompanyInput, Prisma.JobsUncheckedCreateWithoutCompanyInput>;
 };
-export type JobsUpdateWithWhereUniqueWithoutCompanyInput = {
+export declare type JobsUpdateWithWhereUniqueWithoutCompanyInput = {
     where: Prisma.JobsWhereUniqueInput;
     data: Prisma.XOR<Prisma.JobsUpdateWithoutCompanyInput, Prisma.JobsUncheckedUpdateWithoutCompanyInput>;
 };
-export type JobsUpdateManyWithWhereWithoutCompanyInput = {
+export declare type JobsUpdateManyWithWhereWithoutCompanyInput = {
     where: Prisma.JobsScalarWhereInput;
     data: Prisma.XOR<Prisma.JobsUpdateManyMutationInput, Prisma.JobsUncheckedUpdateManyWithoutCompanyInput>;
 };
-export type JobsScalarWhereInput = {
+export declare type JobsScalarWhereInput = {
     AND?: Prisma.JobsScalarWhereInput | Prisma.JobsScalarWhereInput[];
     OR?: Prisma.JobsScalarWhereInput[];
     NOT?: Prisma.JobsScalarWhereInput | Prisma.JobsScalarWhereInput[];
@@ -452,7 +452,7 @@ export type JobsScalarWhereInput = {
     anchorHref?: Prisma.StringNullableFilter<"Jobs"> | string | null;
     companyID?: Prisma.IntFilter<"Jobs"> | number;
 };
-export type JobsCreateManyCompanyInput = {
+export declare type JobsCreateManyCompanyInput = {
     id?: number;
     title: string;
     location?: string | null;
@@ -461,7 +461,7 @@ export type JobsCreateManyCompanyInput = {
     description: string;
     anchorHref?: string | null;
 };
-export type JobsUpdateWithoutCompanyInput = {
+export declare type JobsUpdateWithoutCompanyInput = {
     title?: Prisma.StringFieldUpdateOperationsInput | string;
     location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     remoteOrHybrid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
@@ -469,7 +469,7 @@ export type JobsUpdateWithoutCompanyInput = {
     description?: Prisma.StringFieldUpdateOperationsInput | string;
     anchorHref?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
 };
-export type JobsUncheckedUpdateWithoutCompanyInput = {
+export declare type JobsUncheckedUpdateWithoutCompanyInput = {
     id?: Prisma.IntFieldUpdateOperationsInput | number;
     title?: Prisma.StringFieldUpdateOperationsInput | string;
     location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
@@ -478,7 +478,7 @@ export type JobsUncheckedUpdateWithoutCompanyInput = {
     description?: Prisma.StringFieldUpdateOperationsInput | string;
     anchorHref?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
 };
-export type JobsUncheckedUpdateManyWithoutCompanyInput = {
+export declare type JobsUncheckedUpdateManyWithoutCompanyInput = {
     id?: Prisma.IntFieldUpdateOperationsInput | number;
     title?: Prisma.StringFieldUpdateOperationsInput | string;
     location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
@@ -487,7 +487,7 @@ export type JobsUncheckedUpdateManyWithoutCompanyInput = {
     description?: Prisma.StringFieldUpdateOperationsInput | string;
     anchorHref?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
 };
-export type JobsSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+export declare type JobsSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
     id?: boolean;
     title?: boolean;
     location?: boolean;
@@ -498,7 +498,7 @@ export type JobsSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
     companyID?: boolean;
     company?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>;
 }, ExtArgs["result"]["jobs"]>;
-export type JobsSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+export declare type JobsSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
     id?: boolean;
     title?: boolean;
     location?: boolean;
@@ -509,7 +509,7 @@ export type JobsSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
     companyID?: boolean;
     company?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>;
 }, ExtArgs["result"]["jobs"]>;
-export type JobsSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+export declare type JobsSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
     id?: boolean;
     title?: boolean;
     location?: boolean;
@@ -520,7 +520,7 @@ export type JobsSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
     companyID?: boolean;
     company?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>;
 }, ExtArgs["result"]["jobs"]>;
-export type JobsSelectScalar = {
+export declare type JobsSelectScalar = {
     id?: boolean;
     title?: boolean;
     location?: boolean;
@@ -530,17 +530,17 @@ export type JobsSelectScalar = {
     anchorHref?: boolean;
     companyID?: boolean;
 };
-export type JobsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "location" | "remoteOrHybrid" | "datePosted" | "description" | "anchorHref" | "companyID", ExtArgs["result"]["jobs"]>;
-export type JobsInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export declare type JobsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "location" | "remoteOrHybrid" | "datePosted" | "description" | "anchorHref" | "companyID", ExtArgs["result"]["jobs"]>;
+export declare type JobsInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     company?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>;
 };
-export type JobsIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export declare type JobsIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     company?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>;
 };
-export type JobsIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export declare type JobsIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     company?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>;
 };
-export type $JobsPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export declare type $JobsPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     name: "Jobs";
     objects: {
         company: Prisma.$CompanyPayload<ExtArgs>;
@@ -557,8 +557,8 @@ export type $JobsPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     }, ExtArgs["result"]["jobs"]>;
     composites: {};
 };
-export type JobsGetPayload<S extends boolean | null | undefined | JobsDefaultArgs> = runtime.Types.Result.GetResult<Prisma.$JobsPayload, S>;
-export type JobsCountArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = Omit<JobsFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+export declare type JobsGetPayload<S extends boolean | null | undefined | JobsDefaultArgs> = runtime.Types.Result.GetResult<Prisma.$JobsPayload, S>;
+export declare type JobsCountArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = Omit<JobsFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
     select?: JobsCountAggregateInputType | true;
 };
 export interface JobsDelegate<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> {
@@ -921,7 +921,7 @@ export interface JobsFieldRefs {
 /**
  * Jobs findUnique
  */
-export type JobsFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export declare type JobsFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Jobs
      */
@@ -942,7 +942,7 @@ export type JobsFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.Internal
 /**
  * Jobs findUniqueOrThrow
  */
-export type JobsFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export declare type JobsFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Jobs
      */
@@ -963,7 +963,7 @@ export type JobsFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Extensions.I
 /**
  * Jobs findFirst
  */
-export type JobsFindFirstArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export declare type JobsFindFirstArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Jobs
      */
@@ -1014,7 +1014,7 @@ export type JobsFindFirstArgs<ExtArgs extends runtime.Types.Extensions.InternalA
 /**
  * Jobs findFirstOrThrow
  */
-export type JobsFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export declare type JobsFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Jobs
      */
@@ -1065,7 +1065,7 @@ export type JobsFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Extensions.In
 /**
  * Jobs findMany
  */
-export type JobsFindManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export declare type JobsFindManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Jobs
      */
@@ -1116,7 +1116,7 @@ export type JobsFindManyArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
 /**
  * Jobs create
  */
-export type JobsCreateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export declare type JobsCreateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Jobs
      */
@@ -1137,7 +1137,7 @@ export type JobsCreateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs
 /**
  * Jobs createMany
  */
-export type JobsCreateManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export declare type JobsCreateManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     /**
      * The data used to create many Jobs.
      */
@@ -1147,7 +1147,7 @@ export type JobsCreateManyArgs<ExtArgs extends runtime.Types.Extensions.Internal
 /**
  * Jobs createManyAndReturn
  */
-export type JobsCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export declare type JobsCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Jobs
      */
@@ -1169,7 +1169,7 @@ export type JobsCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions
 /**
  * Jobs update
  */
-export type JobsUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export declare type JobsUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Jobs
      */
@@ -1194,7 +1194,7 @@ export type JobsUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs
 /**
  * Jobs updateMany
  */
-export type JobsUpdateManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export declare type JobsUpdateManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     /**
      * The data used to update Jobs.
      */
@@ -1211,7 +1211,7 @@ export type JobsUpdateManyArgs<ExtArgs extends runtime.Types.Extensions.Internal
 /**
  * Jobs updateManyAndReturn
  */
-export type JobsUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export declare type JobsUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Jobs
      */
@@ -1240,7 +1240,7 @@ export type JobsUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions
 /**
  * Jobs upsert
  */
-export type JobsUpsertArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export declare type JobsUpsertArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Jobs
      */
@@ -1269,7 +1269,7 @@ export type JobsUpsertArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs
 /**
  * Jobs delete
  */
-export type JobsDeleteArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export declare type JobsDeleteArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Jobs
      */
@@ -1290,7 +1290,7 @@ export type JobsDeleteArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs
 /**
  * Jobs deleteMany
  */
-export type JobsDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export declare type JobsDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     /**
      * Filter which Jobs to delete
      */
@@ -1303,7 +1303,7 @@ export type JobsDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Internal
 /**
  * Jobs without action
  */
-export type JobsDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export declare type JobsDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Jobs
      */

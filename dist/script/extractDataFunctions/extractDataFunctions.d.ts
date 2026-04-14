@@ -4,13 +4,13 @@ import type { JobsCreateManyInput } from "../../generated/prisma/models.js";
 declare function extractJobsText(page: Page, instruction: Instructions, id: number): Promise<JobsCreateManyInput[]>;
 declare function extractJobsDetailsText(page: Page, instruction: Instructions, id: number): Promise<Partial<{
     id: number;
-    location: string | null;
+    companyID: number;
     title: string;
+    location: string | null;
     remoteOrHybrid: string | null;
     datePosted: string | null;
-    description: string;
     anchorHref: string | null;
-    companyID: number;
+    description: string;
 }> | {
     id: number;
     description: string;

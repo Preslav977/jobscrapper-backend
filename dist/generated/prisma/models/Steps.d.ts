@@ -1,37 +1,28 @@
 import type * as runtime from "@prisma/client/runtime/client";
-import type * as Prisma from "../internal/prismaNamespace.ts";
+import type * as Prisma from "../internal/prismaNamespace.js";
 /**
  * Model Steps
  *
  */
-export type StepsModel = runtime.Types.Result.DefaultSelection<Prisma.$StepsPayload>;
-export type AggregateSteps = {
+export declare type StepsModel = runtime.Types.Result.DefaultSelection<Prisma.$StepsPayload>;
+export declare type AggregateSteps = {
     _count: StepsCountAggregateOutputType | null;
     _avg: StepsAvgAggregateOutputType | null;
     _sum: StepsSumAggregateOutputType | null;
     _min: StepsMinAggregateOutputType | null;
     _max: StepsMaxAggregateOutputType | null;
 };
-export type StepsAvgAggregateOutputType = {
+export declare type StepsAvgAggregateOutputType = {
     id: number | null;
     order: number | null;
     companyID: number | null;
 };
-export type StepsSumAggregateOutputType = {
+export declare type StepsSumAggregateOutputType = {
     id: number | null;
     order: number | null;
     companyID: number | null;
 };
-export type StepsMinAggregateOutputType = {
-    id: number | null;
-    order: number | null;
-    action: string | null;
-    selector: string | null;
-    selectOption: string | null;
-    url: string | null;
-    companyID: number | null;
-};
-export type StepsMaxAggregateOutputType = {
+export declare type StepsMinAggregateOutputType = {
     id: number | null;
     order: number | null;
     action: string | null;
@@ -40,7 +31,16 @@ export type StepsMaxAggregateOutputType = {
     url: string | null;
     companyID: number | null;
 };
-export type StepsCountAggregateOutputType = {
+export declare type StepsMaxAggregateOutputType = {
+    id: number | null;
+    order: number | null;
+    action: string | null;
+    selector: string | null;
+    selectOption: string | null;
+    url: string | null;
+    companyID: number | null;
+};
+export declare type StepsCountAggregateOutputType = {
     id: number;
     order: number;
     action: number;
@@ -50,26 +50,17 @@ export type StepsCountAggregateOutputType = {
     companyID: number;
     _all: number;
 };
-export type StepsAvgAggregateInputType = {
+export declare type StepsAvgAggregateInputType = {
     id?: true;
     order?: true;
     companyID?: true;
 };
-export type StepsSumAggregateInputType = {
+export declare type StepsSumAggregateInputType = {
     id?: true;
     order?: true;
     companyID?: true;
 };
-export type StepsMinAggregateInputType = {
-    id?: true;
-    order?: true;
-    action?: true;
-    selector?: true;
-    selectOption?: true;
-    url?: true;
-    companyID?: true;
-};
-export type StepsMaxAggregateInputType = {
+export declare type StepsMinAggregateInputType = {
     id?: true;
     order?: true;
     action?: true;
@@ -78,7 +69,16 @@ export type StepsMaxAggregateInputType = {
     url?: true;
     companyID?: true;
 };
-export type StepsCountAggregateInputType = {
+export declare type StepsMaxAggregateInputType = {
+    id?: true;
+    order?: true;
+    action?: true;
+    selector?: true;
+    selectOption?: true;
+    url?: true;
+    companyID?: true;
+};
+export declare type StepsCountAggregateInputType = {
     id?: true;
     order?: true;
     action?: true;
@@ -88,7 +88,7 @@ export type StepsCountAggregateInputType = {
     companyID?: true;
     _all?: true;
 };
-export type StepsAggregateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export declare type StepsAggregateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     /**
      * Filter which Steps to aggregate.
      */
@@ -148,10 +148,10 @@ export type StepsAggregateArgs<ExtArgs extends runtime.Types.Extensions.Internal
     **/
     _max?: StepsMaxAggregateInputType;
 };
-export type GetStepsAggregateType<T extends StepsAggregateArgs> = {
+export declare type GetStepsAggregateType<T extends StepsAggregateArgs> = {
     [P in keyof T & keyof AggregateSteps]: P extends '_count' | 'count' ? T[P] extends true ? number : Prisma.GetScalarType<T[P], AggregateSteps[P]> : Prisma.GetScalarType<T[P], AggregateSteps[P]>;
 };
-export type StepsGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export declare type StepsGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     where?: Prisma.StepsWhereInput;
     orderBy?: Prisma.StepsOrderByWithAggregationInput | Prisma.StepsOrderByWithAggregationInput[];
     by: Prisma.StepsScalarFieldEnum[] | Prisma.StepsScalarFieldEnum;
@@ -164,7 +164,7 @@ export type StepsGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
     _min?: StepsMinAggregateInputType;
     _max?: StepsMaxAggregateInputType;
 };
-export type StepsGroupByOutputType = {
+export declare type StepsGroupByOutputType = {
     id: number;
     order: number;
     action: string;
@@ -178,10 +178,10 @@ export type StepsGroupByOutputType = {
     _min: StepsMinAggregateOutputType | null;
     _max: StepsMaxAggregateOutputType | null;
 };
-export type GetStepsGroupByPayload<T extends StepsGroupByArgs> = Prisma.PrismaPromise<Array<Prisma.PickEnumerable<StepsGroupByOutputType, T['by']> & {
+export declare type GetStepsGroupByPayload<T extends StepsGroupByArgs> = Prisma.PrismaPromise<Array<Prisma.PickEnumerable<StepsGroupByOutputType, T['by']> & {
     [P in ((keyof T) & (keyof StepsGroupByOutputType))]: P extends '_count' ? T[P] extends boolean ? number : Prisma.GetScalarType<T[P], StepsGroupByOutputType[P]> : Prisma.GetScalarType<T[P], StepsGroupByOutputType[P]>;
 }>>;
-export type StepsWhereInput = {
+export declare type StepsWhereInput = {
     AND?: Prisma.StepsWhereInput | Prisma.StepsWhereInput[];
     OR?: Prisma.StepsWhereInput[];
     NOT?: Prisma.StepsWhereInput | Prisma.StepsWhereInput[];
@@ -194,7 +194,7 @@ export type StepsWhereInput = {
     companyID?: Prisma.IntNullableFilter<"Steps"> | number | null;
     company?: Prisma.XOR<Prisma.CompanyNullableScalarRelationFilter, Prisma.CompanyWhereInput> | null;
 };
-export type StepsOrderByWithRelationInput = {
+export declare type StepsOrderByWithRelationInput = {
     id?: Prisma.SortOrder;
     order?: Prisma.SortOrder;
     action?: Prisma.SortOrder;
@@ -204,7 +204,7 @@ export type StepsOrderByWithRelationInput = {
     companyID?: Prisma.SortOrderInput | Prisma.SortOrder;
     company?: Prisma.CompanyOrderByWithRelationInput;
 };
-export type StepsWhereUniqueInput = Prisma.AtLeast<{
+export declare type StepsWhereUniqueInput = Prisma.AtLeast<{
     id?: number;
     AND?: Prisma.StepsWhereInput | Prisma.StepsWhereInput[];
     OR?: Prisma.StepsWhereInput[];
@@ -217,7 +217,7 @@ export type StepsWhereUniqueInput = Prisma.AtLeast<{
     companyID?: Prisma.IntNullableFilter<"Steps"> | number | null;
     company?: Prisma.XOR<Prisma.CompanyNullableScalarRelationFilter, Prisma.CompanyWhereInput> | null;
 }, "id">;
-export type StepsOrderByWithAggregationInput = {
+export declare type StepsOrderByWithAggregationInput = {
     id?: Prisma.SortOrder;
     order?: Prisma.SortOrder;
     action?: Prisma.SortOrder;
@@ -231,7 +231,7 @@ export type StepsOrderByWithAggregationInput = {
     _min?: Prisma.StepsMinOrderByAggregateInput;
     _sum?: Prisma.StepsSumOrderByAggregateInput;
 };
-export type StepsScalarWhereWithAggregatesInput = {
+export declare type StepsScalarWhereWithAggregatesInput = {
     AND?: Prisma.StepsScalarWhereWithAggregatesInput | Prisma.StepsScalarWhereWithAggregatesInput[];
     OR?: Prisma.StepsScalarWhereWithAggregatesInput[];
     NOT?: Prisma.StepsScalarWhereWithAggregatesInput | Prisma.StepsScalarWhereWithAggregatesInput[];
@@ -243,7 +243,7 @@ export type StepsScalarWhereWithAggregatesInput = {
     url?: Prisma.StringNullableWithAggregatesFilter<"Steps"> | string | null;
     companyID?: Prisma.IntNullableWithAggregatesFilter<"Steps"> | number | null;
 };
-export type StepsCreateInput = {
+export declare type StepsCreateInput = {
     order: number;
     action: string;
     selector: string;
@@ -251,7 +251,7 @@ export type StepsCreateInput = {
     url?: string | null;
     company?: Prisma.CompanyCreateNestedOneWithoutStepsInput;
 };
-export type StepsUncheckedCreateInput = {
+export declare type StepsUncheckedCreateInput = {
     id?: number;
     order: number;
     action: string;
@@ -260,7 +260,7 @@ export type StepsUncheckedCreateInput = {
     url?: string | null;
     companyID?: number | null;
 };
-export type StepsUpdateInput = {
+export declare type StepsUpdateInput = {
     order?: Prisma.IntFieldUpdateOperationsInput | number;
     action?: Prisma.StringFieldUpdateOperationsInput | string;
     selector?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -268,7 +268,7 @@ export type StepsUpdateInput = {
     url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     company?: Prisma.CompanyUpdateOneWithoutStepsNestedInput;
 };
-export type StepsUncheckedUpdateInput = {
+export declare type StepsUncheckedUpdateInput = {
     id?: Prisma.IntFieldUpdateOperationsInput | number;
     order?: Prisma.IntFieldUpdateOperationsInput | number;
     action?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -277,7 +277,7 @@ export type StepsUncheckedUpdateInput = {
     url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     companyID?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
 };
-export type StepsCreateManyInput = {
+export declare type StepsCreateManyInput = {
     id?: number;
     order: number;
     action: string;
@@ -286,14 +286,14 @@ export type StepsCreateManyInput = {
     url?: string | null;
     companyID?: number | null;
 };
-export type StepsUpdateManyMutationInput = {
+export declare type StepsUpdateManyMutationInput = {
     order?: Prisma.IntFieldUpdateOperationsInput | number;
     action?: Prisma.StringFieldUpdateOperationsInput | string;
     selector?: Prisma.StringFieldUpdateOperationsInput | string;
     selectOption?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
 };
-export type StepsUncheckedUpdateManyInput = {
+export declare type StepsUncheckedUpdateManyInput = {
     id?: Prisma.IntFieldUpdateOperationsInput | number;
     order?: Prisma.IntFieldUpdateOperationsInput | number;
     action?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -302,15 +302,15 @@ export type StepsUncheckedUpdateManyInput = {
     url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     companyID?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
 };
-export type StepsListRelationFilter = {
+export declare type StepsListRelationFilter = {
     every?: Prisma.StepsWhereInput;
     some?: Prisma.StepsWhereInput;
     none?: Prisma.StepsWhereInput;
 };
-export type StepsOrderByRelationAggregateInput = {
+export declare type StepsOrderByRelationAggregateInput = {
     _count?: Prisma.SortOrder;
 };
-export type StepsCountOrderByAggregateInput = {
+export declare type StepsCountOrderByAggregateInput = {
     id?: Prisma.SortOrder;
     order?: Prisma.SortOrder;
     action?: Prisma.SortOrder;
@@ -319,21 +319,12 @@ export type StepsCountOrderByAggregateInput = {
     url?: Prisma.SortOrder;
     companyID?: Prisma.SortOrder;
 };
-export type StepsAvgOrderByAggregateInput = {
+export declare type StepsAvgOrderByAggregateInput = {
     id?: Prisma.SortOrder;
     order?: Prisma.SortOrder;
     companyID?: Prisma.SortOrder;
 };
-export type StepsMaxOrderByAggregateInput = {
-    id?: Prisma.SortOrder;
-    order?: Prisma.SortOrder;
-    action?: Prisma.SortOrder;
-    selector?: Prisma.SortOrder;
-    selectOption?: Prisma.SortOrder;
-    url?: Prisma.SortOrder;
-    companyID?: Prisma.SortOrder;
-};
-export type StepsMinOrderByAggregateInput = {
+export declare type StepsMaxOrderByAggregateInput = {
     id?: Prisma.SortOrder;
     order?: Prisma.SortOrder;
     action?: Prisma.SortOrder;
@@ -342,24 +333,33 @@ export type StepsMinOrderByAggregateInput = {
     url?: Prisma.SortOrder;
     companyID?: Prisma.SortOrder;
 };
-export type StepsSumOrderByAggregateInput = {
+export declare type StepsMinOrderByAggregateInput = {
+    id?: Prisma.SortOrder;
+    order?: Prisma.SortOrder;
+    action?: Prisma.SortOrder;
+    selector?: Prisma.SortOrder;
+    selectOption?: Prisma.SortOrder;
+    url?: Prisma.SortOrder;
+    companyID?: Prisma.SortOrder;
+};
+export declare type StepsSumOrderByAggregateInput = {
     id?: Prisma.SortOrder;
     order?: Prisma.SortOrder;
     companyID?: Prisma.SortOrder;
 };
-export type StepsCreateNestedManyWithoutCompanyInput = {
+export declare type StepsCreateNestedManyWithoutCompanyInput = {
     create?: Prisma.XOR<Prisma.StepsCreateWithoutCompanyInput, Prisma.StepsUncheckedCreateWithoutCompanyInput> | Prisma.StepsCreateWithoutCompanyInput[] | Prisma.StepsUncheckedCreateWithoutCompanyInput[];
     connectOrCreate?: Prisma.StepsCreateOrConnectWithoutCompanyInput | Prisma.StepsCreateOrConnectWithoutCompanyInput[];
     createMany?: Prisma.StepsCreateManyCompanyInputEnvelope;
     connect?: Prisma.StepsWhereUniqueInput | Prisma.StepsWhereUniqueInput[];
 };
-export type StepsUncheckedCreateNestedManyWithoutCompanyInput = {
+export declare type StepsUncheckedCreateNestedManyWithoutCompanyInput = {
     create?: Prisma.XOR<Prisma.StepsCreateWithoutCompanyInput, Prisma.StepsUncheckedCreateWithoutCompanyInput> | Prisma.StepsCreateWithoutCompanyInput[] | Prisma.StepsUncheckedCreateWithoutCompanyInput[];
     connectOrCreate?: Prisma.StepsCreateOrConnectWithoutCompanyInput | Prisma.StepsCreateOrConnectWithoutCompanyInput[];
     createMany?: Prisma.StepsCreateManyCompanyInputEnvelope;
     connect?: Prisma.StepsWhereUniqueInput | Prisma.StepsWhereUniqueInput[];
 };
-export type StepsUpdateManyWithoutCompanyNestedInput = {
+export declare type StepsUpdateManyWithoutCompanyNestedInput = {
     create?: Prisma.XOR<Prisma.StepsCreateWithoutCompanyInput, Prisma.StepsUncheckedCreateWithoutCompanyInput> | Prisma.StepsCreateWithoutCompanyInput[] | Prisma.StepsUncheckedCreateWithoutCompanyInput[];
     connectOrCreate?: Prisma.StepsCreateOrConnectWithoutCompanyInput | Prisma.StepsCreateOrConnectWithoutCompanyInput[];
     upsert?: Prisma.StepsUpsertWithWhereUniqueWithoutCompanyInput | Prisma.StepsUpsertWithWhereUniqueWithoutCompanyInput[];
@@ -372,7 +372,7 @@ export type StepsUpdateManyWithoutCompanyNestedInput = {
     updateMany?: Prisma.StepsUpdateManyWithWhereWithoutCompanyInput | Prisma.StepsUpdateManyWithWhereWithoutCompanyInput[];
     deleteMany?: Prisma.StepsScalarWhereInput | Prisma.StepsScalarWhereInput[];
 };
-export type StepsUncheckedUpdateManyWithoutCompanyNestedInput = {
+export declare type StepsUncheckedUpdateManyWithoutCompanyNestedInput = {
     create?: Prisma.XOR<Prisma.StepsCreateWithoutCompanyInput, Prisma.StepsUncheckedCreateWithoutCompanyInput> | Prisma.StepsCreateWithoutCompanyInput[] | Prisma.StepsUncheckedCreateWithoutCompanyInput[];
     connectOrCreate?: Prisma.StepsCreateOrConnectWithoutCompanyInput | Prisma.StepsCreateOrConnectWithoutCompanyInput[];
     upsert?: Prisma.StepsUpsertWithWhereUniqueWithoutCompanyInput | Prisma.StepsUpsertWithWhereUniqueWithoutCompanyInput[];
@@ -385,14 +385,14 @@ export type StepsUncheckedUpdateManyWithoutCompanyNestedInput = {
     updateMany?: Prisma.StepsUpdateManyWithWhereWithoutCompanyInput | Prisma.StepsUpdateManyWithWhereWithoutCompanyInput[];
     deleteMany?: Prisma.StepsScalarWhereInput | Prisma.StepsScalarWhereInput[];
 };
-export type StepsCreateWithoutCompanyInput = {
+export declare type StepsCreateWithoutCompanyInput = {
     order: number;
     action: string;
     selector: string;
     selectOption?: string | null;
     url?: string | null;
 };
-export type StepsUncheckedCreateWithoutCompanyInput = {
+export declare type StepsUncheckedCreateWithoutCompanyInput = {
     id?: number;
     order: number;
     action: string;
@@ -400,28 +400,28 @@ export type StepsUncheckedCreateWithoutCompanyInput = {
     selectOption?: string | null;
     url?: string | null;
 };
-export type StepsCreateOrConnectWithoutCompanyInput = {
+export declare type StepsCreateOrConnectWithoutCompanyInput = {
     where: Prisma.StepsWhereUniqueInput;
     create: Prisma.XOR<Prisma.StepsCreateWithoutCompanyInput, Prisma.StepsUncheckedCreateWithoutCompanyInput>;
 };
-export type StepsCreateManyCompanyInputEnvelope = {
+export declare type StepsCreateManyCompanyInputEnvelope = {
     data: Prisma.StepsCreateManyCompanyInput | Prisma.StepsCreateManyCompanyInput[];
     skipDuplicates?: boolean;
 };
-export type StepsUpsertWithWhereUniqueWithoutCompanyInput = {
+export declare type StepsUpsertWithWhereUniqueWithoutCompanyInput = {
     where: Prisma.StepsWhereUniqueInput;
     update: Prisma.XOR<Prisma.StepsUpdateWithoutCompanyInput, Prisma.StepsUncheckedUpdateWithoutCompanyInput>;
     create: Prisma.XOR<Prisma.StepsCreateWithoutCompanyInput, Prisma.StepsUncheckedCreateWithoutCompanyInput>;
 };
-export type StepsUpdateWithWhereUniqueWithoutCompanyInput = {
+export declare type StepsUpdateWithWhereUniqueWithoutCompanyInput = {
     where: Prisma.StepsWhereUniqueInput;
     data: Prisma.XOR<Prisma.StepsUpdateWithoutCompanyInput, Prisma.StepsUncheckedUpdateWithoutCompanyInput>;
 };
-export type StepsUpdateManyWithWhereWithoutCompanyInput = {
+export declare type StepsUpdateManyWithWhereWithoutCompanyInput = {
     where: Prisma.StepsScalarWhereInput;
     data: Prisma.XOR<Prisma.StepsUpdateManyMutationInput, Prisma.StepsUncheckedUpdateManyWithoutCompanyInput>;
 };
-export type StepsScalarWhereInput = {
+export declare type StepsScalarWhereInput = {
     AND?: Prisma.StepsScalarWhereInput | Prisma.StepsScalarWhereInput[];
     OR?: Prisma.StepsScalarWhereInput[];
     NOT?: Prisma.StepsScalarWhereInput | Prisma.StepsScalarWhereInput[];
@@ -433,7 +433,7 @@ export type StepsScalarWhereInput = {
     url?: Prisma.StringNullableFilter<"Steps"> | string | null;
     companyID?: Prisma.IntNullableFilter<"Steps"> | number | null;
 };
-export type StepsCreateManyCompanyInput = {
+export declare type StepsCreateManyCompanyInput = {
     id?: number;
     order: number;
     action: string;
@@ -441,14 +441,14 @@ export type StepsCreateManyCompanyInput = {
     selectOption?: string | null;
     url?: string | null;
 };
-export type StepsUpdateWithoutCompanyInput = {
+export declare type StepsUpdateWithoutCompanyInput = {
     order?: Prisma.IntFieldUpdateOperationsInput | number;
     action?: Prisma.StringFieldUpdateOperationsInput | string;
     selector?: Prisma.StringFieldUpdateOperationsInput | string;
     selectOption?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
 };
-export type StepsUncheckedUpdateWithoutCompanyInput = {
+export declare type StepsUncheckedUpdateWithoutCompanyInput = {
     id?: Prisma.IntFieldUpdateOperationsInput | number;
     order?: Prisma.IntFieldUpdateOperationsInput | number;
     action?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -456,7 +456,7 @@ export type StepsUncheckedUpdateWithoutCompanyInput = {
     selectOption?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
 };
-export type StepsUncheckedUpdateManyWithoutCompanyInput = {
+export declare type StepsUncheckedUpdateManyWithoutCompanyInput = {
     id?: Prisma.IntFieldUpdateOperationsInput | number;
     order?: Prisma.IntFieldUpdateOperationsInput | number;
     action?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -464,7 +464,7 @@ export type StepsUncheckedUpdateManyWithoutCompanyInput = {
     selectOption?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
 };
-export type StepsSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+export declare type StepsSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
     id?: boolean;
     order?: boolean;
     action?: boolean;
@@ -474,7 +474,7 @@ export type StepsSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
     companyID?: boolean;
     company?: boolean | Prisma.Steps$companyArgs<ExtArgs>;
 }, ExtArgs["result"]["steps"]>;
-export type StepsSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+export declare type StepsSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
     id?: boolean;
     order?: boolean;
     action?: boolean;
@@ -484,7 +484,7 @@ export type StepsSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
     companyID?: boolean;
     company?: boolean | Prisma.Steps$companyArgs<ExtArgs>;
 }, ExtArgs["result"]["steps"]>;
-export type StepsSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+export declare type StepsSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
     id?: boolean;
     order?: boolean;
     action?: boolean;
@@ -494,7 +494,7 @@ export type StepsSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
     companyID?: boolean;
     company?: boolean | Prisma.Steps$companyArgs<ExtArgs>;
 }, ExtArgs["result"]["steps"]>;
-export type StepsSelectScalar = {
+export declare type StepsSelectScalar = {
     id?: boolean;
     order?: boolean;
     action?: boolean;
@@ -503,17 +503,17 @@ export type StepsSelectScalar = {
     url?: boolean;
     companyID?: boolean;
 };
-export type StepsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "order" | "action" | "selector" | "selectOption" | "url" | "companyID", ExtArgs["result"]["steps"]>;
-export type StepsInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export declare type StepsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "order" | "action" | "selector" | "selectOption" | "url" | "companyID", ExtArgs["result"]["steps"]>;
+export declare type StepsInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     company?: boolean | Prisma.Steps$companyArgs<ExtArgs>;
 };
-export type StepsIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export declare type StepsIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     company?: boolean | Prisma.Steps$companyArgs<ExtArgs>;
 };
-export type StepsIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export declare type StepsIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     company?: boolean | Prisma.Steps$companyArgs<ExtArgs>;
 };
-export type $StepsPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export declare type $StepsPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     name: "Steps";
     objects: {
         company: Prisma.$CompanyPayload<ExtArgs> | null;
@@ -529,8 +529,8 @@ export type $StepsPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     }, ExtArgs["result"]["steps"]>;
     composites: {};
 };
-export type StepsGetPayload<S extends boolean | null | undefined | StepsDefaultArgs> = runtime.Types.Result.GetResult<Prisma.$StepsPayload, S>;
-export type StepsCountArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = Omit<StepsFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+export declare type StepsGetPayload<S extends boolean | null | undefined | StepsDefaultArgs> = runtime.Types.Result.GetResult<Prisma.$StepsPayload, S>;
+export declare type StepsCountArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = Omit<StepsFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
     select?: StepsCountAggregateInputType | true;
 };
 export interface StepsDelegate<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> {
@@ -892,7 +892,7 @@ export interface StepsFieldRefs {
 /**
  * Steps findUnique
  */
-export type StepsFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export declare type StepsFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Steps
      */
@@ -913,7 +913,7 @@ export type StepsFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.Interna
 /**
  * Steps findUniqueOrThrow
  */
-export type StepsFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export declare type StepsFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Steps
      */
@@ -934,7 +934,7 @@ export type StepsFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Extensions.
 /**
  * Steps findFirst
  */
-export type StepsFindFirstArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export declare type StepsFindFirstArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Steps
      */
@@ -985,7 +985,7 @@ export type StepsFindFirstArgs<ExtArgs extends runtime.Types.Extensions.Internal
 /**
  * Steps findFirstOrThrow
  */
-export type StepsFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export declare type StepsFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Steps
      */
@@ -1036,7 +1036,7 @@ export type StepsFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Extensions.I
 /**
  * Steps findMany
  */
-export type StepsFindManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export declare type StepsFindManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Steps
      */
@@ -1087,7 +1087,7 @@ export type StepsFindManyArgs<ExtArgs extends runtime.Types.Extensions.InternalA
 /**
  * Steps create
  */
-export type StepsCreateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export declare type StepsCreateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Steps
      */
@@ -1108,7 +1108,7 @@ export type StepsCreateArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
 /**
  * Steps createMany
  */
-export type StepsCreateManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export declare type StepsCreateManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     /**
      * The data used to create many Steps.
      */
@@ -1118,7 +1118,7 @@ export type StepsCreateManyArgs<ExtArgs extends runtime.Types.Extensions.Interna
 /**
  * Steps createManyAndReturn
  */
-export type StepsCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export declare type StepsCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Steps
      */
@@ -1140,7 +1140,7 @@ export type StepsCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extension
 /**
  * Steps update
  */
-export type StepsUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export declare type StepsUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Steps
      */
@@ -1165,7 +1165,7 @@ export type StepsUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
 /**
  * Steps updateMany
  */
-export type StepsUpdateManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export declare type StepsUpdateManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     /**
      * The data used to update Steps.
      */
@@ -1182,7 +1182,7 @@ export type StepsUpdateManyArgs<ExtArgs extends runtime.Types.Extensions.Interna
 /**
  * Steps updateManyAndReturn
  */
-export type StepsUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export declare type StepsUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Steps
      */
@@ -1211,7 +1211,7 @@ export type StepsUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extension
 /**
  * Steps upsert
  */
-export type StepsUpsertArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export declare type StepsUpsertArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Steps
      */
@@ -1240,7 +1240,7 @@ export type StepsUpsertArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
 /**
  * Steps delete
  */
-export type StepsDeleteArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export declare type StepsDeleteArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Steps
      */
@@ -1261,7 +1261,7 @@ export type StepsDeleteArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
 /**
  * Steps deleteMany
  */
-export type StepsDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export declare type StepsDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     /**
      * Filter which Steps to delete
      */
@@ -1274,7 +1274,7 @@ export type StepsDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Interna
 /**
  * Steps.company
  */
-export type Steps$companyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export declare type Steps$companyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Company
      */
@@ -1292,7 +1292,7 @@ export type Steps$companyArgs<ExtArgs extends runtime.Types.Extensions.InternalA
 /**
  * Steps without action
  */
-export type StepsDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export declare type StepsDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Steps
      */

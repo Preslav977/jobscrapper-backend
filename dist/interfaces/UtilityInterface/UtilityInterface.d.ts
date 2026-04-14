@@ -1,4 +1,4 @@
-export type UtilityInterface = {
+export declare type UtilityInterface = {
     step: string;
     status: string | void;
 };

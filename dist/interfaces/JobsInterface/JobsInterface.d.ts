@@ -9,14 +9,14 @@ export interface JobsInterface {
     anchorHref: string;
     companyID: number;
 }
-export type ScrapedJobsArrayType = {
+export declare type ScrapedJobsArrayType = {
     title: string | null;
     location: string | null;
     remoteOrHybrid: string | null;
     datePosted: string | null;
     anchorHref: string | null;
 };
-export type JobsWithRelationsType = Prisma.JobsGetPayload<{
+export declare type JobsWithRelationsType = Prisma.JobsGetPayload<{
     include: {
         company: {
             include: {

@@ -1,39 +1,39 @@
 import type * as runtime from "@prisma/client/runtime/client";
-import type * as $Enums from "../enums.ts";
-import type * as Prisma from "../internal/prismaNamespace.ts";
+import type * as $Enums from "../enums.js";
+import type * as Prisma from "../internal/prismaNamespace.js";
 /**
  * Model Company
  *
  */
-export type CompanyModel = runtime.Types.Result.DefaultSelection<Prisma.$CompanyPayload>;
-export type AggregateCompany = {
+export declare type CompanyModel = runtime.Types.Result.DefaultSelection<Prisma.$CompanyPayload>;
+export declare type AggregateCompany = {
     _count: CompanyCountAggregateOutputType | null;
     _avg: CompanyAvgAggregateOutputType | null;
     _sum: CompanySumAggregateOutputType | null;
     _min: CompanyMinAggregateOutputType | null;
     _max: CompanyMaxAggregateOutputType | null;
 };
-export type CompanyAvgAggregateOutputType = {
+export declare type CompanyAvgAggregateOutputType = {
     id: number | null;
 };
-export type CompanySumAggregateOutputType = {
+export declare type CompanySumAggregateOutputType = {
     id: number | null;
 };
-export type CompanyMinAggregateOutputType = {
-    id: number | null;
-    name: string | null;
-    logo: string | null;
-    scrapMode: $Enums.ScrapMode | null;
-    URL: string | null;
-};
-export type CompanyMaxAggregateOutputType = {
+export declare type CompanyMinAggregateOutputType = {
     id: number | null;
     name: string | null;
     logo: string | null;
     scrapMode: $Enums.ScrapMode | null;
     URL: string | null;
 };
-export type CompanyCountAggregateOutputType = {
+export declare type CompanyMaxAggregateOutputType = {
+    id: number | null;
+    name: string | null;
+    logo: string | null;
+    scrapMode: $Enums.ScrapMode | null;
+    URL: string | null;
+};
+export declare type CompanyCountAggregateOutputType = {
     id: number;
     name: number;
     logo: number;
@@ -41,27 +41,27 @@ export type CompanyCountAggregateOutputType = {
     URL: number;
     _all: number;
 };
-export type CompanyAvgAggregateInputType = {
+export declare type CompanyAvgAggregateInputType = {
     id?: true;
 };
-export type CompanySumAggregateInputType = {
+export declare type CompanySumAggregateInputType = {
     id?: true;
 };
-export type CompanyMinAggregateInputType = {
-    id?: true;
-    name?: true;
-    logo?: true;
-    scrapMode?: true;
-    URL?: true;
-};
-export type CompanyMaxAggregateInputType = {
+export declare type CompanyMinAggregateInputType = {
     id?: true;
     name?: true;
     logo?: true;
     scrapMode?: true;
     URL?: true;
 };
-export type CompanyCountAggregateInputType = {
+export declare type CompanyMaxAggregateInputType = {
+    id?: true;
+    name?: true;
+    logo?: true;
+    scrapMode?: true;
+    URL?: true;
+};
+export declare type CompanyCountAggregateInputType = {
     id?: true;
     name?: true;
     logo?: true;
@@ -69,7 +69,7 @@ export type CompanyCountAggregateInputType = {
     URL?: true;
     _all?: true;
 };
-export type CompanyAggregateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export declare type CompanyAggregateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     /**
      * Filter which Company to aggregate.
      */
@@ -129,10 +129,10 @@ export type CompanyAggregateArgs<ExtArgs extends runtime.Types.Extensions.Intern
     **/
     _max?: CompanyMaxAggregateInputType;
 };
-export type GetCompanyAggregateType<T extends CompanyAggregateArgs> = {
+export declare type GetCompanyAggregateType<T extends CompanyAggregateArgs> = {
     [P in keyof T & keyof AggregateCompany]: P extends '_count' | 'count' ? T[P] extends true ? number : Prisma.GetScalarType<T[P], AggregateCompany[P]> : Prisma.GetScalarType<T[P], AggregateCompany[P]>;
 };
-export type CompanyGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export declare type CompanyGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     where?: Prisma.CompanyWhereInput;
     orderBy?: Prisma.CompanyOrderByWithAggregationInput | Prisma.CompanyOrderByWithAggregationInput[];
     by: Prisma.CompanyScalarFieldEnum[] | Prisma.CompanyScalarFieldEnum;
@@ -145,7 +145,7 @@ export type CompanyGroupByArgs<ExtArgs extends runtime.Types.Extensions.Internal
     _min?: CompanyMinAggregateInputType;
     _max?: CompanyMaxAggregateInputType;
 };
-export type CompanyGroupByOutputType = {
+export declare type CompanyGroupByOutputType = {
     id: number;
     name: string;
     logo: string | null;
@@ -157,10 +157,10 @@ export type CompanyGroupByOutputType = {
     _min: CompanyMinAggregateOutputType | null;
     _max: CompanyMaxAggregateOutputType | null;
 };
-export type GetCompanyGroupByPayload<T extends CompanyGroupByArgs> = Prisma.PrismaPromise<Array<Prisma.PickEnumerable<CompanyGroupByOutputType, T['by']> & {
+export declare type GetCompanyGroupByPayload<T extends CompanyGroupByArgs> = Prisma.PrismaPromise<Array<Prisma.PickEnumerable<CompanyGroupByOutputType, T['by']> & {
     [P in ((keyof T) & (keyof CompanyGroupByOutputType))]: P extends '_count' ? T[P] extends boolean ? number : Prisma.GetScalarType<T[P], CompanyGroupByOutputType[P]> : Prisma.GetScalarType<T[P], CompanyGroupByOutputType[P]>;
 }>>;
-export type CompanyWhereInput = {
+export declare type CompanyWhereInput = {
     AND?: Prisma.CompanyWhereInput | Prisma.CompanyWhereInput[];
     OR?: Prisma.CompanyWhereInput[];
     NOT?: Prisma.CompanyWhereInput | Prisma.CompanyWhereInput[];
@@ -173,7 +173,7 @@ export type CompanyWhereInput = {
     instructions?: Prisma.InstructionsListRelationFilter;
     steps?: Prisma.StepsListRelationFilter;
 };
-export type CompanyOrderByWithRelationInput = {
+export declare type CompanyOrderByWithRelationInput = {
     id?: Prisma.SortOrder;
     name?: Prisma.SortOrder;
     logo?: Prisma.SortOrderInput | Prisma.SortOrder;
@@ -183,7 +183,7 @@ export type CompanyOrderByWithRelationInput = {
     instructions?: Prisma.InstructionsOrderByRelationAggregateInput;
     steps?: Prisma.StepsOrderByRelationAggregateInput;
 };
-export type CompanyWhereUniqueInput = Prisma.AtLeast<{
+export declare type CompanyWhereUniqueInput = Prisma.AtLeast<{
     id?: number;
     name?: string;
     AND?: Prisma.CompanyWhereInput | Prisma.CompanyWhereInput[];
@@ -196,7 +196,7 @@ export type CompanyWhereUniqueInput = Prisma.AtLeast<{
     instructions?: Prisma.InstructionsListRelationFilter;
     steps?: Prisma.StepsListRelationFilter;
 }, "id" | "name">;
-export type CompanyOrderByWithAggregationInput = {
+export declare type CompanyOrderByWithAggregationInput = {
     id?: Prisma.SortOrder;
     name?: Prisma.SortOrder;
     logo?: Prisma.SortOrderInput | Prisma.SortOrder;
@@ -208,7 +208,7 @@ export type CompanyOrderByWithAggregationInput = {
     _min?: Prisma.CompanyMinOrderByAggregateInput;
     _sum?: Prisma.CompanySumOrderByAggregateInput;
 };
-export type CompanyScalarWhereWithAggregatesInput = {
+export declare type CompanyScalarWhereWithAggregatesInput = {
     AND?: Prisma.CompanyScalarWhereWithAggregatesInput | Prisma.CompanyScalarWhereWithAggregatesInput[];
     OR?: Prisma.CompanyScalarWhereWithAggregatesInput[];
     NOT?: Prisma.CompanyScalarWhereWithAggregatesInput | Prisma.CompanyScalarWhereWithAggregatesInput[];
@@ -218,7 +218,7 @@ export type CompanyScalarWhereWithAggregatesInput = {
     scrapMode?: Prisma.EnumScrapModeWithAggregatesFilter<"Company"> | $Enums.ScrapMode;
     URL?: Prisma.StringWithAggregatesFilter<"Company"> | string;
 };
-export type CompanyCreateInput = {
+export declare type CompanyCreateInput = {
     name: string;
     logo?: string | null;
     scrapMode: $Enums.ScrapMode;
@@ -227,7 +227,7 @@ export type CompanyCreateInput = {
     instructions?: Prisma.InstructionsCreateNestedManyWithoutCompanyInput;
     steps?: Prisma.StepsCreateNestedManyWithoutCompanyInput;
 };
-export type CompanyUncheckedCreateInput = {
+export declare type CompanyUncheckedCreateInput = {
     id?: number;
     name: string;
     logo?: string | null;
@@ -237,7 +237,7 @@ export type CompanyUncheckedCreateInput = {
     instructions?: Prisma.InstructionsUncheckedCreateNestedManyWithoutCompanyInput;
     steps?: Prisma.StepsUncheckedCreateNestedManyWithoutCompanyInput;
 };
-export type CompanyUpdateInput = {
+export declare type CompanyUpdateInput = {
     name?: Prisma.StringFieldUpdateOperationsInput | string;
     logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     scrapMode?: Prisma.EnumScrapModeFieldUpdateOperationsInput | $Enums.ScrapMode;
@@ -246,7 +246,7 @@ export type CompanyUpdateInput = {
     instructions?: Prisma.InstructionsUpdateManyWithoutCompanyNestedInput;
     steps?: Prisma.StepsUpdateManyWithoutCompanyNestedInput;
 };
-export type CompanyUncheckedUpdateInput = {
+export declare type CompanyUncheckedUpdateInput = {
     id?: Prisma.IntFieldUpdateOperationsInput | number;
     name?: Prisma.StringFieldUpdateOperationsInput | string;
     logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
@@ -256,82 +256,82 @@ export type CompanyUncheckedUpdateInput = {
     instructions?: Prisma.InstructionsUncheckedUpdateManyWithoutCompanyNestedInput;
     steps?: Prisma.StepsUncheckedUpdateManyWithoutCompanyNestedInput;
 };
-export type CompanyCreateManyInput = {
+export declare type CompanyCreateManyInput = {
     id?: number;
     name: string;
     logo?: string | null;
     scrapMode: $Enums.ScrapMode;
     URL: string;
 };
-export type CompanyUpdateManyMutationInput = {
+export declare type CompanyUpdateManyMutationInput = {
     name?: Prisma.StringFieldUpdateOperationsInput | string;
     logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     scrapMode?: Prisma.EnumScrapModeFieldUpdateOperationsInput | $Enums.ScrapMode;
     URL?: Prisma.StringFieldUpdateOperationsInput | string;
 };
-export type CompanyUncheckedUpdateManyInput = {
+export declare type CompanyUncheckedUpdateManyInput = {
     id?: Prisma.IntFieldUpdateOperationsInput | number;
     name?: Prisma.StringFieldUpdateOperationsInput | string;
     logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     scrapMode?: Prisma.EnumScrapModeFieldUpdateOperationsInput | $Enums.ScrapMode;
     URL?: Prisma.StringFieldUpdateOperationsInput | string;
 };
-export type CompanyCountOrderByAggregateInput = {
+export declare type CompanyCountOrderByAggregateInput = {
     id?: Prisma.SortOrder;
     name?: Prisma.SortOrder;
     logo?: Prisma.SortOrder;
     scrapMode?: Prisma.SortOrder;
     URL?: Prisma.SortOrder;
 };
-export type CompanyAvgOrderByAggregateInput = {
+export declare type CompanyAvgOrderByAggregateInput = {
     id?: Prisma.SortOrder;
 };
-export type CompanyMaxOrderByAggregateInput = {
-    id?: Prisma.SortOrder;
-    name?: Prisma.SortOrder;
-    logo?: Prisma.SortOrder;
-    scrapMode?: Prisma.SortOrder;
-    URL?: Prisma.SortOrder;
-};
-export type CompanyMinOrderByAggregateInput = {
+export declare type CompanyMaxOrderByAggregateInput = {
     id?: Prisma.SortOrder;
     name?: Prisma.SortOrder;
     logo?: Prisma.SortOrder;
     scrapMode?: Prisma.SortOrder;
     URL?: Prisma.SortOrder;
 };
-export type CompanySumOrderByAggregateInput = {
+export declare type CompanyMinOrderByAggregateInput = {
+    id?: Prisma.SortOrder;
+    name?: Prisma.SortOrder;
+    logo?: Prisma.SortOrder;
+    scrapMode?: Prisma.SortOrder;
+    URL?: Prisma.SortOrder;
+};
+export declare type CompanySumOrderByAggregateInput = {
     id?: Prisma.SortOrder;
 };
-export type CompanyScalarRelationFilter = {
+export declare type CompanyScalarRelationFilter = {
     is?: Prisma.CompanyWhereInput;
     isNot?: Prisma.CompanyWhereInput;
 };
-export type CompanyNullableScalarRelationFilter = {
+export declare type CompanyNullableScalarRelationFilter = {
     is?: Prisma.CompanyWhereInput | null;
     isNot?: Prisma.CompanyWhereInput | null;
 };
-export type EnumScrapModeFieldUpdateOperationsInput = {
+export declare type EnumScrapModeFieldUpdateOperationsInput = {
     set?: $Enums.ScrapMode;
 };
-export type CompanyCreateNestedOneWithoutJobsInput = {
+export declare type CompanyCreateNestedOneWithoutJobsInput = {
     create?: Prisma.XOR<Prisma.CompanyCreateWithoutJobsInput, Prisma.CompanyUncheckedCreateWithoutJobsInput>;
     connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutJobsInput;
     connect?: Prisma.CompanyWhereUniqueInput;
 };
-export type CompanyUpdateOneRequiredWithoutJobsNestedInput = {
+export declare type CompanyUpdateOneRequiredWithoutJobsNestedInput = {
     create?: Prisma.XOR<Prisma.CompanyCreateWithoutJobsInput, Prisma.CompanyUncheckedCreateWithoutJobsInput>;
     connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutJobsInput;
     upsert?: Prisma.CompanyUpsertWithoutJobsInput;
     connect?: Prisma.CompanyWhereUniqueInput;
     update?: Prisma.XOR<Prisma.XOR<Prisma.CompanyUpdateToOneWithWhereWithoutJobsInput, Prisma.CompanyUpdateWithoutJobsInput>, Prisma.CompanyUncheckedUpdateWithoutJobsInput>;
 };
-export type CompanyCreateNestedOneWithoutInstructionsInput = {
+export declare type CompanyCreateNestedOneWithoutInstructionsInput = {
     create?: Prisma.XOR<Prisma.CompanyCreateWithoutInstructionsInput, Prisma.CompanyUncheckedCreateWithoutInstructionsInput>;
     connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutInstructionsInput;
     connect?: Prisma.CompanyWhereUniqueInput;
 };
-export type CompanyUpdateOneWithoutInstructionsNestedInput = {
+export declare type CompanyUpdateOneWithoutInstructionsNestedInput = {
     create?: Prisma.XOR<Prisma.CompanyCreateWithoutInstructionsInput, Prisma.CompanyUncheckedCreateWithoutInstructionsInput>;
     connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutInstructionsInput;
     upsert?: Prisma.CompanyUpsertWithoutInstructionsInput;
@@ -340,12 +340,12 @@ export type CompanyUpdateOneWithoutInstructionsNestedInput = {
     connect?: Prisma.CompanyWhereUniqueInput;
     update?: Prisma.XOR<Prisma.XOR<Prisma.CompanyUpdateToOneWithWhereWithoutInstructionsInput, Prisma.CompanyUpdateWithoutInstructionsInput>, Prisma.CompanyUncheckedUpdateWithoutInstructionsInput>;
 };
-export type CompanyCreateNestedOneWithoutStepsInput = {
+export declare type CompanyCreateNestedOneWithoutStepsInput = {
     create?: Prisma.XOR<Prisma.CompanyCreateWithoutStepsInput, Prisma.CompanyUncheckedCreateWithoutStepsInput>;
     connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutStepsInput;
     connect?: Prisma.CompanyWhereUniqueInput;
 };
-export type CompanyUpdateOneWithoutStepsNestedInput = {
+export declare type CompanyUpdateOneWithoutStepsNestedInput = {
     create?: Prisma.XOR<Prisma.CompanyCreateWithoutStepsInput, Prisma.CompanyUncheckedCreateWithoutStepsInput>;
     connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutStepsInput;
     upsert?: Prisma.CompanyUpsertWithoutStepsInput;
@@ -354,7 +354,7 @@ export type CompanyUpdateOneWithoutStepsNestedInput = {
     connect?: Prisma.CompanyWhereUniqueInput;
     update?: Prisma.XOR<Prisma.XOR<Prisma.CompanyUpdateToOneWithWhereWithoutStepsInput, Prisma.CompanyUpdateWithoutStepsInput>, Prisma.CompanyUncheckedUpdateWithoutStepsInput>;
 };
-export type CompanyCreateWithoutJobsInput = {
+export declare type CompanyCreateWithoutJobsInput = {
     name: string;
     logo?: string | null;
     scrapMode: $Enums.ScrapMode;
@@ -362,7 +362,7 @@ export type CompanyCreateWithoutJobsInput = {
     instructions?: Prisma.InstructionsCreateNestedManyWithoutCompanyInput;
     steps?: Prisma.StepsCreateNestedManyWithoutCompanyInput;
 };
-export type CompanyUncheckedCreateWithoutJobsInput = {
+export declare type CompanyUncheckedCreateWithoutJobsInput = {
     id?: number;
     name: string;
     logo?: string | null;
@@ -371,20 +371,20 @@ export type CompanyUncheckedCreateWithoutJobsInput = {
     instructions?: Prisma.InstructionsUncheckedCreateNestedManyWithoutCompanyInput;
     steps?: Prisma.StepsUncheckedCreateNestedManyWithoutCompanyInput;
 };
-export type CompanyCreateOrConnectWithoutJobsInput = {
+export declare type CompanyCreateOrConnectWithoutJobsInput = {
     where: Prisma.CompanyWhereUniqueInput;
     create: Prisma.XOR<Prisma.CompanyCreateWithoutJobsInput, Prisma.CompanyUncheckedCreateWithoutJobsInput>;
 };
-export type CompanyUpsertWithoutJobsInput = {
+export declare type CompanyUpsertWithoutJobsInput = {
     update: Prisma.XOR<Prisma.CompanyUpdateWithoutJobsInput, Prisma.CompanyUncheckedUpdateWithoutJobsInput>;
     create: Prisma.XOR<Prisma.CompanyCreateWithoutJobsInput, Prisma.CompanyUncheckedCreateWithoutJobsInput>;
     where?: Prisma.CompanyWhereInput;
 };
-export type CompanyUpdateToOneWithWhereWithoutJobsInput = {
+export declare type CompanyUpdateToOneWithWhereWithoutJobsInput = {
     where?: Prisma.CompanyWhereInput;
     data: Prisma.XOR<Prisma.CompanyUpdateWithoutJobsInput, Prisma.CompanyUncheckedUpdateWithoutJobsInput>;
 };
-export type CompanyUpdateWithoutJobsInput = {
+export declare type CompanyUpdateWithoutJobsInput = {
     name?: Prisma.StringFieldUpdateOperationsInput | string;
     logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     scrapMode?: Prisma.EnumScrapModeFieldUpdateOperationsInput | $Enums.ScrapMode;
@@ -392,7 +392,7 @@ export type CompanyUpdateWithoutJobsInput = {
     instructions?: Prisma.InstructionsUpdateManyWithoutCompanyNestedInput;
     steps?: Prisma.StepsUpdateManyWithoutCompanyNestedInput;
 };
-export type CompanyUncheckedUpdateWithoutJobsInput = {
+export declare type CompanyUncheckedUpdateWithoutJobsInput = {
     id?: Prisma.IntFieldUpdateOperationsInput | number;
     name?: Prisma.StringFieldUpdateOperationsInput | string;
     logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
@@ -401,7 +401,7 @@ export type CompanyUncheckedUpdateWithoutJobsInput = {
     instructions?: Prisma.InstructionsUncheckedUpdateManyWithoutCompanyNestedInput;
     steps?: Prisma.StepsUncheckedUpdateManyWithoutCompanyNestedInput;
 };
-export type CompanyCreateWithoutInstructionsInput = {
+export declare type CompanyCreateWithoutInstructionsInput = {
     name: string;
     logo?: string | null;
     scrapMode: $Enums.ScrapMode;
@@ -409,7 +409,7 @@ export type CompanyCreateWithoutInstructionsInput = {
     jobs?: Prisma.JobsCreateNestedManyWithoutCompanyInput;
     steps?: Prisma.StepsCreateNestedManyWithoutCompanyInput;
 };
-export type CompanyUncheckedCreateWithoutInstructionsInput = {
+export declare type CompanyUncheckedCreateWithoutInstructionsInput = {
     id?: number;
     name: string;
     logo?: string | null;
@@ -418,20 +418,20 @@ export type CompanyUncheckedCreateWithoutInstructionsInput = {
     jobs?: Prisma.JobsUncheckedCreateNestedManyWithoutCompanyInput;
     steps?: Prisma.StepsUncheckedCreateNestedManyWithoutCompanyInput;
 };
-export type CompanyCreateOrConnectWithoutInstructionsInput = {
+export declare type CompanyCreateOrConnectWithoutInstructionsInput = {
     where: Prisma.CompanyWhereUniqueInput;
     create: Prisma.XOR<Prisma.CompanyCreateWithoutInstructionsInput, Prisma.CompanyUncheckedCreateWithoutInstructionsInput>;
 };
-export type CompanyUpsertWithoutInstructionsInput = {
+export declare type CompanyUpsertWithoutInstructionsInput = {
     update: Prisma.XOR<Prisma.CompanyUpdateWithoutInstructionsInput, Prisma.CompanyUncheckedUpdateWithoutInstructionsInput>;
     create: Prisma.XOR<Prisma.CompanyCreateWithoutInstructionsInput, Prisma.CompanyUncheckedCreateWithoutInstructionsInput>;
     where?: Prisma.CompanyWhereInput;
 };
-export type CompanyUpdateToOneWithWhereWithoutInstructionsInput = {
+export declare type CompanyUpdateToOneWithWhereWithoutInstructionsInput = {
     where?: Prisma.CompanyWhereInput;
     data: Prisma.XOR<Prisma.CompanyUpdateWithoutInstructionsInput, Prisma.CompanyUncheckedUpdateWithoutInstructionsInput>;
 };
-export type CompanyUpdateWithoutInstructionsInput = {
+export declare type CompanyUpdateWithoutInstructionsInput = {
     name?: Prisma.StringFieldUpdateOperationsInput | string;
     logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     scrapMode?: Prisma.EnumScrapModeFieldUpdateOperationsInput | $Enums.ScrapMode;
@@ -439,7 +439,7 @@ export type CompanyUpdateWithoutInstructionsInput = {
     jobs?: Prisma.JobsUpdateManyWithoutCompanyNestedInput;
     steps?: Prisma.StepsUpdateManyWithoutCompanyNestedInput;
 };
-export type CompanyUncheckedUpdateWithoutInstructionsInput = {
+export declare type CompanyUncheckedUpdateWithoutInstructionsInput = {
     id?: Prisma.IntFieldUpdateOperationsInput | number;
     name?: Prisma.StringFieldUpdateOperationsInput | string;
     logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
@@ -448,7 +448,7 @@ export type CompanyUncheckedUpdateWithoutInstructionsInput = {
     jobs?: Prisma.JobsUncheckedUpdateManyWithoutCompanyNestedInput;
     steps?: Prisma.StepsUncheckedUpdateManyWithoutCompanyNestedInput;
 };
-export type CompanyCreateWithoutStepsInput = {
+export declare type CompanyCreateWithoutStepsInput = {
     name: string;
     logo?: string | null;
     scrapMode: $Enums.ScrapMode;
@@ -456,7 +456,7 @@ export type CompanyCreateWithoutStepsInput = {
     jobs?: Prisma.JobsCreateNestedManyWithoutCompanyInput;
     instructions?: Prisma.InstructionsCreateNestedManyWithoutCompanyInput;
 };
-export type CompanyUncheckedCreateWithoutStepsInput = {
+export declare type CompanyUncheckedCreateWithoutStepsInput = {
     id?: number;
     name: string;
     logo?: string | null;
@@ -465,20 +465,20 @@ export type CompanyUncheckedCreateWithoutStepsInput = {
     jobs?: Prisma.JobsUncheckedCreateNestedManyWithoutCompanyInput;
     instructions?: Prisma.InstructionsUncheckedCreateNestedManyWithoutCompanyInput;
 };
-export type CompanyCreateOrConnectWithoutStepsInput = {
+export declare type CompanyCreateOrConnectWithoutStepsInput = {
     where: Prisma.CompanyWhereUniqueInput;
     create: Prisma.XOR<Prisma.CompanyCreateWithoutStepsInput, Prisma.CompanyUncheckedCreateWithoutStepsInput>;
 };
-export type CompanyUpsertWithoutStepsInput = {
+export declare type CompanyUpsertWithoutStepsInput = {
     update: Prisma.XOR<Prisma.CompanyUpdateWithoutStepsInput, Prisma.CompanyUncheckedUpdateWithoutStepsInput>;
     create: Prisma.XOR<Prisma.CompanyCreateWithoutStepsInput, Prisma.CompanyUncheckedCreateWithoutStepsInput>;
     where?: Prisma.CompanyWhereInput;
 };
-export type CompanyUpdateToOneWithWhereWithoutStepsInput = {
+export declare type CompanyUpdateToOneWithWhereWithoutStepsInput = {
     where?: Prisma.CompanyWhereInput;
     data: Prisma.XOR<Prisma.CompanyUpdateWithoutStepsInput, Prisma.CompanyUncheckedUpdateWithoutStepsInput>;
 };
-export type CompanyUpdateWithoutStepsInput = {
+export declare type CompanyUpdateWithoutStepsInput = {
     name?: Prisma.StringFieldUpdateOperationsInput | string;
     logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     scrapMode?: Prisma.EnumScrapModeFieldUpdateOperationsInput | $Enums.ScrapMode;
@@ -486,7 +486,7 @@ export type CompanyUpdateWithoutStepsInput = {
     jobs?: Prisma.JobsUpdateManyWithoutCompanyNestedInput;
     instructions?: Prisma.InstructionsUpdateManyWithoutCompanyNestedInput;
 };
-export type CompanyUncheckedUpdateWithoutStepsInput = {
+export declare type CompanyUncheckedUpdateWithoutStepsInput = {
     id?: Prisma.IntFieldUpdateOperationsInput | number;
     name?: Prisma.StringFieldUpdateOperationsInput | string;
     logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
@@ -498,12 +498,12 @@ export type CompanyUncheckedUpdateWithoutStepsInput = {
 /**
  * Count Type CompanyCountOutputType
  */
-export type CompanyCountOutputType = {
+export declare type CompanyCountOutputType = {
     jobs: number;
     instructions: number;
     steps: number;
 };
-export type CompanyCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export declare type CompanyCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     jobs?: boolean | CompanyCountOutputTypeCountJobsArgs;
     instructions?: boolean | CompanyCountOutputTypeCountInstructionsArgs;
     steps?: boolean | CompanyCountOutputTypeCountStepsArgs;
@@ -511,7 +511,7 @@ export type CompanyCountOutputTypeSelect<ExtArgs extends runtime.Types.Extension
 /**
  * CompanyCountOutputType without action
  */
-export type CompanyCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export declare type CompanyCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the CompanyCountOutputType
      */
@@ -520,22 +520,22 @@ export type CompanyCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Exte
 /**
  * CompanyCountOutputType without action
  */
-export type CompanyCountOutputTypeCountJobsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export declare type CompanyCountOutputTypeCountJobsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     where?: Prisma.JobsWhereInput;
 };
 /**
  * CompanyCountOutputType without action
  */
-export type CompanyCountOutputTypeCountInstructionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export declare type CompanyCountOutputTypeCountInstructionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     where?: Prisma.InstructionsWhereInput;
 };
 /**
  * CompanyCountOutputType without action
  */
-export type CompanyCountOutputTypeCountStepsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export declare type CompanyCountOutputTypeCountStepsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     where?: Prisma.StepsWhereInput;
 };
-export type CompanySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+export declare type CompanySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
     id?: boolean;
     name?: boolean;
     logo?: boolean;
@@ -546,37 +546,37 @@ export type CompanySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     steps?: boolean | Prisma.Company$stepsArgs<ExtArgs>;
     _count?: boolean | Prisma.CompanyCountOutputTypeDefaultArgs<ExtArgs>;
 }, ExtArgs["result"]["company"]>;
-export type CompanySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+export declare type CompanySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
     id?: boolean;
     name?: boolean;
     logo?: boolean;
     scrapMode?: boolean;
     URL?: boolean;
 }, ExtArgs["result"]["company"]>;
-export type CompanySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+export declare type CompanySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
     id?: boolean;
     name?: boolean;
     logo?: boolean;
     scrapMode?: boolean;
     URL?: boolean;
 }, ExtArgs["result"]["company"]>;
-export type CompanySelectScalar = {
+export declare type CompanySelectScalar = {
     id?: boolean;
     name?: boolean;
     logo?: boolean;
     scrapMode?: boolean;
     URL?: boolean;
 };
-export type CompanyOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "logo" | "scrapMode" | "URL", ExtArgs["result"]["company"]>;
-export type CompanyInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export declare type CompanyOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "logo" | "scrapMode" | "URL", ExtArgs["result"]["company"]>;
+export declare type CompanyInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     jobs?: boolean | Prisma.Company$jobsArgs<ExtArgs>;
     instructions?: boolean | Prisma.Company$instructionsArgs<ExtArgs>;
     steps?: boolean | Prisma.Company$stepsArgs<ExtArgs>;
     _count?: boolean | Prisma.CompanyCountOutputTypeDefaultArgs<ExtArgs>;
 };
-export type CompanyIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {};
-export type CompanyIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {};
-export type $CompanyPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export declare type CompanyIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {};
+export declare type CompanyIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {};
+export declare type $CompanyPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     name: "Company";
     objects: {
         jobs: Prisma.$JobsPayload<ExtArgs>[];
@@ -592,8 +592,8 @@ export type $CompanyPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     }, ExtArgs["result"]["company"]>;
     composites: {};
 };
-export type CompanyGetPayload<S extends boolean | null | undefined | CompanyDefaultArgs> = runtime.Types.Result.GetResult<Prisma.$CompanyPayload, S>;
-export type CompanyCountArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = Omit<CompanyFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+export declare type CompanyGetPayload<S extends boolean | null | undefined | CompanyDefaultArgs> = runtime.Types.Result.GetResult<Prisma.$CompanyPayload, S>;
+export declare type CompanyCountArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = Omit<CompanyFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
     select?: CompanyCountAggregateInputType | true;
 };
 export interface CompanyDelegate<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> {
@@ -955,7 +955,7 @@ export interface CompanyFieldRefs {
 /**
  * Company findUnique
  */
-export type CompanyFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export declare type CompanyFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Company
      */
@@ -976,7 +976,7 @@ export type CompanyFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.Inter
 /**
  * Company findUniqueOrThrow
  */
-export type CompanyFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export declare type CompanyFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Company
      */
@@ -997,7 +997,7 @@ export type CompanyFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Extension
 /**
  * Company findFirst
  */
-export type CompanyFindFirstArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export declare type CompanyFindFirstArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Company
      */
@@ -1048,7 +1048,7 @@ export type CompanyFindFirstArgs<ExtArgs extends runtime.Types.Extensions.Intern
 /**
  * Company findFirstOrThrow
  */
-export type CompanyFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export declare type CompanyFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Company
      */
@@ -1099,7 +1099,7 @@ export type CompanyFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Extensions
 /**
  * Company findMany
  */
-export type CompanyFindManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export declare type CompanyFindManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Company
      */
@@ -1150,7 +1150,7 @@ export type CompanyFindManyArgs<ExtArgs extends runtime.Types.Extensions.Interna
 /**
  * Company create
  */
-export type CompanyCreateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export declare type CompanyCreateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Company
      */
@@ -1171,7 +1171,7 @@ export type CompanyCreateArgs<ExtArgs extends runtime.Types.Extensions.InternalA
 /**
  * Company createMany
  */
-export type CompanyCreateManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export declare type CompanyCreateManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     /**
      * The data used to create many Companies.
      */
@@ -1181,7 +1181,7 @@ export type CompanyCreateManyArgs<ExtArgs extends runtime.Types.Extensions.Inter
 /**
  * Company createManyAndReturn
  */
-export type CompanyCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export declare type CompanyCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Company
      */
@@ -1199,7 +1199,7 @@ export type CompanyCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensi
 /**
  * Company update
  */
-export type CompanyUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export declare type CompanyUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Company
      */
@@ -1224,7 +1224,7 @@ export type CompanyUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalA
 /**
  * Company updateMany
  */
-export type CompanyUpdateManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export declare type CompanyUpdateManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     /**
      * The data used to update Companies.
      */
@@ -1241,7 +1241,7 @@ export type CompanyUpdateManyArgs<ExtArgs extends runtime.Types.Extensions.Inter
 /**
  * Company updateManyAndReturn
  */
-export type CompanyUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export declare type CompanyUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Company
      */
@@ -1266,7 +1266,7 @@ export type CompanyUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensi
 /**
  * Company upsert
  */
-export type CompanyUpsertArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export declare type CompanyUpsertArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Company
      */
@@ -1295,7 +1295,7 @@ export type CompanyUpsertArgs<ExtArgs extends runtime.Types.Extensions.InternalA
 /**
  * Company delete
  */
-export type CompanyDeleteArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export declare type CompanyDeleteArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Company
      */
@@ -1316,7 +1316,7 @@ export type CompanyDeleteArgs<ExtArgs extends runtime.Types.Extensions.InternalA
 /**
  * Company deleteMany
  */
-export type CompanyDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export declare type CompanyDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     /**
      * Filter which Companies to delete
      */
@@ -1329,7 +1329,7 @@ export type CompanyDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Inter
 /**
  * Company.jobs
  */
-export type Company$jobsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export declare type Company$jobsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Jobs
      */
@@ -1352,7 +1352,7 @@ export type Company$jobsArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
 /**
  * Company.instructions
  */
-export type Company$instructionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export declare type Company$instructionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Instructions
      */
@@ -1375,7 +1375,7 @@ export type Company$instructionsArgs<ExtArgs extends runtime.Types.Extensions.In
 /**
  * Company.steps
  */
-export type Company$stepsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export declare type Company$stepsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Steps
      */
@@ -1398,7 +1398,7 @@ export type Company$stepsArgs<ExtArgs extends runtime.Types.Extensions.InternalA
 /**
  * Company without action
  */
-export type CompanyDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export declare type CompanyDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Company
      */

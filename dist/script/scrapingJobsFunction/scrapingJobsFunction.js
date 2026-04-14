@@ -3,7 +3,6 @@ import StealthPlugin from "puppeteer-extra-plugin-stealth";
 import { extractJobsFetchURL, extractJobsText, } from "../extractDataFunctions/extractDataFunctions.js";
 import { getRandomTimezone, height, width, } from "../helperUtilities/helperUtilities.js";
 import { selectOptionFromDropDown, sleepDelay, tryClick, tryClickEvaluate, tryClickLoadMore, } from "../navigationFunctions/navigationFunctions.js";
-import { Page } from "puppeteer";
 import UserAgent from "user-agents";
 const stealthPlugin = StealthPlugin();
 stealthPlugin.enabledEvasions.add("user-agent-override");

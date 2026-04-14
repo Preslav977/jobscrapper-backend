@@ -1,2 +1,2 @@
-import { Prisma } from "../../generated/prisma/client.js";
+export {};
 //# sourceMappingURL=CompanyInterface.js.map

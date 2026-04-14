@@ -1,3 +1,4 @@
+/// <reference types="passport" resolution-mode="require"/>
 export interface UserInterface {
     id?: number;
     firstName: string | null;

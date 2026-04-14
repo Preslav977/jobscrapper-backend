@@ -19,36 +19,36 @@ export * from "./enums.js";
  * Read more in our [docs](https://pris.ly/d/client).
  */
 export declare const PrismaClient: $Class.PrismaClientConstructor;
-export type PrismaClient<LogOpts extends Prisma.LogLevel = never, OmitOpts extends Prisma.PrismaClientOptions["omit"] = Prisma.PrismaClientOptions["omit"], ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = $Class.PrismaClient<LogOpts, OmitOpts, ExtArgs>;
+export declare type PrismaClient<LogOpts extends Prisma.LogLevel = never, OmitOpts extends Prisma.PrismaClientOptions["omit"] = Prisma.PrismaClientOptions["omit"], ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = $Class.PrismaClient<LogOpts, OmitOpts, ExtArgs>;
 export { Prisma };
 /**
  * Model User
  *
  */
-export type User = Prisma.UserModel;
+export declare type User = Prisma.UserModel;
 /**
  * Model Company
  *
  */
-export type Company = Prisma.CompanyModel;
+export declare type Company = Prisma.CompanyModel;
 /**
  * Model Jobs
  *
  */
-export type Jobs = Prisma.JobsModel;
+export declare type Jobs = Prisma.JobsModel;
 /**
  * Model Instructions
  *
  */
-export type Instructions = Prisma.InstructionsModel;
+export declare type Instructions = Prisma.InstructionsModel;
 /**
  * Model Steps
  *
  */
-export type Steps = Prisma.StepsModel;
+export declare type Steps = Prisma.StepsModel;
 /**
  * Model Session
  *
  */
-export type Session = Prisma.SessionModel;
+export declare type Session = Prisma.SessionModel;
 //# sourceMappingURL=client.d.ts.map

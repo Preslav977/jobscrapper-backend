@@ -1,6 +1,6 @@
 import * as runtime from "@prisma/client/runtime/client";
-import type * as Prisma from "./prismaNamespace.ts";
-export type LogOptions<ClientOptions extends Prisma.PrismaClientOptions> = 'log' extends keyof ClientOptions ? ClientOptions['log'] extends Array<Prisma.LogLevel | Prisma.LogDefinition> ? Prisma.GetEvents<ClientOptions['log']> : never : never;
+import type * as Prisma from "./prismaNamespace.js";
+export declare type LogOptions<ClientOptions extends Prisma.PrismaClientOptions> = 'log' extends keyof ClientOptions ? ClientOptions['log'] extends Array<Prisma.LogLevel | Prisma.LogDefinition> ? Prisma.GetEvents<ClientOptions['log']> : never : never;
 export interface PrismaClientConstructor {
     /**
    * ## Prisma Client

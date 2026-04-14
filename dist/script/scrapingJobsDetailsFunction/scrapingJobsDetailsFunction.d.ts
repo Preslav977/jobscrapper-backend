@@ -1,12 +1,12 @@
 import type { JobsWithRelationsType } from "../../interfaces/JobsInterface/JobsInterface.js";
 export declare function scrapingJobsDetailsFunction(job: JobsWithRelationsType): Promise<Partial<{
     id: number;
-    location: string | null;
+    companyID: number;
     title: string;
+    location: string | null;
     remoteOrHybrid: string | null;
     datePosted: string | null;
-    description: string;
     anchorHref: string | null;
-    companyID: number;
+    description: string;
 }>>;
 //# sourceMappingURL=scrapingJobsDetailsFunction.d.ts.map

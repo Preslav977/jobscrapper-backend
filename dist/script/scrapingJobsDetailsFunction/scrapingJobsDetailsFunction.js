@@ -2,7 +2,6 @@ import puppeteer from "puppeteer-extra";
 import StealthPlugin from "puppeteer-extra-plugin-stealth";
 import { getRandomTimezone, height, width, } from "../helperUtilities/helperUtilities.js";
 import { URL } from "node:url";
-import { Page } from "puppeteer";
 import UserAgent from "user-agents";
 import { extractJobsDetailsText } from "../extractDataFunctions/extractDataFunctions.js";
 import { sleepDelay } from "../navigationFunctions/navigationFunctions.js";
