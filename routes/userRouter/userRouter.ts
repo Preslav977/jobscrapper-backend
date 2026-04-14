@@ -1,5 +1,7 @@
 import { Router } from "express";
 
+import { upload } from "../../helpers/multerConfiguration/multerConfiguration.js";
+
 import {
   userGetDetails,
   userUpdateDetails,
@@ -9,6 +11,6 @@ const userRouter = Router();
 
 userRouter.get("{/:id}", userGetDetails);
 
-userRouter.put("/:id", userUpdateDetails);
+userRouter.put("/:id", upload.single("file"), userUpdateDetails);
 
 export { userRouter };

@@ -86,6 +86,12 @@ async function userUpdateDetails(req: Request, res: Response) {
 
   const errors = validationResult(req);
 
+  console.log(req.headers["content-type"]);
+
+  console.log("req.body:", req.body);
+
+  console.log("req.file:", req.file);
+
   const {
     firstName,
     lastName,

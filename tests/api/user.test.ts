@@ -143,5 +143,29 @@ describe("testing user controller and routes", () => {
 
       expect(findUpdateUser?.profilePicture).toBe("");
     });
+
+    it("user should able to upload a profile picture", async () => {
+      const testUser = await createTestUser();
+
+      const { body, header, status } = await request(app)
+        .put(`/users/${testUser.id}`)
+        .set("Authorization", `Bearer ${testUser.token}`)
+        .set("Content-Type", "multipart/form-data")
+        .attach("file", "public/img.jpeg");
+
+      const findUpdateUser = await prisma.user.findFirst({
+        where: {
+          id: body.id,
+        },
+      });
+
+      expect(findUpdateUser).toBeDefined();
+
+      expect(header["content-type"]).toMatch(/json/);
+
+      expect(status).toBe(200);
+
+      expect(findUpdateUser?.profilePicture).not.toBe("");
+    });
   });
 });
