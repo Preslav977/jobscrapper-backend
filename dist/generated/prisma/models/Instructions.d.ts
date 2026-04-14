@@ -4,59 +4,59 @@ import type * as Prisma from "../internal/prismaNamespace.js";
  * Model Instructions
  *
  */
-export declare type InstructionsModel = runtime.Types.Result.DefaultSelection<Prisma.$InstructionsPayload>;
-export declare type AggregateInstructions = {
+export type InstructionsModel = runtime.Types.Result.DefaultSelection<Prisma.$InstructionsPayload>;
+export type AggregateInstructions = {
     _count: InstructionsCountAggregateOutputType | null;
     _avg: InstructionsAvgAggregateOutputType | null;
     _sum: InstructionsSumAggregateOutputType | null;
     _min: InstructionsMinAggregateOutputType | null;
     _max: InstructionsMaxAggregateOutputType | null;
 };
-export declare type InstructionsAvgAggregateOutputType = {
+export type InstructionsAvgAggregateOutputType = {
     id: number | null;
     companyID: number | null;
 };
-export declare type InstructionsSumAggregateOutputType = {
+export type InstructionsSumAggregateOutputType = {
     id: number | null;
     companyID: number | null;
 };
-export declare type InstructionsMinAggregateOutputType = {
+export type InstructionsMinAggregateOutputType = {
     id: number | null;
     companyID: number | null;
 };
-export declare type InstructionsMaxAggregateOutputType = {
+export type InstructionsMaxAggregateOutputType = {
     id: number | null;
     companyID: number | null;
 };
-export declare type InstructionsCountAggregateOutputType = {
+export type InstructionsCountAggregateOutputType = {
     id: number;
     extractionInstructions: number;
     companyID: number;
     _all: number;
 };
-export declare type InstructionsAvgAggregateInputType = {
+export type InstructionsAvgAggregateInputType = {
     id?: true;
     companyID?: true;
 };
-export declare type InstructionsSumAggregateInputType = {
+export type InstructionsSumAggregateInputType = {
     id?: true;
     companyID?: true;
 };
-export declare type InstructionsMinAggregateInputType = {
+export type InstructionsMinAggregateInputType = {
     id?: true;
     companyID?: true;
 };
-export declare type InstructionsMaxAggregateInputType = {
+export type InstructionsMaxAggregateInputType = {
     id?: true;
     companyID?: true;
 };
-export declare type InstructionsCountAggregateInputType = {
+export type InstructionsCountAggregateInputType = {
     id?: true;
     extractionInstructions?: true;
     companyID?: true;
     _all?: true;
 };
-export declare type InstructionsAggregateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type InstructionsAggregateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     /**
      * Filter which Instructions to aggregate.
      */
@@ -116,10 +116,10 @@ export declare type InstructionsAggregateArgs<ExtArgs extends runtime.Types.Exte
     **/
     _max?: InstructionsMaxAggregateInputType;
 };
-export declare type GetInstructionsAggregateType<T extends InstructionsAggregateArgs> = {
+export type GetInstructionsAggregateType<T extends InstructionsAggregateArgs> = {
     [P in keyof T & keyof AggregateInstructions]: P extends '_count' | 'count' ? T[P] extends true ? number : Prisma.GetScalarType<T[P], AggregateInstructions[P]> : Prisma.GetScalarType<T[P], AggregateInstructions[P]>;
 };
-export declare type InstructionsGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type InstructionsGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     where?: Prisma.InstructionsWhereInput;
     orderBy?: Prisma.InstructionsOrderByWithAggregationInput | Prisma.InstructionsOrderByWithAggregationInput[];
     by: Prisma.InstructionsScalarFieldEnum[] | Prisma.InstructionsScalarFieldEnum;
@@ -132,7 +132,7 @@ export declare type InstructionsGroupByArgs<ExtArgs extends runtime.Types.Extens
     _min?: InstructionsMinAggregateInputType;
     _max?: InstructionsMaxAggregateInputType;
 };
-export declare type InstructionsGroupByOutputType = {
+export type InstructionsGroupByOutputType = {
     id: number;
     extractionInstructions: runtime.JsonValue | null;
     companyID: number | null;
@@ -142,10 +142,10 @@ export declare type InstructionsGroupByOutputType = {
     _min: InstructionsMinAggregateOutputType | null;
     _max: InstructionsMaxAggregateOutputType | null;
 };
-export declare type GetInstructionsGroupByPayload<T extends InstructionsGroupByArgs> = Prisma.PrismaPromise<Array<Prisma.PickEnumerable<InstructionsGroupByOutputType, T['by']> & {
+export type GetInstructionsGroupByPayload<T extends InstructionsGroupByArgs> = Prisma.PrismaPromise<Array<Prisma.PickEnumerable<InstructionsGroupByOutputType, T['by']> & {
     [P in ((keyof T) & (keyof InstructionsGroupByOutputType))]: P extends '_count' ? T[P] extends boolean ? number : Prisma.GetScalarType<T[P], InstructionsGroupByOutputType[P]> : Prisma.GetScalarType<T[P], InstructionsGroupByOutputType[P]>;
 }>>;
-export declare type InstructionsWhereInput = {
+export type InstructionsWhereInput = {
     AND?: Prisma.InstructionsWhereInput | Prisma.InstructionsWhereInput[];
     OR?: Prisma.InstructionsWhereInput[];
     NOT?: Prisma.InstructionsWhereInput | Prisma.InstructionsWhereInput[];
@@ -154,13 +154,13 @@ export declare type InstructionsWhereInput = {
     companyID?: Prisma.IntNullableFilter<"Instructions"> | number | null;
     company?: Prisma.XOR<Prisma.CompanyNullableScalarRelationFilter, Prisma.CompanyWhereInput> | null;
 };
-export declare type InstructionsOrderByWithRelationInput = {
+export type InstructionsOrderByWithRelationInput = {
     id?: Prisma.SortOrder;
     extractionInstructions?: Prisma.SortOrderInput | Prisma.SortOrder;
     companyID?: Prisma.SortOrderInput | Prisma.SortOrder;
     company?: Prisma.CompanyOrderByWithRelationInput;
 };
-export declare type InstructionsWhereUniqueInput = Prisma.AtLeast<{
+export type InstructionsWhereUniqueInput = Prisma.AtLeast<{
     id?: number;
     AND?: Prisma.InstructionsWhereInput | Prisma.InstructionsWhereInput[];
     OR?: Prisma.InstructionsWhereInput[];
@@ -169,7 +169,7 @@ export declare type InstructionsWhereUniqueInput = Prisma.AtLeast<{
     companyID?: Prisma.IntNullableFilter<"Instructions"> | number | null;
     company?: Prisma.XOR<Prisma.CompanyNullableScalarRelationFilter, Prisma.CompanyWhereInput> | null;
 }, "id">;
-export declare type InstructionsOrderByWithAggregationInput = {
+export type InstructionsOrderByWithAggregationInput = {
     id?: Prisma.SortOrder;
     extractionInstructions?: Prisma.SortOrderInput | Prisma.SortOrder;
     companyID?: Prisma.SortOrderInput | Prisma.SortOrder;
@@ -179,7 +179,7 @@ export declare type InstructionsOrderByWithAggregationInput = {
     _min?: Prisma.InstructionsMinOrderByAggregateInput;
     _sum?: Prisma.InstructionsSumOrderByAggregateInput;
 };
-export declare type InstructionsScalarWhereWithAggregatesInput = {
+export type InstructionsScalarWhereWithAggregatesInput = {
     AND?: Prisma.InstructionsScalarWhereWithAggregatesInput | Prisma.InstructionsScalarWhereWithAggregatesInput[];
     OR?: Prisma.InstructionsScalarWhereWithAggregatesInput[];
     NOT?: Prisma.InstructionsScalarWhereWithAggregatesInput | Prisma.InstructionsScalarWhereWithAggregatesInput[];
@@ -187,92 +187,79 @@ export declare type InstructionsScalarWhereWithAggregatesInput = {
     extractionInstructions?: Prisma.JsonNullableWithAggregatesFilter<"Instructions">;
     companyID?: Prisma.IntNullableWithAggregatesFilter<"Instructions"> | number | null;
 };
-export declare type InstructionsCreateInput = {
+export type InstructionsCreateInput = {
     extractionInstructions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
     company?: Prisma.CompanyCreateNestedOneWithoutInstructionsInput;
 };
-export declare type InstructionsUncheckedCreateInput = {
+export type InstructionsUncheckedCreateInput = {
     id?: number;
     extractionInstructions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
     companyID?: number | null;
 };
-export declare type InstructionsUpdateInput = {
+export type InstructionsUpdateInput = {
     extractionInstructions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
     company?: Prisma.CompanyUpdateOneWithoutInstructionsNestedInput;
 };
-export declare type InstructionsUncheckedUpdateInput = {
+export type InstructionsUncheckedUpdateInput = {
     id?: Prisma.IntFieldUpdateOperationsInput | number;
     extractionInstructions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
     companyID?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
 };
-export declare type InstructionsCreateManyInput = {
+export type InstructionsCreateManyInput = {
     id?: number;
     extractionInstructions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
     companyID?: number | null;
 };
-export declare type InstructionsUpdateManyMutationInput = {
+export type InstructionsUpdateManyMutationInput = {
     extractionInstructions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
 };
-export declare type InstructionsUncheckedUpdateManyInput = {
+export type InstructionsUncheckedUpdateManyInput = {
     id?: Prisma.IntFieldUpdateOperationsInput | number;
     extractionInstructions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
     companyID?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
 };
-export declare type InstructionsListRelationFilter = {
+export type InstructionsListRelationFilter = {
     every?: Prisma.InstructionsWhereInput;
     some?: Prisma.InstructionsWhereInput;
     none?: Prisma.InstructionsWhereInput;
 };
-export declare type InstructionsOrderByRelationAggregateInput = {
+export type InstructionsOrderByRelationAggregateInput = {
     _count?: Prisma.SortOrder;
 };
-export declare type InstructionsCountOrderByAggregateInput = {
+export type InstructionsCountOrderByAggregateInput = {
     id?: Prisma.SortOrder;
     extractionInstructions?: Prisma.SortOrder;
     companyID?: Prisma.SortOrder;
 };
-export declare type InstructionsAvgOrderByAggregateInput = {
+export type InstructionsAvgOrderByAggregateInput = {
     id?: Prisma.SortOrder;
     companyID?: Prisma.SortOrder;
 };
-export declare type InstructionsMaxOrderByAggregateInput = {
+export type InstructionsMaxOrderByAggregateInput = {
     id?: Prisma.SortOrder;
     companyID?: Prisma.SortOrder;
 };
-export declare type InstructionsMinOrderByAggregateInput = {
+export type InstructionsMinOrderByAggregateInput = {
     id?: Prisma.SortOrder;
     companyID?: Prisma.SortOrder;
 };
-export declare type InstructionsSumOrderByAggregateInput = {
+export type InstructionsSumOrderByAggregateInput = {
     id?: Prisma.SortOrder;
     companyID?: Prisma.SortOrder;
 };
-export declare type InstructionsCreateNestedManyWithoutCompanyInput = {
+export type InstructionsCreateNestedManyWithoutCompanyInput = {
     create?: Prisma.XOR<Prisma.InstructionsCreateWithoutCompanyInput, Prisma.InstructionsUncheckedCreateWithoutCompanyInput> | Prisma.InstructionsCreateWithoutCompanyInput[] | Prisma.InstructionsUncheckedCreateWithoutCompanyInput[];
     connectOrCreate?: Prisma.InstructionsCreateOrConnectWithoutCompanyInput | Prisma.InstructionsCreateOrConnectWithoutCompanyInput[];
     createMany?: Prisma.InstructionsCreateManyCompanyInputEnvelope;
     connect?: Prisma.InstructionsWhereUniqueInput | Prisma.InstructionsWhereUniqueInput[];
 };
-export declare type InstructionsUncheckedCreateNestedManyWithoutCompanyInput = {
+export type InstructionsUncheckedCreateNestedManyWithoutCompanyInput = {
     create?: Prisma.XOR<Prisma.InstructionsCreateWithoutCompanyInput, Prisma.InstructionsUncheckedCreateWithoutCompanyInput> | Prisma.InstructionsCreateWithoutCompanyInput[] | Prisma.InstructionsUncheckedCreateWithoutCompanyInput[];
     connectOrCreate?: Prisma.InstructionsCreateOrConnectWithoutCompanyInput | Prisma.InstructionsCreateOrConnectWithoutCompanyInput[];
     createMany?: Prisma.InstructionsCreateManyCompanyInputEnvelope;
     connect?: Prisma.InstructionsWhereUniqueInput | Prisma.InstructionsWhereUniqueInput[];
 };
-export declare type InstructionsUpdateManyWithoutCompanyNestedInput = {
-    create?: Prisma.XOR<Prisma.InstructionsCreateWithoutCompanyInput, Prisma.InstructionsUncheckedCreateWithoutCompanyInput> | Prisma.InstructionsCreateWithoutCompanyInput[] | Prisma.InstructionsUncheckedCreateWithoutCompanyInput[];
-    connectOrCreate?: Prisma.InstructionsCreateOrConnectWithoutCompanyInput | Prisma.InstructionsCreateOrConnectWithoutCompanyInput[];
-    upsert?: Prisma.InstructionsUpsertWithWhereUniqueWithoutCompanyInput | Prisma.InstructionsUpsertWithWhereUniqueWithoutCompanyInput[];
-    createMany?: Prisma.InstructionsCreateManyCompanyInputEnvelope;
-    set?: Prisma.InstructionsWhereUniqueInput | Prisma.InstructionsWhereUniqueInput[];
-    disconnect?: Prisma.InstructionsWhereUniqueInput | Prisma.InstructionsWhereUniqueInput[];
-    delete?: Prisma.InstructionsWhereUniqueInput | Prisma.InstructionsWhereUniqueInput[];
-    connect?: Prisma.InstructionsWhereUniqueInput | Prisma.InstructionsWhereUniqueInput[];
-    update?: Prisma.InstructionsUpdateWithWhereUniqueWithoutCompanyInput | Prisma.InstructionsUpdateWithWhereUniqueWithoutCompanyInput[];
-    updateMany?: Prisma.InstructionsUpdateManyWithWhereWithoutCompanyInput | Prisma.InstructionsUpdateManyWithWhereWithoutCompanyInput[];
-    deleteMany?: Prisma.InstructionsScalarWhereInput | Prisma.InstructionsScalarWhereInput[];
-};
-export declare type InstructionsUncheckedUpdateManyWithoutCompanyNestedInput = {
+export type InstructionsUpdateManyWithoutCompanyNestedInput = {
     create?: Prisma.XOR<Prisma.InstructionsCreateWithoutCompanyInput, Prisma.InstructionsUncheckedCreateWithoutCompanyInput> | Prisma.InstructionsCreateWithoutCompanyInput[] | Prisma.InstructionsUncheckedCreateWithoutCompanyInput[];
     connectOrCreate?: Prisma.InstructionsCreateOrConnectWithoutCompanyInput | Prisma.InstructionsCreateOrConnectWithoutCompanyInput[];
     upsert?: Prisma.InstructionsUpsertWithWhereUniqueWithoutCompanyInput | Prisma.InstructionsUpsertWithWhereUniqueWithoutCompanyInput[];
@@ -285,35 +272,48 @@ export declare type InstructionsUncheckedUpdateManyWithoutCompanyNestedInput = {
     updateMany?: Prisma.InstructionsUpdateManyWithWhereWithoutCompanyInput | Prisma.InstructionsUpdateManyWithWhereWithoutCompanyInput[];
     deleteMany?: Prisma.InstructionsScalarWhereInput | Prisma.InstructionsScalarWhereInput[];
 };
-export declare type InstructionsCreateWithoutCompanyInput = {
+export type InstructionsUncheckedUpdateManyWithoutCompanyNestedInput = {
+    create?: Prisma.XOR<Prisma.InstructionsCreateWithoutCompanyInput, Prisma.InstructionsUncheckedCreateWithoutCompanyInput> | Prisma.InstructionsCreateWithoutCompanyInput[] | Prisma.InstructionsUncheckedCreateWithoutCompanyInput[];
+    connectOrCreate?: Prisma.InstructionsCreateOrConnectWithoutCompanyInput | Prisma.InstructionsCreateOrConnectWithoutCompanyInput[];
+    upsert?: Prisma.InstructionsUpsertWithWhereUniqueWithoutCompanyInput | Prisma.InstructionsUpsertWithWhereUniqueWithoutCompanyInput[];
+    createMany?: Prisma.InstructionsCreateManyCompanyInputEnvelope;
+    set?: Prisma.InstructionsWhereUniqueInput | Prisma.InstructionsWhereUniqueInput[];
+    disconnect?: Prisma.InstructionsWhereUniqueInput | Prisma.InstructionsWhereUniqueInput[];
+    delete?: Prisma.InstructionsWhereUniqueInput | Prisma.InstructionsWhereUniqueInput[];
+    connect?: Prisma.InstructionsWhereUniqueInput | Prisma.InstructionsWhereUniqueInput[];
+    update?: Prisma.InstructionsUpdateWithWhereUniqueWithoutCompanyInput | Prisma.InstructionsUpdateWithWhereUniqueWithoutCompanyInput[];
+    updateMany?: Prisma.InstructionsUpdateManyWithWhereWithoutCompanyInput | Prisma.InstructionsUpdateManyWithWhereWithoutCompanyInput[];
+    deleteMany?: Prisma.InstructionsScalarWhereInput | Prisma.InstructionsScalarWhereInput[];
+};
+export type InstructionsCreateWithoutCompanyInput = {
     extractionInstructions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
 };
-export declare type InstructionsUncheckedCreateWithoutCompanyInput = {
+export type InstructionsUncheckedCreateWithoutCompanyInput = {
     id?: number;
     extractionInstructions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
 };
-export declare type InstructionsCreateOrConnectWithoutCompanyInput = {
+export type InstructionsCreateOrConnectWithoutCompanyInput = {
     where: Prisma.InstructionsWhereUniqueInput;
     create: Prisma.XOR<Prisma.InstructionsCreateWithoutCompanyInput, Prisma.InstructionsUncheckedCreateWithoutCompanyInput>;
 };
-export declare type InstructionsCreateManyCompanyInputEnvelope = {
+export type InstructionsCreateManyCompanyInputEnvelope = {
     data: Prisma.InstructionsCreateManyCompanyInput | Prisma.InstructionsCreateManyCompanyInput[];
     skipDuplicates?: boolean;
 };
-export declare type InstructionsUpsertWithWhereUniqueWithoutCompanyInput = {
+export type InstructionsUpsertWithWhereUniqueWithoutCompanyInput = {
     where: Prisma.InstructionsWhereUniqueInput;
     update: Prisma.XOR<Prisma.InstructionsUpdateWithoutCompanyInput, Prisma.InstructionsUncheckedUpdateWithoutCompanyInput>;
     create: Prisma.XOR<Prisma.InstructionsCreateWithoutCompanyInput, Prisma.InstructionsUncheckedCreateWithoutCompanyInput>;
 };
-export declare type InstructionsUpdateWithWhereUniqueWithoutCompanyInput = {
+export type InstructionsUpdateWithWhereUniqueWithoutCompanyInput = {
     where: Prisma.InstructionsWhereUniqueInput;
     data: Prisma.XOR<Prisma.InstructionsUpdateWithoutCompanyInput, Prisma.InstructionsUncheckedUpdateWithoutCompanyInput>;
 };
-export declare type InstructionsUpdateManyWithWhereWithoutCompanyInput = {
+export type InstructionsUpdateManyWithWhereWithoutCompanyInput = {
     where: Prisma.InstructionsScalarWhereInput;
     data: Prisma.XOR<Prisma.InstructionsUpdateManyMutationInput, Prisma.InstructionsUncheckedUpdateManyWithoutCompanyInput>;
 };
-export declare type InstructionsScalarWhereInput = {
+export type InstructionsScalarWhereInput = {
     AND?: Prisma.InstructionsScalarWhereInput | Prisma.InstructionsScalarWhereInput[];
     OR?: Prisma.InstructionsScalarWhereInput[];
     NOT?: Prisma.InstructionsScalarWhereInput | Prisma.InstructionsScalarWhereInput[];
@@ -321,55 +321,55 @@ export declare type InstructionsScalarWhereInput = {
     extractionInstructions?: Prisma.JsonNullableFilter<"Instructions">;
     companyID?: Prisma.IntNullableFilter<"Instructions"> | number | null;
 };
-export declare type InstructionsCreateManyCompanyInput = {
+export type InstructionsCreateManyCompanyInput = {
     id?: number;
     extractionInstructions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
 };
-export declare type InstructionsUpdateWithoutCompanyInput = {
+export type InstructionsUpdateWithoutCompanyInput = {
     extractionInstructions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
 };
-export declare type InstructionsUncheckedUpdateWithoutCompanyInput = {
+export type InstructionsUncheckedUpdateWithoutCompanyInput = {
     id?: Prisma.IntFieldUpdateOperationsInput | number;
     extractionInstructions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
 };
-export declare type InstructionsUncheckedUpdateManyWithoutCompanyInput = {
+export type InstructionsUncheckedUpdateManyWithoutCompanyInput = {
     id?: Prisma.IntFieldUpdateOperationsInput | number;
     extractionInstructions?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
 };
-export declare type InstructionsSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+export type InstructionsSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
     id?: boolean;
     extractionInstructions?: boolean;
     companyID?: boolean;
     company?: boolean | Prisma.Instructions$companyArgs<ExtArgs>;
 }, ExtArgs["result"]["instructions"]>;
-export declare type InstructionsSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+export type InstructionsSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
     id?: boolean;
     extractionInstructions?: boolean;
     companyID?: boolean;
     company?: boolean | Prisma.Instructions$companyArgs<ExtArgs>;
 }, ExtArgs["result"]["instructions"]>;
-export declare type InstructionsSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+export type InstructionsSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
     id?: boolean;
     extractionInstructions?: boolean;
     companyID?: boolean;
     company?: boolean | Prisma.Instructions$companyArgs<ExtArgs>;
 }, ExtArgs["result"]["instructions"]>;
-export declare type InstructionsSelectScalar = {
+export type InstructionsSelectScalar = {
     id?: boolean;
     extractionInstructions?: boolean;
     companyID?: boolean;
 };
-export declare type InstructionsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "extractionInstructions" | "companyID", ExtArgs["result"]["instructions"]>;
-export declare type InstructionsInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type InstructionsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "extractionInstructions" | "companyID", ExtArgs["result"]["instructions"]>;
+export type InstructionsInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     company?: boolean | Prisma.Instructions$companyArgs<ExtArgs>;
 };
-export declare type InstructionsIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type InstructionsIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     company?: boolean | Prisma.Instructions$companyArgs<ExtArgs>;
 };
-export declare type InstructionsIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type InstructionsIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     company?: boolean | Prisma.Instructions$companyArgs<ExtArgs>;
 };
-export declare type $InstructionsPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type $InstructionsPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     name: "Instructions";
     objects: {
         company: Prisma.$CompanyPayload<ExtArgs> | null;
@@ -381,8 +381,8 @@ export declare type $InstructionsPayload<ExtArgs extends runtime.Types.Extension
     }, ExtArgs["result"]["instructions"]>;
     composites: {};
 };
-export declare type InstructionsGetPayload<S extends boolean | null | undefined | InstructionsDefaultArgs> = runtime.Types.Result.GetResult<Prisma.$InstructionsPayload, S>;
-export declare type InstructionsCountArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = Omit<InstructionsFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+export type InstructionsGetPayload<S extends boolean | null | undefined | InstructionsDefaultArgs> = runtime.Types.Result.GetResult<Prisma.$InstructionsPayload, S>;
+export type InstructionsCountArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = Omit<InstructionsFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
     select?: InstructionsCountAggregateInputType | true;
 };
 export interface InstructionsDelegate<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> {
@@ -740,7 +740,7 @@ export interface InstructionsFieldRefs {
 /**
  * Instructions findUnique
  */
-export declare type InstructionsFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type InstructionsFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Instructions
      */
@@ -761,7 +761,7 @@ export declare type InstructionsFindUniqueArgs<ExtArgs extends runtime.Types.Ext
 /**
  * Instructions findUniqueOrThrow
  */
-export declare type InstructionsFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type InstructionsFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Instructions
      */
@@ -782,7 +782,7 @@ export declare type InstructionsFindUniqueOrThrowArgs<ExtArgs extends runtime.Ty
 /**
  * Instructions findFirst
  */
-export declare type InstructionsFindFirstArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type InstructionsFindFirstArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Instructions
      */
@@ -833,7 +833,7 @@ export declare type InstructionsFindFirstArgs<ExtArgs extends runtime.Types.Exte
 /**
  * Instructions findFirstOrThrow
  */
-export declare type InstructionsFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type InstructionsFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Instructions
      */
@@ -884,7 +884,7 @@ export declare type InstructionsFindFirstOrThrowArgs<ExtArgs extends runtime.Typ
 /**
  * Instructions findMany
  */
-export declare type InstructionsFindManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type InstructionsFindManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Instructions
      */
@@ -935,7 +935,7 @@ export declare type InstructionsFindManyArgs<ExtArgs extends runtime.Types.Exten
 /**
  * Instructions create
  */
-export declare type InstructionsCreateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type InstructionsCreateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Instructions
      */
@@ -956,7 +956,7 @@ export declare type InstructionsCreateArgs<ExtArgs extends runtime.Types.Extensi
 /**
  * Instructions createMany
  */
-export declare type InstructionsCreateManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type InstructionsCreateManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     /**
      * The data used to create many Instructions.
      */
@@ -966,7 +966,7 @@ export declare type InstructionsCreateManyArgs<ExtArgs extends runtime.Types.Ext
 /**
  * Instructions createManyAndReturn
  */
-export declare type InstructionsCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type InstructionsCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Instructions
      */
@@ -988,7 +988,7 @@ export declare type InstructionsCreateManyAndReturnArgs<ExtArgs extends runtime.
 /**
  * Instructions update
  */
-export declare type InstructionsUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type InstructionsUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Instructions
      */
@@ -1013,7 +1013,7 @@ export declare type InstructionsUpdateArgs<ExtArgs extends runtime.Types.Extensi
 /**
  * Instructions updateMany
  */
-export declare type InstructionsUpdateManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type InstructionsUpdateManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     /**
      * The data used to update Instructions.
      */
@@ -1030,7 +1030,7 @@ export declare type InstructionsUpdateManyArgs<ExtArgs extends runtime.Types.Ext
 /**
  * Instructions updateManyAndReturn
  */
-export declare type InstructionsUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type InstructionsUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Instructions
      */
@@ -1059,7 +1059,7 @@ export declare type InstructionsUpdateManyAndReturnArgs<ExtArgs extends runtime.
 /**
  * Instructions upsert
  */
-export declare type InstructionsUpsertArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type InstructionsUpsertArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Instructions
      */
@@ -1088,7 +1088,7 @@ export declare type InstructionsUpsertArgs<ExtArgs extends runtime.Types.Extensi
 /**
  * Instructions delete
  */
-export declare type InstructionsDeleteArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type InstructionsDeleteArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Instructions
      */
@@ -1109,7 +1109,7 @@ export declare type InstructionsDeleteArgs<ExtArgs extends runtime.Types.Extensi
 /**
  * Instructions deleteMany
  */
-export declare type InstructionsDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type InstructionsDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     /**
      * Filter which Instructions to delete
      */
@@ -1122,7 +1122,7 @@ export declare type InstructionsDeleteManyArgs<ExtArgs extends runtime.Types.Ext
 /**
  * Instructions.company
  */
-export declare type Instructions$companyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type Instructions$companyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Company
      */
@@ -1140,7 +1140,7 @@ export declare type Instructions$companyArgs<ExtArgs extends runtime.Types.Exten
 /**
  * Instructions without action
  */
-export declare type InstructionsDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type InstructionsDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Instructions
      */

@@ -37,19 +37,17 @@ import { scrapingJobsFunction } from "../scrapingJobsFunction/scrapingJobsFuncti
                             });
                         }
                     }
-                    // const jobsToDelete = Array.from(
-                    //   existingJobsIds.difference(scrapedJobsIds),
-                    // );
-                    // console.log(jobsToDelete);
-                    // if (jobsToDelete.length > 0) {
-                    // await tx.jobs.deleteMany({
-                    //   where: {
-                    //     id: {
-                    //       in: jobsToDelete,
-                    //     },
-                    //   },
-                    // });
-                    // }
+                    const jobsToDelete = Array.from(existingJobsIds.difference(scrapedJobsIds));
+                    console.log(jobsToDelete);
+                    if (jobsToDelete.length > 0) {
+                        await tx.jobs.deleteMany({
+                            where: {
+                                id: {
+                                    in: jobsToDelete,
+                                },
+                            },
+                        });
+                    }
                 }, {
                     maxWait: 5000,
                     timeout: 20000,

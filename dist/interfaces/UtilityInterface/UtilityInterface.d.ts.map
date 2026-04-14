@@ -1,1 +1,1 @@
-{"version":3,"file":"UtilityInterface.d.ts","sourceRoot":"","sources":["../../../interfaces/UtilityInterface/UtilityInterface.ts"],"names":[],"mappings":"AAAA,oBAAY,gBAAgB,GAAG;IAC7B,IAAI,EAAE,MAAM,CAAC;IACb,MAAM,EAAE,MAAM,GAAG,IAAI,CAAC;CACvB,CAAC"}
+{"version":3,"file":"UtilityInterface.d.ts","sourceRoot":"","sources":["../../../interfaces/UtilityInterface/UtilityInterface.ts"],"names":[],"mappings":"AAAA,MAAM,MAAM,gBAAgB,GAAG;IAC7B,IAAI,EAAE,MAAM,CAAC;IACb,MAAM,EAAE,MAAM,GAAG,IAAI,CAAC;CACvB,CAAC"}

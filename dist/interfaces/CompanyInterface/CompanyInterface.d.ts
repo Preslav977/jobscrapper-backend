@@ -11,14 +11,14 @@ export interface CompanyRelationInterface extends CompanyInterface {
     instructions: InstructionsInterface[];
     steps: StepsInterface[];
 }
-export declare type CompanyWithRelationsType = Prisma.CompanyGetPayload<{
+export type CompanyWithRelationsType = Prisma.CompanyGetPayload<{
     include: {
         instructions: true;
         steps: true;
         jobs: true;
     };
 }>;
-export declare type CompanyWithSelectedFieldsType = Prisma.CompanyGetPayload<{
+export type CompanyWithSelectedFieldsType = Prisma.CompanyGetPayload<{
     select: {
         name: true;
         URL: true;

@@ -1,4 +1,4 @@
-export declare type ExtractionConfig = {
+export type ExtractionConfig = {
     container: {
         extractType: string;
         selector?: string;

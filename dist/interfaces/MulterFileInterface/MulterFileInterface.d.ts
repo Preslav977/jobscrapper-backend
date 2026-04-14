@@ -1,5 +1,3 @@
-/// <reference types="node" resolution-mode="require"/>
-/// <reference types="node" resolution-mode="require"/>
 export interface MulterFileInterface {
     fieldname: string;
     originalname: string;

@@ -14,7 +14,7 @@ async function extractJobsText(page, instruction, id) {
                     if (elementField.extractType === "text") {
                         return HTMLElement.querySelector(elementField.selector)
                             ?.textContent.trim()
-                            .replace("\n", "");
+                            .replace("/n", "");
                     }
                     if (elementField.extractType === "attribute") {
                         return HTMLElement.getAttribute(elementField.attr);

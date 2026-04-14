@@ -4,51 +4,51 @@ import type * as Prisma from "../internal/prismaNamespace.js";
  * Model Session
  *
  */
-export declare type SessionModel = runtime.Types.Result.DefaultSelection<Prisma.$SessionPayload>;
-export declare type AggregateSession = {
+export type SessionModel = runtime.Types.Result.DefaultSelection<Prisma.$SessionPayload>;
+export type AggregateSession = {
     _count: SessionCountAggregateOutputType | null;
     _min: SessionMinAggregateOutputType | null;
     _max: SessionMaxAggregateOutputType | null;
 };
-export declare type SessionMinAggregateOutputType = {
+export type SessionMinAggregateOutputType = {
     id: string | null;
     sid: string | null;
     data: string | null;
     expiresAt: Date | null;
 };
-export declare type SessionMaxAggregateOutputType = {
+export type SessionMaxAggregateOutputType = {
     id: string | null;
     sid: string | null;
     data: string | null;
     expiresAt: Date | null;
 };
-export declare type SessionCountAggregateOutputType = {
+export type SessionCountAggregateOutputType = {
     id: number;
     sid: number;
     data: number;
     expiresAt: number;
     _all: number;
 };
-export declare type SessionMinAggregateInputType = {
+export type SessionMinAggregateInputType = {
     id?: true;
     sid?: true;
     data?: true;
     expiresAt?: true;
 };
-export declare type SessionMaxAggregateInputType = {
+export type SessionMaxAggregateInputType = {
     id?: true;
     sid?: true;
     data?: true;
     expiresAt?: true;
 };
-export declare type SessionCountAggregateInputType = {
+export type SessionCountAggregateInputType = {
     id?: true;
     sid?: true;
     data?: true;
     expiresAt?: true;
     _all?: true;
 };
-export declare type SessionAggregateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type SessionAggregateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     /**
      * Filter which Session to aggregate.
      */
@@ -96,10 +96,10 @@ export declare type SessionAggregateArgs<ExtArgs extends runtime.Types.Extension
     **/
     _max?: SessionMaxAggregateInputType;
 };
-export declare type GetSessionAggregateType<T extends SessionAggregateArgs> = {
+export type GetSessionAggregateType<T extends SessionAggregateArgs> = {
     [P in keyof T & keyof AggregateSession]: P extends '_count' | 'count' ? T[P] extends true ? number : Prisma.GetScalarType<T[P], AggregateSession[P]> : Prisma.GetScalarType<T[P], AggregateSession[P]>;
 };
-export declare type SessionGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type SessionGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     where?: Prisma.SessionWhereInput;
     orderBy?: Prisma.SessionOrderByWithAggregationInput | Prisma.SessionOrderByWithAggregationInput[];
     by: Prisma.SessionScalarFieldEnum[] | Prisma.SessionScalarFieldEnum;
@@ -110,7 +110,7 @@ export declare type SessionGroupByArgs<ExtArgs extends runtime.Types.Extensions.
     _min?: SessionMinAggregateInputType;
     _max?: SessionMaxAggregateInputType;
 };
-export declare type SessionGroupByOutputType = {
+export type SessionGroupByOutputType = {
     id: string;
     sid: string;
     data: string;
@@ -119,10 +119,10 @@ export declare type SessionGroupByOutputType = {
     _min: SessionMinAggregateOutputType | null;
     _max: SessionMaxAggregateOutputType | null;
 };
-export declare type GetSessionGroupByPayload<T extends SessionGroupByArgs> = Prisma.PrismaPromise<Array<Prisma.PickEnumerable<SessionGroupByOutputType, T['by']> & {
+export type GetSessionGroupByPayload<T extends SessionGroupByArgs> = Prisma.PrismaPromise<Array<Prisma.PickEnumerable<SessionGroupByOutputType, T['by']> & {
     [P in ((keyof T) & (keyof SessionGroupByOutputType))]: P extends '_count' ? T[P] extends boolean ? number : Prisma.GetScalarType<T[P], SessionGroupByOutputType[P]> : Prisma.GetScalarType<T[P], SessionGroupByOutputType[P]>;
 }>>;
-export declare type SessionWhereInput = {
+export type SessionWhereInput = {
     AND?: Prisma.SessionWhereInput | Prisma.SessionWhereInput[];
     OR?: Prisma.SessionWhereInput[];
     NOT?: Prisma.SessionWhereInput | Prisma.SessionWhereInput[];
@@ -131,13 +131,13 @@ export declare type SessionWhereInput = {
     data?: Prisma.StringFilter<"Session"> | string;
     expiresAt?: Prisma.DateTimeFilter<"Session"> | Date | string;
 };
-export declare type SessionOrderByWithRelationInput = {
+export type SessionOrderByWithRelationInput = {
     id?: Prisma.SortOrder;
     sid?: Prisma.SortOrder;
     data?: Prisma.SortOrder;
     expiresAt?: Prisma.SortOrder;
 };
-export declare type SessionWhereUniqueInput = Prisma.AtLeast<{
+export type SessionWhereUniqueInput = Prisma.AtLeast<{
     id?: string;
     sid?: string;
     AND?: Prisma.SessionWhereInput | Prisma.SessionWhereInput[];
@@ -146,7 +146,7 @@ export declare type SessionWhereUniqueInput = Prisma.AtLeast<{
     data?: Prisma.StringFilter<"Session"> | string;
     expiresAt?: Prisma.DateTimeFilter<"Session"> | Date | string;
 }, "id" | "sid">;
-export declare type SessionOrderByWithAggregationInput = {
+export type SessionOrderByWithAggregationInput = {
     id?: Prisma.SortOrder;
     sid?: Prisma.SortOrder;
     data?: Prisma.SortOrder;
@@ -155,7 +155,7 @@ export declare type SessionOrderByWithAggregationInput = {
     _max?: Prisma.SessionMaxOrderByAggregateInput;
     _min?: Prisma.SessionMinOrderByAggregateInput;
 };
-export declare type SessionScalarWhereWithAggregatesInput = {
+export type SessionScalarWhereWithAggregatesInput = {
     AND?: Prisma.SessionScalarWhereWithAggregatesInput | Prisma.SessionScalarWhereWithAggregatesInput[];
     OR?: Prisma.SessionScalarWhereWithAggregatesInput[];
     NOT?: Prisma.SessionScalarWhereWithAggregatesInput | Prisma.SessionScalarWhereWithAggregatesInput[];
@@ -164,95 +164,95 @@ export declare type SessionScalarWhereWithAggregatesInput = {
     data?: Prisma.StringWithAggregatesFilter<"Session"> | string;
     expiresAt?: Prisma.DateTimeWithAggregatesFilter<"Session"> | Date | string;
 };
-export declare type SessionCreateInput = {
+export type SessionCreateInput = {
     id: string;
     sid: string;
     data: string;
     expiresAt: Date | string;
 };
-export declare type SessionUncheckedCreateInput = {
+export type SessionUncheckedCreateInput = {
     id: string;
     sid: string;
     data: string;
     expiresAt: Date | string;
 };
-export declare type SessionUpdateInput = {
+export type SessionUpdateInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
     sid?: Prisma.StringFieldUpdateOperationsInput | string;
     data?: Prisma.StringFieldUpdateOperationsInput | string;
     expiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
 };
-export declare type SessionUncheckedUpdateInput = {
+export type SessionUncheckedUpdateInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
     sid?: Prisma.StringFieldUpdateOperationsInput | string;
     data?: Prisma.StringFieldUpdateOperationsInput | string;
     expiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
 };
-export declare type SessionCreateManyInput = {
+export type SessionCreateManyInput = {
     id: string;
     sid: string;
     data: string;
     expiresAt: Date | string;
 };
-export declare type SessionUpdateManyMutationInput = {
+export type SessionUpdateManyMutationInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
     sid?: Prisma.StringFieldUpdateOperationsInput | string;
     data?: Prisma.StringFieldUpdateOperationsInput | string;
     expiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
 };
-export declare type SessionUncheckedUpdateManyInput = {
+export type SessionUncheckedUpdateManyInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
     sid?: Prisma.StringFieldUpdateOperationsInput | string;
     data?: Prisma.StringFieldUpdateOperationsInput | string;
     expiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
 };
-export declare type SessionCountOrderByAggregateInput = {
+export type SessionCountOrderByAggregateInput = {
     id?: Prisma.SortOrder;
     sid?: Prisma.SortOrder;
     data?: Prisma.SortOrder;
     expiresAt?: Prisma.SortOrder;
 };
-export declare type SessionMaxOrderByAggregateInput = {
+export type SessionMaxOrderByAggregateInput = {
     id?: Prisma.SortOrder;
     sid?: Prisma.SortOrder;
     data?: Prisma.SortOrder;
     expiresAt?: Prisma.SortOrder;
 };
-export declare type SessionMinOrderByAggregateInput = {
+export type SessionMinOrderByAggregateInput = {
     id?: Prisma.SortOrder;
     sid?: Prisma.SortOrder;
     data?: Prisma.SortOrder;
     expiresAt?: Prisma.SortOrder;
 };
-export declare type DateTimeFieldUpdateOperationsInput = {
+export type DateTimeFieldUpdateOperationsInput = {
     set?: Date | string;
 };
-export declare type SessionSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+export type SessionSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
     id?: boolean;
     sid?: boolean;
     data?: boolean;
     expiresAt?: boolean;
 }, ExtArgs["result"]["session"]>;
-export declare type SessionSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+export type SessionSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
     id?: boolean;
     sid?: boolean;
     data?: boolean;
     expiresAt?: boolean;
 }, ExtArgs["result"]["session"]>;
-export declare type SessionSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+export type SessionSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
     id?: boolean;
     sid?: boolean;
     data?: boolean;
     expiresAt?: boolean;
 }, ExtArgs["result"]["session"]>;
-export declare type SessionSelectScalar = {
+export type SessionSelectScalar = {
     id?: boolean;
     sid?: boolean;
     data?: boolean;
     expiresAt?: boolean;
 };
-export declare type SessionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "sid" | "data" | "expiresAt", ExtArgs["result"]["session"]>;
-export declare type $SessionPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type SessionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "sid" | "data" | "expiresAt", ExtArgs["result"]["session"]>;
+export type $SessionPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     name: "Session";
     objects: {};
     scalars: runtime.Types.Extensions.GetPayloadResult<{
@@ -263,8 +263,8 @@ export declare type $SessionPayload<ExtArgs extends runtime.Types.Extensions.Int
     }, ExtArgs["result"]["session"]>;
     composites: {};
 };
-export declare type SessionGetPayload<S extends boolean | null | undefined | SessionDefaultArgs> = runtime.Types.Result.GetResult<Prisma.$SessionPayload, S>;
-export declare type SessionCountArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = Omit<SessionFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+export type SessionGetPayload<S extends boolean | null | undefined | SessionDefaultArgs> = runtime.Types.Result.GetResult<Prisma.$SessionPayload, S>;
+export type SessionCountArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = Omit<SessionFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
     select?: SessionCountAggregateInputType | true;
 };
 export interface SessionDelegate<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> {
@@ -622,7 +622,7 @@ export interface SessionFieldRefs {
 /**
  * Session findUnique
  */
-export declare type SessionFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type SessionFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Session
      */
@@ -639,7 +639,7 @@ export declare type SessionFindUniqueArgs<ExtArgs extends runtime.Types.Extensio
 /**
  * Session findUniqueOrThrow
  */
-export declare type SessionFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type SessionFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Session
      */
@@ -656,7 +656,7 @@ export declare type SessionFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.E
 /**
  * Session findFirst
  */
-export declare type SessionFindFirstArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type SessionFindFirstArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Session
      */
@@ -703,7 +703,7 @@ export declare type SessionFindFirstArgs<ExtArgs extends runtime.Types.Extension
 /**
  * Session findFirstOrThrow
  */
-export declare type SessionFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type SessionFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Session
      */
@@ -750,7 +750,7 @@ export declare type SessionFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Ex
 /**
  * Session findMany
  */
-export declare type SessionFindManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type SessionFindManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Session
      */
@@ -797,7 +797,7 @@ export declare type SessionFindManyArgs<ExtArgs extends runtime.Types.Extensions
 /**
  * Session create
  */
-export declare type SessionCreateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type SessionCreateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Session
      */
@@ -814,7 +814,7 @@ export declare type SessionCreateArgs<ExtArgs extends runtime.Types.Extensions.I
 /**
  * Session createMany
  */
-export declare type SessionCreateManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type SessionCreateManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     /**
      * The data used to create many Sessions.
      */
@@ -824,7 +824,7 @@ export declare type SessionCreateManyArgs<ExtArgs extends runtime.Types.Extensio
 /**
  * Session createManyAndReturn
  */
-export declare type SessionCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type SessionCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Session
      */
@@ -842,7 +842,7 @@ export declare type SessionCreateManyAndReturnArgs<ExtArgs extends runtime.Types
 /**
  * Session update
  */
-export declare type SessionUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type SessionUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Session
      */
@@ -863,7 +863,7 @@ export declare type SessionUpdateArgs<ExtArgs extends runtime.Types.Extensions.I
 /**
  * Session updateMany
  */
-export declare type SessionUpdateManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type SessionUpdateManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     /**
      * The data used to update Sessions.
      */
@@ -880,7 +880,7 @@ export declare type SessionUpdateManyArgs<ExtArgs extends runtime.Types.Extensio
 /**
  * Session updateManyAndReturn
  */
-export declare type SessionUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type SessionUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Session
      */
@@ -905,7 +905,7 @@ export declare type SessionUpdateManyAndReturnArgs<ExtArgs extends runtime.Types
 /**
  * Session upsert
  */
-export declare type SessionUpsertArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type SessionUpsertArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Session
      */
@@ -930,7 +930,7 @@ export declare type SessionUpsertArgs<ExtArgs extends runtime.Types.Extensions.I
 /**
  * Session delete
  */
-export declare type SessionDeleteArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type SessionDeleteArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Session
      */
@@ -947,7 +947,7 @@ export declare type SessionDeleteArgs<ExtArgs extends runtime.Types.Extensions.I
 /**
  * Session deleteMany
  */
-export declare type SessionDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type SessionDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     /**
      * Filter which Sessions to delete
      */
@@ -960,7 +960,7 @@ export declare type SessionDeleteManyArgs<ExtArgs extends runtime.Types.Extensio
 /**
  * Session without action
  */
-export declare type SessionDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type SessionDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Session
      */

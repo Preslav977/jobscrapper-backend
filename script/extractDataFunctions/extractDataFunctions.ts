@@ -53,7 +53,7 @@ async function extractJobsText(
             if (elementField.extractType === "text") {
               return HTMLElement.querySelector(elementField.selector!)
                 ?.textContent.trim()
-                .replace("\n", "");
+                .replace("/n", "");
             }
 
             if (elementField.extractType === "attribute") {

@@ -5,38 +5,23 @@ import type * as Prisma from "../internal/prismaNamespace.js";
  * Model User
  *
  */
-export declare type UserModel = runtime.Types.Result.DefaultSelection<Prisma.$UserPayload>;
-export declare type AggregateUser = {
+export type UserModel = runtime.Types.Result.DefaultSelection<Prisma.$UserPayload>;
+export type AggregateUser = {
     _count: UserCountAggregateOutputType | null;
     _avg: UserAvgAggregateOutputType | null;
     _sum: UserSumAggregateOutputType | null;
     _min: UserMinAggregateOutputType | null;
     _max: UserMaxAggregateOutputType | null;
 };
-export declare type UserAvgAggregateOutputType = {
+export type UserAvgAggregateOutputType = {
     id: number | null;
     phoneNumber: number | null;
 };
-export declare type UserSumAggregateOutputType = {
+export type UserSumAggregateOutputType = {
     id: number | null;
     phoneNumber: number | null;
 };
-export declare type UserMinAggregateOutputType = {
-    id: number | null;
-    firstName: string | null;
-    lastName: string | null;
-    password: string | null;
-    confirmPassword: string | null;
-    location: string | null;
-    email: string | null;
-    phoneNumber: number | null;
-    linkedInURL: string | null;
-    githubURL: string | null;
-    portfolioURL: string | null;
-    profilePicture: string | null;
-    role: $Enums.Role | null;
-};
-export declare type UserMaxAggregateOutputType = {
+export type UserMinAggregateOutputType = {
     id: number | null;
     firstName: string | null;
     lastName: string | null;
@@ -51,7 +36,22 @@ export declare type UserMaxAggregateOutputType = {
     profilePicture: string | null;
     role: $Enums.Role | null;
 };
-export declare type UserCountAggregateOutputType = {
+export type UserMaxAggregateOutputType = {
+    id: number | null;
+    firstName: string | null;
+    lastName: string | null;
+    password: string | null;
+    confirmPassword: string | null;
+    location: string | null;
+    email: string | null;
+    phoneNumber: number | null;
+    linkedInURL: string | null;
+    githubURL: string | null;
+    portfolioURL: string | null;
+    profilePicture: string | null;
+    role: $Enums.Role | null;
+};
+export type UserCountAggregateOutputType = {
     id: number;
     firstName: number;
     lastName: number;
@@ -67,30 +67,15 @@ export declare type UserCountAggregateOutputType = {
     role: number;
     _all: number;
 };
-export declare type UserAvgAggregateInputType = {
+export type UserAvgAggregateInputType = {
     id?: true;
     phoneNumber?: true;
 };
-export declare type UserSumAggregateInputType = {
+export type UserSumAggregateInputType = {
     id?: true;
     phoneNumber?: true;
 };
-export declare type UserMinAggregateInputType = {
-    id?: true;
-    firstName?: true;
-    lastName?: true;
-    password?: true;
-    confirmPassword?: true;
-    location?: true;
-    email?: true;
-    phoneNumber?: true;
-    linkedInURL?: true;
-    githubURL?: true;
-    portfolioURL?: true;
-    profilePicture?: true;
-    role?: true;
-};
-export declare type UserMaxAggregateInputType = {
+export type UserMinAggregateInputType = {
     id?: true;
     firstName?: true;
     lastName?: true;
@@ -105,7 +90,22 @@ export declare type UserMaxAggregateInputType = {
     profilePicture?: true;
     role?: true;
 };
-export declare type UserCountAggregateInputType = {
+export type UserMaxAggregateInputType = {
+    id?: true;
+    firstName?: true;
+    lastName?: true;
+    password?: true;
+    confirmPassword?: true;
+    location?: true;
+    email?: true;
+    phoneNumber?: true;
+    linkedInURL?: true;
+    githubURL?: true;
+    portfolioURL?: true;
+    profilePicture?: true;
+    role?: true;
+};
+export type UserCountAggregateInputType = {
     id?: true;
     firstName?: true;
     lastName?: true;
@@ -121,7 +121,7 @@ export declare type UserCountAggregateInputType = {
     role?: true;
     _all?: true;
 };
-export declare type UserAggregateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type UserAggregateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     /**
      * Filter which User to aggregate.
      */
@@ -181,10 +181,10 @@ export declare type UserAggregateArgs<ExtArgs extends runtime.Types.Extensions.I
     **/
     _max?: UserMaxAggregateInputType;
 };
-export declare type GetUserAggregateType<T extends UserAggregateArgs> = {
+export type GetUserAggregateType<T extends UserAggregateArgs> = {
     [P in keyof T & keyof AggregateUser]: P extends '_count' | 'count' ? T[P] extends true ? number : Prisma.GetScalarType<T[P], AggregateUser[P]> : Prisma.GetScalarType<T[P], AggregateUser[P]>;
 };
-export declare type UserGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type UserGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     where?: Prisma.UserWhereInput;
     orderBy?: Prisma.UserOrderByWithAggregationInput | Prisma.UserOrderByWithAggregationInput[];
     by: Prisma.UserScalarFieldEnum[] | Prisma.UserScalarFieldEnum;
@@ -197,7 +197,7 @@ export declare type UserGroupByArgs<ExtArgs extends runtime.Types.Extensions.Int
     _min?: UserMinAggregateInputType;
     _max?: UserMaxAggregateInputType;
 };
-export declare type UserGroupByOutputType = {
+export type UserGroupByOutputType = {
     id: number;
     firstName: string | null;
     lastName: string | null;
@@ -217,10 +217,10 @@ export declare type UserGroupByOutputType = {
     _min: UserMinAggregateOutputType | null;
     _max: UserMaxAggregateOutputType | null;
 };
-export declare type GetUserGroupByPayload<T extends UserGroupByArgs> = Prisma.PrismaPromise<Array<Prisma.PickEnumerable<UserGroupByOutputType, T['by']> & {
+export type GetUserGroupByPayload<T extends UserGroupByArgs> = Prisma.PrismaPromise<Array<Prisma.PickEnumerable<UserGroupByOutputType, T['by']> & {
     [P in ((keyof T) & (keyof UserGroupByOutputType))]: P extends '_count' ? T[P] extends boolean ? number : Prisma.GetScalarType<T[P], UserGroupByOutputType[P]> : Prisma.GetScalarType<T[P], UserGroupByOutputType[P]>;
 }>>;
-export declare type UserWhereInput = {
+export type UserWhereInput = {
     AND?: Prisma.UserWhereInput | Prisma.UserWhereInput[];
     OR?: Prisma.UserWhereInput[];
     NOT?: Prisma.UserWhereInput | Prisma.UserWhereInput[];
@@ -238,7 +238,7 @@ export declare type UserWhereInput = {
     profilePicture?: Prisma.StringNullableFilter<"User"> | string | null;
     role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role;
 };
-export declare type UserOrderByWithRelationInput = {
+export type UserOrderByWithRelationInput = {
     id?: Prisma.SortOrder;
     firstName?: Prisma.SortOrderInput | Prisma.SortOrder;
     lastName?: Prisma.SortOrderInput | Prisma.SortOrder;
@@ -253,7 +253,7 @@ export declare type UserOrderByWithRelationInput = {
     profilePicture?: Prisma.SortOrderInput | Prisma.SortOrder;
     role?: Prisma.SortOrder;
 };
-export declare type UserWhereUniqueInput = Prisma.AtLeast<{
+export type UserWhereUniqueInput = Prisma.AtLeast<{
     id?: number;
     AND?: Prisma.UserWhereInput | Prisma.UserWhereInput[];
     OR?: Prisma.UserWhereInput[];
@@ -271,7 +271,7 @@ export declare type UserWhereUniqueInput = Prisma.AtLeast<{
     profilePicture?: Prisma.StringNullableFilter<"User"> | string | null;
     role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role;
 }, "id">;
-export declare type UserOrderByWithAggregationInput = {
+export type UserOrderByWithAggregationInput = {
     id?: Prisma.SortOrder;
     firstName?: Prisma.SortOrderInput | Prisma.SortOrder;
     lastName?: Prisma.SortOrderInput | Prisma.SortOrder;
@@ -291,7 +291,7 @@ export declare type UserOrderByWithAggregationInput = {
     _min?: Prisma.UserMinOrderByAggregateInput;
     _sum?: Prisma.UserSumOrderByAggregateInput;
 };
-export declare type UserScalarWhereWithAggregatesInput = {
+export type UserScalarWhereWithAggregatesInput = {
     AND?: Prisma.UserScalarWhereWithAggregatesInput | Prisma.UserScalarWhereWithAggregatesInput[];
     OR?: Prisma.UserScalarWhereWithAggregatesInput[];
     NOT?: Prisma.UserScalarWhereWithAggregatesInput | Prisma.UserScalarWhereWithAggregatesInput[];
@@ -309,7 +309,7 @@ export declare type UserScalarWhereWithAggregatesInput = {
     profilePicture?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null;
     role?: Prisma.EnumRoleWithAggregatesFilter<"User"> | $Enums.Role;
 };
-export declare type UserCreateInput = {
+export type UserCreateInput = {
     firstName?: string | null;
     lastName?: string | null;
     password: string;
@@ -323,7 +323,7 @@ export declare type UserCreateInput = {
     profilePicture?: string | null;
     role?: $Enums.Role;
 };
-export declare type UserUncheckedCreateInput = {
+export type UserUncheckedCreateInput = {
     id?: number;
     firstName?: string | null;
     lastName?: string | null;
@@ -338,7 +338,7 @@ export declare type UserUncheckedCreateInput = {
     profilePicture?: string | null;
     role?: $Enums.Role;
 };
-export declare type UserUpdateInput = {
+export type UserUpdateInput = {
     firstName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     lastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     password?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -352,7 +352,7 @@ export declare type UserUpdateInput = {
     profilePicture?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role;
 };
-export declare type UserUncheckedUpdateInput = {
+export type UserUncheckedUpdateInput = {
     id?: Prisma.IntFieldUpdateOperationsInput | number;
     firstName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     lastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
@@ -367,7 +367,7 @@ export declare type UserUncheckedUpdateInput = {
     profilePicture?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role;
 };
-export declare type UserCreateManyInput = {
+export type UserCreateManyInput = {
     id?: number;
     firstName?: string | null;
     lastName?: string | null;
@@ -382,7 +382,7 @@ export declare type UserCreateManyInput = {
     profilePicture?: string | null;
     role?: $Enums.Role;
 };
-export declare type UserUpdateManyMutationInput = {
+export type UserUpdateManyMutationInput = {
     firstName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     lastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     password?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -396,7 +396,7 @@ export declare type UserUpdateManyMutationInput = {
     profilePicture?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role;
 };
-export declare type UserUncheckedUpdateManyInput = {
+export type UserUncheckedUpdateManyInput = {
     id?: Prisma.IntFieldUpdateOperationsInput | number;
     firstName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     lastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
@@ -411,7 +411,7 @@ export declare type UserUncheckedUpdateManyInput = {
     profilePicture?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role;
 };
-export declare type UserCountOrderByAggregateInput = {
+export type UserCountOrderByAggregateInput = {
     id?: Prisma.SortOrder;
     firstName?: Prisma.SortOrder;
     lastName?: Prisma.SortOrder;
@@ -426,26 +426,11 @@ export declare type UserCountOrderByAggregateInput = {
     profilePicture?: Prisma.SortOrder;
     role?: Prisma.SortOrder;
 };
-export declare type UserAvgOrderByAggregateInput = {
+export type UserAvgOrderByAggregateInput = {
     id?: Prisma.SortOrder;
     phoneNumber?: Prisma.SortOrder;
 };
-export declare type UserMaxOrderByAggregateInput = {
-    id?: Prisma.SortOrder;
-    firstName?: Prisma.SortOrder;
-    lastName?: Prisma.SortOrder;
-    password?: Prisma.SortOrder;
-    confirmPassword?: Prisma.SortOrder;
-    location?: Prisma.SortOrder;
-    email?: Prisma.SortOrder;
-    phoneNumber?: Prisma.SortOrder;
-    linkedInURL?: Prisma.SortOrder;
-    githubURL?: Prisma.SortOrder;
-    portfolioURL?: Prisma.SortOrder;
-    profilePicture?: Prisma.SortOrder;
-    role?: Prisma.SortOrder;
-};
-export declare type UserMinOrderByAggregateInput = {
+export type UserMaxOrderByAggregateInput = {
     id?: Prisma.SortOrder;
     firstName?: Prisma.SortOrder;
     lastName?: Prisma.SortOrder;
@@ -460,34 +445,49 @@ export declare type UserMinOrderByAggregateInput = {
     profilePicture?: Prisma.SortOrder;
     role?: Prisma.SortOrder;
 };
-export declare type UserSumOrderByAggregateInput = {
+export type UserMinOrderByAggregateInput = {
+    id?: Prisma.SortOrder;
+    firstName?: Prisma.SortOrder;
+    lastName?: Prisma.SortOrder;
+    password?: Prisma.SortOrder;
+    confirmPassword?: Prisma.SortOrder;
+    location?: Prisma.SortOrder;
+    email?: Prisma.SortOrder;
+    phoneNumber?: Prisma.SortOrder;
+    linkedInURL?: Prisma.SortOrder;
+    githubURL?: Prisma.SortOrder;
+    portfolioURL?: Prisma.SortOrder;
+    profilePicture?: Prisma.SortOrder;
+    role?: Prisma.SortOrder;
+};
+export type UserSumOrderByAggregateInput = {
     id?: Prisma.SortOrder;
     phoneNumber?: Prisma.SortOrder;
 };
-export declare type NullableStringFieldUpdateOperationsInput = {
+export type NullableStringFieldUpdateOperationsInput = {
     set?: string | null;
 };
-export declare type StringFieldUpdateOperationsInput = {
+export type StringFieldUpdateOperationsInput = {
     set?: string;
 };
-export declare type NullableIntFieldUpdateOperationsInput = {
+export type NullableIntFieldUpdateOperationsInput = {
     set?: number | null;
     increment?: number;
     decrement?: number;
     multiply?: number;
     divide?: number;
 };
-export declare type EnumRoleFieldUpdateOperationsInput = {
+export type EnumRoleFieldUpdateOperationsInput = {
     set?: $Enums.Role;
 };
-export declare type IntFieldUpdateOperationsInput = {
+export type IntFieldUpdateOperationsInput = {
     set?: number;
     increment?: number;
     decrement?: number;
     multiply?: number;
     divide?: number;
 };
-export declare type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
     id?: boolean;
     firstName?: boolean;
     lastName?: boolean;
@@ -502,7 +502,7 @@ export declare type UserSelect<ExtArgs extends runtime.Types.Extensions.Internal
     profilePicture?: boolean;
     role?: boolean;
 }, ExtArgs["result"]["user"]>;
-export declare type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
     id?: boolean;
     firstName?: boolean;
     lastName?: boolean;
@@ -517,7 +517,7 @@ export declare type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.
     profilePicture?: boolean;
     role?: boolean;
 }, ExtArgs["result"]["user"]>;
-export declare type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
     id?: boolean;
     firstName?: boolean;
     lastName?: boolean;
@@ -532,7 +532,7 @@ export declare type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.
     profilePicture?: boolean;
     role?: boolean;
 }, ExtArgs["result"]["user"]>;
-export declare type UserSelectScalar = {
+export type UserSelectScalar = {
     id?: boolean;
     firstName?: boolean;
     lastName?: boolean;
@@ -547,8 +547,8 @@ export declare type UserSelectScalar = {
     profilePicture?: boolean;
     role?: boolean;
 };
-export declare type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "firstName" | "lastName" | "password" | "confirmPassword" | "location" | "email" | "phoneNumber" | "linkedInURL" | "githubURL" | "portfolioURL" | "profilePicture" | "role", ExtArgs["result"]["user"]>;
-export declare type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "firstName" | "lastName" | "password" | "confirmPassword" | "location" | "email" | "phoneNumber" | "linkedInURL" | "githubURL" | "portfolioURL" | "profilePicture" | "role", ExtArgs["result"]["user"]>;
+export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     name: "User";
     objects: {};
     scalars: runtime.Types.Extensions.GetPayloadResult<{
@@ -568,8 +568,8 @@ export declare type $UserPayload<ExtArgs extends runtime.Types.Extensions.Intern
     }, ExtArgs["result"]["user"]>;
     composites: {};
 };
-export declare type UserGetPayload<S extends boolean | null | undefined | UserDefaultArgs> = runtime.Types.Result.GetResult<Prisma.$UserPayload, S>;
-export declare type UserCountArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = Omit<UserFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+export type UserGetPayload<S extends boolean | null | undefined | UserDefaultArgs> = runtime.Types.Result.GetResult<Prisma.$UserPayload, S>;
+export type UserCountArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = Omit<UserFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
     select?: UserCountAggregateInputType | true;
 };
 export interface UserDelegate<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> {
@@ -936,7 +936,7 @@ export interface UserFieldRefs {
 /**
  * User findUnique
  */
-export declare type UserFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type UserFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the User
      */
@@ -953,7 +953,7 @@ export declare type UserFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.
 /**
  * User findUniqueOrThrow
  */
-export declare type UserFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type UserFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the User
      */
@@ -970,7 +970,7 @@ export declare type UserFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Exte
 /**
  * User findFirst
  */
-export declare type UserFindFirstArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type UserFindFirstArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the User
      */
@@ -1017,7 +1017,7 @@ export declare type UserFindFirstArgs<ExtArgs extends runtime.Types.Extensions.I
 /**
  * User findFirstOrThrow
  */
-export declare type UserFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type UserFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the User
      */
@@ -1064,7 +1064,7 @@ export declare type UserFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Exten
 /**
  * User findMany
  */
-export declare type UserFindManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type UserFindManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the User
      */
@@ -1111,7 +1111,7 @@ export declare type UserFindManyArgs<ExtArgs extends runtime.Types.Extensions.In
 /**
  * User create
  */
-export declare type UserCreateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type UserCreateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the User
      */
@@ -1128,7 +1128,7 @@ export declare type UserCreateArgs<ExtArgs extends runtime.Types.Extensions.Inte
 /**
  * User createMany
  */
-export declare type UserCreateManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type UserCreateManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     /**
      * The data used to create many Users.
      */
@@ -1138,7 +1138,7 @@ export declare type UserCreateManyArgs<ExtArgs extends runtime.Types.Extensions.
 /**
  * User createManyAndReturn
  */
-export declare type UserCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type UserCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the User
      */
@@ -1156,7 +1156,7 @@ export declare type UserCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Ex
 /**
  * User update
  */
-export declare type UserUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type UserUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the User
      */
@@ -1177,7 +1177,7 @@ export declare type UserUpdateArgs<ExtArgs extends runtime.Types.Extensions.Inte
 /**
  * User updateMany
  */
-export declare type UserUpdateManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type UserUpdateManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     /**
      * The data used to update Users.
      */
@@ -1194,7 +1194,7 @@ export declare type UserUpdateManyArgs<ExtArgs extends runtime.Types.Extensions.
 /**
  * User updateManyAndReturn
  */
-export declare type UserUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type UserUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the User
      */
@@ -1219,7 +1219,7 @@ export declare type UserUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Ex
 /**
  * User upsert
  */
-export declare type UserUpsertArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type UserUpsertArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the User
      */
@@ -1244,7 +1244,7 @@ export declare type UserUpsertArgs<ExtArgs extends runtime.Types.Extensions.Inte
 /**
  * User delete
  */
-export declare type UserDeleteArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type UserDeleteArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the User
      */
@@ -1261,7 +1261,7 @@ export declare type UserDeleteArgs<ExtArgs extends runtime.Types.Extensions.Inte
 /**
  * User deleteMany
  */
-export declare type UserDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type UserDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     /**
      * Filter which Users to delete
      */
@@ -1274,7 +1274,7 @@ export declare type UserDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.
 /**
  * User without action
  */
-export declare type UserDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type UserDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the User
      */

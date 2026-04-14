@@ -56,21 +56,21 @@ import { scrapingJobsFunction } from "../scrapingJobsFunction/scrapingJobsFuncti
               }
             }
 
-            // const jobsToDelete = Array.from(
-            //   existingJobsIds.difference(scrapedJobsIds),
-            // );
+            const jobsToDelete = Array.from(
+              existingJobsIds.difference(scrapedJobsIds),
+            );
 
-            // console.log(jobsToDelete);
+            console.log(jobsToDelete);
 
-            // if (jobsToDelete.length > 0) {
-            // await tx.jobs.deleteMany({
-            //   where: {
-            //     id: {
-            //       in: jobsToDelete,
-            //     },
-            //   },
-            // });
-            // }
+            if (jobsToDelete.length > 0) {
+              await tx.jobs.deleteMany({
+                where: {
+                  id: {
+                    in: jobsToDelete,
+                  },
+                },
+              });
+            }
           },
           {
             maxWait: 5000,
