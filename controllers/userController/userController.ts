@@ -61,19 +61,30 @@ async function userGetDetails(req: Request, res: Response) {
         id: Number(req.params.id),
       },
     });
-    res.json(userDetails);
+
+    if (userDetails === null) {
+      res.json({ message: "User with that ID couldn't be found!" });
+    } else {
+      res.json(userDetails);
+    }
   } else {
     const userDetails = await prisma.user.findFirst({
       where: {
         id: Number(req.authData!.id),
       },
     });
-    res.json(userDetails);
+    if (userDetails === null) {
+      res.json({ message: "User with that ID couldn't be found!" });
+    } else {
+      res.json(userDetails);
+    }
   }
 }
 
 async function userUpdateDetails(req: Request, res: Response) {
   const { id } = req.params;
+
+  const errors = validationResult(req);
 
   const {
     firstName,
@@ -86,8 +97,10 @@ async function userUpdateDetails(req: Request, res: Response) {
     portfolioURL,
   }: User = req.body;
 
-  if (req.file) {
-    const logo = await supabaseImageUpload(req.file);
+  if (!errors.isEmpty()) {
+    res.status(400).send(errors.array());
+  } else {
+    const logo = req.file ? await supabaseImageUpload(req.file) : "";
 
     const updateUserDetails = await prisma.user.update({
       where: {
@@ -103,24 +116,6 @@ async function userUpdateDetails(req: Request, res: Response) {
         githubURL,
         portfolioURL,
         profilePicture: logo,
-      },
-    });
-
-    res.json(updateUserDetails);
-  } else {
-    const updateUserDetails = await prisma.user.update({
-      where: {
-        id: Number(id),
-      },
-      data: {
-        firstName,
-        lastName,
-        location,
-        email,
-        phoneNumber,
-        linkedInURL,
-        githubURL,
-        portfolioURL,
       },
     });
 

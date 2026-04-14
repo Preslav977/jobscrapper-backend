@@ -51,7 +51,7 @@ describe("testing user controller and routes", () => {
     await prisma.user.deleteMany();
   });
 
-  describe("[GET], /users:/id", () => {
+  describe("[GET], /users/:id", () => {
     it("user should able to see his details", async () => {
       const testUser = await createTestUser();
 
@@ -59,13 +59,13 @@ describe("testing user controller and routes", () => {
         .get(`/users/${testUser.id}`)
         .set("Authorization", testUser.token);
 
-      const findUserDetails = await prisma.user.findFirst({
+      const findUpdateUser = await prisma.user.findFirst({
         where: {
           id: body.id,
         },
       });
 
-      expect(findUserDetails).toBeDefined();
+      expect(findUpdateUser).toBeDefined();
 
       expect(header["content-type"]).toMatch(/json/);
 
@@ -78,6 +78,70 @@ describe("testing user controller and routes", () => {
       expect(body.confirmPassword).not.toBe("");
 
       expect(body.password).toEqual(body.confirmPassword);
+    });
+
+    it("user shouldn't able to see his details if doesn't exists", async () => {
+      const testUser = await createTestUser();
+
+      const { body, header, status } = await request(app)
+        .get("/users/1")
+        .set("Authorization", testUser.token);
+
+      expect(body.message).toBe("User with that ID couldn't be found!");
+
+      expect(header["content-type"]).toMatch(/json/);
+
+      expect(status).toBe(200);
+    });
+  });
+
+  describe("[PUT], /users/:id", () => {
+    it("user should update his details without uploading an profile picture", async () => {
+      const testUser = await createTestUser();
+
+      const { body, header, status } = await request(app)
+        .put(`/users/${testUser.id}`)
+        .set("Authorization", `Bearer ${testUser.token}`)
+        .send({
+          firstName: "test",
+          lastName: "user",
+          location: "home",
+          email: "test123@abv.bg",
+          phoneNumber: 1234567890,
+          linkedInURL: "LinkedIn",
+          githubURL: "GitHub",
+          portfolioURL: "Portfolio",
+        });
+
+      const findUpdateUser = await prisma.user.findFirst({
+        where: {
+          id: body.id,
+        },
+      });
+
+      expect(findUpdateUser).toBeDefined();
+
+      expect(header["content-type"]).toMatch(/json/);
+
+      expect(status).toBe(200);
+
+      expect(findUpdateUser?.firstName).toBe("test");
+
+      expect(findUpdateUser?.lastName).toBe("user");
+
+      expect(findUpdateUser?.location).toBe("home");
+
+      expect(findUpdateUser?.email).toBe("test123@abv.bg");
+
+      expect(findUpdateUser?.phoneNumber).toBe(1234567890);
+
+      expect(findUpdateUser?.linkedInURL).toBe("LinkedIn");
+
+      expect(findUpdateUser?.githubURL).toBe("GitHub");
+
+      expect(findUpdateUser?.portfolioURL).toBe("Portfolio");
+
+      expect(findUpdateUser?.profilePicture).toBe("");
     });
   });
 });
