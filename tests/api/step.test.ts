@@ -151,4 +151,32 @@ describe("testing steps controller and routes", () => {
       expect(status).toBe(200);
     });
   });
+
+  describe("[GET], /companies/steps", () => {
+    it("user should see steps for the company", async () => {
+      const testSteps = await createTestSteps();
+
+      const { body, header, status } = await request(app)
+        .get(`/companies/${testSteps.companyId}/steps`)
+        .set("Authorization", `Bearer ${testSteps.token}`);
+
+      expect(body).toBeInstanceOf(Array);
+
+      expect(body[0]).toHaveProperty("order");
+
+      expect(body[0]).toHaveProperty("action");
+
+      expect(body[0]).toHaveProperty("selector");
+
+      expect(body[0]).toHaveProperty("selectOption");
+
+      expect(body[0]).toHaveProperty("url");
+
+      expect(body[0]).toHaveProperty("companyID");
+
+      expect(header["content-type"]).toMatch(/json/);
+
+      expect(status).toBe(200);
+    });
+  });
 });
