@@ -257,5 +257,19 @@ describe("testing company controller and routes", () => {
 
       expect(status).toBe(200);
     });
+
+    it("user shouldn't see a company with name that doesn't exist", async () => {
+      const { body, header, status } = await request(app)
+        .get("/companies/test")
+        .send({
+          name: "test",
+        });
+
+      expect(body.message).toBe("No company with this name has been found!");
+
+      expect(header["content-type"]).toMatch(/json/);
+
+      expect(status).toBe(200);
+    });
   });
 });
