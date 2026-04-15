@@ -226,5 +226,21 @@ describe("testing instructions controller and routes", () => {
 
       expect(status).toBe(200);
     });
+
+    it("user shouldn't able to see not defined instructions for company", async () => {
+      const testUser = await createTestUser();
+
+      const { body, header, status } = await request(app)
+        .get(`/companies/1/instructions`)
+        .set("Authorization", `Bearer ${testUser.token}`);
+
+      expect(body.message).toBe(
+        "No instructions has been found with that ID for that company!",
+      );
+
+      expect(header["content-type"]).toMatch(/json/);
+
+      expect(status).toBe(200);
+    });
   });
 });
