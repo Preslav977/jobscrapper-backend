@@ -310,5 +310,27 @@ describe("testing company controller and routes", () => {
 
       expect(status).toBe(200);
     });
+
+    it("user shouldn't update company if the name doesn't meet the requirements", async () => {
+      const testUser = await createTestUser();
+
+      const testCompany = await createTestCompany();
+
+      const { body, header, status } = await request(app)
+        .put(`/companies/${testCompany.id}`)
+        .set("Authorization", `Bearer ${testUser.token}`)
+        .send({
+          name: "",
+          logo: null,
+          URL: "example.com/123",
+          scrapMode: "NAVIGATION",
+        });
+
+      expect(body[1].msg).toBe("Company name must be at least 1 character!");
+
+      expect(header["content-type"]).toMatch(/json/);
+
+      expect(status).toBe(400);
+    });
   });
 });
