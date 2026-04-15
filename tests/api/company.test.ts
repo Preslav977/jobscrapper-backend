@@ -85,5 +85,33 @@ describe("testing company controller and routes", () => {
 
       expect(findDefinedCompany?.scrapMode).toBe("NAVIGATION");
     });
+
+    it("user shouldn't able to create company without meeting name requirements", async () => {
+      const testUser = await createTestUser();
+
+      const { body, header, status } = await request(app)
+        .post("/companies")
+        .set("Authorization", `Bearer ${testUser.token}`)
+        .send({
+          name: "",
+          logo: null,
+          URL: "example.com",
+          scrapMode: "NAVIGATION",
+        });
+
+      const findDefinedCompany = await prisma.company.findFirst({
+        where: {
+          id: body.id,
+        },
+      });
+
+      expect(body[1].msg).toBe("Company name must be at least 1 character!");
+
+      expect(header["content-type"]).toMatch(/json/);
+
+      expect(status).toBe(400);
+
+      expect(findDefinedCompany).toBeNull();
+    });
   });
 });
