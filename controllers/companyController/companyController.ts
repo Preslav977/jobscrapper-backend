@@ -78,23 +78,13 @@ async function updateCompany(req: Request, res: Response) {
 
   const { name, URL, scrapMode }: Company = req.body;
 
-  if (req.file) {
-    const logo = await supabaseImageUpload(req.file);
+  const errors = validationResult(req);
 
-    const companyUpdateInformation = await prisma.company.update({
-      where: {
-        id: Number(id),
-      },
-      data: {
-        name,
-        logo,
-        URL,
-        scrapMode,
-      },
-    });
-
-    res.json(companyUpdateInformation);
+  if (!errors.isEmpty()) {
+    res.status(400).send(errors.array());
   } else {
+    const logo = req.file ? await supabaseImageUpload(req.file) : null;
+
     const companyUpdateInformation = await prisma.company.update({
       where: {
         id: Number(id),
@@ -102,6 +92,7 @@ async function updateCompany(req: Request, res: Response) {
       data: {
         name,
         URL,
+        logo,
         scrapMode,
       },
     });

@@ -47,7 +47,12 @@ companyRouter.get("/", getCompanies);
 
 companyRouter.get("/:name", getCompanyByName);
 
-companyRouter.put("/:id", upload.single("file"), updateCompany);
+companyRouter.put(
+  "/:id",
+  upload.single("file"),
+  validateCreatingCompany,
+  updateCompany,
+);
 
 companyRouter.delete("/:id", deleteCompany);
 

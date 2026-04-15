@@ -62,6 +62,7 @@ describe("testing company controller and routes", () => {
     });
 
     return {
+      id: company.id,
       name: company.name,
       logo: company.logo,
       URL: company.URL,
@@ -266,6 +267,44 @@ describe("testing company controller and routes", () => {
         });
 
       expect(body.message).toBe("No company with this name has been found!");
+
+      expect(header["content-type"]).toMatch(/json/);
+
+      expect(status).toBe(200);
+    });
+  });
+
+  describe("[PUT], /companies", async () => {
+    it("user should update company", async () => {
+      const testUser = await createTestUser();
+
+      const testCompany = await createTestCompany();
+
+      const { body, header, status } = await request(app)
+        .put(`/companies/${testCompany.id}`)
+        .set("Authorization", `Bearer ${testUser.token}`)
+        .send({
+          name: "TestCompany",
+          logo: null,
+          URL: "example.com/123",
+          scrapMode: "NAVIGATION",
+        });
+
+      const findDefinedCompany = await prisma.company.findFirst({
+        where: {
+          id: body.id,
+        },
+      });
+
+      expect(findDefinedCompany).toBeDefined();
+
+      expect(findDefinedCompany?.name).toBe("TestCompany");
+
+      expect(findDefinedCompany?.logo).toBe(null);
+
+      expect(findDefinedCompany?.URL).toBe("example.com/123");
+
+      expect(findDefinedCompany?.scrapMode).toBe("NAVIGATION");
 
       expect(header["content-type"]).toMatch(/json/);
 
