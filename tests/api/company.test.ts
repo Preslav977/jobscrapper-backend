@@ -196,4 +196,36 @@ describe("testing company controller and routes", () => {
       expect(findDefinedCompany).toBeDefined();
     });
   });
+
+  describe("[GET], /companies", () => {
+    it("user should able to see all defined companies", async () => {
+      const testCompany = await createTestCompany();
+
+      const { body, header, status } = await request(app).get("/companies");
+
+      expect(body).toBeInstanceOf(Array);
+
+      expect(body[0]).toHaveProperty("jobs");
+
+      expect(body[0]).toHaveProperty("instructions");
+
+      expect(body[0]).toHaveProperty("steps");
+
+      expect(header["content-type"]).toMatch(/json/);
+
+      expect(status).toBe(200);
+    });
+
+    it("user should see no companies if they are not created", async () => {
+      const { body, header, status } = await request(app).get("/companies");
+
+      expect(body.message).toBe("No companies has been found!");
+
+      expect(body).not.toBeInstanceOf(Array);
+
+      expect(header["content-type"]).toMatch(/json/);
+
+      expect(status).toBe(200);
+    });
+  });
 });
