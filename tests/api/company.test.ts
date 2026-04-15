@@ -399,4 +399,22 @@ describe("testing company controller and routes", () => {
       expect(findDefinedCompany).toBeDefined();
     });
   });
+
+  describe("[DELETE], /companies", () => {
+    it("user should delete company", async () => {
+      const testUser = await createTestUser();
+
+      const testCompany = await createTestCompany();
+
+      const { body, header, status } = await request(app)
+        .delete(`/companies/${testCompany.id}`)
+        .set("Authorization", `Bearer ${testUser.token}`);
+
+      expect(body.message).toEqual(body.message);
+
+      expect(header["content-type"]).toMatch(/json/);
+
+      expect(status).toBe(200);
+    });
+  });
 });
