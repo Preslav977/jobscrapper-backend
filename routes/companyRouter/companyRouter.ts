@@ -26,6 +26,7 @@ import {
 
 import {
   createScrappingSteps,
+  deleteScrappingStepsDetails,
   getScrappingStepsDetails,
   updateScrappingStepsDetails,
 } from "../../controllers/stepsController/stepsController.js";
@@ -90,6 +91,6 @@ companyRouter.get("/:companyID/steps", getScrappingStepsDetails);
 
 companyRouter.put("/:companyID/steps", updateScrappingStepsDetails);
 
-companyRouter.delete("/:companyID/steps", createScrappingSteps);
+companyRouter.delete("/:companyID/steps", deleteScrappingStepsDetails);
 
 export { companyRouter };

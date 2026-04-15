@@ -89,7 +89,7 @@ describe("testing steps controller and routes", () => {
       ]);
 
     return {
-      companyId: company.id,
+      companyID: company.id,
       token: testUser.token,
       steps: body,
       stepsID: body[0].id,
@@ -157,7 +157,7 @@ describe("testing steps controller and routes", () => {
       const testSteps = await createTestSteps();
 
       const { body, header, status } = await request(app)
-        .get(`/companies/${testSteps.companyId}/steps`)
+        .get(`/companies/${testSteps.companyID}/steps`)
         .set("Authorization", `Bearer ${testSteps.token}`);
 
       expect(body).toBeInstanceOf(Array);
@@ -199,7 +199,7 @@ describe("testing steps controller and routes", () => {
       const testSteps = await createTestSteps();
 
       const { body, header, status } = await request(app)
-        .put(`/companies/${testSteps.companyId}/steps`)
+        .put(`/companies/${testSteps.companyID}/steps`)
         .set("Authorization", `Bearer ${testSteps.token}`)
         .send([
           {
@@ -207,7 +207,7 @@ describe("testing steps controller and routes", () => {
             order: 1,
             action: "clickMore",
             selector: "[title='Bulgaria']",
-            companyID: testSteps.companyId,
+            companyID: testSteps.companyID,
           },
         ]);
       expect(body).toBeInstanceOf(Array);
@@ -223,6 +223,22 @@ describe("testing steps controller and routes", () => {
       expect(body[0]).toHaveProperty("url");
 
       expect(body[0]).toHaveProperty("companyID");
+
+      expect(header["content-type"]).toMatch(/json/);
+
+      expect(status).toBe(200);
+    });
+  });
+
+  describe("[DELETE], /companies/steps", () => {
+    it("user should delete steps for company", async () => {
+      const testSteps = await createTestSteps();
+
+      const { body, header, status } = await request(app)
+        .delete(`/companies/${testSteps.companyID}/steps`)
+        .set("Authorization", `Bearer ${testSteps.token}`);
+
+      expect(body.message).toEqual(body.message);
 
       expect(header["content-type"]).toMatch(/json/);
 
