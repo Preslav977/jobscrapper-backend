@@ -15,6 +15,10 @@ import { app } from "../../app.js";
 app.use("/", userRouter);
 
 describe("testing user controller and routes", () => {
+  beforeEach(async () => {
+    await prisma.user.deleteMany();
+  });
+
   async function createTestUser() {
     const user = await prisma.user.create({
       data: {
@@ -46,10 +50,6 @@ describe("testing user controller and routes", () => {
       token,
     };
   }
-
-  beforeEach(async () => {
-    await prisma.user.deleteMany();
-  });
 
   describe("[GET], /users/:id", () => {
     it("user should able to see his details", async () => {
