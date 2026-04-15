@@ -104,6 +104,40 @@ describe("testing company controller and routes", () => {
       expect(findDefinedCompany?.scrapMode).toBe("NAVIGATION");
     });
 
+    it("user should create company with uploaded image", async () => {
+      const testUser = await createTestUser();
+
+      const { body, header, status } = await request(app)
+        .post("/companies")
+        .set("Authorization", `Bearer ${testUser.token}`)
+        .attach("file", "public/img.jpeg")
+        .field({
+          name: "Test1",
+        })
+        .field({ URL: "example.com" })
+        .field({ scrapMode: "NAVIGATION" });
+
+      const findDefinedCompany = await prisma.company.findFirst({
+        where: {
+          id: body.id,
+        },
+      });
+
+      expect(findDefinedCompany).toBeDefined();
+
+      expect(findDefinedCompany?.name).toBe("Test1");
+
+      expect(findDefinedCompany?.logo).not.toBe(null);
+
+      expect(findDefinedCompany?.URL).toBe("example.com");
+
+      expect(findDefinedCompany?.scrapMode).toBe("NAVIGATION");
+
+      expect(header["content-type"]).toMatch(/json/);
+
+      expect(status).toBe(200);
+    });
+
     it("user shouldn't able to create company without meeting name requirements", async () => {
       const testUser = await createTestUser();
 
