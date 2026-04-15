@@ -107,6 +107,7 @@ describe("testing instructions controller and routes", () => {
       companyId: company.id,
       token: testUser.token,
       instructions: body,
+      instructionsID: body[0].id,
     };
   }
 
@@ -237,6 +238,60 @@ describe("testing instructions controller and routes", () => {
       expect(body.message).toBe(
         "No instructions has been found with that ID for that company!",
       );
+
+      expect(header["content-type"]).toMatch(/json/);
+
+      expect(status).toBe(200);
+    });
+  });
+
+  describe("[PUT], /companies/instructions", () => {
+    it("user should able to update instructions for company", async () => {
+      const testInstructions = await createTestInstructions();
+
+      const { body, header, status } = await request(app)
+        .put(
+          `/companies/${testInstructions.companyId}/instructions/${testInstructions.instructionsID}`,
+        )
+        .set("Authorization", `Bearer ${testInstructions.token}`)
+        .send([
+          {
+            title: { selector: "h1", extractType: "text" },
+            location: { attr: "data-location", extractType: "attribute" },
+            container: {
+              selector: '[data-company="A1"]',
+              extractType: "text",
+            },
+            anchorHref: { attr: "href", extractType: "attribute" },
+            datePosted: { selector: "", extractType: "" },
+            description: {
+              selector: "main",
+              extractType: "text",
+            },
+            remoteOrHybrid: {
+              selector: "span",
+              extractType: "text",
+            },
+          },
+        ]);
+
+      expect(body).toHaveProperty("id");
+
+      expect(body.extractionInstructions).toHaveProperty("title");
+
+      expect(body.extractionInstructions).toHaveProperty("location");
+
+      expect(body.extractionInstructions).toHaveProperty("container");
+
+      expect(body.extractionInstructions).toHaveProperty("anchorHref");
+
+      expect(body.extractionInstructions).toHaveProperty("datePosted");
+
+      expect(body.extractionInstructions).toHaveProperty("description");
+
+      expect(body.extractionInstructions).toHaveProperty("remoteOrHybrid");
+
+      expect(body).toHaveProperty("companyID");
 
       expect(header["content-type"]).toMatch(/json/);
 
