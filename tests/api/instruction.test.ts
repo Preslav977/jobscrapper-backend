@@ -72,6 +72,44 @@ describe("testing instructions controller and routes", () => {
     };
   }
 
+  async function createTestInstructions() {
+    const testUser = await createTestUser();
+
+    const company = await createTestCompany();
+
+    const { body } = await request(app)
+      .post(`/companies/${company.id}/instructions`)
+      .set("Authorization", `Bearer ${testUser.token}`)
+      .send([
+        {
+          extractionInstructions: {
+            title: { selector: "h3", extractType: "text" },
+            location: { attr: "data-location", extractType: "attribute" },
+            container: {
+              selector: '[data-company="A1 Bulgaria"]',
+              extractType: "text",
+            },
+            anchorHref: { attr: "href", extractType: "attribute" },
+            datePosted: { selector: "", extractType: "" },
+            description: {
+              selector: "main > div > div:has(p)",
+              extractType: "text",
+            },
+            remoteOrHybrid: {
+              selector: "span:nth-child(3)",
+              extractType: "text",
+            },
+          },
+        },
+      ]);
+
+    return {
+      companyId: company.id,
+      token: testUser.token,
+      instructions: body,
+    };
+  }
+
   describe("[POST], /company/instructions", () => {
     it("user should able to create instructions for company", async () => {
       const testUser = await createTestUser();
@@ -141,11 +179,48 @@ describe("testing instructions controller and routes", () => {
         .set("Authorization", `Bearer ${testUser.token}`)
         .send([]);
 
-      console.log(body);
-
       expect(body.message).toBe(
         "Failed to create instructions for company! The array is empty!",
       );
+
+      expect(header["content-type"]).toMatch(/json/);
+
+      expect(status).toBe(200);
+    });
+  });
+
+  describe("[GET], /companies/instructions", () => {
+    it("user should able to see defined instructions for company", async () => {
+      const testInstructions = await createTestInstructions();
+
+      const { body, header, status } = await request(app)
+        .get(`/companies/${testInstructions.companyId}/instructions`)
+        .set("Authorization", `Bearer ${testInstructions.token}`)
+        .send([]);
+
+      expect(body).toBeInstanceOf(Array);
+
+      expect(body[0]).toHaveProperty("extractionInstructions");
+
+      expect(body[0]).toHaveProperty("id");
+
+      expect(body[0].extractionInstructions).toHaveProperty("title");
+
+      expect(body[0].extractionInstructions).toHaveProperty("location");
+
+      expect(body[0].extractionInstructions).toHaveProperty("container");
+
+      expect(body[0].extractionInstructions).toHaveProperty("anchorHref");
+
+      expect(body[0].extractionInstructions).toHaveProperty("datePosted");
+
+      expect(body[0].extractionInstructions).toHaveProperty("description");
+
+      expect(body[0].extractionInstructions).toHaveProperty("remoteOrHybrid");
+
+      expect(body[0]).toHaveProperty("companyID");
+
+      expect(body[0]).toHaveProperty("company");
 
       expect(header["content-type"]).toMatch(/json/);
 
