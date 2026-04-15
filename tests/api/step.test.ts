@@ -178,5 +178,19 @@ describe("testing steps controller and routes", () => {
 
       expect(status).toBe(200);
     });
+
+    it("user shouldn't see steps for company if the array is empty", async () => {
+      const testUser = await createTestUser();
+
+      const { body, header, status } = await request(app)
+        .get("/companies/1/steps")
+        .set("Authorization", `Bearer ${testUser.token}`);
+
+      expect(body.message).toEqual(body.message);
+
+      expect(header["content-type"]).toMatch(/json/);
+
+      expect(status).toBe(200);
+    });
   });
 });
