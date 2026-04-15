@@ -298,4 +298,22 @@ describe("testing instructions controller and routes", () => {
       expect(status).toBe(200);
     });
   });
+
+  describe("[DELETE], /companies/instructions", () => {
+    it("user should able to delete instructions for company", async () => {
+      const testInstructions = await createTestInstructions();
+
+      const { body, header, status } = await request(app)
+        .delete(
+          `/companies/${testInstructions.companyId}/instructions/${testInstructions.instructionsID}`,
+        )
+        .set("Authorization", `Bearer ${testInstructions.token}`);
+
+      expect(body.message).toBe(body.message);
+
+      expect(header["content-type"]).toMatch(/json/);
+
+      expect(status).toBe(200);
+    });
+  });
 });
