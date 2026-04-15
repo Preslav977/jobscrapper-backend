@@ -9,7 +9,7 @@ async function createScrappingSteps(req: Request, res: Response) {
 
   if (req.body.length === 0) {
     res.json({
-      message: "Failed to create scraping steps for company!",
+      message: "Failed to creates steps for company! The array is empty!",
     });
   } else {
     const stepsArray: Steps = req.body.map((step: Steps) => {
