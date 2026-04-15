@@ -311,6 +311,42 @@ describe("testing company controller and routes", () => {
       expect(status).toBe(200);
     });
 
+    it("user should update company with uploading image", async () => {
+      const testUser = await createTestUser();
+
+      const testCompany = await createTestCompany();
+
+      const { body, header, status } = await request(app)
+        .put(`/companies/${testCompany.id}`)
+        .set("Authorization", `Bearer ${testUser.token}`)
+        .attach("file", "public/img.jpeg")
+        .field({
+          name: "TestCompany",
+        })
+        .field({ URL: "example.com" })
+        .field({ scrapMode: "NAVIGATION" });
+
+      const findDefinedCompany = await prisma.company.findFirst({
+        where: {
+          id: body.id,
+        },
+      });
+
+      expect(findDefinedCompany).toBeDefined();
+
+      expect(findDefinedCompany?.name).toBe("TestCompany");
+
+      expect(findDefinedCompany?.logo).not.toBe(null);
+
+      expect(findDefinedCompany?.URL).toBe("example.com");
+
+      expect(findDefinedCompany?.scrapMode).toBe("NAVIGATION");
+
+      expect(header["content-type"]).toMatch(/json/);
+
+      expect(status).toBe(200);
+    });
+
     it("user shouldn't update company if the name doesn't meet the requirements", async () => {
       const testUser = await createTestUser();
 
@@ -331,6 +367,36 @@ describe("testing company controller and routes", () => {
       expect(header["content-type"]).toMatch(/json/);
 
       expect(status).toBe(400);
+    });
+
+    it("user shouldn't update company if the name is already taken", async () => {
+      const testUser = await createTestUser();
+
+      const testCompany = await createTestCompany();
+
+      const { body, header, status } = await request(app)
+        .put(`/companies/${testCompany.id}`)
+        .set("Authorization", `Bearer ${testUser.token}`)
+        .send({
+          name: "Test123",
+          logo: null,
+          URL: "example.com/",
+          scrapMode: "NAVIGATION",
+        });
+
+      const findDefinedCompany = await prisma.company.findFirst({
+        where: {
+          id: body.id,
+        },
+      });
+
+      expect(body[0].msg).toBe("Company name already exists!");
+
+      expect(header["content-type"]).toMatch(/json/);
+
+      expect(status).toBe(400);
+
+      expect(findDefinedCompany).toBeDefined();
     });
   });
 });
