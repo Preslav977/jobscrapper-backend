@@ -6,17 +6,17 @@ import { prisma } from "../../db/client.js";
 
 import request from "supertest";
 
-import { beforeEach, describe, expect, it } from "vitest";
+import { afterEach, describe, expect, it } from "vitest";
 
 import { app } from "../../app.js";
 
 app.use("/", companyRouter);
 
 describe("testing company controller and routes", () => {
-  beforeEach(async () => {
-    await prisma.user.deleteMany();
-
+  afterEach(async () => {
     await prisma.company.deleteMany();
+
+    await prisma.user.deleteMany();
   });
 
   async function createTestUser() {
@@ -48,6 +48,24 @@ describe("testing company controller and routes", () => {
     return {
       id: user.id,
       token,
+    };
+  }
+
+  async function createTestCompany() {
+    const company = await prisma.company.create({
+      data: {
+        name: "Test123",
+        logo: null,
+        URL: "example.com",
+        scrapMode: "NAVIGATION",
+      },
+    });
+
+    return {
+      name: company.name,
+      logo: company.logo,
+      URL: company.URL,
+      scrapMode: company.scrapMode,
     };
   }
 
@@ -112,6 +130,36 @@ describe("testing company controller and routes", () => {
       expect(status).toBe(400);
 
       expect(findDefinedCompany).toBeNull();
+    });
+
+    it("user shouldn't able to create company if the name is taken", async () => {
+      const testUser = await createTestUser();
+
+      const testCompany = await createTestCompany();
+
+      const { body, header, status } = await request(app)
+        .post("/companies")
+        .set("Authorization", `Bearer ${testUser.token}`)
+        .send({
+          name: "Test123",
+          logo: null,
+          URL: "example.com",
+          scrapMode: "NAVIGATION",
+        });
+
+      const findDefinedCompany = await prisma.company.findFirst({
+        where: {
+          id: body.id,
+        },
+      });
+
+      expect(body[0].msg).toBe("Company name already exists!");
+
+      expect(header["content-type"]).toMatch(/json/);
+
+      expect(status).toBe(400);
+
+      expect(findDefinedCompany).toBeDefined();
     });
   });
 });
