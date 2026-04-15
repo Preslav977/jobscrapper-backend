@@ -6,8 +6,6 @@ import { userRouter } from "../../routes/userRouter/userRouter.js";
 
 import request from "supertest";
 
-// import jwt from 'jsonwebtoken'
-
 import { beforeEach, describe, expect, it } from "vitest";
 
 import { app } from "../../app.js";

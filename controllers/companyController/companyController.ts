@@ -16,30 +16,18 @@ async function createCompany(req: Request, res: Response) {
   if (!errors.isEmpty()) {
     res.status(400).send(errors.array());
   } else {
-    if (req.file) {
-      const logo = await supabaseImageUpload(req.file);
+    const logo = req.file ? await supabaseImageUpload(req.file) : null;
 
-      const createCompany = await prisma.company.create({
-        data: {
-          name,
-          logo,
-          URL,
-          scrapMode,
-        },
-      });
+    const createCompany = await prisma.company.create({
+      data: {
+        name,
+        logo,
+        URL,
+        scrapMode,
+      },
+    });
 
-      res.json(createCompany);
-    } else {
-      const createCompany = await prisma.company.create({
-        data: {
-          name,
-          URL,
-          scrapMode,
-        },
-      });
-
-      res.json(createCompany);
-    }
+    res.json(createCompany);
   }
 }
 
