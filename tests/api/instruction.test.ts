@@ -130,5 +130,26 @@ describe("testing instructions controller and routes", () => {
 
       expect(status).toBe(200);
     });
+
+    it("user shouldn't able to create instructions with using empty array", async () => {
+      const testUser = await createTestUser();
+
+      const company = await createTestCompany();
+
+      const { body, header, status } = await request(app)
+        .post(`/companies/${company.id}/instructions`)
+        .set("Authorization", `Bearer ${testUser.token}`)
+        .send([]);
+
+      console.log(body);
+
+      expect(body.message).toBe(
+        "Failed to create instructions for company! The array is empty!",
+      );
+
+      expect(header["content-type"]).toMatch(/json/);
+
+      expect(status).toBe(200);
+    });
   });
 });

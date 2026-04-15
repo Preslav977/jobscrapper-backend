@@ -10,7 +10,7 @@ async function createScrappingInstructions(req: Request, res: Response) {
 
   if (req.body.length === 0) {
     res.json({
-      message: "Failed to create instructions for company!",
+      message: "Failed to create instructions for company! The array is empty!",
     });
   } else {
     const instructionsArray: InstructionsCreateInput = req.body.map(
