@@ -227,5 +227,35 @@ describe("testing company controller and routes", () => {
 
       expect(status).toBe(200);
     });
+
+    it("user should see defined company by name", async () => {
+      const testCompany = await createTestCompany();
+
+      const { body, header, status } = await request(app)
+        .get(`/companies/${testCompany.name}`)
+        .send({
+          name: testCompany.name,
+        });
+
+      const findDefinedCompany = await prisma.company.findFirst({
+        where: {
+          id: body.id,
+        },
+      });
+
+      expect(findDefinedCompany).toBeDefined();
+
+      expect(findDefinedCompany?.name).toBe("Test123");
+
+      expect(findDefinedCompany?.logo).toBe(null);
+
+      expect(findDefinedCompany?.URL).toBe("example.com");
+
+      expect(findDefinedCompany?.scrapMode).toBe("NAVIGATION");
+
+      expect(header["content-type"]).toMatch(/json/);
+
+      expect(status).toBe(200);
+    });
   });
 });
