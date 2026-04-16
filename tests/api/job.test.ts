@@ -263,4 +263,20 @@ describe("testing jobs controller and routes", () => {
       expect(status).toBe(200);
     });
   });
+
+  describe("[DELETE], /companies/jobs", () => {
+    it("user should able to delete job inside company", async () => {
+      const testJobs = await createTestJobs();
+
+      const { body, header, status } = await request(app)
+        .delete(`/companies/${testJobs.companyID}/jobs/${testJobs.jobID}`)
+        .set("Authorization", `Bearer ${testJobs.token}`);
+
+      expect(body.message).toBe(body.message);
+
+      expect(header["content-type"]).toMatch(/json/);
+
+      expect(status).toBe(200);
+    });
+  });
 });
