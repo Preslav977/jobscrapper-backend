@@ -102,7 +102,12 @@ describe("testing jobs controller and routes", () => {
         },
       ]);
 
-    return { jobs: body, companyID: testCompany.id };
+    return {
+      jobs: body,
+      companyID: testCompany.id,
+      token: testUser.token,
+      jobID: body[0].id,
+    };
   }
 
   describe("[POST], /companies/jobs", () => {
@@ -215,6 +220,43 @@ describe("testing jobs controller and routes", () => {
         await request(app).get("/companies/1/jobs");
 
       expect(body.message).toBe(body.message);
+
+      expect(header["content-type"]).toMatch(/json/);
+
+      expect(status).toBe(200);
+    });
+  });
+
+  describe("[PUT], /companies/jobs", () => {
+    it("user should able to update job for the company", async () => {
+      const testJobs = await createTestJobs();
+
+      const { body, header, status } = await request(app)
+        .put(`/companies/${testJobs.companyID}/jobs/${testJobs.jobID}`)
+        .set("Authorization", `Bearer ${testJobs.token}`)
+        .send({
+          title: "React Developer",
+          location: "Pleven",
+          remoteOrHybrid: "Hybrid",
+          datePosted: "Posted today",
+          description: "",
+          anchorHref: "react_developer/1",
+          companyID: testJobs.companyID,
+        });
+
+      expect(body.title).toBe("React Developer");
+
+      expect(body.location).toBe("Pleven");
+
+      expect(body.remoteOrHybrid).toBe("Hybrid");
+
+      expect(body.datePosted).toBe("Posted today");
+
+      expect(body.description).toBe("");
+
+      expect(body.anchorHref).toBe("react_developer/1");
+
+      expect(body.companyID).toBe(body.companyID);
 
       expect(header["content-type"]).toMatch(/json/);
 
