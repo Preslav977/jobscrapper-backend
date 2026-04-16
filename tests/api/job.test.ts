@@ -158,5 +158,22 @@ describe("testing jobs controller and routes", () => {
 
       expect(status).toBe(200);
     });
+
+    it("user shouldn't create jobs if the array is empty", async () => {
+      const testUser = await createTestUser();
+
+      const testCompany = await createTestCompany();
+
+      const { body, header, status } = await request(app)
+        .post(`/companies/${testCompany.id}/jobs`)
+        .set("Authorization", `Bearer ${testUser.token}`)
+        .send([]);
+
+      expect(body.message).toBe("No jobs has been created. Scrapping failed!");
+
+      expect(header["content-type"]).toMatch(/json/);
+
+      expect(status).toBe(200);
+    });
   });
 });
