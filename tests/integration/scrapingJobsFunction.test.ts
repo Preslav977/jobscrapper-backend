@@ -47,6 +47,8 @@ describe("Company scraping integration", () => {
 
     const result = await scrapingJobsFunction(mockCompany);
 
+    expect(result).toHaveLength(1);
+
     expect(result).toBeInstanceOf(Array);
 
     expect(result[0]).toHaveProperty("title");
