@@ -8,9 +8,10 @@ import type { InstructionsCreateInput } from "../../generated/prisma/models.js";
 async function createScrappingInstructions(req: Request, res: Response) {
   const { companyID } = req.params;
 
-  if (req.body.length === 0) {
-    res.json({
-      message: "Failed to create instructions for company! The array is empty!",
+  if (req.body.length === 0 || companyID === null) {
+    res.status(400).send({
+      message:
+        "Failed to create instructions! Is the array empty or the ID exists?",
     });
   } else {
     const instructionsArray: InstructionsCreateInput = req.body.map(
@@ -40,7 +41,7 @@ async function getScrappingInstructionsDetails(req: Request, res: Response) {
 
   if (getInstructionsDetails.length === 0) {
     res.json({
-      message: "No instructions has been found with that ID for that company!",
+      message: "No instructions has been found for the company!",
     });
   } else {
     res.json(getInstructionsDetails);
@@ -65,7 +66,13 @@ async function updateScrappingInstructionsDetails(req: Request, res: Response) {
         companyID: Number(companyID),
       },
     });
+
     res.json(updateInstructionsDetails);
+  } else {
+    res.status(400).send({
+      message:
+        "Failed to update instructions! Do the instructions exists or the ID exists?",
+    });
   }
 }
 

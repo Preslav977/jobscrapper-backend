@@ -1,12 +1,15 @@
 import type { Request, Response } from "express";
+import { validationResult } from "express-validator";
 import { prisma } from "../../db/client.js";
 import type { Jobs } from "../../generated/prisma/client.js";
 
 async function createJobs(req: Request, res: Response) {
   const { id } = req.params;
 
-  if (req.body.length === 0) {
-    res.json({ message: "No jobs has been created. Scrapping failed!" });
+  if (req.body.length === 0 || id === null) {
+    res.status(400).send({
+      message: "Failed to create jobs! Is the array empty or the ID exists?",
+    });
   } else {
     const jobsArray: Jobs = req.body.map((job: Jobs) => {
       return {
@@ -37,7 +40,7 @@ async function getJobDetails(req: Request, res: Response) {
 
   if (jobDetails.length === 0) {
     res.json({
-      message: `No jobs has been found with that ${companyID} in that company!`,
+      message: `No jobs has been found for the company with ID: ${companyID}`,
     });
   } else {
     res.json(jobDetails);
@@ -46,6 +49,8 @@ async function getJobDetails(req: Request, res: Response) {
 
 async function updateJob(req: Request, res: Response) {
   const { id, companyID } = req.params;
+
+  const errors = validationResult(req);
 
   const {
     title,
@@ -56,27 +61,31 @@ async function updateJob(req: Request, res: Response) {
     anchorHref,
   }: Jobs = req.body;
 
-  const updateJobDetails = await prisma.jobs.update({
-    include: {
-      company: true,
-    },
+  if (!errors.isEmpty()) {
+    res.status(400).send(errors.array());
+  } else {
+    const updateJobDetails = await prisma.jobs.update({
+      include: {
+        company: true,
+      },
 
-    where: {
-      companyID: Number(companyID),
-      id: Number(id),
-    },
+      where: {
+        companyID: Number(companyID),
+        id: Number(id),
+      },
 
-    data: {
-      title,
-      location,
-      remoteOrHybrid,
-      datePosted,
-      description,
-      anchorHref,
-    },
-  });
+      data: {
+        title,
+        location,
+        remoteOrHybrid,
+        datePosted,
+        description,
+        anchorHref,
+      },
+    });
 
-  res.json(updateJobDetails);
+    res.json(updateJobDetails);
+  }
 }
 
 async function deleteJob(req: Request, res: Response) {

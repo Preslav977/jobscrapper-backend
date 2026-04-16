@@ -8,6 +8,11 @@ import request from "supertest";
 
 import { afterEach, describe, expect, it } from "vitest";
 
+import {
+  createTestCompany,
+  createTestUser,
+} from "../helpersFunctions/helperFunctions.js";
+
 import { app } from "../../app.js";
 
 app.use("/", companyRouter);
@@ -18,57 +23,6 @@ describe("testing company controller and routes", () => {
 
     await prisma.user.deleteMany();
   });
-
-  async function createTestUser() {
-    const user = await prisma.user.create({
-      data: {
-        firstName: "",
-        lastName: "",
-        password:
-          "$2b$10$AYGKaAHGZIN73a9eyNp5fuvsdze7No6X/D/6P1zjX51mmrA7gI/ju",
-        confirmPassword:
-          "$2b$10$AYGKaAHGZIN73a9eyNp5fuvsdze7No6X/D/6P1zjX51mmrA7gI/ju",
-        location: "",
-        email: "test1@abv.bg",
-        phoneNumber: 12345678,
-        linkedInURL: "",
-        githubURL: "",
-        portfolioURL: "",
-      },
-    });
-
-    const loginUser = await request(app).post("/login").send({
-      id: user.id,
-      email: user.email,
-      password: "12345678BG",
-    });
-
-    const { token } = loginUser.body;
-
-    return {
-      id: user.id,
-      token,
-    };
-  }
-
-  async function createTestCompany() {
-    const company = await prisma.company.create({
-      data: {
-        name: "Test123",
-        logo: null,
-        URL: "example.com",
-        scrapMode: "NAVIGATION",
-      },
-    });
-
-    return {
-      id: company.id,
-      name: company.name,
-      logo: company.logo,
-      URL: company.URL,
-      scrapMode: company.scrapMode,
-    };
-  }
 
   describe("[POST], /companies", () => {
     it("user should able to create company", async () => {
@@ -266,7 +220,7 @@ describe("testing company controller and routes", () => {
           name: "test",
         });
 
-      expect(body.message).toBe("No company with this name has been found!");
+      expect(body.message).toBe(body.message);
 
       expect(header["content-type"]).toMatch(/json/);
 

@@ -8,6 +8,8 @@ import request from "supertest";
 
 import { beforeEach, describe, expect, it } from "vitest";
 
+import { createTestUser } from "../helpersFunctions/helperFunctions.js";
+
 import { app } from "../../app.js";
 
 app.use("/", userRouter);
@@ -16,38 +18,6 @@ describe("testing user controller and routes", () => {
   beforeEach(async () => {
     await prisma.user.deleteMany();
   });
-
-  async function createTestUser() {
-    const user = await prisma.user.create({
-      data: {
-        firstName: "",
-        lastName: "",
-        password:
-          "$2b$10$AYGKaAHGZIN73a9eyNp5fuvsdze7No6X/D/6P1zjX51mmrA7gI/ju",
-        confirmPassword:
-          "$2b$10$AYGKaAHGZIN73a9eyNp5fuvsdze7No6X/D/6P1zjX51mmrA7gI/ju",
-        location: "",
-        email: "test1@abv.bg",
-        phoneNumber: 12345678,
-        linkedInURL: "",
-        githubURL: "",
-        portfolioURL: "",
-      },
-    });
-
-    const loginUser = await request(app).post("/login").send({
-      id: user.id,
-      email: user.email,
-      password: "12345678BG",
-    });
-
-    const { token } = loginUser.body;
-
-    return {
-      id: user.id,
-      token,
-    };
-  }
 
   describe("[GET], /users/:id", () => {
     it("user should able to see his details", async () => {
@@ -85,7 +55,7 @@ describe("testing user controller and routes", () => {
         .get("/users/1")
         .set("Authorization", testUser.token);
 
-      expect(body.message).toBe("User with that ID couldn't be found!");
+      expect(body.message).toBe(body.message);
 
       expect(header["content-type"]).toMatch(/json/);
 

@@ -55,29 +55,43 @@ async function userLogin(req: Request, res: Response) {
 }
 
 async function userGetDetails(req: Request, res: Response) {
-  if (req.params.id) {
-    const userDetails = await prisma.user.findFirst({
-      where: {
-        id: Number(req.params.id),
-      },
-    });
+  // if (req.params.id) {
+  //   const userDetails = await prisma.user.findFirst({
+  //     where: {
+  //       id: Number(req.params.id),
+  //     },
+  //   });
 
-    if (userDetails === null) {
-      res.json({ message: "User with that ID couldn't be found!" });
-    } else {
-      res.json(userDetails);
-    }
-  } else {
-    const userDetails = await prisma.user.findFirst({
-      where: {
-        id: Number(req.authData!.id),
-      },
+  //   if (userDetails === null) {
+  //     res.json({ message: "User with that ID couldn't be found!" });
+  //   } else {
+  //     res.json(userDetails);
+  //   }
+  // } else {
+  //   const userDetails = await prisma.user.findFirst({
+  //     where: {
+  //       id: Number(req.authData!.id),
+  //     },
+  //   });
+  //   if (userDetails === null) {
+  //     res.json({ message: "User with that ID couldn't be found!" });
+  //   } else {
+  //     res.json(userDetails);
+  //   }
+  // }
+
+  const userDetails = await prisma.user.findFirst({
+    where: {
+      id: req.params.id ? Number(req.params.id) : Number(req.authData.id!),
+    },
+  });
+
+  if (userDetails === null) {
+    res.json({
+      message: `User with that ID: ${req.params.id || req.authData.id!} couldn't be found!`,
     });
-    if (userDetails === null) {
-      res.json({ message: "User with that ID couldn't be found!" });
-    } else {
-      res.json(userDetails);
-    }
+  } else {
+    res.json(userDetails);
   }
 }
 

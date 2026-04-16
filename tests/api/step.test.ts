@@ -8,6 +8,12 @@ import request from "supertest";
 
 import { afterEach, describe, expect, it } from "vitest";
 
+import {
+  createTestCompany,
+  createTestSteps,
+  createTestUser,
+} from "../helpersFunctions/helperFunctions.js";
+
 import { app } from "../../app.js";
 
 app.use("/instructions", companyRouter);
@@ -20,81 +26,6 @@ describe("testing steps controller and routes", () => {
 
     await prisma.steps.deleteMany();
   });
-
-  async function createTestUser() {
-    const user = await prisma.user.create({
-      data: {
-        firstName: "",
-        lastName: "",
-        password:
-          "$2b$10$AYGKaAHGZIN73a9eyNp5fuvsdze7No6X/D/6P1zjX51mmrA7gI/ju",
-        confirmPassword:
-          "$2b$10$AYGKaAHGZIN73a9eyNp5fuvsdze7No6X/D/6P1zjX51mmrA7gI/ju",
-        location: "",
-        email: "test1@abv.bg",
-        phoneNumber: 12345678,
-        linkedInURL: "",
-        githubURL: "",
-        portfolioURL: "",
-      },
-    });
-
-    const loginUser = await request(app).post("/login").send({
-      id: user.id,
-      email: user.email,
-      password: "12345678BG",
-    });
-
-    const { token } = loginUser.body;
-
-    return {
-      id: user.id,
-      token,
-    };
-  }
-
-  async function createTestCompany() {
-    const company = await prisma.company.create({
-      data: {
-        name: "Test123",
-        logo: null,
-        URL: "example.com",
-        scrapMode: "NAVIGATION",
-      },
-    });
-
-    return {
-      id: company.id,
-      name: company.name,
-      logo: company.logo,
-      URL: company.URL,
-      scrapMode: company.scrapMode,
-    };
-  }
-
-  async function createTestSteps() {
-    const testUser = await createTestUser();
-
-    const company = await createTestCompany();
-
-    const { body } = await request(app)
-      .post(`/companies/${company.id}/steps`)
-      .set("Authorization", `Bearer ${testUser.token}`)
-      .send([
-        {
-          order: 1,
-          action: "click",
-          selector: "[title='Bulgaria']",
-        },
-      ]);
-
-    return {
-      companyID: company.id,
-      token: testUser.token,
-      steps: body,
-      stepsID: body[0].id,
-    };
-  }
 
   describe("[POST], /companies/steps", () => {
     it("user should create steps for company", async () => {
@@ -143,12 +74,12 @@ describe("testing steps controller and routes", () => {
         .send([]);
 
       expect(body.message).toEqual(
-        "Failed to creates steps for company! The array is empty!",
+        "Failed to creates steps for company! Is the array empty or the ID exists?",
       );
 
       expect(header["content-type"]).toMatch(/json/);
 
-      expect(status).toBe(200);
+      expect(status).toBe(400);
     });
   });
 

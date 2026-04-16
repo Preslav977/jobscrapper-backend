@@ -2,14 +2,16 @@ import { prisma } from "../../db/client.js";
 
 import type { Request, Response } from "express";
 
+import { validationResult } from "express-validator";
 import type { Steps } from "../../generated/prisma/client.js";
 
 async function createScrappingSteps(req: Request, res: Response) {
   const { companyID } = req.params;
 
-  if (req.body.length === 0) {
-    res.json({
-      message: "Failed to creates steps for company! The array is empty!",
+  if (req.body.length === 0 || companyID === null) {
+    res.status(400).send({
+      message:
+        "Failed to creates steps for company! Is the array empty or the ID exists?",
     });
   } else {
     const stepsArray: Steps = req.body.map((step: Steps) => {
@@ -38,7 +40,7 @@ async function getScrappingStepsDetails(req: Request, res: Response) {
 
   if (getStepsDetails.length === 0) {
     res.json({
-      message: `No steps has been found with that ${companyID} for the instructions company!`,
+      message: `No steps has been found for the company with ID: ${companyID}`,
     });
   } else {
     res.json(getStepsDetails);
@@ -46,22 +48,28 @@ async function getScrappingStepsDetails(req: Request, res: Response) {
 }
 
 async function updateScrappingStepsDetails(req: Request, res: Response) {
-  const updateSteps = await Promise.all(
-    req.body.map((step: Steps) =>
-      prisma.steps.update({
-        where: { id: step.id, companyID: step.companyID },
-        data: {
-          order: step.order,
-          action: step.action,
-          selector: step.selector,
-          selectOption: step.selectOption,
-          url: step.url,
-        },
-      }),
-    ),
-  );
+  const errors = validationResult(req);
 
-  res.json(updateSteps);
+  if (!errors.isEmpty() || req.body.length === 0) {
+    res.status(400).send(errors.array());
+  } else {
+    const updateSteps = await Promise.all(
+      req.body.map((step: Steps) =>
+        prisma.steps.update({
+          where: { id: step.id, companyID: step.companyID },
+          data: {
+            order: step.order,
+            action: step.action,
+            selector: step.selector,
+            selectOption: step.selectOption,
+            url: step.url,
+          },
+        }),
+      ),
+    );
+
+    res.json(updateSteps);
+  }
 }
 
 async function deleteScrappingStepsDetails(req: Request, res: Response) {

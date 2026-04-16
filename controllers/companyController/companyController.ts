@@ -67,7 +67,7 @@ async function getCompanyByName(req: Request, res: Response) {
   });
 
   if (companyName === null) {
-    res.json({ message: "No company with this name has been found!" });
+    res.json({ message: `No company with this name: ${name} has been found!` });
   } else {
     res.json(companyName);
   }

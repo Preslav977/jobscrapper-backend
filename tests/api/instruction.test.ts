@@ -8,6 +8,12 @@ import request from "supertest";
 
 import { afterEach, describe, expect, it } from "vitest";
 
+import {
+  createTestCompany,
+  createTestInstructions,
+  createTestUser,
+} from "../helpersFunctions/helperFunctions.js";
+
 import { app } from "../../app.js";
 
 app.use("/instructions", companyRouter);
@@ -20,96 +26,6 @@ describe("testing instructions controller and routes", () => {
 
     await prisma.instructions.deleteMany();
   });
-
-  async function createTestUser() {
-    const user = await prisma.user.create({
-      data: {
-        firstName: "",
-        lastName: "",
-        password:
-          "$2b$10$AYGKaAHGZIN73a9eyNp5fuvsdze7No6X/D/6P1zjX51mmrA7gI/ju",
-        confirmPassword:
-          "$2b$10$AYGKaAHGZIN73a9eyNp5fuvsdze7No6X/D/6P1zjX51mmrA7gI/ju",
-        location: "",
-        email: "test1@abv.bg",
-        phoneNumber: 12345678,
-        linkedInURL: "",
-        githubURL: "",
-        portfolioURL: "",
-      },
-    });
-
-    const loginUser = await request(app).post("/login").send({
-      id: user.id,
-      email: user.email,
-      password: "12345678BG",
-    });
-
-    const { token } = loginUser.body;
-
-    return {
-      id: user.id,
-      token,
-    };
-  }
-
-  async function createTestCompany() {
-    const company = await prisma.company.create({
-      data: {
-        name: "Test123",
-        logo: null,
-        URL: "example.com",
-        scrapMode: "NAVIGATION",
-      },
-    });
-
-    return {
-      id: company.id,
-      name: company.name,
-      logo: company.logo,
-      URL: company.URL,
-      scrapMode: company.scrapMode,
-    };
-  }
-
-  async function createTestInstructions() {
-    const testUser = await createTestUser();
-
-    const company = await createTestCompany();
-
-    const { body } = await request(app)
-      .post(`/companies/${company.id}/instructions`)
-      .set("Authorization", `Bearer ${testUser.token}`)
-      .send([
-        {
-          extractionInstructions: {
-            title: { selector: "h3", extractType: "text" },
-            location: { attr: "data-location", extractType: "attribute" },
-            container: {
-              selector: '[data-company="A1 Bulgaria"]',
-              extractType: "text",
-            },
-            anchorHref: { attr: "href", extractType: "attribute" },
-            datePosted: { selector: "", extractType: "" },
-            description: {
-              selector: "main > div > div:has(p)",
-              extractType: "text",
-            },
-            remoteOrHybrid: {
-              selector: "span:nth-child(3)",
-              extractType: "text",
-            },
-          },
-        },
-      ]);
-
-    return {
-      companyId: company.id,
-      token: testUser.token,
-      instructions: body,
-      instructionsID: body[0].id,
-    };
-  }
 
   describe("[POST], /company/instructions", () => {
     it("user should able to create instructions for company", async () => {
@@ -181,12 +97,12 @@ describe("testing instructions controller and routes", () => {
         .send([]);
 
       expect(body.message).toBe(
-        "Failed to create instructions for company! The array is empty!",
+        "Failed to create instructions! Is the array empty or the ID exists?",
       );
 
       expect(header["content-type"]).toMatch(/json/);
 
-      expect(status).toBe(200);
+      expect(status).toBe(400);
     });
   });
 
@@ -236,7 +152,7 @@ describe("testing instructions controller and routes", () => {
         .set("Authorization", `Bearer ${testUser.token}`);
 
       expect(body.message).toBe(
-        "No instructions has been found with that ID for that company!",
+        "No instructions has been found for the company!",
       );
 
       expect(header["content-type"]).toMatch(/json/);
