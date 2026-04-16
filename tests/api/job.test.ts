@@ -209,5 +209,16 @@ describe("testing jobs controller and routes", () => {
 
       expect(status).toBe(200);
     });
+
+    it("user shouldn't see jobs that doesn't exists", async () => {
+      const { body, header, status } =
+        await request(app).get("/companies/1/jobs");
+
+      expect(body.message).toBe(body.message);
+
+      expect(header["content-type"]).toMatch(/json/);
+
+      expect(status).toBe(200);
+    });
   });
 });
