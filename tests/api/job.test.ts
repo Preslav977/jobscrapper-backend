@@ -14,9 +14,9 @@ app.use("/jobs", companyRouter);
 
 describe("testing jobs controller and routes", () => {
   afterEach(async () => {
-    await prisma.user.deleteMany();
-
     await prisma.company.deleteMany();
+
+    await prisma.user.deleteMany();
 
     await prisma.jobs.deleteMany();
   });
@@ -56,7 +56,7 @@ describe("testing jobs controller and routes", () => {
   async function createTestCompany() {
     const company = await prisma.company.create({
       data: {
-        name: "Test123",
+        name: "TestCompany1",
         logo: null,
         URL: "example.com",
         scrapMode: "NAVIGATION",
@@ -102,7 +102,7 @@ describe("testing jobs controller and routes", () => {
         },
       ]);
 
-    return { jobs: body };
+    return { jobs: body, companyID: testCompany.id };
   }
 
   describe("[POST], /companies/jobs", () => {
@@ -170,6 +170,40 @@ describe("testing jobs controller and routes", () => {
         .send([]);
 
       expect(body.message).toBe("No jobs has been created. Scrapping failed!");
+
+      expect(header["content-type"]).toMatch(/json/);
+
+      expect(status).toBe(200);
+    });
+  });
+
+  describe("[GET], /companies/jobs", () => {
+    it("user should see all jobs related to the company", async () => {
+      const testJobs = await createTestJobs();
+
+      const { body, header, status } = await request(app).get(
+        `/companies/${testJobs.companyID}/jobs`,
+      );
+
+      expect(body).toBeInstanceOf(Array);
+
+      expect(body[0]).toHaveProperty("id");
+
+      expect(body[0]).toHaveProperty("title");
+
+      expect(body[0]).toHaveProperty("location");
+
+      expect(body[0]).toHaveProperty("remoteOrHybrid");
+
+      expect(body[0]).toHaveProperty("datePosted");
+
+      expect(body[0]).toHaveProperty("description");
+
+      expect(body[0]).toHaveProperty("anchorHref");
+
+      expect(body[0]).toHaveProperty("companyID");
+
+      expect(body[0]).toHaveProperty("company");
 
       expect(header["content-type"]).toMatch(/json/);
 
