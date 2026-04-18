@@ -47,11 +47,15 @@ async function tryClickEvaluate(
   instruction: string,
   maxAttempt: number,
 ): Promise<string | void> {
+  if (maxAttempt < 1) return "failure";
+
   for (let attempt = 1; attempt <= maxAttempt; attempt++) {
+    const timeout = attempt * 10000;
+
     try {
-      const clickedInstruction = (await page.waitForSelector(
-        instruction,
-      )) as ElementHandle<HTMLElement>;
+      const clickedInstruction = (await page.waitForSelector(instruction, {
+        timeout,
+      })) as ElementHandle<HTMLElement>;
 
       await clickedInstruction.evaluate((element) => element.click());
 
@@ -97,7 +101,7 @@ async function tryClickLoadMore(
         clickedMoreButtonCount++;
       }
     } catch (error) {
-      if (clickedMoreButtonCount > 5) {
+      if (clickedMoreButtonCount > 0) {
         loadMoreJobs = false;
 
         return "success";
@@ -120,6 +124,8 @@ async function selectOptionFromDropDown(
   selectOption: string,
   maxAttempt: number,
 ): Promise<string | void> {
+  if (maxAttempt < 1) return "failure";
+
   for (let attempt = 1; attempt <= maxAttempt; attempt++) {
     try {
       await page.waitForSelector(selectElement);
