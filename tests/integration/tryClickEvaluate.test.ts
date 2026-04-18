@@ -24,7 +24,7 @@ describe("tryClickEvaluate integration", () => {
     expect(result).toBe("success");
   });
 
-  it.only("tryClickEvaluate should fail if the element doesn't exist on page", async () => {
+  it("tryClickEvaluate should fail if the element doesn't exist on page", async () => {
     const browser = await puppeteer.default.launch({
       headless: false,
       args: ["--no-sandbox"],

@@ -21,9 +21,14 @@ async function extractJobsText(
   try {
     const doesJobContainerExists = (await page.waitForSelector(
       container.selector!,
+      { timeout: 15000 },
     )) as ElementHandle<HTMLElement>;
 
-    if (doesJobContainerExists) {
+    const doesJobContainerHTMLExists = await doesJobContainerExists.evaluate(
+      (element) => element.outerHTML,
+    );
+
+    if (doesJobContainerHTMLExists) {
       const result = await page.evaluate(
         (
           scrapedJobs,
@@ -124,7 +129,7 @@ async function extractJobsText(
   } catch (error) {
     console.log(`Failed to scrap, check selectors, reason: ${error}`);
 
-    throw error;
+    return scrapedJobs;
   }
 
   return scrapedJobs;
