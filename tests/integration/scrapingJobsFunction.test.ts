@@ -178,7 +178,7 @@ describe("Company scraping integration", () => {
     expect(result).toEqual([]);
   }, 15000);
 
-  it.only("should return empty array if site selectors changes", async () => {
+  it("should return empty array if site selectors changed", async () => {
     const mockCompany: CompanyWithRelationsType = {
       id: 1,
       name: "Company",

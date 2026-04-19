@@ -87,7 +87,7 @@ export async function scrapingJobsDetailsFunction(job: JobsWithRelationsType) {
       `Navigation script for jobs details failed, check the selector, ${error}`,
     );
 
-    throw error;
+    return scrapingJobsDetailsResult;
   }
   return scrapingJobsDetailsResult;
 }
