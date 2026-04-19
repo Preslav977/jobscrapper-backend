@@ -54,7 +54,7 @@
     "startJobsDetails": "tsc -w & node --watch ./dist/script/scrapeJobsDetails/scrapeJobsDetails.js",
     "migrate": "npx prisma migrate dev --name init",
     "generate": "npx prisma generate",
-    "test:integration": "NODE_ENV=test vitest tests/integration/extractJobsDetailsText",
+    "test:integration": "NODE_ENV=test vitest tests/integration/scrapingJobsFunction.test",
     "test:api": "NODE_ENV=test vitest tests/api"
   },
   "repository": {

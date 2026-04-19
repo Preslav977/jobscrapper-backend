@@ -3,14 +3,14 @@ import { upload } from "../../helpers/multerConfiguration/multerConfiguration.js
 import { createCompany, deleteCompany, getCompanies, getCompanyByName, updateCompany, } from "../../controllers/companyController/companyController.js";
 import { createJobs, deleteJob, getJobDetails, updateJob, } from "../../controllers/jobsControllers/jobsControllers.js";
 import { createScrappingInstructions, deleteScrappingInstructionsDetails, getScrappingInstructionsDetails, updateScrappingInstructionsDetails, } from "../../controllers/instructionsController/instructionsController.js";
-import { createScrappingSteps, getScrappingStepsDetails, updateScrappingStepsDetails, } from "../../controllers/stepsController/stepsController.js";
+import { createScrappingSteps, deleteScrappingStepsDetails, getScrappingStepsDetails, updateScrappingStepsDetails, } from "../../controllers/stepsController/stepsController.js";
 import { validateCreatingCompany } from "../../middlewares/validateCreatingCompany/validateCreatingCompany.js";
 const companyRouter = Router();
 ///CRUD company routes
 companyRouter.post("/", upload.single("file"), validateCreatingCompany, createCompany);
 companyRouter.get("/", getCompanies);
 companyRouter.get("/:name", getCompanyByName);
-companyRouter.put("/:id", upload.single("file"), updateCompany);
+companyRouter.put("/:id", upload.single("file"), validateCreatingCompany, updateCompany);
 companyRouter.delete("/:id", deleteCompany);
 ///CRUD jobs routes
 companyRouter.post("/:id/jobs", createJobs);
@@ -26,6 +26,6 @@ companyRouter.delete("/:companyID/instructions/:id", deleteScrappingInstructions
 companyRouter.post("/:companyID/steps", createScrappingSteps);
 companyRouter.get("/:companyID/steps", getScrappingStepsDetails);
 companyRouter.put("/:companyID/steps", updateScrappingStepsDetails);
-companyRouter.delete("/:companyID/steps", createScrappingSteps);
+companyRouter.delete("/:companyID/steps", deleteScrappingStepsDetails);
 export { companyRouter };
 //# sourceMappingURL=companyRouter.js.map

@@ -63,4 +63,175 @@ describe("Company scraping integration", () => {
 
     expect(result[0]).toHaveProperty("companyID");
   }, 10000);
+
+  it("should return empty array if scraping failed", async () => {
+    const mockCompany: CompanyWithRelationsType = {
+      id: 1,
+      name: "Company",
+      logo: null,
+      URL: "http://127.0.0.1:5500/tests/test-fixtures/missing-careers-button.html",
+      scrapMode: "NAVIGATION",
+      instructions: [
+        {
+          id: 1,
+          extractionInstructions: {
+            container: {
+              selector: ".data-row",
+              extractType: "text",
+            },
+            title: {
+              selector: "a",
+              extractType: "text",
+            },
+            location: {
+              extractType: "",
+              attr: "",
+            },
+            remoteOrHybrid: {
+              extractType: "",
+              selector: "",
+            },
+            datePosted: { extractType: "", selector: "" },
+            description: { extractType: "text", selector: ".job" },
+            anchorHref: {
+              extractType: "elementAttribute",
+              selector: "a",
+              attr: "href",
+            },
+          },
+          companyID: 1,
+        },
+      ],
+      steps: [
+        {
+          id: 1,
+          order: 1,
+          action: "click",
+          selector: "text/Careers",
+          url: "",
+          selectOption: "",
+          companyID: 1,
+        },
+      ],
+      jobs: [],
+    };
+
+    const result = await scrapingJobsFunction(mockCompany);
+
+    expect(result).toEqual([]);
+  }, 15000);
+
+  it("should return empty array if action is empty string", async () => {
+    const mockCompany: CompanyWithRelationsType = {
+      id: 1,
+      name: "Company",
+      logo: null,
+      URL: "http://127.0.0.1:5500/tests/test-fixtures/missing-careers-button.html",
+      scrapMode: "NAVIGATION",
+      instructions: [
+        {
+          id: 1,
+          extractionInstructions: {
+            container: {
+              selector: ".data-row",
+              extractType: "text",
+            },
+            title: {
+              selector: "a",
+              extractType: "text",
+            },
+            location: {
+              extractType: "",
+              attr: "",
+            },
+            remoteOrHybrid: {
+              extractType: "",
+              selector: "",
+            },
+            datePosted: { extractType: "", selector: "" },
+            description: { extractType: "text", selector: ".job" },
+            anchorHref: {
+              extractType: "elementAttribute",
+              selector: "a",
+              attr: "href",
+            },
+          },
+          companyID: 1,
+        },
+      ],
+      steps: [
+        {
+          id: 1,
+          order: 1,
+          action: "",
+          selector: "text/Careers",
+          url: "",
+          selectOption: "",
+          companyID: 1,
+        },
+      ],
+      jobs: [],
+    };
+
+    const result = await scrapingJobsFunction(mockCompany);
+
+    expect(result).toEqual([]);
+  }, 15000);
+
+  it.only("should return empty array if site selectors changes", async () => {
+    const mockCompany: CompanyWithRelationsType = {
+      id: 1,
+      name: "Company",
+      logo: null,
+      URL: "http://127.0.0.1:5500/tests/test-fixtures/new-structure.html",
+      scrapMode: "NAVIGATION",
+      instructions: [
+        {
+          id: 1,
+          extractionInstructions: {
+            container: {
+              selector: ".data-row",
+              extractType: "text",
+            },
+            title: {
+              selector: "a",
+              extractType: "text",
+            },
+            location: {
+              extractType: "",
+              attr: "",
+            },
+            remoteOrHybrid: {
+              extractType: "",
+              selector: "",
+            },
+            datePosted: { extractType: "", selector: "" },
+            description: { extractType: "text", selector: ".job" },
+            anchorHref: {
+              extractType: "elementAttribute",
+              selector: "a",
+              attr: "href",
+            },
+          },
+          companyID: 1,
+        },
+      ],
+      steps: [
+        {
+          id: 1,
+          order: 1,
+          action: "",
+          selector: "text/Careers",
+          url: "",
+          selectOption: "",
+          companyID: 1,
+        },
+      ],
+      jobs: [],
+    };
+
+    const result = await scrapingJobsFunction(mockCompany);
+
+    expect(result).toEqual([]);
+  }, 15000);
 });

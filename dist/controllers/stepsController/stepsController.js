@@ -1,9 +1,10 @@
 import { prisma } from "../../db/client.js";
+import { validationResult } from "express-validator";
 async function createScrappingSteps(req, res) {
     const { companyID } = req.params;
-    if (req.body.length === 0) {
-        res.json({
-            message: "Failed to create scraping steps for company!",
+    if (req.body.length === 0 || companyID === null) {
+        res.status(400).send({
+            message: "Failed to creates steps for company! Is the array empty or the ID exists?",
         });
     }
     else {
@@ -28,7 +29,7 @@ async function getScrappingStepsDetails(req, res) {
     });
     if (getStepsDetails.length === 0) {
         res.json({
-            message: `No steps has been found with that ${companyID} for the instructions company!`,
+            message: `No steps has been found for the company with ID: ${companyID}`,
         });
     }
     else {
@@ -36,17 +37,23 @@ async function getScrappingStepsDetails(req, res) {
     }
 }
 async function updateScrappingStepsDetails(req, res) {
-    const updateSteps = await Promise.all(req.body.map((step) => prisma.steps.update({
-        where: { id: step.id, companyID: step.companyID },
-        data: {
-            order: step.order,
-            action: step.action,
-            selector: step.selector,
-            selectOption: step.selectOption,
-            url: step.url,
-        },
-    })));
-    res.json(updateSteps);
+    const errors = validationResult(req);
+    if (!errors.isEmpty() || req.body.length === 0) {
+        res.status(400).send(errors.array());
+    }
+    else {
+        const updateSteps = await Promise.all(req.body.map((step) => prisma.steps.update({
+            where: { id: step.id, companyID: step.companyID },
+            data: {
+                order: step.order,
+                action: step.action,
+                selector: step.selector,
+                selectOption: step.selectOption,
+                url: step.url,
+            },
+        })));
+        res.json(updateSteps);
+    }
 }
 async function deleteScrappingStepsDetails(req, res) {
     const { companyID } = req.params;

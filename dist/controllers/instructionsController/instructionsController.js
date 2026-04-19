@@ -1,9 +1,9 @@
 import { prisma } from "../../db/client.js";
 async function createScrappingInstructions(req, res) {
     const { companyID } = req.params;
-    if (req.body.length === 0) {
-        res.json({
-            message: "Failed to create instructions for company!",
+    if (req.body.length === 0 || companyID === null) {
+        res.status(400).send({
+            message: "Failed to create instructions! Is the array empty or the ID exists?",
         });
     }
     else {
@@ -27,7 +27,7 @@ async function getScrappingInstructionsDetails(req, res) {
     });
     if (getInstructionsDetails.length === 0) {
         res.json({
-            message: "No instructions has been found with that ID for that company!",
+            message: "No instructions has been found for the company!",
         });
     }
     else {
@@ -50,6 +50,11 @@ async function updateScrappingInstructionsDetails(req, res) {
             },
         });
         res.json(updateInstructionsDetails);
+    }
+    else {
+        res.status(400).send({
+            message: "Failed to update instructions! Do the instructions exists or the ID exists?",
+        });
     }
 }
 async function deleteScrappingInstructionsDetails(req, res) {

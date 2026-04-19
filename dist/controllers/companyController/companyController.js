@@ -8,28 +8,16 @@ async function createCompany(req, res) {
         res.status(400).send(errors.array());
     }
     else {
-        if (req.file) {
-            const logo = await supabaseImageUpload(req.file);
-            const createCompany = await prisma.company.create({
-                data: {
-                    name,
-                    logo,
-                    URL,
-                    scrapMode,
-                },
-            });
-            res.json(createCompany);
-        }
-        else {
-            const createCompany = await prisma.company.create({
-                data: {
-                    name,
-                    URL,
-                    scrapMode,
-                },
-            });
-            res.json(createCompany);
-        }
+        const logo = req.file ? await supabaseImageUpload(req.file) : null;
+        const createCompany = await prisma.company.create({
+            data: {
+                name,
+                logo,
+                URL,
+                scrapMode,
+            },
+        });
+        res.json(createCompany);
     }
 }
 async function getCompanies(req, res) {
@@ -63,7 +51,7 @@ async function getCompanyByName(req, res) {
         },
     });
     if (companyName === null) {
-        res.json({ message: "No company with this name has been found!" });
+        res.json({ message: `No company with this name: ${name} has been found!` });
     }
     else {
         res.json(companyName);
@@ -72,22 +60,12 @@ async function getCompanyByName(req, res) {
 async function updateCompany(req, res) {
     const { id } = req.params;
     const { name, URL, scrapMode } = req.body;
-    if (req.file) {
-        const logo = await supabaseImageUpload(req.file);
-        const companyUpdateInformation = await prisma.company.update({
-            where: {
-                id: Number(id),
-            },
-            data: {
-                name,
-                logo,
-                URL,
-                scrapMode,
-            },
-        });
-        res.json(companyUpdateInformation);
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        res.status(400).send(errors.array());
     }
     else {
+        const logo = req.file ? await supabaseImageUpload(req.file) : null;
         const companyUpdateInformation = await prisma.company.update({
             where: {
                 id: Number(id),
@@ -95,6 +73,7 @@ async function updateCompany(req, res) {
             data: {
                 name,
                 URL,
+                logo,
                 scrapMode,
             },
         });

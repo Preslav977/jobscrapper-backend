@@ -3,8 +3,9 @@ async function extractJobsText(page, instruction, id) {
     const { container, title, location, remoteOrHybrid, datePosted, anchorHref } = instruction.extractionInstructions;
     const scrapedJobs = [];
     try {
-        const doesJobContainerExists = (await page.waitForSelector(container.selector));
-        if (doesJobContainerExists) {
+        const doesJobContainerExists = (await page.waitForSelector(container.selector, { timeout: 15000 }));
+        const doesJobContainerHTMLExists = await doesJobContainerExists.evaluate((element) => element.outerHTML);
+        if (doesJobContainerHTMLExists) {
             const result = await page.evaluate((scrapedJobs, container, title, location, remoteOrHybrid, datePosted, anchorHref, id) => {
                 function extractField(HTMLElement, elementField) {
                     if (elementField.extractType === "" ||
@@ -53,7 +54,7 @@ async function extractJobsText(page, instruction, id) {
     }
     catch (error) {
         console.log(`Failed to scrap, check selectors, reason: ${error}`);
-        throw error;
+        return scrapedJobs;
     }
     return scrapedJobs;
 }
@@ -61,7 +62,7 @@ async function extractJobsDetailsText(page, instruction, id) {
     const { description } = instruction.extractionInstructions;
     let scrapeJobsObject = {};
     try {
-        const doesJobDescriptionExists = (await page.waitForSelector(description.selector));
+        const doesJobDescriptionExists = (await page.waitForSelector(description.selector, { timeout: 5000 }));
         if (doesJobDescriptionExists) {
             const result = await page.evaluate((description, id) => {
                 const queryJobDetails = document.querySelector(description.selector);
@@ -96,7 +97,8 @@ async function extractJobsFetchURL(id, url, companyURL) {
             mode: "cors",
         });
         if (fetchJobsByURL.status >= 400) {
-            throw new Error(`Failed to fetch jobs, reason: ${fetchJobsByURL.statusText}`);
+            console.log(`Failed to fetch jobs, reason: ${fetchJobsByURL.statusText}`);
+            return retrieveFetchedJobs;
         }
         const getJobs = (await fetchJobsByURL.json());
         const result = transform(getJobs.result, (job) => ({

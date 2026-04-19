@@ -38,28 +38,52 @@ async function userLogin(req, res) {
     });
 }
 async function userGetDetails(req, res) {
-    if (req.params.id) {
-        const userDetails = await prisma.user.findFirst({
-            where: {
-                id: Number(req.params.id),
-            },
+    // if (req.params.id) {
+    //   const userDetails = await prisma.user.findFirst({
+    //     where: {
+    //       id: Number(req.params.id),
+    //     },
+    //   });
+    //   if (userDetails === null) {
+    //     res.json({ message: "User with that ID couldn't be found!" });
+    //   } else {
+    //     res.json(userDetails);
+    //   }
+    // } else {
+    //   const userDetails = await prisma.user.findFirst({
+    //     where: {
+    //       id: Number(req.authData!.id),
+    //     },
+    //   });
+    //   if (userDetails === null) {
+    //     res.json({ message: "User with that ID couldn't be found!" });
+    //   } else {
+    //     res.json(userDetails);
+    //   }
+    // }
+    const userDetails = await prisma.user.findFirst({
+        where: {
+            id: req.params.id ? Number(req.params.id) : Number(req.authData.id),
+        },
+    });
+    if (userDetails === null) {
+        res.json({
+            message: `User with that ID: ${req.params.id || req.authData.id} couldn't be found!`,
         });
-        res.json(userDetails);
     }
     else {
-        const userDetails = await prisma.user.findFirst({
-            where: {
-                id: Number(req.authData.id),
-            },
-        });
         res.json(userDetails);
     }
 }
 async function userUpdateDetails(req, res) {
     const { id } = req.params;
+    const errors = validationResult(req);
     const { firstName, lastName, location, email, phoneNumber, linkedInURL, githubURL, portfolioURL, } = req.body;
-    if (req.file) {
-        const logo = await supabaseImageUpload(req.file);
+    if (!errors.isEmpty()) {
+        res.status(400).send(errors.array());
+    }
+    else {
+        const logo = req.file ? await supabaseImageUpload(req.file) : "";
         const updateUserDetails = await prisma.user.update({
             where: {
                 id: Number(id),
@@ -74,24 +98,6 @@ async function userUpdateDetails(req, res) {
                 githubURL,
                 portfolioURL,
                 profilePicture: logo,
-            },
-        });
-        res.json(updateUserDetails);
-    }
-    else {
-        const updateUserDetails = await prisma.user.update({
-            where: {
-                id: Number(id),
-            },
-            data: {
-                firstName,
-                lastName,
-                location,
-                email,
-                phoneNumber,
-                linkedInURL,
-                githubURL,
-                portfolioURL,
             },
         });
         res.json(updateUserDetails);

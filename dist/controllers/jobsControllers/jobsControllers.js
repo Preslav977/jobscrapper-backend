@@ -1,8 +1,11 @@
+import { validationResult } from "express-validator";
 import { prisma } from "../../db/client.js";
 async function createJobs(req, res) {
     const { id } = req.params;
-    if (req.body.length === 0) {
-        res.json({ message: "No jobs has been created. Scrapping failed!" });
+    if (req.body.length === 0 || id === null) {
+        res.status(400).send({
+            message: "Failed to create jobs! Is the array empty or the ID exists?",
+        });
     }
     else {
         const jobsArray = req.body.map((job) => {
@@ -29,7 +32,7 @@ async function getJobDetails(req, res) {
     });
     if (jobDetails.length === 0) {
         res.json({
-            message: `No jobs has been found with that ${companyID} in that company!`,
+            message: `No jobs has been found for the company with ID: ${companyID}`,
         });
     }
     else {
@@ -38,25 +41,31 @@ async function getJobDetails(req, res) {
 }
 async function updateJob(req, res) {
     const { id, companyID } = req.params;
+    const errors = validationResult(req);
     const { title, location, remoteOrHybrid, datePosted, description, anchorHref, } = req.body;
-    const updateJobDetails = await prisma.jobs.update({
-        include: {
-            company: true,
-        },
-        where: {
-            companyID: Number(companyID),
-            id: Number(id),
-        },
-        data: {
-            title,
-            location,
-            remoteOrHybrid,
-            datePosted,
-            description,
-            anchorHref,
-        },
-    });
-    res.json(updateJobDetails);
+    if (!errors.isEmpty()) {
+        res.status(400).send(errors.array());
+    }
+    else {
+        const updateJobDetails = await prisma.jobs.update({
+            include: {
+                company: true,
+            },
+            where: {
+                companyID: Number(companyID),
+                id: Number(id),
+            },
+            data: {
+                title,
+                location,
+                remoteOrHybrid,
+                datePosted,
+                description,
+                anchorHref,
+            },
+        });
+        res.json(updateJobDetails);
+    }
 }
 async function deleteJob(req, res) {
     const { id, companyID } = req.params;

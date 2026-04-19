@@ -28,9 +28,14 @@ async function tryClick(page, instruction, maxAttempt) {
     }
 }
 async function tryClickEvaluate(page, instruction, maxAttempt) {
+    if (maxAttempt < 1)
+        return "failure";
     for (let attempt = 1; attempt <= maxAttempt; attempt++) {
+        const timeout = attempt * 10000;
         try {
-            const clickedInstruction = (await page.waitForSelector(instruction));
+            const clickedInstruction = (await page.waitForSelector(instruction, {
+                timeout,
+            }));
             await clickedInstruction.evaluate((element) => element.click());
             await sleepDelay(3000);
             return "success";
@@ -58,7 +63,7 @@ async function tryClickLoadMore(page, instruction) {
             }
         }
         catch (error) {
-            if (clickedMoreButtonCount > 5) {
+            if (clickedMoreButtonCount > 0) {
                 loadMoreJobs = false;
                 return "success";
             }
@@ -71,6 +76,8 @@ async function tryClickLoadMore(page, instruction) {
     }
 }
 async function selectOptionFromDropDown(page, selectElement, selectOption, maxAttempt) {
+    if (maxAttempt < 1)
+        return "failure";
     for (let attempt = 1; attempt <= maxAttempt; attempt++) {
         try {
             await page.waitForSelector(selectElement);
