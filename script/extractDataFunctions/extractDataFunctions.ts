@@ -148,6 +148,7 @@ async function extractJobsDetailsText(
   try {
     const doesJobDescriptionExists = (await page.waitForSelector(
       description.selector!,
+      { timeout: 5000 },
     )) as ElementHandle<HTMLElement>;
 
     if (doesJobDescriptionExists) {
