@@ -205,9 +205,9 @@ async function extractJobsFetchURL(
     });
 
     if (fetchJobsByURL.status >= 400) {
-      throw new Error(
-        `Failed to fetch jobs, reason: ${fetchJobsByURL.statusText}`,
-      );
+      console.log(`Failed to fetch jobs, reason: ${fetchJobsByURL.statusText}`);
+
+      return retrieveFetchedJobs;
     }
     const getJobs =
       (await fetchJobsByURL.json()) as ApiResponse<ResponseResult>;
