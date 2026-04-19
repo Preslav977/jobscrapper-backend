@@ -55,8 +55,7 @@
     "migrate": "npx prisma migrate dev --name init",
     "generate": "npx prisma generate",
     "test:integration": "NODE_ENV=test vitest tests/integration",
-    "test:api": "NODE_ENV=test vitest tests/api",
-    "test:database": "NODE_ENV=test vitest tests/database"
+    "test:api": "NODE_ENV=test vitest tests/api"
   },
   "repository": {
     "type": "git",
