@@ -26,7 +26,7 @@ import bcrypt from "bcryptjs";
 
 import { prisma } from "./db/client.js";
 
-import { conditionalRouteMiddleware } from "./middlewares/conditionalRouteMiddleware/conditionalRouteMiddleware.js";
+// import { conditionalRouteMiddleware } from "./middlewares/conditionalRouteMiddleware/conditionalRouteMiddleware.js";
 
 const app = express();
 
@@ -130,7 +130,7 @@ app.get("users/logout", (req, res, next) => {
 
 app.use(authRouter);
 
-app.use(conditionalRouteMiddleware);
+// app.use(conditionalRouteMiddleware);
 
 app.use("/users", userRouter);
 

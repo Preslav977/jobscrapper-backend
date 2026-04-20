@@ -54,7 +54,7 @@ export async function scrapingJobsDetailsFunction(job) {
     }
     catch (error) {
         console.log(`Navigation script for jobs details failed, check the selector, ${error}`);
-        throw error;
+        return scrapingJobsDetailsResult;
     }
     return scrapingJobsDetailsResult;
 }

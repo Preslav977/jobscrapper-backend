@@ -48,7 +48,7 @@ export async function scrapingJobsFunction(company) {
         for (const step of steps) {
             switch (step.action) {
                 case "click": {
-                    const tryClickResult = await tryClick(page, step.selector, 5);
+                    const tryClickResult = await tryClick(page, step.selector, 1);
                     navigationResults.push({
                         step: step.selector,
                         status: tryClickResult,
@@ -89,6 +89,10 @@ export async function scrapingJobsFunction(company) {
                     break;
                 }
                 default: {
+                    navigationResults.push({
+                        step: step.selector,
+                        status: "failure",
+                    });
                     break;
                 }
             }

@@ -62,7 +62,7 @@ async function extractJobsDetailsText(page, instruction, id) {
     const { description } = instruction.extractionInstructions;
     let scrapeJobsObject = {};
     try {
-        const doesJobDescriptionExists = (await page.waitForSelector(description.selector, { timeout: 5000 }));
+        const doesJobDescriptionExists = (await page.waitForSelector(description.selector, { timeout: 10000 }));
         if (doesJobDescriptionExists) {
             const result = await page.evaluate((description, id) => {
                 const queryJobDetails = document.querySelector(description.selector);
@@ -78,6 +78,7 @@ async function extractJobsDetailsText(page, instruction, id) {
     }
     catch (error) {
         console.log(`Failed to scrap, check selector, reason: ${error}`);
+        return scrapeJobsObject;
     }
     return scrapeJobsObject;
 }

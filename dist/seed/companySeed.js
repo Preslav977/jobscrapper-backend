@@ -304,7 +304,7 @@ import { prisma } from "../db/client.js";
                         location: { extractType: "text", selector: ".location" },
                         remoteOrHybrid: { extractType: "", selector: "" },
                         datePosted: { extractType: "", selector: "" },
-                        description: { extractType: "text", selector: "section" },
+                        description: { extractType: "text", selector: ".content" },
                         anchorHref: {
                             extractType: "elementAttribute",
                             selector: "a",
@@ -343,7 +343,7 @@ import { prisma } from "../db/client.js";
                         location: { extractType: "text", selector: ".location-info" },
                         remoteOrHybrid: { extractType: "", selector: "" },
                         datePosted: { extractType: "", selector: "" },
-                        description: { extractType: "text", selector: ".job" },
+                        description: { extractType: "text", selector: ".jobDisplay" },
                         anchorHref: {
                             extractType: "elementAttribute",
                             selector: "a",
@@ -444,12 +444,12 @@ import { prisma } from "../db/client.js";
                         },
                     },
                 });
-                console.log("Successfully created all the companies in the script!");
             }
         }
         catch (error) {
             console.log(`Failed to create company ${company.name}, ${error}`);
         }
+        console.log(`Successfully created company: ${company.name}!`);
     }
 })();
 //# sourceMappingURL=companySeed.js.map

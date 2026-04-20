@@ -11,19 +11,35 @@ import { scrapingJobsDetailsFunction } from "../scrapingJobsDetailsFunction/scra
           },
         },
       },
+
+      where: {
+        company: {
+          name: "Anthill",
+        },
+      },
     });
 
-    for (const job of jobs) {
-      const scrapedJobsDetails = await scrapingJobsDetailsFunction(job);
+    if (jobs.length > 0) {
+      for (const job of jobs) {
+        const scrapedJobsDetails = await scrapingJobsDetailsFunction(job);
 
-      await prisma.jobs.update({
-        where: {
-          id: scrapedJobsDetails.id!,
-        },
-        data: {
-          description: scrapedJobsDetails.description!,
-        },
-      });
+        if (scrapedJobsDetails.id) {
+          await prisma.jobs.update({
+            where: {
+              id: scrapedJobsDetails.id,
+            },
+            data: {
+              description: scrapedJobsDetails.description
+                ? scrapedJobsDetails.description
+                : "",
+            },
+          });
+        } else {
+          console.log(
+            `Failed to update job with ID: ${scrapedJobsDetails.id}. Check selector!`,
+          );
+        }
+      }
     }
   } catch (error) {
     console.log(`Failed to update job details: ${error}`);

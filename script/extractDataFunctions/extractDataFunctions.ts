@@ -148,7 +148,7 @@ async function extractJobsDetailsText(
   try {
     const doesJobDescriptionExists = (await page.waitForSelector(
       description.selector!,
-      { timeout: 5000 },
+      { timeout: 10000 },
     )) as ElementHandle<HTMLElement>;
 
     if (doesJobDescriptionExists) {
@@ -174,6 +174,8 @@ async function extractJobsDetailsText(
     }
   } catch (error) {
     console.log(`Failed to scrap, check selector, reason: ${error}`);
+
+    return scrapeJobsObject;
   }
   return scrapeJobsObject;
 }

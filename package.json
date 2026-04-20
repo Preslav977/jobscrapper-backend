@@ -48,7 +48,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "NODE_ENV=development & tsc -w & node --watch ./dist/listen.js",
+    "start": "NODE_ENV=development & npx kill-port 5000 & tsc -w & node --watch ./dist/listen.js",
     "seed": "tsc -w & node --watch ./dist/seed/companySeed.js",
     "startJobs": "tsc -w & node --watch ./dist/script/scrapeJobs/scrapeJobs.js",
     "startJobsDetails": "tsc -w & node --watch ./dist/script/scrapeJobsDetails/scrapeJobsDetails.js",
