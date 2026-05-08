@@ -54,6 +54,18 @@ async function getJobDetails(req, res) {
         res.json(jobDetails);
     }
 }
+async function getJobsBySearch(req, res) {
+    const { query } = req.query;
+    const jobSearch = await prisma.$queryRaw `SELECT * FROM jobs WHERE title ILIKE ${`%${query}%`} OR location ILIKE ${`%${query}%`} OR "remoteOrHybrid" ILIKE ${`%${query}%`}`;
+    if (jobSearch.length === 0) {
+        res.json({
+            message: `No jobs has been found for the search parameter: ${query}`,
+        });
+    }
+    else {
+        res.json(jobSearch);
+    }
+}
 async function updateJob(req, res) {
     const { id, companyID } = req.params;
     const errors = validationResult(req);
@@ -95,5 +107,5 @@ async function deleteJob(req, res) {
     });
     res.json({ message: `Job with ID: ${jobDelete.id} has been deleted!` });
 }
-export { createJobs, deleteJob, getJobDetails, getJobs, updateJob };
+export { createJobs, deleteJob, getJobDetails, getJobs, getJobsBySearch, updateJob, };
 //# sourceMappingURL=jobsControllers.js.map
