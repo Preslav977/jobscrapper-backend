@@ -14,6 +14,7 @@ import {
   createJobs,
   deleteJob,
   getJobDetails,
+  getJobs,
   updateJob,
 } from "../../controllers/jobsControllers/jobsControllers.js";
 
@@ -43,15 +44,14 @@ companyRouter.post(
   validateCreatingCompany,
   createCompany,
 );
+companyRouter.get("/:name", getCompanyByName);
 
 companyRouter.get("/", getCompanies);
-
-companyRouter.get("/:name", getCompanyByName);
 
 companyRouter.put(
   "/:id",
   upload.single("file"),
-  validateCreatingCompany,
+  // validateCreatingCompany,
   updateCompany,
 );
 
@@ -60,6 +60,8 @@ companyRouter.delete("/:id", deleteCompany);
 ///CRUD jobs routes
 
 companyRouter.post("/:id/jobs", createJobs);
+
+companyRouter.get("/get/jobs", getJobs);
 
 companyRouter.get("/:companyID/jobs", getJobDetails);
 

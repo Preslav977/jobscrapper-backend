@@ -26,6 +26,22 @@ async function createJobs(req: Request, res: Response) {
   }
 }
 
+async function getJobs(req: Request, res: Response) {
+  const jobs = await prisma.jobs.findMany({
+    include: {
+      company: true,
+    },
+  });
+
+  if (jobs.length === 0) {
+    res.json({
+      message: `No jobs has been found!`,
+    });
+  } else {
+    res.json(jobs);
+  }
+}
+
 async function getJobDetails(req: Request, res: Response) {
   const { companyID } = req.params;
 
@@ -105,4 +121,4 @@ async function deleteJob(req: Request, res: Response) {
   res.json({ message: `Job with ID: ${jobDelete.id} has been deleted!` });
 }
 
-export { createJobs, deleteJob, getJobDetails, updateJob };
+export { createJobs, deleteJob, getJobDetails, getJobs, updateJob };

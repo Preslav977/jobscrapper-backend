@@ -26,6 +26,9 @@ import bcrypt from "bcryptjs";
 
 import { prisma } from "./db/client.js";
 
+import cors from "cors";
+import { verifyBearerToken } from "./middlewares/verifyBearerToken/verifyBearerToken.js";
+
 // import { conditionalRouteMiddleware } from "./middlewares/conditionalRouteMiddleware/conditionalRouteMiddleware.js";
 
 const app = express();
@@ -37,6 +40,8 @@ app.use(express.static(assetsPath));
 app.use(express.json());
 
 app.use(express.urlencoded({ extended: true }));
+
+app.use(cors());
 
 app.use(
   session({
@@ -129,6 +134,8 @@ app.get("users/logout", (req, res, next) => {
 });
 
 app.use(authRouter);
+
+app.use(verifyBearerToken);
 
 // app.use(conditionalRouteMiddleware);
 
