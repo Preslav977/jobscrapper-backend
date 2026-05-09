@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { upload } from "../../helpers/multerConfiguration/multerConfiguration.js";
 import { createCompany, deleteCompany, getCompanies, getCompanyByName, updateCompany, } from "../../controllers/companyController/companyController.js";
-import { createJobs, deleteJob, getJobDetails, getJobs, getJobsBySearch, updateJob, } from "../../controllers/jobsControllers/jobsControllers.js";
+import { createJobs, deleteJob, getJobDetails, getJobs, updateJob, } from "../../controllers/jobsControllers/jobsControllers.js";
 import { createScrappingInstructions, deleteScrappingInstructionsDetails, getScrappingInstructionsDetails, updateScrappingInstructionsDetails, } from "../../controllers/instructionsController/instructionsController.js";
 import { createScrappingSteps, deleteScrappingStepsDetails, getScrappingStepsDetails, updateScrappingStepsDetails, } from "../../controllers/stepsController/stepsController.js";
 import { validateCreatingCompany } from "../../middlewares/validateCreatingCompany/validateCreatingCompany.js";
@@ -16,8 +16,7 @@ updateCompany);
 companyRouter.delete("/:id", deleteCompany);
 ///CRUD jobs routes
 companyRouter.post("/:id/jobs", createJobs);
-companyRouter.get("/get/jobs", getJobs);
-companyRouter.get("/get/jobs/search", getJobsBySearch);
+companyRouter.get("/get/jobs{/search}", getJobs);
 companyRouter.get("/:companyID/jobs", getJobDetails);
 companyRouter.put("/:companyID/jobs/:id", updateJob);
 companyRouter.delete("/:companyID/jobs/:id", deleteJob);

@@ -27,18 +27,61 @@ async function createJobs(req: Request, res: Response) {
 }
 
 async function getJobs(req: Request, res: Response) {
-  const jobs = await prisma.jobs.findMany({
-    include: {
-      company: true,
-    },
-  });
+  const { query } = req.query;
 
-  if (jobs.length === 0) {
-    res.json({
-      message: `No jobs has been found!`,
-    });
-  } else {
-    res.json(jobs);
+  switch (query) {
+    case undefined:
+      {
+        const jobs = await prisma.jobs.findMany({
+          include: {
+            company: true,
+          },
+        });
+
+        res.json(jobs);
+      }
+
+      break;
+
+    case query:
+      {
+        const searchJobs = await prisma.jobs.findMany({
+          include: {
+            company: true,
+          },
+
+          where: {
+            OR: [
+              {
+                title: {
+                  contains: String(query),
+                  mode: "insensitive",
+                },
+              },
+              {
+                location: {
+                  contains: String(query),
+                  mode: "insensitive",
+                },
+              },
+              {
+                remoteOrHybrid: {
+                  contains: String(query),
+                  mode: "insensitive",
+                },
+              },
+            ],
+          },
+        });
+
+        res.json(searchJobs);
+      }
+
+      break;
+
+    default:
+      res.json({ message: "No jobs has been found!" });
+      break;
   }
 }
 
@@ -63,20 +106,7 @@ async function getJobDetails(req: Request, res: Response) {
   }
 }
 
-async function getJobsBySearch(req: Request, res: Response) {
-  const { query } = req.query;
-
-  const jobSearch: Jobs[] =
-    await prisma.$queryRaw`SELECT * FROM jobs WHERE title ILIKE ${`%${query}%`} OR location ILIKE ${`%${query}%`} OR "remoteOrHybrid" ILIKE ${`%${query}%`}`;
-
-  if (jobSearch.length === 0) {
-    res.json({
-      message: `No jobs has been found for the search parameter: ${query}`,
-    });
-  } else {
-    res.json(jobSearch);
-  }
-}
+async function getJobsBySearch(req: Request, res: Response) {}
 
 async function updateJob(req: Request, res: Response) {
   const { id, companyID } = req.params;

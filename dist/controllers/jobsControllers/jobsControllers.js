@@ -21,18 +21,53 @@ async function createJobs(req, res) {
     }
 }
 async function getJobs(req, res) {
-    const jobs = await prisma.jobs.findMany({
-        include: {
-            company: true,
-        },
-    });
-    if (jobs.length === 0) {
-        res.json({
-            message: `No jobs has been found!`,
-        });
-    }
-    else {
-        res.json(jobs);
+    const { query } = req.query;
+    switch (query) {
+        case undefined:
+            {
+                const jobs = await prisma.jobs.findMany({
+                    include: {
+                        company: true,
+                    },
+                });
+                res.json(jobs);
+            }
+            break;
+        case query:
+            {
+                const searchJobs = await prisma.jobs.findMany({
+                    include: {
+                        company: true,
+                    },
+                    where: {
+                        OR: [
+                            {
+                                title: {
+                                    contains: String(query),
+                                    mode: "insensitive",
+                                },
+                            },
+                            {
+                                location: {
+                                    contains: String(query),
+                                    mode: "insensitive",
+                                },
+                            },
+                            {
+                                remoteOrHybrid: {
+                                    contains: String(query),
+                                    mode: "insensitive",
+                                },
+                            },
+                        ],
+                    },
+                });
+                res.json(searchJobs);
+            }
+            break;
+        default:
+            res.json({ message: "No jobs has been found!" });
+            break;
     }
 }
 async function getJobDetails(req, res) {
@@ -54,18 +89,7 @@ async function getJobDetails(req, res) {
         res.json(jobDetails);
     }
 }
-async function getJobsBySearch(req, res) {
-    const { query } = req.query;
-    const jobSearch = await prisma.$queryRaw `SELECT * FROM jobs WHERE title ILIKE ${`%${query}%`} OR location ILIKE ${`%${query}%`} OR "remoteOrHybrid" ILIKE ${`%${query}%`}`;
-    if (jobSearch.length === 0) {
-        res.json({
-            message: `No jobs has been found for the search parameter: ${query}`,
-        });
-    }
-    else {
-        res.json(jobSearch);
-    }
-}
+async function getJobsBySearch(req, res) { }
 async function updateJob(req, res) {
     const { id, companyID } = req.params;
     const errors = validationResult(req);

@@ -15,7 +15,6 @@ import {
   deleteJob,
   getJobDetails,
   getJobs,
-  getJobsBySearch,
   updateJob,
 } from "../../controllers/jobsControllers/jobsControllers.js";
 
@@ -62,9 +61,7 @@ companyRouter.delete("/:id", deleteCompany);
 
 companyRouter.post("/:id/jobs", createJobs);
 
-companyRouter.get("/get/jobs", getJobs);
-
-companyRouter.get("/get/jobs/search", getJobsBySearch);
+companyRouter.get("/get/jobs{/search}", getJobs);
 
 companyRouter.get("/:companyID/jobs", getJobDetails);
 
