@@ -11,7 +11,6 @@ import LocalStrategy from "passport-local";
 import bcrypt from "bcryptjs";
 import { prisma } from "./db/client.js";
 import cors from "cors";
-import { verifyBearerToken } from "./middlewares/verifyBearerToken/verifyBearerToken.js";
 // import { conditionalRouteMiddleware } from "./middlewares/conditionalRouteMiddleware/conditionalRouteMiddleware.js";
 const app = express();
 const assetsPath = path.join(__dirname, "/public");
@@ -89,7 +88,7 @@ app.get("users/logout", (req, res, next) => {
     });
 });
 app.use(authRouter);
-app.use(verifyBearerToken);
+// app.use(verifyBearerToken);
 // app.use(conditionalRouteMiddleware);
 app.use("/users", userRouter);
 app.use("/companies", companyRouter);

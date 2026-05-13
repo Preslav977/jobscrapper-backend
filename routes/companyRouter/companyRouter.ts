@@ -63,7 +63,7 @@ companyRouter.post("/:id/jobs", createJobs);
 
 companyRouter.get("/get/jobs{/search}", getJobs);
 
-companyRouter.get("/:companyID/jobs", getJobDetails);
+companyRouter.get("/jobs/:id", getJobDetails);
 
 companyRouter.put("/:companyID/jobs/:id", updateJob);
 

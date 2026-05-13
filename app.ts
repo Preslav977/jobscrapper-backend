@@ -27,7 +27,6 @@ import bcrypt from "bcryptjs";
 import { prisma } from "./db/client.js";
 
 import cors from "cors";
-import { verifyBearerToken } from "./middlewares/verifyBearerToken/verifyBearerToken.js";
 
 // import { conditionalRouteMiddleware } from "./middlewares/conditionalRouteMiddleware/conditionalRouteMiddleware.js";
 
@@ -135,7 +134,7 @@ app.get("users/logout", (req, res, next) => {
 
 app.use(authRouter);
 
-app.use(verifyBearerToken);
+// app.use(verifyBearerToken);
 
 // app.use(conditionalRouteMiddleware);
 
