@@ -1,7 +1,6 @@
 {
   "dependencies": {
     "@prisma/adapter-pg": "^7.2.0",
-    "@prisma/client": "^7.7.0",
     "@quixo3/prisma-session-store": "^3.1.19",
     "@supabase/supabase-js": "^2.90.1",
     "@types/express": "^5.0.6",
@@ -28,6 +27,8 @@
   "main": "index.js",
   "devDependencies": {
     "@eslint/js": "^9.39.2",
+    "@prisma/client": "^7.8.0",
+    "@types/cors": "^2.8.19",
     "@types/express-session": "^1.18.2",
     "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^25.0.10",
@@ -38,8 +39,10 @@
     "eslint": "^9.39.2",
     "eslint-config-prettier": "^10.1.8",
     "globals": "^17.0.0",
+    "i": "^0.3.7",
+    "npm": "^11.14.1",
     "prettier": "3.7.4",
-    "prisma": "^7.7.0",
+    "prisma": "^7.8.0",
     "supertest": "^7.2.2",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.3",
@@ -48,7 +51,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "NODE_ENV=development & npx kill-port 5000 & tsc -w & node --watch ./dist/listen.js",
+    "start": "NODE_ENV=development & tsc -w & node --watch ./dist/listen.js",
     "seed": "tsc -w & node --watch ./dist/seed/companySeed.js",
     "startJobs": "tsc -w & node --watch ./dist/script/scrapeJobs/scrapeJobs.js",
     "startJobsDetails": "tsc -w & node --watch ./dist/script/scrapeJobsDetails/scrapeJobsDetails.js",

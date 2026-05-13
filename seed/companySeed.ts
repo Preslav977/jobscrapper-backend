@@ -29,10 +29,11 @@ import type { CompanyWithSelectedFieldsType } from "../interfaces/CompanyInterfa
               extractType: "text",
             },
             datePosted: { extractType: "", selector: "" },
-            description: {
-              extractType: "text",
-              selector: "main > div > div:has(p)",
-            },
+            responsibilities: { extractType: "", selector: "" },
+            requirements: { extractType: "", selector: "" },
+            niceToHave: { extractType: "", selector: "" },
+            benefits: { extractType: "", selector: "" },
+            interviewSteps: { extractType: "", selector: "" },
             anchorHref: {
               attr: "href",
               extractType: "attribute",
@@ -76,10 +77,11 @@ import type { CompanyWithSelectedFieldsType } from "../interfaces/CompanyInterfa
               selector:
                 ".rad-filters-vertical__job-card-content-job-posted-date-dynamic-text",
             },
-            description: {
-              extractType: "text",
-              selector: ".rad-job-detail__accordion",
-            },
+            responsibilities: { extractType: "", selector: "" },
+            requirements: { extractType: "", selector: "" },
+            niceToHave: { extractType: "", selector: "" },
+            benefits: { extractType: "", selector: "" },
+            interviewSteps: { extractType: "", selector: "" },
             anchorHref: {
               extractType: "elementAttribute",
               selector: ".rad-filters-vertical__job-card a",
@@ -103,7 +105,11 @@ import type { CompanyWithSelectedFieldsType } from "../interfaces/CompanyInterfa
             location: { extractType: "text", selector: ".location-text" },
             remoteOrHybrid: { extractType: "", selector: "" },
             datePosted: { extractType: "", selector: "" },
-            description: { extractType: "text", selector: ".main-content" },
+            responsibilities: { extractType: "", selector: "" },
+            requirements: { extractType: "", selector: "" },
+            niceToHave: { extractType: "", selector: "" },
+            benefits: { extractType: "", selector: "" },
+            interviewSteps: { extractType: "", selector: "" },
             anchorHref: {
               extractType: "elementAttribute",
               selector: ".careers-job > a",
@@ -159,10 +165,11 @@ import type { CompanyWithSelectedFieldsType } from "../interfaces/CompanyInterfa
             location: { extractType: "text", selector: "lyte-text" },
             remoteOrHybrid: { extractType: "", selector: "" },
             datePosted: { extractType: "", selector: "" },
-            description: {
-              extractType: "text",
-              selector: "career-website-detail-template-2",
-            },
+            responsibilities: { extractType: "", selector: "" },
+            requirements: { extractType: "", selector: "" },
+            niceToHave: { extractType: "", selector: "" },
+            benefits: { extractType: "", selector: "" },
+            interviewSteps: { extractType: "", selector: "" },
             anchorHref: {
               extractType: "elementAttribute",
               selector: "a",
@@ -213,7 +220,11 @@ import type { CompanyWithSelectedFieldsType } from "../interfaces/CompanyInterfa
               selector: "",
             },
             datePosted: { extractType: "", selector: "" },
-            description: { extractType: "text", selector: ".job" },
+            responsibilities: { extractType: "", selector: "" },
+            requirements: { extractType: "", selector: "" },
+            niceToHave: { extractType: "", selector: "" },
+            benefits: { extractType: "", selector: "" },
+            interviewSteps: { extractType: "", selector: "" },
             anchorHref: {
               extractType: "elementAttribute",
               selector: "a",
@@ -243,10 +254,11 @@ import type { CompanyWithSelectedFieldsType } from "../interfaces/CompanyInterfa
             },
             remoteOrHybrid: { extractType: "", selector: "" },
             datePosted: { extractType: "", selector: "" },
-            description: {
-              extractType: "text",
-              selector: "section",
-            },
+            responsibilities: { extractType: "", selector: "" },
+            requirements: { extractType: "", selector: "" },
+            niceToHave: { extractType: "", selector: "" },
+            benefits: { extractType: "", selector: "" },
+            interviewSteps: { extractType: "", selector: "" },
             anchorHref: {
               extractType: "elementAttribute",
               selector: "li > a",
@@ -273,7 +285,11 @@ import type { CompanyWithSelectedFieldsType } from "../interfaces/CompanyInterfa
             location: { extractType: "text", selector: ".country-role" },
             remoteOrHybrid: { extractType: "", selector: "" },
             datePosted: { extractType: "", selector: "" },
-            description: { extractType: "text", selector: "main" },
+            responsibilities: { extractType: "", selector: "" },
+            requirements: { extractType: "", selector: "" },
+            niceToHave: { extractType: "", selector: "" },
+            benefits: { extractType: "", selector: "" },
+            interviewSteps: { extractType: "", selector: "" },
             anchorHref: {
               extractType: "elementAttribute",
               selector: "td > a",
@@ -308,7 +324,11 @@ import type { CompanyWithSelectedFieldsType } from "../interfaces/CompanyInterfa
             location: { extractType: "text", selector: ".location" },
             remoteOrHybrid: { extractType: "", selector: "" },
             datePosted: { extractType: "", selector: "" },
-            description: { extractType: "text", selector: ".content" },
+            responsibilities: { extractType: "", selector: "" },
+            requirements: { extractType: "", selector: "" },
+            niceToHave: { extractType: "", selector: "" },
+            benefits: { extractType: "", selector: "" },
+            interviewSteps: { extractType: "", selector: "" },
             anchorHref: {
               extractType: "elementAttribute",
               selector: "a",
@@ -347,7 +367,11 @@ import type { CompanyWithSelectedFieldsType } from "../interfaces/CompanyInterfa
             location: { extractType: "text", selector: ".location-info" },
             remoteOrHybrid: { extractType: "", selector: "" },
             datePosted: { extractType: "", selector: "" },
-            description: { extractType: "text", selector: ".jobDisplay" },
+            responsibilities: { extractType: "", selector: "" },
+            requirements: { extractType: "", selector: "" },
+            niceToHave: { extractType: "", selector: "" },
+            benefits: { extractType: "", selector: "" },
+            interviewSteps: { extractType: "", selector: "" },
             anchorHref: {
               extractType: "elementAttribute",
               selector: "a",
@@ -406,7 +430,11 @@ import type { CompanyWithSelectedFieldsType } from "../interfaces/CompanyInterfa
               selector: "",
             },
             datePosted: { extractType: "", selector: "" },
-            description: { extractType: "text", selector: "section" },
+            responsibilities: { extractType: "", selector: "" },
+            requirements: { extractType: "", selector: "" },
+            niceToHave: { extractType: "", selector: "" },
+            benefits: { extractType: "", selector: "" },
+            interviewSteps: { extractType: "", selector: "" },
             anchorHref: {
               extractType: "",
               selector: "",
@@ -451,10 +479,11 @@ import type { CompanyWithSelectedFieldsType } from "../interfaces/CompanyInterfa
             },
           },
         });
+      } else {
+        return;
       }
     } catch (error) {
       console.log(`Failed to create company ${company.name}, ${error}`);
     }
-    console.log(`Successfully created company: ${company.name}!`);
   }
 })();

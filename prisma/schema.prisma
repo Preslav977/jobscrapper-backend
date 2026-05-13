@@ -57,15 +57,19 @@ model Company {
 }
 
 model Jobs {
-  id             Int     @id @default(autoincrement())
-  title          String
-  location       String?
-  remoteOrHybrid String?
-  datePosted     String?
-  description    String
-  anchorHref     String?
-  company        Company @relation(fields: [companyID], references: [id], onDelete: Cascade)
-  companyID      Int
+  id               Int     @id @default(autoincrement())
+  title            String
+  location         String?
+  remoteOrHybrid   String?
+  datePosted       String?
+  responsibilities String?
+  requirements     String?
+  niceToHave       String?
+  benefits         String?
+  interviewSteps   String?
+  anchorHref       String?
+  company          Company @relation(fields: [companyID], references: [id], onDelete: Cascade)
+  companyID        Int
 
   @@map("jobs")
 }

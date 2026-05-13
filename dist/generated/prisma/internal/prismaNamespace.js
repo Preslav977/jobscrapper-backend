@@ -36,12 +36,12 @@ export const Sql = runtime.Sql;
 export const Decimal = runtime.Decimal;
 export const getExtensionContext = runtime.Extensions.getExtensionContext;
 /**
- * Prisma Client JS version: 7.7.0
- * Query Engine version: 75cbdc1eb7150937890ad5465d861175c6624711
+ * Prisma Client JS version: 7.8.0
+ * Query Engine version: 3c6e192761c0362d496ed980de936e2f3cebcd3a
  */
 export const prismaVersion = {
-    client: "7.7.0",
-    engine: "75cbdc1eb7150937890ad5465d861175c6624711"
+    client: "7.8.0",
+    engine: "3c6e192761c0362d496ed980de936e2f3cebcd3a"
 };
 export const NullTypes = {
     DbNull: runtime.NullTypes.DbNull,
@@ -111,7 +111,11 @@ export const JobsScalarFieldEnum = {
     location: 'location',
     remoteOrHybrid: 'remoteOrHybrid',
     datePosted: 'datePosted',
-    description: 'description',
+    responsibilities: 'responsibilities',
+    requirements: 'requirements',
+    niceToHave: 'niceToHave',
+    benefits: 'benefits',
+    interviewSteps: 'interviewSteps',
     anchorHref: 'anchorHref',
     companyID: 'companyID'
 };
