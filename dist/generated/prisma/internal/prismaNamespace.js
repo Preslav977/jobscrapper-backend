@@ -111,11 +111,7 @@ export const JobsScalarFieldEnum = {
     location: 'location',
     remoteOrHybrid: 'remoteOrHybrid',
     datePosted: 'datePosted',
-    responsibilities: 'responsibilities',
-    requirements: 'requirements',
-    niceToHave: 'niceToHave',
-    benefits: 'benefits',
-    interviewSteps: 'interviewSteps',
+    description: 'description',
     anchorHref: 'anchorHref',
     companyID: 'companyID'
 };

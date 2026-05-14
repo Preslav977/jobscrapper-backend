@@ -8,11 +8,7 @@ export type ExtractionConfig = {
     attr?: string;
   };
   datePosted: { extractType: string; selector?: string; attr?: string };
-  responsibilities: { extractType: string; selector?: string; attr?: string };
-  requirements: { extractType: string; selector?: string; attr?: string };
-  niceToHave: { extractType: string; selector?: string; attr?: string };
-  benefits: { extractType: string; selector?: string; attr?: string };
-  interviewSteps: { extractType: string; selector?: string; attr?: string };
+  description: { extractType: string; selector?: string; attr?: string };
   anchorHref: { extractType: string; selector?: string; attr?: string };
 };
 

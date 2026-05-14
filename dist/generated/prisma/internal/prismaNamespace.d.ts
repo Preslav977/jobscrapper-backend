@@ -761,11 +761,7 @@ export declare const JobsScalarFieldEnum: {
     readonly location: "location";
     readonly remoteOrHybrid: "remoteOrHybrid";
     readonly datePosted: "datePosted";
-    readonly responsibilities: "responsibilities";
-    readonly requirements: "requirements";
-    readonly niceToHave: "niceToHave";
-    readonly benefits: "benefits";
-    readonly interviewSteps: "interviewSteps";
+    readonly description: "description";
     readonly anchorHref: "anchorHref";
     readonly companyID: "companyID";
 };

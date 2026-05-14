@@ -15,17 +15,13 @@ import { scrapingJobsDetailsFunction } from "../scrapingJobsDetailsFunction/scra
             for (const job of jobs) {
                 const scrapedJobsDetails = await scrapingJobsDetailsFunction(job);
                 if (scrapedJobsDetails.id) {
-                    const { responsibilities, requirements, niceToHave, benefits, interviewSteps, } = scrapedJobsDetails;
+                    const { description } = scrapedJobsDetails;
                     await prisma.jobs.update({
                         where: {
                             id: scrapedJobsDetails.id,
                         },
                         data: {
-                            responsibilities: responsibilities ? responsibilities : null,
-                            requirements: requirements ? requirements : null,
-                            niceToHave: niceToHave ? niceToHave : null,
-                            benefits: benefits ? benefits : null,
-                            interviewSteps: interviewSteps ? interviewSteps : null,
+                            description: description ? description : null,
                         },
                     });
                 }

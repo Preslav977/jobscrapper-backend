@@ -59,28 +59,24 @@ async function extractJobsText(page, instruction, id) {
     return scrapedJobs;
 }
 async function extractJobsDetailsText(page, instruction, id) {
-    const { responsibilities, requirements, niceToHave, benefits, interviewSteps, } = instruction.extractionInstructions;
+    const { description } = instruction.extractionInstructions;
     let scrapeJobsObject = {};
     try {
-        const doesJobResponsibilitiesExists = (await page.waitForSelector(responsibilities.selector, { timeout: 10000 }));
+        const doesJobResponsibilitiesExists = (await page.waitForSelector(description.selector, { timeout: 10000 }));
         if (doesJobResponsibilitiesExists) {
-            const result = await page.evaluate((responsibilities, requirements, niceToHave, benefits, interviewSteps, id) => {
-                const queryJobRes = document.querySelector(responsibilities.selector)?.textContent;
-                const queryJobReq = document.querySelector(requirements.selector)?.textContent;
-                const queryJobNiceToHave = document.querySelector(niceToHave.selector)?.textContent;
-                const queryJobBenefits = document.querySelector(benefits.selector)?.textContent;
-                const queryInterviewSteps = document.querySelector(interviewSteps.selector)?.textContent;
+            const result = await page.evaluate((description, id) => {
+                const queryJobDescription = document.querySelector(description.selector);
+                const junk = queryJobDescription?.querySelectorAll("script, style, nav, footer, svg, img");
+                junk?.forEach((el) => el.remove());
                 const jobsObject = {
                     id,
-                    responsibilities: queryJobRes,
-                    requirements: queryJobReq,
-                    niceToHave: queryJobNiceToHave,
-                    benefits: queryJobBenefits,
-                    interviewSteps: queryInterviewSteps,
+                    description: queryJobDescription
+                        ? queryJobDescription.textContent
+                        : null,
                 };
                 scrapeJobsObject = { ...jobsObject };
                 return jobsObject;
-            }, responsibilities, requirements, niceToHave, benefits, interviewSteps, id);
+            }, description, id);
             return result;
         }
     }

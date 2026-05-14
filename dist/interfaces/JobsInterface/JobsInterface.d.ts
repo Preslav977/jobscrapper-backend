@@ -5,10 +5,7 @@ export interface JobsInterface {
     location: string;
     remoteOrHybrid: string;
     datePosted: Date;
-    responsibilities: string;
-    requirements: string;
-    niteToHave: string;
-    interviewSteps: string;
+    description: string;
     anchorHref: string;
     companyID: number;
 }
@@ -17,10 +14,7 @@ export type ScrapedJobsArrayType = {
     location: string | null;
     remoteOrHybrid: string | null;
     datePosted: string | null;
-    responsibilities: string | null;
-    requirements: string | null;
-    niteToHave: string | null;
-    interviewSteps: string | null;
+    description: string | null;
     anchorHref: string | null;
 };
 export type JobsWithRelationsType = Prisma.JobsGetPayload<{

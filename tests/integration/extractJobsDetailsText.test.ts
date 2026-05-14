@@ -56,7 +56,7 @@ describe("Extract jobs details text implementation", () => {
 
     expect(jobDetails.id).toEqual(1);
 
-    // expect(jobDetails.description).toEqual(jobDetails.description);
+    expect(jobDetails.description).toEqual(jobDetails.description);
   });
 
   it("should return empty object if description selector is wrong", async () => {

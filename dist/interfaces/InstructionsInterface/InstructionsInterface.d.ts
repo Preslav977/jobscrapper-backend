@@ -24,27 +24,7 @@ export type ExtractionConfig = {
         selector?: string;
         attr?: string;
     };
-    responsibilities: {
-        extractType: string;
-        selector?: string;
-        attr?: string;
-    };
-    requirements: {
-        extractType: string;
-        selector?: string;
-        attr?: string;
-    };
-    niceToHave: {
-        extractType: string;
-        selector?: string;
-        attr?: string;
-    };
-    benefits: {
-        extractType: string;
-        selector?: string;
-        attr?: string;
-    };
-    interviewSteps: {
+    description: {
         extractType: string;
         selector?: string;
         attr?: string;

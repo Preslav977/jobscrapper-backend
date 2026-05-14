@@ -1,10 +1,6 @@
 import type { JobsWithRelationsType } from "../../interfaces/JobsInterface/JobsInterface.js";
 export declare function scrapingJobsDetailsFunction(job: JobsWithRelationsType): Promise<Partial<{
-    responsibilities: string | null;
-    requirements: string | null;
-    niceToHave: string | null;
-    benefits: string | null;
-    interviewSteps: string | null;
+    description: string | null;
     title: string;
     id: number;
     location: string | null;

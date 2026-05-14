@@ -140,70 +140,41 @@ async function extractJobsDetailsText(
   instruction: Instructions,
   id: number,
 ) {
-  const {
-    responsibilities,
-    requirements,
-    niceToHave,
-    benefits,
-    interviewSteps,
-  } = instruction.extractionInstructions as ExtractionConfig;
+  const { description } =
+    instruction.extractionInstructions as ExtractionConfig;
 
   let scrapeJobsObject: Partial<Jobs> = {};
 
   try {
     const doesJobResponsibilitiesExists = (await page.waitForSelector(
-      responsibilities.selector!,
+      description.selector!,
       { timeout: 10000 },
     )) as ElementHandle<HTMLElement>;
 
     if (doesJobResponsibilitiesExists) {
       const result = await page.evaluate(
-        (
-          responsibilities,
-          requirements,
-          niceToHave,
-          benefits,
-          interviewSteps,
-          id,
-        ) => {
-          const queryJobRes = document.querySelector(
-            responsibilities.selector!,
-          )?.textContent;
+        (description, id) => {
+          const queryJobDescription = document.querySelector(
+            description.selector!,
+          );
 
-          const queryJobReq = document.querySelector(
-            requirements.selector!,
-          )?.textContent;
-
-          const queryJobNiceToHave = document.querySelector(
-            niceToHave.selector!,
-          )?.textContent;
-
-          const queryJobBenefits = document.querySelector(
-            benefits.selector!,
-          )?.textContent;
-
-          const queryInterviewSteps = document.querySelector(
-            interviewSteps.selector!,
-          )?.textContent;
+          const junk = queryJobDescription?.querySelectorAll(
+            "script, style, nav, footer, svg, img",
+          );
+          junk?.forEach((el) => el.remove());
 
           const jobsObject = {
             id,
-            responsibilities: queryJobRes!,
-            requirements: queryJobReq!,
-            niceToHave: queryJobNiceToHave!,
-            benefits: queryJobBenefits!,
-            interviewSteps: queryInterviewSteps!,
+            description: queryJobDescription
+              ? queryJobDescription.textContent
+              : null,
           };
 
           scrapeJobsObject = { ...jobsObject };
 
           return jobsObject;
         },
-        responsibilities,
-        requirements,
-        niceToHave,
-        benefits,
-        interviewSteps,
+        description,
         id,
       );
       return result;
