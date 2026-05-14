@@ -1,6 +1,5 @@
 import puppeteer from "puppeteer-extra";
 import StealthPlugin from "puppeteer-extra-plugin-stealth";
-import { getRandomTimezone, height, width, } from "../helperUtilities/helperUtilities.js";
 import { URL } from "node:url";
 import UserAgent from "user-agents";
 import { extractJobsDetailsText } from "../extractDataFunctions/extractDataFunctions.js";
@@ -40,8 +39,8 @@ export async function scrapingJobsDetailsFunction(job) {
     await page.goto(`${constructNewURL.href}`, {
         waitUntil: "load",
     });
-    await page.setViewport({ width: width, height: height });
-    await page.emulateTimezone(`${getRandomTimezone}`);
+    // await page.setViewport({ width: width, height: height });
+    // await page.emulateTimezone(`${getRandomTimezone}`);
     await sleepDelay(2500);
     try {
         if (instructions.length > 0) {

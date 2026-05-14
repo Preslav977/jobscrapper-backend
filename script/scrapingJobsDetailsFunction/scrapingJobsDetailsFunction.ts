@@ -1,12 +1,6 @@
 import puppeteer from "puppeteer-extra";
 import StealthPlugin from "puppeteer-extra-plugin-stealth";
 
-import {
-  getRandomTimezone,
-  height,
-  width,
-} from "../helperUtilities/helperUtilities.js";
-
 import { URL } from "node:url";
 
 import { Page } from "puppeteer";
@@ -66,9 +60,9 @@ export async function scrapingJobsDetailsFunction(job: JobsWithRelationsType) {
     waitUntil: "load",
   });
 
-  await page.setViewport({ width: width, height: height });
+  // await page.setViewport({ width: width, height: height });
 
-  await page.emulateTimezone(`${getRandomTimezone}`);
+  // await page.emulateTimezone(`${getRandomTimezone}`);
 
   await sleepDelay(2500);
 
