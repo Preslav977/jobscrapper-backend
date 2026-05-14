@@ -19,7 +19,12 @@ import { scrapingJobsFunction } from "../scrapingJobsFunction/scrapingJobsFuncti
                 await prisma.$transaction(async (tx) => {
                     for (const scrapedJob of scrapedJobs) {
                         const existingJob = existingJobsMap.get(scrapedJob.anchorHref);
-                        if (existingJob) {
+                        if (!existingJob) {
+                            await tx.jobs.create({
+                                data: buildData(scrapedJob),
+                            });
+                        }
+                        else if (existingJob) {
                             scrapedJobsIds.add(existingJob.id);
                             const scrapedJobChanged = hasJobChanged(existingJob, scrapedJob);
                             if (scrapedJobChanged) {
@@ -31,14 +36,8 @@ import { scrapingJobsFunction } from "../scrapingJobsFunction/scrapingJobsFuncti
                                 });
                             }
                         }
-                        else {
-                            await tx.jobs.create({
-                                data: buildData(scrapedJob),
-                            });
-                        }
                     }
                     const jobsToDelete = Array.from(existingJobsIds.difference(scrapedJobsIds));
-                    // console.log(jobsToDelete);
                     if (jobsToDelete.length > 0) {
                         await tx.jobs.deleteMany({
                             where: {

@@ -33,7 +33,11 @@ import { scrapingJobsFunction } from "../scrapingJobsFunction/scrapingJobsFuncti
             for (const scrapedJob of scrapedJobs) {
               const existingJob = existingJobsMap.get(scrapedJob.anchorHref!);
 
-              if (existingJob) {
+              if (!existingJob) {
+                await tx.jobs.create({
+                  data: buildData(scrapedJob as Jobs),
+                });
+              } else if (existingJob) {
                 scrapedJobsIds.add(existingJob.id);
 
                 const scrapedJobChanged = hasJobChanged(
@@ -49,18 +53,12 @@ import { scrapingJobsFunction } from "../scrapingJobsFunction/scrapingJobsFuncti
                     data: buildData(scrapedJob as Jobs),
                   });
                 }
-              } else {
-                await tx.jobs.create({
-                  data: buildData(scrapedJob as Jobs),
-                });
               }
             }
 
             const jobsToDelete = Array.from(
               existingJobsIds.difference(scrapedJobsIds),
             );
-
-            // console.log(jobsToDelete);
 
             if (jobsToDelete.length > 0) {
               await tx.jobs.deleteMany({
