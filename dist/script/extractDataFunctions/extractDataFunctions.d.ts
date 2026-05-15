@@ -2,7 +2,7 @@ import type { Page } from "puppeteer";
 import type { Instructions } from "../../generated/prisma/client.js";
 import type { JobsCreateManyInput } from "../../generated/prisma/models.js";
 declare function extractJobsText(page: Page, instruction: Instructions, id: number): Promise<JobsCreateManyInput[]>;
-declare function extractJobsDetailsText(page: Page, instruction: Instructions): Promise<string | null | undefined>;
+declare function extractJobsDetailsText(page: Page, instruction: Instructions, id: number): Promise<void | {} | null>;
 declare function parseMarkedUpText(rawText: string): {
     responsibilities: string[];
     requirements: string[];

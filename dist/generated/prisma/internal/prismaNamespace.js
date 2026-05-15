@@ -112,6 +112,7 @@ export const JobsScalarFieldEnum = {
     remoteOrHybrid: 'remoteOrHybrid',
     datePosted: 'datePosted',
     description: 'description',
+    formattedData: 'formattedData',
     anchorHref: 'anchorHref',
     companyID: 'companyID'
 };

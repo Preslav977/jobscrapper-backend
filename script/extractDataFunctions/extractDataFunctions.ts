@@ -135,9 +135,15 @@ async function extractJobsText(
   return scrapedJobs;
 }
 
-async function extractJobsDetailsText(page: Page, instruction: Instructions) {
+async function extractJobsDetailsText(
+  page: Page,
+  instruction: Instructions,
+  id: number,
+) {
   const { description } =
     instruction.extractionInstructions as ExtractionConfig;
+
+  let scrapedJobsRes = {};
 
   try {
     const doesJobResponsibilitiesExists = (await page.waitForSelector(
@@ -149,7 +155,7 @@ async function extractJobsDetailsText(page: Page, instruction: Instructions) {
 
     if (doesJobResponsibilitiesExists) {
       const result = await page.evaluate(
-        (description) => {
+        (description, id) => {
           const container = document.querySelector(description.selector!);
 
           const junk = container?.querySelectorAll(
@@ -184,16 +190,18 @@ async function extractJobsDetailsText(page: Page, instruction: Instructions) {
           }
           currentNode = walker.nextNode();
 
-          return structuredText;
+          scrapedJobsRes = { text: structuredText, id };
         },
 
         description,
+        id,
       );
       return result;
     }
   } catch (error) {
     console.log(`Failed to scrap, check selector, reason: ${error}`);
   }
+  return scrapedJobsRes;
 }
 
 function parseMarkedUpText(rawText: string) {

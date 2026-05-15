@@ -8,5 +8,6 @@ export declare function scrapingJobsDetailsFunction(job: JobsWithRelationsType):
     remoteOrHybrid: string | null;
     datePosted: string | null;
     anchorHref: string | null;
+    formattedData: import("@prisma/client/runtime/client").JsonValue | null;
 }>>;
 //# sourceMappingURL=scrapingJobsDetailsFunction.d.ts.map

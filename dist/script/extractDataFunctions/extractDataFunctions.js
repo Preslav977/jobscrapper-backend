@@ -58,14 +58,15 @@ async function extractJobsText(page, instruction, id) {
     }
     return scrapedJobs;
 }
-async function extractJobsDetailsText(page, instruction) {
+async function extractJobsDetailsText(page, instruction, id) {
     const { description } = instruction.extractionInstructions;
+    let scrapedJobsRes = {};
     try {
         const doesJobResponsibilitiesExists = (await page.waitForSelector(description.selector, { timeout: 10000 }));
         if (!doesJobResponsibilitiesExists)
             return null;
         if (doesJobResponsibilitiesExists) {
-            const result = await page.evaluate((description) => {
+            const result = await page.evaluate((description, id) => {
                 const container = document.querySelector(description.selector);
                 const junk = container?.querySelectorAll("script, style, nav, footer, svg, img");
                 junk?.forEach((el) => el.remove());
@@ -90,14 +91,15 @@ async function extractJobsDetailsText(page, instruction) {
                     }
                 }
                 currentNode = walker.nextNode();
-                return structuredText;
-            }, description);
+                scrapedJobsRes = { text: structuredText, id };
+            }, description, id);
             return result;
         }
     }
     catch (error) {
         console.log(`Failed to scrap, check selector, reason: ${error}`);
     }
+    return scrapedJobsRes;
 }
 function parseMarkedUpText(rawText) {
     const sections = rawText.split("[HEADER]:");

@@ -4,6 +4,6 @@ declare const randomViewport: {
     height: number;
 };
 declare function hasJobChanged(existingJob: Jobs, scrapedJob: Jobs): boolean;
-declare function buildData(job: Jobs): Omit<Jobs, "id">;
+declare function buildData(job: Jobs): Omit<Jobs, "id" | "formattedData">;
 export { buildData, hasJobChanged, randomViewport };
 //# sourceMappingURL=helperUtilities.d.ts.map
