@@ -58,33 +58,46 @@ async function extractJobsText(page, instruction, id) {
     }
     return scrapedJobs;
 }
-async function extractJobsDetailsText(page, instruction, id) {
+async function extractJobsDetailsText(page, instruction) {
     const { description } = instruction.extractionInstructions;
-    let scrapeJobsObject = {};
     try {
         const doesJobResponsibilitiesExists = (await page.waitForSelector(description.selector, { timeout: 10000 }));
+        if (!doesJobResponsibilitiesExists)
+            return null;
         if (doesJobResponsibilitiesExists) {
-            const result = await page.evaluate((description, id) => {
-                const queryJobDescription = document.querySelector(description.selector);
-                const junk = queryJobDescription?.querySelectorAll("script, style, nav, footer, svg, img");
+            const result = await page.evaluate((description) => {
+                const container = document.querySelector(description.selector);
+                const junk = container?.querySelectorAll("script, style, nav, footer, svg, img");
                 junk?.forEach((el) => el.remove());
-                const jobsObject = {
-                    id,
-                    description: queryJobDescription
-                        ? queryJobDescription.textContent
-                        : null,
-                };
-                scrapeJobsObject = { ...jobsObject };
-                return jobsObject;
-            }, description, id);
+                let structuredText = "";
+                const walker = document.createTreeWalker(container, NodeFilter.SHOW_ELEMENT);
+                let currentNode = walker?.nextNode();
+                while (currentNode && currentNode instanceof Element) {
+                    const tagName = currentNode.tagName;
+                    const text = currentNode.textContent?.trim();
+                    if (text) {
+                        if (["H1", "H2", "H3", "H4", "STRONG", "B"].includes(tagName)) {
+                            structuredText += `\n\n[HEADER]: ${text}\n`;
+                        }
+                        else if (tagName === "LI") {
+                            structuredText += `\n* ${text}`;
+                        }
+                        else if (tagName === "P" || tagName === "DIV") {
+                            if (currentNode.children.length === 0) {
+                                structuredText += `\n\n${text}`;
+                            }
+                        }
+                    }
+                }
+                currentNode = walker.nextNode();
+                return structuredText;
+            }, description);
             return result;
         }
     }
     catch (error) {
         console.log(`Failed to scrap, check selector, reason: ${error}`);
-        return scrapeJobsObject;
     }
-    return scrapeJobsObject;
 }
 async function extractJobsJSON(attribute) {
     const queryElementByAttribute = document.querySelector(`${[attribute]}`);

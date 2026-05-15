@@ -1,5 +1,5 @@
 import type { ElementHandle, Page } from "puppeteer";
-import type { Instructions, Jobs } from "../../generated/prisma/client.js";
+import type { Instructions } from "../../generated/prisma/client.js";
 import type { JobsCreateManyInput } from "../../generated/prisma/models.js";
 import type {
   ApiResponse,
@@ -135,15 +135,9 @@ async function extractJobsText(
   return scrapedJobs;
 }
 
-async function extractJobsDetailsText(
-  page: Page,
-  instruction: Instructions,
-  id: number,
-) {
+async function extractJobsDetailsText(page: Page, instruction: Instructions) {
   const { description } =
     instruction.extractionInstructions as ExtractionConfig;
-
-  let scrapeJobsObject: Partial<Jobs> = {};
 
   try {
     const doesJobResponsibilitiesExists = (await page.waitForSelector(
@@ -151,40 +145,55 @@ async function extractJobsDetailsText(
       { timeout: 10000 },
     )) as ElementHandle<HTMLElement>;
 
+    if (!doesJobResponsibilitiesExists) return null;
+
     if (doesJobResponsibilitiesExists) {
       const result = await page.evaluate(
-        (description, id) => {
-          const queryJobDescription = document.querySelector(
-            description.selector!,
-          );
+        (description) => {
+          const container = document.querySelector(description.selector!);
 
-          const junk = queryJobDescription?.querySelectorAll(
+          const junk = container?.querySelectorAll(
             "script, style, nav, footer, svg, img",
           );
-          junk?.forEach((el) => el.remove());
+          junk?.forEach((el: Element) => el.remove());
 
-          const jobsObject = {
-            id,
-            description: queryJobDescription
-              ? queryJobDescription.textContent
-              : null,
-          };
+          let structuredText = "";
 
-          scrapeJobsObject = { ...jobsObject };
+          const walker = document.createTreeWalker(
+            container!,
+            NodeFilter.SHOW_ELEMENT,
+          );
 
-          return jobsObject;
+          let currentNode = walker?.nextNode();
+
+          while (currentNode && currentNode instanceof Element) {
+            const tagName = currentNode.tagName;
+            const text = currentNode.textContent?.trim();
+
+            if (text) {
+              if (["H1", "H2", "H3", "H4", "STRONG", "B"].includes(tagName)) {
+                structuredText += `\n\n[HEADER]: ${text}\n`;
+              } else if (tagName === "LI") {
+                structuredText += `\n* ${text}`;
+              } else if (tagName === "P" || tagName === "DIV") {
+                if (currentNode.children.length === 0) {
+                  structuredText += `\n\n${text}`;
+                }
+              }
+            }
+          }
+          currentNode = walker.nextNode();
+
+          return structuredText;
         },
+
         description,
-        id,
       );
       return result;
     }
   } catch (error) {
     console.log(`Failed to scrap, check selector, reason: ${error}`);
-
-    return scrapeJobsObject;
   }
-  return scrapeJobsObject;
 }
 
 async function extractJobsJSON(attribute: string) {
