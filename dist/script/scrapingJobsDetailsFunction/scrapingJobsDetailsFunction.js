@@ -1,8 +1,8 @@
 import puppeteer from "puppeteer-extra";
 import StealthPlugin from "puppeteer-extra-plugin-stealth";
 import { URL } from "node:url";
-import UserAgent from "user-agents";
 import { extractJobsDetailsText } from "../extractDataFunctions/extractDataFunctions.js";
+import { randomViewport } from "../helperUtilities/helperUtilities.js";
 import { sleepDelay } from "../navigationFunctions/navigationFunctions.js";
 const stealthPlugin = StealthPlugin();
 stealthPlugin.enabledEvasions.add("user-agent-override");
@@ -16,31 +16,28 @@ export async function scrapingJobsDetailsFunction(job) {
         headless: false,
         args: [
             "--no-sandbox",
-            "--disable-gpu",
-            "--disable-dev-shm-usage",
-            "--disable-setuid-sandbox",
-            "--no-first-run",
-            "--no-zygote",
-            "--enable-webgl",
-            "--use-gl=desktop",
+            "--disable-blink-features=AutomationControlled",
+            "--window-position=0,0",
             "--disable-automation",
         ],
         ignoreDefaultArgs: ["--enable-automation"],
     });
     const page = await browser.newPage();
-    const userAgent = new UserAgent();
-    const randomUserAgent = userAgent.toString();
-    await page.setUserAgent({ userAgent: randomUserAgent });
+    const consistentUA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36";
+    await page.setUserAgent({ userAgent: consistentUA, platform: "Windows" });
     await page.setExtraHTTPHeaders({
         "Accept-Language": "en-US,en;q=0.9",
         Accept: "text/html,application/xhtml+xml",
-        "User-Agent": randomUserAgent,
+        "User-Agent": consistentUA,
     });
     await page.goto(`${constructNewURL.href}`, {
         waitUntil: "load",
     });
-    // await page.setViewport({ width: width, height: height });
-    // await page.emulateTimezone(`${getRandomTimezone}`);
+    await page.setViewport({
+        width: randomViewport.width,
+        height: randomViewport.height,
+    });
+    await page.emulateTimezone("Europe/Sofia");
     await sleepDelay(2500);
     try {
         if (instructions.length > 0) {
@@ -55,6 +52,7 @@ export async function scrapingJobsDetailsFunction(job) {
         console.log(`Navigation script for jobs details failed, check the selector, ${error}`);
         return scrapingJobsDetailsResult;
     }
+    console.log(`Scraping details has succeeded for job: ${job.title} with company ${job.company.name}`);
     return scrapingJobsDetailsResult;
 }
 //# sourceMappingURL=scrapingJobsDetailsFunction.js.map

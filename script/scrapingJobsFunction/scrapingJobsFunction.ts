@@ -191,5 +191,7 @@ export async function scrapingJobsFunction(
 
   await browser.close();
 
+  console.log(`Scraping has succeeded for company: ${company.name}`);
+
   return scrapingJobsResult;
 }

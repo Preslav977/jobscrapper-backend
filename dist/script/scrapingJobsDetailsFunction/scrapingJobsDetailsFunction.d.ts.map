@@ -1,1 +1,1 @@
-{"version":3,"file":"scrapingJobsDetailsFunction.d.ts","sourceRoot":"","sources":["../../../script/scrapingJobsDetailsFunction/scrapingJobsDetailsFunction.ts"],"names":[],"mappings":"AASA,OAAO,KAAK,EAAE,qBAAqB,EAAE,MAAM,iDAAiD,CAAC;AAU7F,wBAAsB,2BAA2B,CAAC,GAAG,EAAE,qBAAqB;;;;;;;;;IAmE3E"}
+{"version":3,"file":"scrapingJobsDetailsFunction.d.ts","sourceRoot":"","sources":["../../../script/scrapingJobsDetailsFunction/scrapingJobsDetailsFunction.ts"],"names":[],"mappings":"AAQA,OAAO,KAAK,EAAE,qBAAqB,EAAE,MAAM,iDAAiD,CAAC;AAW7F,wBAAsB,2BAA2B,CAAC,GAAG,EAAE,qBAAqB;;;;;;;;;IAqE3E"}

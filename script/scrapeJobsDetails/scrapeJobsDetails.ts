@@ -11,6 +11,9 @@ import { scrapingJobsDetailsFunction } from "../scrapingJobsDetailsFunction/scra
           },
         },
       },
+      where: {
+        companyID: 1,
+      },
     });
 
     if (jobs.length > 0) {

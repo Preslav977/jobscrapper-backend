@@ -111,6 +111,7 @@ export async function scrapingJobsFunction(company) {
     }
     navigationResults = [];
     await browser.close();
+    console.log(`Scraping has succeeded for company: ${company.name}`);
     return scrapingJobsResult;
 }
 //# sourceMappingURL=scrapingJobsFunction.js.map

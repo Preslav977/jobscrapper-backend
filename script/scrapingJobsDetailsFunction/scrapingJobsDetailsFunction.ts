@@ -5,10 +5,10 @@ import { URL } from "node:url";
 
 import { Page } from "puppeteer";
 
-import UserAgent from "user-agents";
 import type { Jobs } from "../../generated/prisma/client.js";
 import type { JobsWithRelationsType } from "../../interfaces/JobsInterface/JobsInterface.js";
 import { extractJobsDetailsText } from "../extractDataFunctions/extractDataFunctions.js";
+import { randomViewport } from "../helperUtilities/helperUtilities.js";
 import { sleepDelay } from "../navigationFunctions/navigationFunctions.js";
 
 const stealthPlugin = StealthPlugin();
@@ -30,13 +30,8 @@ export async function scrapingJobsDetailsFunction(job: JobsWithRelationsType) {
     headless: false,
     args: [
       "--no-sandbox",
-      "--disable-gpu",
-      "--disable-dev-shm-usage",
-      "--disable-setuid-sandbox",
-      "--no-first-run",
-      "--no-zygote",
-      "--enable-webgl",
-      "--use-gl=desktop",
+      "--disable-blink-features=AutomationControlled",
+      "--window-position=0,0",
       "--disable-automation",
     ],
     ignoreDefaultArgs: ["--enable-automation"],
@@ -44,25 +39,27 @@ export async function scrapingJobsDetailsFunction(job: JobsWithRelationsType) {
 
   const page: Page = await browser.newPage();
 
-  const userAgent = new UserAgent();
+  const consistentUA =
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36";
 
-  const randomUserAgent = userAgent.toString();
-
-  await page.setUserAgent({ userAgent: randomUserAgent });
+  await page.setUserAgent({ userAgent: consistentUA, platform: "Windows" });
 
   await page.setExtraHTTPHeaders({
     "Accept-Language": "en-US,en;q=0.9",
     Accept: "text/html,application/xhtml+xml",
-    "User-Agent": randomUserAgent,
+    "User-Agent": consistentUA,
   });
 
   await page.goto(`${constructNewURL.href}`, {
     waitUntil: "load",
   });
 
-  // await page.setViewport({ width: width, height: height });
+  await page.setViewport({
+    width: randomViewport.width,
+    height: randomViewport.height,
+  });
 
-  // await page.emulateTimezone(`${getRandomTimezone}`);
+  await page.emulateTimezone("Europe/Sofia");
 
   await sleepDelay(2500);
 
@@ -83,5 +80,10 @@ export async function scrapingJobsDetailsFunction(job: JobsWithRelationsType) {
 
     return scrapingJobsDetailsResult;
   }
+
+  console.log(
+    `Scraping details has succeeded for job: ${job.title} with company ${job.company.name}`,
+  );
+
   return scrapingJobsDetailsResult;
 }
