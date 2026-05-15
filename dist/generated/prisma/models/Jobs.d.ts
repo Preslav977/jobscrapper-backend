@@ -27,6 +27,8 @@ export type JobsMinAggregateOutputType = {
     remoteOrHybrid: string | null;
     datePosted: string | null;
     description: string | null;
+    scrapedText: string | null;
+    rawHTML: string | null;
     anchorHref: string | null;
     companyID: number | null;
 };
@@ -37,6 +39,8 @@ export type JobsMaxAggregateOutputType = {
     remoteOrHybrid: string | null;
     datePosted: string | null;
     description: string | null;
+    scrapedText: string | null;
+    rawHTML: string | null;
     anchorHref: string | null;
     companyID: number | null;
 };
@@ -47,6 +51,8 @@ export type JobsCountAggregateOutputType = {
     remoteOrHybrid: number;
     datePosted: number;
     description: number;
+    scrapedText: number;
+    rawHTML: number;
     formattedData: number;
     anchorHref: number;
     companyID: number;
@@ -67,6 +73,8 @@ export type JobsMinAggregateInputType = {
     remoteOrHybrid?: true;
     datePosted?: true;
     description?: true;
+    scrapedText?: true;
+    rawHTML?: true;
     anchorHref?: true;
     companyID?: true;
 };
@@ -77,6 +85,8 @@ export type JobsMaxAggregateInputType = {
     remoteOrHybrid?: true;
     datePosted?: true;
     description?: true;
+    scrapedText?: true;
+    rawHTML?: true;
     anchorHref?: true;
     companyID?: true;
 };
@@ -87,6 +97,8 @@ export type JobsCountAggregateInputType = {
     remoteOrHybrid?: true;
     datePosted?: true;
     description?: true;
+    scrapedText?: true;
+    rawHTML?: true;
     formattedData?: true;
     anchorHref?: true;
     companyID?: true;
@@ -175,6 +187,8 @@ export type JobsGroupByOutputType = {
     remoteOrHybrid: string | null;
     datePosted: string | null;
     description: string | null;
+    scrapedText: string | null;
+    rawHTML: string | null;
     formattedData: runtime.JsonValue | null;
     anchorHref: string | null;
     companyID: number;
@@ -197,6 +211,8 @@ export type JobsWhereInput = {
     remoteOrHybrid?: Prisma.StringNullableFilter<"Jobs"> | string | null;
     datePosted?: Prisma.StringNullableFilter<"Jobs"> | string | null;
     description?: Prisma.StringNullableFilter<"Jobs"> | string | null;
+    scrapedText?: Prisma.StringNullableFilter<"Jobs"> | string | null;
+    rawHTML?: Prisma.StringNullableFilter<"Jobs"> | string | null;
     formattedData?: Prisma.JsonNullableFilter<"Jobs">;
     anchorHref?: Prisma.StringNullableFilter<"Jobs"> | string | null;
     companyID?: Prisma.IntFilter<"Jobs"> | number;
@@ -209,6 +225,8 @@ export type JobsOrderByWithRelationInput = {
     remoteOrHybrid?: Prisma.SortOrderInput | Prisma.SortOrder;
     datePosted?: Prisma.SortOrderInput | Prisma.SortOrder;
     description?: Prisma.SortOrderInput | Prisma.SortOrder;
+    scrapedText?: Prisma.SortOrderInput | Prisma.SortOrder;
+    rawHTML?: Prisma.SortOrderInput | Prisma.SortOrder;
     formattedData?: Prisma.SortOrderInput | Prisma.SortOrder;
     anchorHref?: Prisma.SortOrderInput | Prisma.SortOrder;
     companyID?: Prisma.SortOrder;
@@ -224,6 +242,8 @@ export type JobsWhereUniqueInput = Prisma.AtLeast<{
     remoteOrHybrid?: Prisma.StringNullableFilter<"Jobs"> | string | null;
     datePosted?: Prisma.StringNullableFilter<"Jobs"> | string | null;
     description?: Prisma.StringNullableFilter<"Jobs"> | string | null;
+    scrapedText?: Prisma.StringNullableFilter<"Jobs"> | string | null;
+    rawHTML?: Prisma.StringNullableFilter<"Jobs"> | string | null;
     formattedData?: Prisma.JsonNullableFilter<"Jobs">;
     anchorHref?: Prisma.StringNullableFilter<"Jobs"> | string | null;
     companyID?: Prisma.IntFilter<"Jobs"> | number;
@@ -236,6 +256,8 @@ export type JobsOrderByWithAggregationInput = {
     remoteOrHybrid?: Prisma.SortOrderInput | Prisma.SortOrder;
     datePosted?: Prisma.SortOrderInput | Prisma.SortOrder;
     description?: Prisma.SortOrderInput | Prisma.SortOrder;
+    scrapedText?: Prisma.SortOrderInput | Prisma.SortOrder;
+    rawHTML?: Prisma.SortOrderInput | Prisma.SortOrder;
     formattedData?: Prisma.SortOrderInput | Prisma.SortOrder;
     anchorHref?: Prisma.SortOrderInput | Prisma.SortOrder;
     companyID?: Prisma.SortOrder;
@@ -255,6 +277,8 @@ export type JobsScalarWhereWithAggregatesInput = {
     remoteOrHybrid?: Prisma.StringNullableWithAggregatesFilter<"Jobs"> | string | null;
     datePosted?: Prisma.StringNullableWithAggregatesFilter<"Jobs"> | string | null;
     description?: Prisma.StringNullableWithAggregatesFilter<"Jobs"> | string | null;
+    scrapedText?: Prisma.StringNullableWithAggregatesFilter<"Jobs"> | string | null;
+    rawHTML?: Prisma.StringNullableWithAggregatesFilter<"Jobs"> | string | null;
     formattedData?: Prisma.JsonNullableWithAggregatesFilter<"Jobs">;
     anchorHref?: Prisma.StringNullableWithAggregatesFilter<"Jobs"> | string | null;
     companyID?: Prisma.IntWithAggregatesFilter<"Jobs"> | number;
@@ -265,6 +289,8 @@ export type JobsCreateInput = {
     remoteOrHybrid?: string | null;
     datePosted?: string | null;
     description?: string | null;
+    scrapedText?: string | null;
+    rawHTML?: string | null;
     formattedData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
     anchorHref?: string | null;
     company: Prisma.CompanyCreateNestedOneWithoutJobsInput;
@@ -276,6 +302,8 @@ export type JobsUncheckedCreateInput = {
     remoteOrHybrid?: string | null;
     datePosted?: string | null;
     description?: string | null;
+    scrapedText?: string | null;
+    rawHTML?: string | null;
     formattedData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
     anchorHref?: string | null;
     companyID: number;
@@ -286,6 +314,8 @@ export type JobsUpdateInput = {
     remoteOrHybrid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     datePosted?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    scrapedText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    rawHTML?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     formattedData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
     anchorHref?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     company?: Prisma.CompanyUpdateOneRequiredWithoutJobsNestedInput;
@@ -297,6 +327,8 @@ export type JobsUncheckedUpdateInput = {
     remoteOrHybrid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     datePosted?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    scrapedText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    rawHTML?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     formattedData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
     anchorHref?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     companyID?: Prisma.IntFieldUpdateOperationsInput | number;
@@ -308,6 +340,8 @@ export type JobsCreateManyInput = {
     remoteOrHybrid?: string | null;
     datePosted?: string | null;
     description?: string | null;
+    scrapedText?: string | null;
+    rawHTML?: string | null;
     formattedData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
     anchorHref?: string | null;
     companyID: number;
@@ -318,6 +352,8 @@ export type JobsUpdateManyMutationInput = {
     remoteOrHybrid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     datePosted?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    scrapedText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    rawHTML?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     formattedData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
     anchorHref?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
 };
@@ -328,6 +364,8 @@ export type JobsUncheckedUpdateManyInput = {
     remoteOrHybrid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     datePosted?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    scrapedText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    rawHTML?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     formattedData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
     anchorHref?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     companyID?: Prisma.IntFieldUpdateOperationsInput | number;
@@ -347,6 +385,8 @@ export type JobsCountOrderByAggregateInput = {
     remoteOrHybrid?: Prisma.SortOrder;
     datePosted?: Prisma.SortOrder;
     description?: Prisma.SortOrder;
+    scrapedText?: Prisma.SortOrder;
+    rawHTML?: Prisma.SortOrder;
     formattedData?: Prisma.SortOrder;
     anchorHref?: Prisma.SortOrder;
     companyID?: Prisma.SortOrder;
@@ -362,6 +402,8 @@ export type JobsMaxOrderByAggregateInput = {
     remoteOrHybrid?: Prisma.SortOrder;
     datePosted?: Prisma.SortOrder;
     description?: Prisma.SortOrder;
+    scrapedText?: Prisma.SortOrder;
+    rawHTML?: Prisma.SortOrder;
     anchorHref?: Prisma.SortOrder;
     companyID?: Prisma.SortOrder;
 };
@@ -372,6 +414,8 @@ export type JobsMinOrderByAggregateInput = {
     remoteOrHybrid?: Prisma.SortOrder;
     datePosted?: Prisma.SortOrder;
     description?: Prisma.SortOrder;
+    scrapedText?: Prisma.SortOrder;
+    rawHTML?: Prisma.SortOrder;
     anchorHref?: Prisma.SortOrder;
     companyID?: Prisma.SortOrder;
 };
@@ -423,6 +467,8 @@ export type JobsCreateWithoutCompanyInput = {
     remoteOrHybrid?: string | null;
     datePosted?: string | null;
     description?: string | null;
+    scrapedText?: string | null;
+    rawHTML?: string | null;
     formattedData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
     anchorHref?: string | null;
 };
@@ -433,6 +479,8 @@ export type JobsUncheckedCreateWithoutCompanyInput = {
     remoteOrHybrid?: string | null;
     datePosted?: string | null;
     description?: string | null;
+    scrapedText?: string | null;
+    rawHTML?: string | null;
     formattedData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
     anchorHref?: string | null;
 };
@@ -467,6 +515,8 @@ export type JobsScalarWhereInput = {
     remoteOrHybrid?: Prisma.StringNullableFilter<"Jobs"> | string | null;
     datePosted?: Prisma.StringNullableFilter<"Jobs"> | string | null;
     description?: Prisma.StringNullableFilter<"Jobs"> | string | null;
+    scrapedText?: Prisma.StringNullableFilter<"Jobs"> | string | null;
+    rawHTML?: Prisma.StringNullableFilter<"Jobs"> | string | null;
     formattedData?: Prisma.JsonNullableFilter<"Jobs">;
     anchorHref?: Prisma.StringNullableFilter<"Jobs"> | string | null;
     companyID?: Prisma.IntFilter<"Jobs"> | number;
@@ -478,6 +528,8 @@ export type JobsCreateManyCompanyInput = {
     remoteOrHybrid?: string | null;
     datePosted?: string | null;
     description?: string | null;
+    scrapedText?: string | null;
+    rawHTML?: string | null;
     formattedData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
     anchorHref?: string | null;
 };
@@ -487,6 +539,8 @@ export type JobsUpdateWithoutCompanyInput = {
     remoteOrHybrid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     datePosted?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    scrapedText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    rawHTML?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     formattedData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
     anchorHref?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
 };
@@ -497,6 +551,8 @@ export type JobsUncheckedUpdateWithoutCompanyInput = {
     remoteOrHybrid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     datePosted?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    scrapedText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    rawHTML?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     formattedData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
     anchorHref?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
 };
@@ -507,6 +563,8 @@ export type JobsUncheckedUpdateManyWithoutCompanyInput = {
     remoteOrHybrid?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     datePosted?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    scrapedText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    rawHTML?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     formattedData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
     anchorHref?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
 };
@@ -517,6 +575,8 @@ export type JobsSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
     remoteOrHybrid?: boolean;
     datePosted?: boolean;
     description?: boolean;
+    scrapedText?: boolean;
+    rawHTML?: boolean;
     formattedData?: boolean;
     anchorHref?: boolean;
     companyID?: boolean;
@@ -529,6 +589,8 @@ export type JobsSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
     remoteOrHybrid?: boolean;
     datePosted?: boolean;
     description?: boolean;
+    scrapedText?: boolean;
+    rawHTML?: boolean;
     formattedData?: boolean;
     anchorHref?: boolean;
     companyID?: boolean;
@@ -541,6 +603,8 @@ export type JobsSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
     remoteOrHybrid?: boolean;
     datePosted?: boolean;
     description?: boolean;
+    scrapedText?: boolean;
+    rawHTML?: boolean;
     formattedData?: boolean;
     anchorHref?: boolean;
     companyID?: boolean;
@@ -553,11 +617,13 @@ export type JobsSelectScalar = {
     remoteOrHybrid?: boolean;
     datePosted?: boolean;
     description?: boolean;
+    scrapedText?: boolean;
+    rawHTML?: boolean;
     formattedData?: boolean;
     anchorHref?: boolean;
     companyID?: boolean;
 };
-export type JobsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "location" | "remoteOrHybrid" | "datePosted" | "description" | "formattedData" | "anchorHref" | "companyID", ExtArgs["result"]["jobs"]>;
+export type JobsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "location" | "remoteOrHybrid" | "datePosted" | "description" | "scrapedText" | "rawHTML" | "formattedData" | "anchorHref" | "companyID", ExtArgs["result"]["jobs"]>;
 export type JobsInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     company?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>;
 };
@@ -579,6 +645,8 @@ export type $JobsPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
         remoteOrHybrid: string | null;
         datePosted: string | null;
         description: string | null;
+        scrapedText: string | null;
+        rawHTML: string | null;
         formattedData: runtime.JsonValue | null;
         anchorHref: string | null;
         companyID: number;
@@ -943,6 +1011,8 @@ export interface JobsFieldRefs {
     readonly remoteOrHybrid: Prisma.FieldRef<"Jobs", 'String'>;
     readonly datePosted: Prisma.FieldRef<"Jobs", 'String'>;
     readonly description: Prisma.FieldRef<"Jobs", 'String'>;
+    readonly scrapedText: Prisma.FieldRef<"Jobs", 'String'>;
+    readonly rawHTML: Prisma.FieldRef<"Jobs", 'String'>;
     readonly formattedData: Prisma.FieldRef<"Jobs", 'Json'>;
     readonly anchorHref: Prisma.FieldRef<"Jobs", 'String'>;
     readonly companyID: Prisma.FieldRef<"Jobs", 'Int'>;

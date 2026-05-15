@@ -60,7 +60,7 @@ async function extractJobsText(page, instruction, id) {
 }
 async function extractJobsDetailsText(page, instruction, id) {
     const { description } = instruction.extractionInstructions;
-    let scrapedJobsRes = {};
+    const scrapedJobsRes = {};
     try {
         const doesJobResponsibilitiesExists = (await page.waitForSelector(description.selector, { timeout: 10000 }));
         if (!doesJobResponsibilitiesExists)
@@ -91,13 +91,13 @@ async function extractJobsDetailsText(page, instruction, id) {
                     }
                 }
                 currentNode = walker.nextNode();
-                scrapedJobsRes = { text: structuredText, id };
             }, description, id);
             return result;
         }
     }
     catch (error) {
         console.log(`Failed to scrap, check selector, reason: ${error}`);
+        return scrapedJobsRes;
     }
     return scrapedJobsRes;
 }

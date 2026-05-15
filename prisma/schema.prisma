@@ -63,6 +63,8 @@ model Jobs {
   remoteOrHybrid String?
   datePosted     String?
   description    String?
+  scrapedText    String?
+  rawHTML        String?
   formattedData  Json?
   anchorHref     String?
   company        Company @relation(fields: [companyID], references: [id], onDelete: Cascade)

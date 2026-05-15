@@ -1,5 +1,6 @@
 import type { ElementHandle, Page } from "puppeteer";
 import type { Instructions } from "../../generated/prisma/client.js";
+import { Jobs } from "../../generated/prisma/client.js";
 import type { JobsCreateManyInput } from "../../generated/prisma/models.js";
 import type {
   ApiResponse,
@@ -143,7 +144,7 @@ async function extractJobsDetailsText(
   const { description } =
     instruction.extractionInstructions as ExtractionConfig;
 
-  let scrapedJobsRes = {};
+  const scrapedJobsRes: Partial<Jobs> = {};
 
   try {
     const doesJobResponsibilitiesExists = (await page.waitForSelector(
@@ -189,8 +190,6 @@ async function extractJobsDetailsText(
             }
           }
           currentNode = walker.nextNode();
-
-          scrapedJobsRes = { text: structuredText, id };
         },
 
         description,
@@ -200,6 +199,8 @@ async function extractJobsDetailsText(
     }
   } catch (error) {
     console.log(`Failed to scrap, check selector, reason: ${error}`);
+
+    return scrapedJobsRes;
   }
   return scrapedJobsRes;
 }

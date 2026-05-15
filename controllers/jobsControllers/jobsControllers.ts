@@ -11,7 +11,7 @@ async function createJobs(req: Request, res: Response) {
       message: "Failed to create jobs! Is the array empty or the ID exists?",
     });
   } else {
-    const jobsArray: Jobs = req.body.map((job: Jobs) => {
+    const jobsArray: Omit<Jobs, "formattedData"> = req.body.map((job: Jobs) => {
       return {
         ...job,
         companyID: Number(id),

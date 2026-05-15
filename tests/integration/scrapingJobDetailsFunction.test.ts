@@ -11,6 +11,12 @@ describe("Jobs details scraping integration", () => {
       remoteOrHybrid: "Remote",
       datePosted: "",
       description: "",
+      formattedData: {
+        responsibilities: [],
+        requirements: [],
+        benefits: [],
+        other: [],
+      },
       anchorHref:
         "http://127.0.0.1:5500/tests/test-fixtures/adastra-jobs-details.html",
       companyID: 1,
@@ -75,6 +81,12 @@ describe("Jobs details scraping integration", () => {
       remoteOrHybrid: "Remote",
       datePosted: "",
       description: "",
+      formattedData: {
+        responsibilities: [],
+        requirements: [],
+        benefits: [],
+        other: [],
+      },
       anchorHref: "http://127.0.0.1:5500/tests/test-fixtures/no-jobs.html",
       companyID: 1,
       company: {
@@ -129,6 +141,12 @@ describe("Jobs details scraping integration", () => {
       remoteOrHybrid: "Remote",
       datePosted: "",
       description: "",
+      formattedData: {
+        responsibilities: [],
+        requirements: [],
+        benefits: [],
+        other: [],
+      },
       anchorHref:
         "http://127.0.0.1:5500/tests/test-fixtures/adastra-jobs-details.html",
       companyID: 1,
