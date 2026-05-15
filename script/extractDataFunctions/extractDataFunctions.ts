@@ -196,6 +196,44 @@ async function extractJobsDetailsText(page: Page, instruction: Instructions) {
   }
 }
 
+function parseMarkedUpText(rawText: string) {
+  const sections = rawText.split("[HEADER]:");
+
+  const result = {
+    responsibilities: [] as string[],
+    requirements: [] as string[],
+    benefits: [] as string[],
+    other: [] as string[],
+  };
+
+  sections.forEach((section) => {
+    const lines = section
+      .split("\n")
+      .map((l) => l.trim())
+      .filter((l) => l !== "");
+    if (lines.length === 0) return;
+
+    const header = lines[0]!.toLowerCase();
+    const content = lines.slice(1);
+
+    if (header.match(/routine|responsibilities|tasks|daily/i)) {
+      result.responsibilities.push(...content);
+    } else if (
+      header.match(
+        /technology stack|qualification|requirements|skills|requirements/i,
+      )
+    ) {
+      result.requirements.push(...content);
+    } else if (header.match(/offer|gratitude|benefits|goodies/i)) {
+      result.benefits.push(...content);
+    } else {
+      result.other.push(...lines);
+    }
+  });
+
+  return result;
+}
+
 async function extractJobsJSON(attribute: string) {
   const queryElementByAttribute = document.querySelector(`${[attribute]}`);
 
@@ -252,4 +290,5 @@ export {
   extractJobsFetchURL,
   extractJobsJSON,
   extractJobsText,
+  parseMarkedUpText,
 };

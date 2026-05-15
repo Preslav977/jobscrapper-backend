@@ -99,6 +99,38 @@ async function extractJobsDetailsText(page, instruction) {
         console.log(`Failed to scrap, check selector, reason: ${error}`);
     }
 }
+function parseMarkedUpText(rawText) {
+    const sections = rawText.split("[HEADER]:");
+    const result = {
+        responsibilities: [],
+        requirements: [],
+        benefits: [],
+        other: [],
+    };
+    sections.forEach((section) => {
+        const lines = section
+            .split("\n")
+            .map((l) => l.trim())
+            .filter((l) => l !== "");
+        if (lines.length === 0)
+            return;
+        const header = lines[0].toLowerCase();
+        const content = lines.slice(1);
+        if (header.match(/routine|responsibilities|tasks|daily/i)) {
+            result.responsibilities.push(...content);
+        }
+        else if (header.match(/technology stack|qualification|requirements|skills|requirements/i)) {
+            result.requirements.push(...content);
+        }
+        else if (header.match(/offer|gratitude|benefits|goodies/i)) {
+            result.benefits.push(...content);
+        }
+        else {
+            result.other.push(...lines);
+        }
+    });
+    return result;
+}
 async function extractJobsJSON(attribute) {
     const queryElementByAttribute = document.querySelector(`${[attribute]}`);
     const getElementAttribute = queryElementByAttribute.getAttribute(attribute);
@@ -134,5 +166,5 @@ async function extractJobsFetchURL(id, url, companyURL) {
     }
     return retrieveFetchedJobs;
 }
-export { extractJobsDetailsText, extractJobsFetchURL, extractJobsJSON, extractJobsText, };
+export { extractJobsDetailsText, extractJobsFetchURL, extractJobsJSON, extractJobsText, parseMarkedUpText, };
 //# sourceMappingURL=extractDataFunctions.js.map
