@@ -11,30 +11,22 @@ import { scrapingJobsDetailsFunction } from "../scrapingJobsDetailsFunction/scra
           },
         },
       },
-      where: {
-        companyID: 1,
-      },
     });
 
     if (jobs.length > 0) {
       for (const job of jobs) {
         const scrapedJobsDetails = await scrapingJobsDetailsFunction(job);
 
-        if (scrapedJobsDetails.id) {
-          const { description } = scrapedJobsDetails;
-
+        if (scrapedJobsDetails) {
           await prisma.jobs.update({
             where: {
               id: scrapedJobsDetails.id,
             },
             data: {
-              description: description ? description : null,
+              rawHTML: scrapedJobsDetails.rawHTML,
+              formattedData: scrapedJobsDetails.formattedData!,
             },
           });
-        } else {
-          console.log(
-            `Failed to update job with ID: ${scrapedJobsDetails.id}. Check selector!`,
-          );
         }
       }
     }

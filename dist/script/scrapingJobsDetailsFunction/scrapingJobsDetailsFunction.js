@@ -11,7 +11,11 @@ export async function scrapingJobsDetailsFunction(job) {
     const { id, anchorHref } = job;
     const { instructions } = job.company;
     const constructNewURL = new URL(anchorHref, job.company.URL);
-    let scrapingJobsDetailsResult = {};
+    let scrapingJobsDetailsResult = {
+        id,
+        formattedData: "",
+        rawHTML: "",
+    };
     const browser = await puppeteer.default.launch({
         headless: false,
         args: [

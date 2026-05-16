@@ -46,17 +46,15 @@ describe("Extract jobs details text implementation", () => {
       "http://127.0.0.1:5500/tests/test-fixtures/adastra-jobs-details.html",
     );
 
-    const jobDetails = await extractJobsDetailsText(mockPage, instruction, 1);
+    const jobDetails = await extractJobsDetailsText(mockPage, instruction);
 
     expect(jobDetails).toBeInstanceOf(Object);
 
     expect(jobDetails).toHaveProperty("id");
 
-    expect(jobDetails).toHaveProperty("description");
+    expect(jobDetails).toHaveProperty("rawHTML");
 
-    expect(jobDetails!.id).toEqual(1);
-
-    expect(jobDetails!.description).toEqual(jobDetails!.description);
+    expect(jobDetails!.rawHTML).toEqual(jobDetails!.rawHTML);
   });
 
   it("should return empty object if description selector is wrong", async () => {
@@ -101,7 +99,7 @@ describe("Extract jobs details text implementation", () => {
       "http://127.0.0.1:5500/tests/test-fixtures/adastra-jobs-details.html",
     );
 
-    const jobDetails = await extractJobsDetailsText(mockPage, instruction, 1);
+    const jobDetails = await extractJobsDetailsText(mockPage, instruction);
 
     expect(jobDetails).toEqual({});
   }, 10000);

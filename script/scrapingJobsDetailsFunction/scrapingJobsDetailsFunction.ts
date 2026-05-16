@@ -27,7 +27,13 @@ export async function scrapingJobsDetailsFunction(job: JobsWithRelationsType) {
 
   const constructNewURL = new URL(anchorHref!, job.company.URL);
 
-  let scrapingJobsDetailsResult: Partial<Jobs> = {};
+  type ScrapedJobsDetails = Pick<Jobs, "id" | "formattedData" | "rawHTML">;
+
+  let scrapingJobsDetailsResult: ScrapedJobsDetails = {
+    id,
+    formattedData: "",
+    rawHTML: "",
+  };
 
   const browser = await puppeteer.default.launch({
     headless: false,

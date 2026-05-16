@@ -68,11 +68,11 @@ describe("Jobs details scraping integration", () => {
 
     expect(result).toHaveProperty("id");
 
-    expect(result).toHaveProperty("description");
+    expect(result).toHaveProperty("rawHTML");
 
     expect(result.id).toEqual(1);
 
-    expect(result.description).toEqual(result.description);
+    expect(result.rawHTML).toEqual(result.rawHTML);
   });
 
   it("should return empty object if scraping failed", async () => {
