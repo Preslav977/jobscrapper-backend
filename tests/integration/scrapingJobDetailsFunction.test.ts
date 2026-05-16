@@ -11,6 +11,8 @@ describe("Jobs details scraping integration", () => {
       remoteOrHybrid: "Remote",
       datePosted: "",
       description: "",
+      scrapedText: "",
+      rawHTML: "",
       formattedData: {
         responsibilities: [],
         requirements: [],
@@ -81,6 +83,8 @@ describe("Jobs details scraping integration", () => {
       remoteOrHybrid: "Remote",
       datePosted: "",
       description: "",
+      scrapedText: "",
+      rawHTML: "",
       formattedData: {
         responsibilities: [],
         requirements: [],
@@ -141,6 +145,8 @@ describe("Jobs details scraping integration", () => {
       remoteOrHybrid: "Remote",
       datePosted: "",
       description: "",
+      scrapedText: "",
+      rawHTML: "",
       formattedData: {
         responsibilities: [],
         requirements: [],

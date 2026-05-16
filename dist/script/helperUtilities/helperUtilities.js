@@ -7,7 +7,7 @@ const randomViewport = viewports[Math.floor(Math.random() * viewports.length)];
 function hasJobChanged(existingJob, scrapedJob) {
     let result = false;
     if (existingJob && scrapedJob) {
-        const { title, location, remoteOrHybrid, datePosted, description, anchorHref, companyID, formattedData, } = existingJob;
+        const { title, location, remoteOrHybrid, datePosted, description, anchorHref, companyID, formattedData, scrapedText, rawHTML, } = existingJob;
         const existingJobObject = {
             title,
             location,
@@ -17,6 +17,8 @@ function hasJobChanged(existingJob, scrapedJob) {
             anchorHref,
             companyID,
             formattedData,
+            scrapedText,
+            rawHTML,
         };
         for (const propInExistingJob in existingJobObject) {
             for (const propInScrapedJob in scrapedJob) {
@@ -42,6 +44,7 @@ function buildData(job) {
         anchorHref: job.anchorHref,
         description: job.description,
         companyID: job.companyID,
+        rawHTML: job.rawHTML,
     };
 }
 export { buildData, hasJobChanged, randomViewport };

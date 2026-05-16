@@ -1,7 +1,7 @@
 import puppeteer from "puppeteer-extra";
 import StealthPlugin from "puppeteer-extra-plugin-stealth";
 import { URL } from "node:url";
-import { extractJobsDetailsText } from "../extractDataFunctions/extractDataFunctions.js";
+import { extractJobsDetailsText, parseMarkedUpText, } from "../extractDataFunctions/extractDataFunctions.js";
 import { randomViewport } from "../helperUtilities/helperUtilities.js";
 import { sleepDelay } from "../navigationFunctions/navigationFunctions.js";
 const stealthPlugin = StealthPlugin();
@@ -42,8 +42,13 @@ export async function scrapingJobsDetailsFunction(job) {
     try {
         if (instructions.length > 0) {
             for (const instruction of instructions) {
-                const result = await extractJobsDetailsText(page, instruction, id);
-                scrapingJobsDetailsResult = { ...result };
+                const result = await extractJobsDetailsText(page, instruction);
+                const parseScrapedRes = parseMarkedUpText(result.structuredText);
+                scrapingJobsDetailsResult = {
+                    id,
+                    formattedData: parseScrapedRes,
+                    rawHTML: result.rawHTML,
+                };
                 await browser.close();
             }
         }

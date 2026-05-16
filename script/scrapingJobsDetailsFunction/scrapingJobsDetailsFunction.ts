@@ -7,7 +7,10 @@ import { Page } from "puppeteer";
 
 import type { Jobs } from "../../generated/prisma/client.js";
 import type { JobsWithRelationsType } from "../../interfaces/JobsInterface/JobsInterface.js";
-import { extractJobsDetailsText } from "../extractDataFunctions/extractDataFunctions.js";
+import {
+  extractJobsDetailsText,
+  parseMarkedUpText,
+} from "../extractDataFunctions/extractDataFunctions.js";
 import { randomViewport } from "../helperUtilities/helperUtilities.js";
 import { sleepDelay } from "../navigationFunctions/navigationFunctions.js";
 
@@ -66,9 +69,15 @@ export async function scrapingJobsDetailsFunction(job: JobsWithRelationsType) {
   try {
     if (instructions.length > 0) {
       for (const instruction of instructions) {
-        const result = await extractJobsDetailsText(page, instruction, id);
+        const result = await extractJobsDetailsText(page, instruction);
 
-        scrapingJobsDetailsResult = { ...result };
+        const parseScrapedRes = parseMarkedUpText(result!.structuredText);
+
+        scrapingJobsDetailsResult = {
+          id,
+          formattedData: parseScrapedRes,
+          rawHTML: result!.rawHTML,
+        };
 
         await browser.close();
       }

@@ -20,6 +20,8 @@ function hasJobChanged(existingJob: Jobs, scrapedJob: Jobs): boolean {
       anchorHref,
       companyID,
       formattedData,
+      scrapedText,
+      rawHTML,
     } = existingJob;
 
     const existingJobObject = {
@@ -31,6 +33,8 @@ function hasJobChanged(existingJob: Jobs, scrapedJob: Jobs): boolean {
       anchorHref,
       companyID,
       formattedData,
+      scrapedText,
+      rawHTML,
     };
 
     for (const propInExistingJob in existingJobObject) {
@@ -56,7 +60,9 @@ function hasJobChanged(existingJob: Jobs, scrapedJob: Jobs): boolean {
   return result;
 }
 
-function buildData(job: Jobs): Omit<Jobs, "id" | "formattedData"> {
+function buildData(
+  job: Jobs,
+): Omit<Jobs, "id" | "formattedData" | "scrapedText"> {
   return {
     title: job.title,
     location: job.location,
@@ -65,6 +71,7 @@ function buildData(job: Jobs): Omit<Jobs, "id" | "formattedData"> {
     anchorHref: job.anchorHref,
     description: job.description,
     companyID: job.companyID,
+    rawHTML: job.rawHTML,
   };
 }
 

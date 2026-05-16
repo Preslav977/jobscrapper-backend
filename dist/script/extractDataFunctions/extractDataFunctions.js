@@ -58,19 +58,20 @@ async function extractJobsText(page, instruction, id) {
     }
     return scrapedJobs;
 }
-async function extractJobsDetailsText(page, instruction, id) {
+async function extractJobsDetailsText(page, instruction) {
     const { description } = instruction.extractionInstructions;
-    const scrapedJobsRes = {};
+    let structuredText = "";
+    let rawHTML = "";
     try {
         const doesJobResponsibilitiesExists = (await page.waitForSelector(description.selector, { timeout: 10000 }));
         if (!doesJobResponsibilitiesExists)
             return null;
         if (doesJobResponsibilitiesExists) {
-            const result = await page.evaluate((description, id) => {
+            const result = await page.evaluate((description) => {
                 const container = document.querySelector(description.selector);
+                rawHTML = container.outerHTML;
                 const junk = container?.querySelectorAll("script, style, nav, footer, svg, img");
                 junk?.forEach((el) => el.remove());
-                let structuredText = "";
                 const walker = document.createTreeWalker(container, NodeFilter.SHOW_ELEMENT);
                 let currentNode = walker?.nextNode();
                 while (currentNode && currentNode instanceof Element) {
@@ -91,15 +92,15 @@ async function extractJobsDetailsText(page, instruction, id) {
                     }
                 }
                 currentNode = walker.nextNode();
-            }, description, id);
+            }, description);
             return result;
         }
     }
     catch (error) {
         console.log(`Failed to scrap, check selector, reason: ${error}`);
-        return scrapedJobsRes;
+        return { structuredText, rawHTML };
     }
-    return scrapedJobsRes;
+    return { structuredText, rawHTML };
 }
 function parseMarkedUpText(rawText) {
     const sections = rawText.split("[HEADER]:");

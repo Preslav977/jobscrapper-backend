@@ -1,10 +1,10 @@
 import type { Prisma } from "../../generated/prisma/client.js";
 
 export type FormattedJobsType = {
-  responsibilities: string;
-  requirements: string;
-  benefits: string;
-  other: string;
+  responsibilities: string[];
+  requirements: string[];
+  benefits: string[];
+  other: string[];
 };
 
 export interface JobsInterface {
@@ -16,7 +16,8 @@ export interface JobsInterface {
   description: string;
   anchorHref: string;
   companyID: number;
-  formattedData?: FormattedJobsType;
+  rawHTML?: string;
+  scrapedText: FormattedJobsType;
 }
 
 export type ScrapedJobsArrayType = {
@@ -25,7 +26,6 @@ export type ScrapedJobsArrayType = {
   remoteOrHybrid: string | null;
   datePosted: string | null;
   description: string | null;
-  formattedData?: FormattedJobsType;
   anchorHref: string | null;
 };
 

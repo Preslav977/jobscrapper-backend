@@ -1,6 +1,5 @@
 import type { ElementHandle, Page } from "puppeteer";
 import type { Instructions } from "../../generated/prisma/client.js";
-import { Jobs } from "../../generated/prisma/client.js";
 import type { JobsCreateManyInput } from "../../generated/prisma/models.js";
 import type {
   ApiResponse,
@@ -136,15 +135,13 @@ async function extractJobsText(
   return scrapedJobs;
 }
 
-async function extractJobsDetailsText(
-  page: Page,
-  instruction: Instructions,
-  id: number,
-) {
+async function extractJobsDetailsText(page: Page, instruction: Instructions) {
   const { description } =
     instruction.extractionInstructions as ExtractionConfig;
 
-  const scrapedJobsRes: Partial<Jobs> = {};
+  let structuredText = "";
+
+  let rawHTML = "";
 
   try {
     const doesJobResponsibilitiesExists = (await page.waitForSelector(
@@ -156,15 +153,15 @@ async function extractJobsDetailsText(
 
     if (doesJobResponsibilitiesExists) {
       const result = await page.evaluate(
-        (description, id) => {
+        (description) => {
           const container = document.querySelector(description.selector!);
+
+          rawHTML = container!.outerHTML;
 
           const junk = container?.querySelectorAll(
             "script, style, nav, footer, svg, img",
           );
           junk?.forEach((el: Element) => el.remove());
-
-          let structuredText = "";
 
           const walker = document.createTreeWalker(
             container!,
@@ -193,16 +190,15 @@ async function extractJobsDetailsText(
         },
 
         description,
-        id,
       );
       return result;
     }
   } catch (error) {
     console.log(`Failed to scrap, check selector, reason: ${error}`);
 
-    return scrapedJobsRes;
+    return { structuredText, rawHTML };
   }
-  return scrapedJobsRes;
+  return { structuredText, rawHTML };
 }
 
 function parseMarkedUpText(rawText: string) {
