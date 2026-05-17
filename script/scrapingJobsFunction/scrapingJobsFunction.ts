@@ -184,7 +184,7 @@ export async function scrapingJobsFunction(
       `Navigation script for jobs failed, check the selectors, ${error}`,
     );
 
-    await browser.close();
+    // await browser.close();
   }
 
   navigationResults = [];

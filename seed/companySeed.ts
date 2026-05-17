@@ -465,6 +465,7 @@ import type { CompanyWithSelectedFieldsType } from "../interfaces/CompanyInterfa
             },
           },
         });
+        console.log(`Successfully seeded company: ${name}`);
       } else {
         return;
       }

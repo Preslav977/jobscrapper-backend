@@ -9,6 +9,9 @@ import { scrapingJobsFunction } from "../scrapingJobsFunction/scrapingJobsFuncti
                 instructions: true,
                 steps: true,
             },
+            where: {
+                id: 2,
+            },
         });
         if (companies.length > 0) {
             for (const company of companies) {

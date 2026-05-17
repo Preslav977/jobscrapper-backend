@@ -1,62 +1,58 @@
-import { sleepDelay } from "../navigationFunctions/navigationFunctions.js";
 async function extractJobsText(page, instruction, id) {
     const { container, title, location, remoteOrHybrid, datePosted, anchorHref } = instruction.extractionInstructions;
-    const scrapedJobs = [];
+    const containerExists = await page
+        .waitForSelector(container.selector)
+        .catch(() => null);
+    if (!containerExists) {
+        console.warn(`[Scraper] Active timeout: Container ${container.selector} not found.`);
+    }
     try {
-        const doesJobContainerExists = (await page.waitForSelector(container.selector, { timeout: 15000 }));
-        const doesJobContainerHTMLExists = await doesJobContainerExists.evaluate((element) => element.outerHTML);
-        if (doesJobContainerHTMLExists) {
-            const result = await page.evaluate((scrapedJobs, container, title, location, remoteOrHybrid, datePosted, anchorHref, id) => {
-                function extractField(HTMLElement, elementField) {
-                    if (elementField.extractType === "" ||
-                        elementField.selector === "") {
-                        return null;
-                    }
-                    if (elementField.extractType === "text") {
-                        return HTMLElement.querySelector(elementField.selector)
-                            ?.textContent.trim()
-                            .replace("/n", "");
-                    }
-                    if (elementField.extractType === "attribute") {
-                        return HTMLElement.getAttribute(elementField.attr);
-                    }
-                    if (elementField.extractType === "elementAttribute") {
-                        return HTMLElement.querySelector(elementField.selector)?.getAttribute(elementField.attr);
-                    }
+        return await page.evaluate((container, title, location, remoteOrHybrid, datePosted, anchorHref, companyID) => {
+            function extractField(el, field) {
+                if (field.extractType === "" || field.selector === "")
                     return null;
+                const target = el.querySelector(field.selector);
+                if (!target)
+                    return null;
+                if (field.extractType === "text") {
+                    return target.textContent
+                        ? target.textContent.trim().replace(/\n/g, "")
+                        : null;
                 }
-                const queryAllJobsContainers = document.querySelectorAll(container.selector);
-                queryAllJobsContainers.forEach((queryJobContainer) => {
-                    const jobTitle = extractField(queryJobContainer, title);
-                    const jobLocation = extractField(queryJobContainer, location);
-                    const jobRemoteOrHybrid = extractField(queryJobContainer, remoteOrHybrid);
-                    const jobDatePosted = extractField(queryJobContainer, datePosted);
-                    const jobAnchorHref = extractField(queryJobContainer, anchorHref);
-                    const jobsObject = {
-                        title: jobTitle,
-                        location: jobLocation,
-                        remoteOrHybrid: jobRemoteOrHybrid,
-                        datePosted: jobDatePosted,
-                        anchorHref: jobAnchorHref,
-                        description: "",
-                        companyID: id,
-                    };
-                    if (jobsObject.title.includes("Developer") ||
-                        jobsObject.title.includes("Engineer")) {
-                        scrapedJobs.push(jobsObject);
-                    }
+                if (field.extractType === "attribute") {
+                    return el.getAttribute(field.attr);
+                }
+                if (field.extractType === "elementAttribute" && field.attr) {
+                    return target.getAttribute(field.attr);
+                }
+                return null;
+            }
+            const jobsNodes = document.querySelectorAll(container.selector);
+            const scrapedJobs = [];
+            jobsNodes.forEach((node) => {
+                const rawTitle = extractField(node, title) || "";
+                const isTargetRole = rawTitle.includes("Developer") || rawTitle.includes("Engineer");
+                if (!isTargetRole)
+                    return;
+                scrapedJobs.push({
+                    title: rawTitle,
+                    location: extractField(node, location) || "",
+                    remoteOrHybrid: extractField(node, remoteOrHybrid) || "",
+                    datePosted: extractField(node, datePosted) || "",
+                    anchorHref: node
+                        .querySelector(anchorHref.selector)
+                        ?.getAttribute(anchorHref.attr) || "",
+                    description: "",
+                    companyID: companyID,
                 });
-                return scrapedJobs;
-            }, scrapedJobs, container, title, location, remoteOrHybrid, datePosted, anchorHref, id);
-            sleepDelay(3000);
-            return result;
-        }
+            });
+            return scrapedJobs;
+        }, container, title, location, remoteOrHybrid, datePosted, anchorHref, id);
     }
     catch (error) {
-        console.log(`Failed to scrap, check selectors, reason: ${error}`);
-        return scrapedJobs;
+        console.error(`[Scraper] Critical evaluation failure: ${error}`);
+        return [];
     }
-    return scrapedJobs;
 }
 async function extractJobsDetailsText(page, instruction) {
     const { description } = instruction.extractionInstructions;

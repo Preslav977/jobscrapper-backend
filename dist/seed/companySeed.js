@@ -458,6 +458,7 @@ import { prisma } from "../db/client.js";
                         },
                     },
                 });
+                console.log(`Successfully seeded company: ${name}`);
             }
             else {
                 return;
