@@ -5,6 +5,7 @@ async function extractJobsText(page, instruction, id) {
         .catch(() => null);
     if (!containerExists) {
         console.warn(`[Scraper] Active timeout: Container ${container.selector} not found.`);
+        return [];
     }
     try {
         return await page.evaluate((container, title, location, remoteOrHybrid, datePosted, anchorHref, companyID) => {
@@ -56,47 +57,50 @@ async function extractJobsText(page, instruction, id) {
 }
 async function extractJobsDetailsText(page, instruction) {
     const { description } = instruction.extractionInstructions;
-    let structuredText = "";
-    let rawHTML = "";
+    const descriptionExists = await page
+        .waitForSelector(description.selector)
+        .catch(() => null);
+    if (!descriptionExists) {
+        console.warn(`[Scraper] Active timeout: Description ${description.selector} not found.`);
+        return { structuredText: "", rawHTML: "" };
+    }
     try {
-        const doesJobResponsibilitiesExists = (await page.waitForSelector(description.selector, { timeout: 10000 }));
-        if (!doesJobResponsibilitiesExists)
-            return null;
-        if (doesJobResponsibilitiesExists) {
-            const result = await page.evaluate((description) => {
-                const container = document.querySelector(description.selector);
-                rawHTML = container.outerHTML;
-                const junk = container?.querySelectorAll("script, style, nav, footer, svg, img");
-                junk?.forEach((el) => el.remove());
-                const walker = document.createTreeWalker(container, NodeFilter.SHOW_ELEMENT);
-                let currentNode = walker?.nextNode();
-                while (currentNode && currentNode instanceof Element) {
-                    const tagName = currentNode.tagName;
-                    const text = currentNode.textContent?.trim();
-                    if (text) {
-                        if (["H1", "H2", "H3", "H4", "STRONG", "B"].includes(tagName)) {
-                            structuredText += `\n\n[HEADER]: ${text}\n`;
-                        }
-                        else if (tagName === "LI") {
-                            structuredText += `\n* ${text}`;
-                        }
-                        else if (tagName === "P" || tagName === "DIV") {
-                            if (currentNode.children.length === 0) {
-                                structuredText += `\n\n${text}`;
-                            }
+        const extractionResult = await page.evaluate((description) => {
+            const container = document.querySelector(description.selector);
+            if (!container)
+                return { structuredText: "", rawHTML: "" };
+            const rawHTML = container.outerHTML;
+            const junk = container?.querySelectorAll("script, style, nav, footer, svg, img");
+            junk?.forEach((el) => el.remove());
+            const walker = document.createTreeWalker(container, NodeFilter.SHOW_ELEMENT);
+            let structuredText = "";
+            let currentNode = walker?.nextNode();
+            while (currentNode && currentNode instanceof Element) {
+                const tagName = currentNode.tagName;
+                const text = currentNode.textContent?.trim();
+                if (text) {
+                    if (["H1", "H2", "H3", "H4", "STRONG", "B"].includes(tagName)) {
+                        structuredText += `\n\n[HEADER]: ${text}\n`;
+                    }
+                    else if (tagName === "LI") {
+                        structuredText += `\n* ${text}`;
+                    }
+                    else if (tagName === "P" || tagName === "DIV") {
+                        if (currentNode.children.length === 0) {
+                            structuredText += `\n\n${text}`;
                         }
                     }
                 }
                 currentNode = walker.nextNode();
-            }, description);
-            return result;
-        }
+            }
+            return { structuredText, rawHTML };
+        }, description);
+        return extractionResult;
     }
     catch (error) {
-        console.log(`Failed to scrap, check selector, reason: ${error}`);
-        return { structuredText, rawHTML };
+        console.error(`[Scraper] Critical evaluation failure: ${error}`);
+        return { structuredText: "", rawHTML: "" };
     }
-    return { structuredText, rawHTML };
 }
 function parseMarkedUpText(rawText) {
     const sections = rawText.split("[HEADER]:");

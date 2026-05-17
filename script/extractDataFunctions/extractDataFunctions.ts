@@ -1,4 +1,4 @@
-import type { ElementHandle, Page } from "puppeteer";
+import type { Page } from "puppeteer";
 import type { Instructions } from "../../generated/prisma/client.js";
 import type { JobsCreateManyInput } from "../../generated/prisma/models.js";
 import type {
@@ -23,6 +23,8 @@ async function extractJobsText(
     console.warn(
       `[Scraper] Active timeout: Container ${container.selector} not found.`,
     );
+
+    return [];
   }
 
   try {
@@ -114,66 +116,69 @@ async function extractJobsDetailsText(page: Page, instruction: Instructions) {
   const { description } =
     instruction.extractionInstructions as ExtractionConfig;
 
-  let structuredText = "";
+  const descriptionExists = await page
+    .waitForSelector(description.selector!)
+    .catch(() => null);
 
-  let rawHTML = "";
+  if (!descriptionExists) {
+    console.warn(
+      `[Scraper] Active timeout: Description ${description.selector} not found.`,
+    );
+
+    return { structuredText: "", rawHTML: "" };
+  }
 
   try {
-    const doesJobResponsibilitiesExists = (await page.waitForSelector(
-      description.selector!,
-      { timeout: 10000 },
-    )) as ElementHandle<HTMLElement>;
+    const extractionResult = await page.evaluate(
+      (description) => {
+        const container = document.querySelector(description.selector!);
 
-    if (!doesJobResponsibilitiesExists) return null;
+        if (!container) return { structuredText: "", rawHTML: "" };
 
-    if (doesJobResponsibilitiesExists) {
-      const result = await page.evaluate(
-        (description) => {
-          const container = document.querySelector(description.selector!);
+        const rawHTML = container!.outerHTML;
 
-          rawHTML = container!.outerHTML;
+        const junk = container?.querySelectorAll(
+          "script, style, nav, footer, svg, img",
+        );
+        junk?.forEach((el: Element) => el.remove());
 
-          const junk = container?.querySelectorAll(
-            "script, style, nav, footer, svg, img",
-          );
-          junk?.forEach((el: Element) => el.remove());
+        const walker = document.createTreeWalker(
+          container!,
+          NodeFilter.SHOW_ELEMENT,
+        );
 
-          const walker = document.createTreeWalker(
-            container!,
-            NodeFilter.SHOW_ELEMENT,
-          );
+        let structuredText = "";
 
-          let currentNode = walker?.nextNode();
+        let currentNode = walker?.nextNode();
 
-          while (currentNode && currentNode instanceof Element) {
-            const tagName = currentNode.tagName;
-            const text = currentNode.textContent?.trim();
+        while (currentNode && currentNode instanceof Element) {
+          const tagName = currentNode.tagName;
+          const text = currentNode.textContent?.trim();
 
-            if (text) {
-              if (["H1", "H2", "H3", "H4", "STRONG", "B"].includes(tagName)) {
-                structuredText += `\n\n[HEADER]: ${text}\n`;
-              } else if (tagName === "LI") {
-                structuredText += `\n* ${text}`;
-              } else if (tagName === "P" || tagName === "DIV") {
-                if (currentNode.children.length === 0) {
-                  structuredText += `\n\n${text}`;
-                }
+          if (text) {
+            if (["H1", "H2", "H3", "H4", "STRONG", "B"].includes(tagName)) {
+              structuredText += `\n\n[HEADER]: ${text}\n`;
+            } else if (tagName === "LI") {
+              structuredText += `\n* ${text}`;
+            } else if (tagName === "P" || tagName === "DIV") {
+              if (currentNode.children.length === 0) {
+                structuredText += `\n\n${text}`;
               }
             }
           }
           currentNode = walker.nextNode();
-        },
+        }
 
-        description,
-      );
-      return result;
-    }
+        return { structuredText, rawHTML };
+      },
+
+      description,
+    );
+    return extractionResult;
   } catch (error) {
-    console.log(`Failed to scrap, check selector, reason: ${error}`);
-
-    return { structuredText, rawHTML };
+    console.error(`[Scraper] Critical evaluation failure: ${error}`);
+    return { structuredText: "", rawHTML: "" };
   }
-  return { structuredText, rawHTML };
 }
 
 function parseMarkedUpText(rawText: string) {
