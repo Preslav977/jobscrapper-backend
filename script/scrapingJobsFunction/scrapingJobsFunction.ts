@@ -170,7 +170,7 @@ export async function scrapingJobsFunction(
 
         navigationResults = [];
 
-        await browser.close();
+        // await browser.close();
 
         return jobScrapingResult;
       }

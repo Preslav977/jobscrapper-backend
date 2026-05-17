@@ -96,7 +96,7 @@ export async function scrapingJobsFunction(company) {
                 scrapingJobsResult = [...jobScrapingResult];
                 await sleepDelay(5000);
                 navigationResults = [];
-                await browser.close();
+                // await browser.close();
                 return jobScrapingResult;
             }
         }

@@ -10,7 +10,7 @@ import { scrapingJobsFunction } from "../scrapingJobsFunction/scrapingJobsFuncti
                 steps: true,
             },
             where: {
-                id: 2,
+                id: 1,
             },
         });
         if (companies.length > 0) {

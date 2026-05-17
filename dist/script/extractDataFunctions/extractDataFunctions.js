@@ -1,8 +1,9 @@
 async function extractJobsText(page, instruction, id) {
     const { container, title, location, remoteOrHybrid, datePosted, anchorHref } = instruction.extractionInstructions;
     const containerExists = await page
-        .waitForSelector(container.selector)
+        .waitForSelector(container.selector, { timeout: 60000 })
         .catch(() => null);
+    console.log("DEBUGGER CHECK:", containerExists);
     if (!containerExists) {
         console.warn(`[Scraper] Active timeout: Container ${container.selector} not found.`);
         return [];
@@ -10,7 +11,10 @@ async function extractJobsText(page, instruction, id) {
     try {
         return await page.evaluate((container, title, location, remoteOrHybrid, datePosted, anchorHref, companyID) => {
             function extractField(el, field) {
-                if (field.extractType === "" || field.selector === "")
+                if (!field.extractType ||
+                    !field.selector ||
+                    field.selector === "" ||
+                    field.extractType === "")
                     return null;
                 const target = el.querySelector(field.selector);
                 if (!target)

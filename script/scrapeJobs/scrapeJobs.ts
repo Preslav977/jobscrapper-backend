@@ -15,7 +15,7 @@ import { scrapingJobsFunction } from "../scrapingJobsFunction/scrapingJobsFuncti
         steps: true,
       },
       where: {
-        id: 2,
+        id: 1,
       },
     });
 

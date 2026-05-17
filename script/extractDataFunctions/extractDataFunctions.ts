@@ -16,8 +16,10 @@ async function extractJobsText(
     instruction.extractionInstructions as ExtractionConfig;
 
   const containerExists = await page
-    .waitForSelector(container.selector!)
+    .waitForSelector(container.selector!, { timeout: 60000 })
     .catch(() => null);
+
+  console.log("DEBUGGER CHECK:", containerExists);
 
   if (!containerExists) {
     console.warn(
@@ -46,9 +48,15 @@ async function extractJobsText(
             attr?: string;
           },
         ) {
-          if (field.extractType === "" || field.selector === "") return null;
+          if (
+            !field.extractType ||
+            !field.selector ||
+            field.selector === "" ||
+            field.extractType === ""
+          )
+            return null;
 
-          const target = el.querySelector(field.selector!);
+          const target = el.querySelector(field.selector);
 
           if (!target) return null;
 
