@@ -1,58 +1,49 @@
 async function extractJobsText(page, instruction, id) {
     const { container, title, location, remoteOrHybrid, datePosted, anchorHref } = instruction.extractionInstructions;
     const containerExists = await page
-        .waitForSelector(container.selector, { timeout: 60000 })
+        .waitForSelector(`${container.selector}:not(empty)`)
         .catch(() => null);
-    console.log("DEBUGGER CHECK:", containerExists);
+    // console.log("DEBUGGER CHECK:", containerExists);
     if (!containerExists) {
         console.warn(`[Scraper] Active timeout: Container ${container.selector} not found.`);
         return [];
     }
     try {
-        return await page.evaluate((container, title, location, remoteOrHybrid, datePosted, anchorHref, companyID) => {
+        return await page.evaluate((cfg, companyID) => {
             function extractField(el, field) {
-                if (!field.extractType ||
-                    !field.selector ||
-                    field.selector === "" ||
-                    field.extractType === "")
+                if (!field.extractType)
                     return null;
-                const target = el.querySelector(field.selector);
+                const target = field.selector ? el.querySelector(field.selector) : el;
+                console.log(target);
                 if (!target)
                     return null;
                 if (field.extractType === "text") {
                     return target.textContent
-                        ? target.textContent.trim().replace(/\n/g, "")
+                        ? target.textContent.trim().replace("\n", "")
                         : null;
                 }
-                if (field.extractType === "attribute") {
+                if (field.extractType === "attribute" ||
+                    (field.extractType === "elementAttribute" && field.attr)) {
                     return el.getAttribute(field.attr);
-                }
-                if (field.extractType === "elementAttribute" && field.attr) {
-                    return target.getAttribute(field.attr);
                 }
                 return null;
             }
-            const jobsNodes = document.querySelectorAll(container.selector);
+            const jobsNodes = document.querySelectorAll(cfg.container.selector);
             const scrapedJobs = [];
             jobsNodes.forEach((node) => {
-                const rawTitle = extractField(node, title) || "";
-                const isTargetRole = rawTitle.includes("Developer") || rawTitle.includes("Engineer");
-                if (!isTargetRole)
-                    return;
+                const rawTitle = extractField(node, cfg.title) || "";
                 scrapedJobs.push({
                     title: rawTitle,
-                    location: extractField(node, location) || "",
-                    remoteOrHybrid: extractField(node, remoteOrHybrid) || "",
-                    datePosted: extractField(node, datePosted) || "",
-                    anchorHref: node
-                        .querySelector(anchorHref.selector)
-                        ?.getAttribute(anchorHref.attr) || "",
-                    description: "",
+                    location: extractField(node, cfg.location) || "",
+                    remoteOrHybrid: extractField(node, cfg.remoteOrHybrid) || "",
+                    datePosted: extractField(node, cfg.datePosted) || "",
+                    anchorHref: extractField(node, cfg.anchorHref) || "",
                     companyID: companyID,
                 });
             });
+            console.log(scrapedJobs);
             return scrapedJobs;
-        }, container, title, location, remoteOrHybrid, datePosted, anchorHref, id);
+        }, { container, title, location, remoteOrHybrid, datePosted, anchorHref }, id);
     }
     catch (error) {
         console.error(`[Scraper] Critical evaluation failure: ${error}`);
