@@ -114,10 +114,10 @@ function parseMarkedUpText(rawText) {
             return;
         const header = lines[0].toLowerCase();
         const content = lines.slice(1);
-        if (header.match(/routine|responsibilities|tasks|daily/i)) {
+        if (header.match(/routine|responsibilities|tasks|daily|role/i)) {
             result.responsibilities.push(...content);
         }
-        else if (header.match(/technology stack|qualification|requirements|skills|requirements/i)) {
+        else if (header.match(/technology stack|qualification|requirements|skills|requirements|unique|you have/i)) {
             result.requirements.push(...content);
         }
         else if (header.match(/offer|gratitude|benefits|goodies/i)) {
@@ -154,7 +154,6 @@ async function extractJobsFetchURL(id, url, companyURL) {
             location: job.location.city,
             remoteOrHybrid: job.isRemote,
             anchorHref: `${companyURL}${job.id}`,
-            description: "",
             companyID: id,
         }));
         retrieveFetchedJobs = [...result];

@@ -3,7 +3,6 @@ import StealthPlugin from "puppeteer-extra-plugin-stealth";
 import { URL } from "node:url";
 import { extractJobsDetailsText, parseMarkedUpText, } from "../extractDataFunctions/extractDataFunctions.js";
 import { randomViewport } from "../helperUtilities/helperUtilities.js";
-import { sleepDelay } from "../navigationFunctions/navigationFunctions.js";
 const stealthPlugin = StealthPlugin();
 stealthPlugin.enabledEvasions.add("user-agent-override");
 puppeteer.default.use(stealthPlugin);
@@ -42,7 +41,6 @@ export async function scrapingJobsDetailsFunction(job) {
         height: randomViewport.height,
     });
     await page.emulateTimezone("Europe/Sofia");
-    await sleepDelay(2500);
     try {
         if (instructions.length > 0) {
             for (const instruction of instructions) {

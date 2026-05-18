@@ -12,7 +12,6 @@ import {
   parseMarkedUpText,
 } from "../extractDataFunctions/extractDataFunctions.js";
 import { randomViewport } from "../helperUtilities/helperUtilities.js";
-import { sleepDelay } from "../navigationFunctions/navigationFunctions.js";
 
 const stealthPlugin = StealthPlugin();
 
@@ -69,8 +68,6 @@ export async function scrapingJobsDetailsFunction(job: JobsWithRelationsType) {
   });
 
   await page.emulateTimezone("Europe/Sofia");
-
-  await sleepDelay(2500);
 
   try {
     if (instructions.length > 0) {

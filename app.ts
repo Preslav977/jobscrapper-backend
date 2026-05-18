@@ -28,7 +28,7 @@ import { prisma } from "./db/client.js";
 
 import cors from "cors";
 
-// import { conditionalRouteMiddleware } from "./middlewares/conditionalRouteMiddleware/conditionalRouteMiddleware.js";
+import { conditionalRouteMiddleware } from "./middlewares/conditionalRouteMiddleware/conditionalRouteMiddleware.js";
 
 const app = express();
 
@@ -136,7 +136,7 @@ app.use(authRouter);
 
 // app.use(verifyBearerToken);
 
-// app.use(conditionalRouteMiddleware);
+app.use(conditionalRouteMiddleware);
 
 app.use("/users", userRouter);
 

@@ -10,29 +10,23 @@ async function tryClick(
   for (let attempt = 1; attempt <= maxAttempt; attempt++) {
     const timeout = attempt * 10000;
     try {
-      await page.waitForSelector(instruction, { timeout });
+      const el = await page.waitForSelector(instruction, { timeout });
 
       const isElementVisible = await page.$eval(instruction, (el) => {
         const style = window.getComputedStyle(el);
         return style.display !== "none" && style.visibility !== "hidden";
       });
 
-      if (!isElementVisible) {
-        await sleepDelay(3000);
-      }
-
       const isElementEnabled = await page.$eval(
         instruction,
         (el) => !el.ariaDisabled,
       );
 
-      if (!isElementEnabled) {
-        await sleepDelay(3000);
+      if (el && isElementVisible && isElementEnabled) {
+        await page.click(instruction);
+
+        return "success";
       }
-
-      await page.click(instruction);
-
-      return "success";
     } catch (error) {
       if (attempt === maxAttempt) {
         console.log(`tryClick, failed to query, and click, reason: ${error}`);
