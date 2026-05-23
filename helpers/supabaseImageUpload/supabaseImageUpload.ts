@@ -16,7 +16,7 @@ async function supabaseImageUpload(file: MulterFileInterface) {
     });
 
   if (error) {
-    return `Failed to upload the image: ${error.message}`;
+    throw error;
   }
 
   const { data } = await supabase.storage
