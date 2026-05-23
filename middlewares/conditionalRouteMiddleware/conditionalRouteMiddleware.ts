@@ -6,7 +6,7 @@ export function conditionalRouteMiddleware(
   res: Response,
   next: NextFunction,
 ) {
-  if (req.path === "/users/login" || req.method === "GET") {
+  if (req.path === "/users" || req.path === `/users/${req.params}`) {
     verifyBearerToken(req, res, next);
   } else if (req.method !== "GET") {
     verifyBearerToken(req, res, next);

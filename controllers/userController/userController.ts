@@ -89,7 +89,9 @@ async function userUpdateDetails(req: Request, res: Response) {
   if (!errors.isEmpty()) {
     res.status(400).send(errors.array());
   } else {
-    const logo = req.file ? await supabaseImageUpload(req.file) : "";
+    const currentUser = await prisma.user.findUnique({
+      where: { id: Number(id) },
+    });
 
     const updateUserDetails = await prisma.user.update({
       where: {
@@ -100,11 +102,13 @@ async function userUpdateDetails(req: Request, res: Response) {
         lastName,
         location,
         email,
-        phoneNumber,
+        phoneNumber: !phoneNumber ? null : phoneNumber,
         linkedInURL,
         githubURL,
         portfolioURL,
-        profilePicture: logo,
+        profilePicture: req.file
+          ? await supabaseImageUpload(req.file)
+          : currentUser!.profilePicture,
       },
     });
 
