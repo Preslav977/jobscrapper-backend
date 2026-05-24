@@ -4,6 +4,7 @@ import { upload } from "../../helpers/multerConfiguration/multerConfiguration.js
 
 import {
   createCompany,
+  createCompanyWithRelations,
   deleteCompany,
   getCompanies,
   getCompanyByName,
@@ -44,6 +45,14 @@ companyRouter.post(
   validateCreatingCompany,
   createCompany,
 );
+
+companyRouter.post(
+  "/relations",
+  upload.single("file"),
+  validateCreatingCompany,
+  createCompanyWithRelations,
+);
+
 companyRouter.get("/:name", getCompanyByName);
 
 companyRouter.get("/", getCompanies);

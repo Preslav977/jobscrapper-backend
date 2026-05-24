@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { upload } from "../../helpers/multerConfiguration/multerConfiguration.js";
-import { createCompany, deleteCompany, getCompanies, getCompanyByName, updateCompany, } from "../../controllers/companyController/companyController.js";
+import { createCompany, createCompanyWithRelations, deleteCompany, getCompanies, getCompanyByName, updateCompany, } from "../../controllers/companyController/companyController.js";
 import { createJobs, deleteJob, getJobDetails, getJobs, updateJob, } from "../../controllers/jobsControllers/jobsControllers.js";
 import { createScrappingInstructions, deleteScrappingInstructionsDetails, getScrappingInstructionsDetails, updateScrappingInstructionsDetails, } from "../../controllers/instructionsController/instructionsController.js";
 import { createScrappingSteps, deleteScrappingStepsDetails, getScrappingStepsDetails, updateScrappingStepsDetails, } from "../../controllers/stepsController/stepsController.js";
@@ -8,6 +8,7 @@ import { validateCreatingCompany } from "../../middlewares/validateCreatingCompa
 const companyRouter = Router();
 ///CRUD company routes
 companyRouter.post("/", upload.single("file"), validateCreatingCompany, createCompany);
+companyRouter.post("/relations", upload.single("file"), validateCreatingCompany, createCompanyWithRelations);
 companyRouter.get("/:name", getCompanyByName);
 companyRouter.get("/", getCompanies);
 companyRouter.put("/:id", upload.single("file"), 

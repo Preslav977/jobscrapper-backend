@@ -7,6 +7,7 @@ import { validationResult } from "express-validator";
 import type { Company } from "../../generated/prisma/client.js";
 
 import { supabaseImageUpload } from "../../helpers/supabaseImageUpload/supabaseImageUpload.js";
+import { CompanyWithRelationsType } from "../../interfaces/CompanyInterface/CompanyInterface.js";
 
 async function createCompany(req: Request, res: Response) {
   const { name, URL, scrapMode }: Company = req.body;
@@ -28,6 +29,46 @@ async function createCompany(req: Request, res: Response) {
     });
 
     res.json(createCompany);
+  }
+}
+
+async function createCompanyWithRelations(req: Request, res: Response) {
+  const {
+    name,
+    URL,
+    scrapMode,
+    instructions,
+    steps,
+  }: CompanyWithRelationsType = req.body;
+
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    res.status(400).send(errors.array());
+  } else {
+    const logo = req.file ? await supabaseImageUpload(req.file) : null;
+
+    const createCompany = await prisma.company.create({
+      include: {
+        instructions: true,
+        steps: true,
+      },
+      data: {
+        name,
+        logo,
+        URL,
+        scrapMode,
+
+        instructions: {
+          create: instructions,
+        },
+        steps: {
+          create: steps,
+        },
+      },
+    });
+
+    res.send(createCompany);
   }
 }
 
@@ -117,6 +158,7 @@ async function deleteCompany(req: Request, res: Response) {
 
 export {
   createCompany,
+  createCompanyWithRelations,
   deleteCompany,
   getCompanies,
   getCompanyByName,
