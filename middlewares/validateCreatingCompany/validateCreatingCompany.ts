@@ -6,14 +6,24 @@ const companyLengthError = "name must be at least 1 character!";
 const companyExistsError = "name already exists!";
 
 const validateCreatingCompany = [
-  body("name")
+  body("companyDetails")
+    .isString()
+    .customSanitizer((value) => {
+      try {
+        return JSON.parse(value);
+      } catch {
+        return null;
+      }
+    }),
+
+  body("companyDetails.name")
     .trim()
     .notEmpty()
     .isLength({ min: 1 })
     .escape()
     .withMessage(`Company ${companyLengthError}`),
 
-  body("name").custom(async (value: string) => {
+  body("companyDetails.name").custom(async (value: string) => {
     const doesCompanyNameExists = await prisma.company.findUnique({
       where: {
         name: value,

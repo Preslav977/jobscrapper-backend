@@ -39,7 +39,7 @@ async function createCompanyWithRelations(req: Request, res: Response) {
     scrapMode,
     instructions,
     steps,
-  }: CompanyWithRelationsType = JSON.parse(req.body.companyDetails);
+  }: CompanyWithRelationsType = req.body.companyDetails;
 
   const errors = validationResult(req);
 

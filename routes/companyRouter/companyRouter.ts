@@ -50,7 +50,7 @@ companyRouter.post(
 companyRouter.post(
   "/relations",
   upload.single("file"),
-  // validateCreatingCompany,
+  validateCreatingCompany,
   validateImageUpload,
   createCompanyWithRelations,
 );

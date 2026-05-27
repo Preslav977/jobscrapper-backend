@@ -9,9 +9,7 @@ import { validateImageUpload } from "../../middlewares/validateUploadingImage/va
 const companyRouter = Router();
 ///CRUD company routes
 companyRouter.post("/", upload.single("file"), validateCreatingCompany, createCompany);
-companyRouter.post("/relations", upload.single("file"), 
-// validateCreatingCompany,
-validateImageUpload, createCompanyWithRelations);
+companyRouter.post("/relations", upload.single("file"), validateCreatingCompany, validateImageUpload, createCompanyWithRelations);
 companyRouter.get("/:name", getCompanyByName);
 companyRouter.get("/", getCompanies);
 companyRouter.put("/:id", upload.single("file"), 

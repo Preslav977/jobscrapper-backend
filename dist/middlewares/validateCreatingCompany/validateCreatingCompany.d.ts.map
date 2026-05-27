@@ -1,1 +1,1 @@
-{"version":3,"file":"validateCreatingCompany.d.ts","sourceRoot":"","sources":["../../../middlewares/validateCreatingCompany/validateCreatingCompany.ts"],"names":[],"mappings":"AAOA,QAAA,MAAM,uBAAuB,+CAmB5B,CAAC;AAEF,OAAO,EAAE,uBAAuB,EAAE,CAAC"}
+{"version":3,"file":"validateCreatingCompany.d.ts","sourceRoot":"","sources":["../../../middlewares/validateCreatingCompany/validateCreatingCompany.ts"],"names":[],"mappings":"AAOA,QAAA,MAAM,uBAAuB,+CA6B5B,CAAC;AAEF,OAAO,EAAE,uBAAuB,EAAE,CAAC"}

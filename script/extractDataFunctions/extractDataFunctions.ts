@@ -80,8 +80,6 @@ async function extractJobsText(
           });
         });
 
-        console.log(scrapedJobs);
-
         return scrapedJobs;
       },
       { container, title, location, remoteOrHybrid, datePosted, anchorHref },

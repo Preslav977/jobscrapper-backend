@@ -41,7 +41,6 @@ async function extractJobsText(page, instruction, id) {
                     companyID: companyID,
                 });
             });
-            console.log(scrapedJobs);
             return scrapedJobs;
         }, { container, title, location, remoteOrHybrid, datePosted, anchorHref }, id);
     }
