@@ -21,7 +21,8 @@ async function createCompany(req, res) {
     }
 }
 async function createCompanyWithRelations(req, res) {
-    const { name, URL, scrapMode, instructions, steps, } = req.body;
+    const { name, URL, scrapMode, instructions, steps, } = JSON.parse(req.body.companyDetails);
+    console.log(req.body);
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         res.status(400).send(errors.array());

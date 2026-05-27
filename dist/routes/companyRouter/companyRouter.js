@@ -5,10 +5,13 @@ import { createJobs, deleteJob, getJobDetails, getJobs, updateJob, } from "../..
 import { createScrappingInstructions, deleteScrappingInstructionsDetails, getScrappingInstructionsDetails, updateScrappingInstructionsDetails, } from "../../controllers/instructionsController/instructionsController.js";
 import { createScrappingSteps, deleteScrappingStepsDetails, getScrappingStepsDetails, updateScrappingStepsDetails, } from "../../controllers/stepsController/stepsController.js";
 import { validateCreatingCompany } from "../../middlewares/validateCreatingCompany/validateCreatingCompany.js";
+import { validateImageUpload } from "../../middlewares/validateUploadingImage/validateUploadingImage.js";
 const companyRouter = Router();
 ///CRUD company routes
 companyRouter.post("/", upload.single("file"), validateCreatingCompany, createCompany);
-companyRouter.post("/relations", upload.single("file"), validateCreatingCompany, createCompanyWithRelations);
+companyRouter.post("/relations", upload.single("file"), 
+// validateCreatingCompany,
+validateImageUpload, createCompanyWithRelations);
 companyRouter.get("/:name", getCompanyByName);
 companyRouter.get("/", getCompanies);
 companyRouter.put("/:id", upload.single("file"), 

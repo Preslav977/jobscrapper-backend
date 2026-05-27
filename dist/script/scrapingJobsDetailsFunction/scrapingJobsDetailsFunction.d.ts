@@ -1,6 +1,7 @@
 import type { JobsWithRelationsType } from "../../interfaces/JobsInterface/JobsInterface.js";
 export declare function scrapingJobsDetailsFunction(job: JobsWithRelationsType): Promise<Pick<{
     id: number;
+    companyID: number;
     title: string;
     location: string | null;
     remoteOrHybrid: string | null;
@@ -10,6 +11,5 @@ export declare function scrapingJobsDetailsFunction(job: JobsWithRelationsType):
     rawHTML: string | null;
     formattedData: import("@prisma/client/runtime/client").JsonValue | null;
     anchorHref: string | null;
-    companyID: number;
 }, "id" | "rawHTML" | "formattedData">>;
 //# sourceMappingURL=scrapingJobsDetailsFunction.d.ts.map

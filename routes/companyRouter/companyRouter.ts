@@ -34,6 +34,7 @@ import {
 } from "../../controllers/stepsController/stepsController.js";
 
 import { validateCreatingCompany } from "../../middlewares/validateCreatingCompany/validateCreatingCompany.js";
+import { validateImageUpload } from "../../middlewares/validateUploadingImage/validateUploadingImage.js";
 
 const companyRouter = Router();
 
@@ -49,7 +50,8 @@ companyRouter.post(
 companyRouter.post(
   "/relations",
   upload.single("file"),
-  validateCreatingCompany,
+  // validateCreatingCompany,
+  validateImageUpload,
   createCompanyWithRelations,
 );
 
