@@ -19,8 +19,6 @@ async function extractJobsText(
     .waitForSelector(`${container.selector!}:not(empty)`)
     .catch(() => null);
 
-  // console.log("DEBUGGER CHECK:", containerExists);
-
   if (!containerExists) {
     console.warn(
       `[Scraper] Active timeout: Container ${container.selector} not found.`,

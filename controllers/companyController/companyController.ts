@@ -142,6 +142,62 @@ async function updateCompany(req: Request, res: Response) {
   }
 }
 
+async function updateCompanyWithRelations(req: Request, res: Response) {
+  const {
+    id,
+    name,
+    URL,
+    scrapMode,
+    instructions,
+    steps,
+  }: CompanyWithRelationsType = req.body.companyDetails;
+
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    res.status(400).send(errors.array());
+  } else {
+    const logo = req.file ? await supabaseImageUpload(req.file) : null;
+
+    const updateCompany = await prisma.company.update({
+      where: {
+        id: Number(id),
+      },
+      include: {
+        instructions: true,
+        steps: true,
+      },
+      data: {
+        name,
+        logo,
+        URL,
+        scrapMode,
+
+        instructions: {
+          update: {
+            where: {
+              id: instructions[0] ? instructions[0].id : 0,
+              companyID: instructions[0] ? instructions[0].companyID : 0,
+            },
+            data: instructions,
+          },
+        },
+        steps: {
+          update: {
+            where: {
+              id: steps[0] ? steps[0].id : 0,
+              companyID: steps[0] ? steps[0].companyID : 0,
+            },
+            data: steps,
+          },
+        },
+      },
+    });
+
+    res.send(updateCompany);
+  }
+}
+
 async function deleteCompany(req: Request, res: Response) {
   const { id } = req.params;
 
@@ -163,4 +219,5 @@ export {
   getCompanies,
   getCompanyByName,
   updateCompany,
+  updateCompanyWithRelations,
 };

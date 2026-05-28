@@ -14,7 +14,7 @@ export interface JobsInterface {
     description: string;
     anchorHref: string;
     companyID: number;
-    rawHTML?: string;
+    rawHTML: string;
     scrapedText: FormattedJobsType;
 }
 export type ScrapedJobsArrayType = {
@@ -22,7 +22,6 @@ export type ScrapedJobsArrayType = {
     location: string | null;
     remoteOrHybrid: string | null;
     datePosted: string | null;
-    description: string | null;
     anchorHref: string | null;
 };
 export type JobsWithRelationsType = Prisma.JobsGetPayload<{

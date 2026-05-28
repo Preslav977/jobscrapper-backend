@@ -1,5 +1,5 @@
 export interface UserInterface {
-    id?: number;
+    id: number;
     firstName: string | null;
     lastName: string | null;
     password: string;
@@ -13,6 +13,6 @@ export interface UserInterface {
     profilePicture?: string | null;
 }
 export interface UserIDInterface extends Express.User {
-    id?: number;
+    id: number;
 }
 //# sourceMappingURL=UserInterface.d.ts.map

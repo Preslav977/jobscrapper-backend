@@ -36,8 +36,8 @@ export type ExtractionConfig = {
     };
 };
 export interface InstructionsInterface {
-    id?: number;
-    companyID?: number;
+    id: number;
+    companyID: number;
     extractionInstructions: ExtractionConfig;
 }
 //# sourceMappingURL=InstructionsInterface.d.ts.map
