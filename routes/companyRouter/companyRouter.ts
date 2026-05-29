@@ -7,7 +7,7 @@ import {
   createCompanyWithRelations,
   deleteCompany,
   getCompanies,
-  getCompanyByName,
+  getCompanyById,
   updateCompany,
   updateCompanyWithRelations,
 } from "../../controllers/companyController/companyController.js";
@@ -56,7 +56,7 @@ companyRouter.post(
   createCompanyWithRelations,
 );
 
-companyRouter.get("/:name", getCompanyByName);
+companyRouter.get("/:id", getCompanyById);
 
 companyRouter.get("/", getCompanies);
 
@@ -68,9 +68,9 @@ companyRouter.put(
 );
 
 companyRouter.put(
-  "/relations",
+  "/:id/relations/:companyID",
   upload.single("file"),
-  validateCreatingCompany,
+  // validateCreatingCompany,
   validateImageUpload,
   updateCompanyWithRelations,
 );

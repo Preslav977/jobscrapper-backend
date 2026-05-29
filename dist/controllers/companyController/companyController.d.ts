@@ -2,9 +2,9 @@ import type { Request, Response } from "express";
 declare function createCompany(req: Request, res: Response): Promise<void>;
 declare function createCompanyWithRelations(req: Request, res: Response): Promise<void>;
 declare function getCompanies(req: Request, res: Response): Promise<void>;
-declare function getCompanyByName(req: Request, res: Response): Promise<void>;
+declare function getCompanyById(req: Request, res: Response): Promise<void>;
 declare function updateCompany(req: Request, res: Response): Promise<void>;
 declare function updateCompanyWithRelations(req: Request, res: Response): Promise<void>;
 declare function deleteCompany(req: Request, res: Response): Promise<void>;
-export { createCompany, createCompanyWithRelations, deleteCompany, getCompanies, getCompanyByName, updateCompany, updateCompanyWithRelations, };
+export { createCompany, createCompanyWithRelations, deleteCompany, getCompanies, getCompanyById, updateCompany, updateCompanyWithRelations, };
 //# sourceMappingURL=companyController.d.ts.map

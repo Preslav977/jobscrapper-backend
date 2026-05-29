@@ -4,7 +4,7 @@ import type { Request, Response } from "express";
 
 import { validationResult } from "express-validator";
 
-import type { Company } from "../../generated/prisma/client.js";
+import type { Company, Steps } from "../../generated/prisma/client.js";
 
 import { supabaseImageUpload } from "../../helpers/supabaseImageUpload/supabaseImageUpload.js";
 import { CompanyWithRelationsType } from "../../interfaces/CompanyInterface/CompanyInterface.js";
@@ -88,29 +88,25 @@ async function getCompanies(req: Request, res: Response) {
   }
 }
 
-async function getCompanyByName(req: Request, res: Response) {
-  const { name }: Company = req.body;
+async function getCompanyById(req: Request, res: Response) {
+  const { id } = req.params;
 
-  const trimCompanyNameSpace = name.trim();
-
-  const companyName = await prisma.company.findFirst({
+  const companyId = await prisma.company.findFirst({
     where: {
-      name: {
-        mode: "insensitive",
-        equals: trimCompanyNameSpace,
-      },
+      id: Number(id),
     },
 
     include: {
       jobs: true,
       instructions: true,
+      steps: true,
     },
   });
 
-  if (companyName === null) {
-    res.json({ message: `No company with this name: ${name} has been found!` });
+  if (id === null) {
+    res.json({ message: `No company with this name: ${id} has been found!` });
   } else {
-    res.json(companyName);
+    res.json(companyId);
   }
 }
 
@@ -143,58 +139,91 @@ async function updateCompany(req: Request, res: Response) {
 }
 
 async function updateCompanyWithRelations(req: Request, res: Response) {
-  const {
-    id,
-    name,
-    URL,
-    scrapMode,
-    instructions,
-    steps,
-  }: CompanyWithRelationsType = req.body.companyDetails;
+  const { id, companyID } = req.params;
 
-  const errors = validationResult(req);
+  try {
+    const {
+      name,
+      URL,
+      scrapMode,
+      instructions,
+      steps,
+    }: CompanyWithRelationsType = JSON.parse(req.body.companyDetails);
 
-  if (!errors.isEmpty()) {
-    res.status(400).send(errors.array());
-  } else {
     const logo = req.file ? await supabaseImageUpload(req.file) : null;
 
-    const updateCompany = await prisma.company.update({
-      where: {
-        id: Number(id),
-      },
-      include: {
-        instructions: true,
-        steps: true,
-      },
-      data: {
-        name,
-        logo,
-        URL,
-        scrapMode,
+    const result = await prisma.$transaction(async (tx) => {
+      const updateCompany = await tx.company.update({
+        where: {
+          id: Number(id),
+        },
+        include: {
+          jobs: true,
+          instructions: true,
+          steps: true,
+        },
+        data: { name, URL, logo, scrapMode },
+      });
 
-        instructions: {
-          update: {
-            where: {
-              id: instructions[0] ? instructions[0].id : 0,
-              companyID: instructions[0] ? instructions[0].companyID : 0,
-            },
-            data: instructions,
+      // for (const instruction of instructions) {
+      //   await tx.instructions.upsert({
+      //     where: {
+      //       id: Number(instruction.id) || -1,
+      //       companyID: Number(instruction.companyID) || -1,
+      //     },
+      //     update: {
+      //       extractionInstructions: instruction.extractionInstructions!,
+      //     },
+      //     create: {
+      //       // companyID: Number(companyID),
+      //       extractionInstructions: instruction.extractionInstructions!,
+      //     },
+      //   });
+      // }
+
+      const deletedStepIds = steps
+        .map((step: Steps) => step.id)
+        .filter(Boolean);
+
+      await tx.steps.deleteMany({
+        where: {
+          companyID: Number(companyID),
+          id: {
+            notIn: deletedStepIds,
           },
         },
-        steps: {
-          update: {
-            where: {
-              id: steps[0] ? steps[0].id : 0,
-              companyID: steps[0] ? steps[0].companyID : 0,
-            },
-            data: steps,
+      });
+
+      for (const step of steps) {
+        await tx.steps.upsert({
+          where: {
+            id: Number(step.id) || -1,
+            companyID: Number(companyID) || -1,
           },
-        },
-      },
+          update: {
+            order: step.order,
+            action: step.action,
+            selector: step.selector,
+            selectOption: step.selectOption,
+            url: step.url,
+            companyID: Number(companyID),
+          },
+          create: {
+            order: step.order,
+            action: step.action,
+            selector: step.selector,
+            selectOption: step.selectOption,
+            url: step.url,
+            companyID: Number(companyID),
+          },
+        });
+      }
+      return updateCompany;
     });
 
-    res.send(updateCompany);
+    res.json(result);
+  } catch (error) {
+    console.log(error);
   }
 }
 
@@ -217,7 +246,7 @@ export {
   createCompanyWithRelations,
   deleteCompany,
   getCompanies,
-  getCompanyByName,
+  getCompanyById,
   updateCompany,
   updateCompanyWithRelations,
 };

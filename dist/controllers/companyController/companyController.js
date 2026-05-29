@@ -64,26 +64,23 @@ async function getCompanies(req, res) {
         res.json(companies);
     }
 }
-async function getCompanyByName(req, res) {
-    const { name } = req.body;
-    const trimCompanyNameSpace = name.trim();
-    const companyName = await prisma.company.findFirst({
+async function getCompanyById(req, res) {
+    const { id } = req.params;
+    const companyId = await prisma.company.findFirst({
         where: {
-            name: {
-                mode: "insensitive",
-                equals: trimCompanyNameSpace,
-            },
+            id: Number(id),
         },
         include: {
             jobs: true,
             instructions: true,
+            steps: true,
         },
     });
-    if (companyName === null) {
-        res.json({ message: `No company with this name: ${name} has been found!` });
+    if (id === null) {
+        res.json({ message: `No company with this name: ${id} has been found!` });
     }
     else {
-        res.json(companyName);
+        res.json(companyId);
     }
 }
 async function updateCompany(req, res) {
@@ -110,47 +107,78 @@ async function updateCompany(req, res) {
     }
 }
 async function updateCompanyWithRelations(req, res) {
-    const { id, name, URL, scrapMode, instructions, steps, } = req.body.companyDetails;
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-        res.status(400).send(errors.array());
-    }
-    else {
+    const { id, companyID } = req.params;
+    try {
+        const { name, URL, scrapMode, instructions, steps, } = JSON.parse(req.body.companyDetails);
         const logo = req.file ? await supabaseImageUpload(req.file) : null;
-        const updateCompany = await prisma.company.update({
-            where: {
-                id: Number(id),
-            },
-            include: {
-                instructions: true,
-                steps: true,
-            },
-            data: {
-                name,
-                logo,
-                URL,
-                scrapMode,
-                instructions: {
-                    update: {
-                        where: {
-                            id: instructions[0] ? instructions[0].id : 0,
-                            companyID: instructions[0] ? instructions[0].companyID : 0,
-                        },
-                        data: instructions,
+        const result = await prisma.$transaction(async (tx) => {
+            const updateCompany = await tx.company.update({
+                where: {
+                    id: Number(id),
+                },
+                include: {
+                    jobs: true,
+                    instructions: true,
+                    steps: true,
+                },
+                data: { name, URL, logo, scrapMode },
+            });
+            // for (const instruction of instructions) {
+            //   await tx.instructions.upsert({
+            //     where: {
+            //       id: Number(instruction.id) || -1,
+            //       companyID: Number(instruction.companyID) || -1,
+            //     },
+            //     update: {
+            //       extractionInstructions: instruction.extractionInstructions!,
+            //     },
+            //     create: {
+            //       // companyID: Number(companyID),
+            //       extractionInstructions: instruction.extractionInstructions!,
+            //     },
+            //   });
+            // }
+            const deletedStepIds = steps
+                .map((step) => step.id)
+                .filter(Boolean);
+            await tx.steps.deleteMany({
+                where: {
+                    companyID: Number(companyID),
+                    id: {
+                        notIn: deletedStepIds,
                     },
                 },
-                steps: {
-                    update: {
-                        where: {
-                            id: steps[0] ? steps[0].id : 0,
-                            companyID: steps[0] ? steps[0].companyID : 0,
-                        },
-                        data: steps,
+            });
+            for (const step of steps) {
+                await tx.steps.upsert({
+                    where: {
+                        id: Number(step.id) || -1,
+                        companyID: Number(companyID) || -1,
                     },
-                },
-            },
+                    update: {
+                        order: step.order,
+                        action: step.action,
+                        selector: step.selector,
+                        selectOption: step.selectOption,
+                        url: step.url,
+                        companyID: Number(companyID),
+                    },
+                    create: {
+                        order: step.order,
+                        action: step.action,
+                        selector: step.selector,
+                        selectOption: step.selectOption,
+                        url: step.url,
+                        companyID: Number(companyID),
+                    },
+                });
+            }
+            return updateCompany;
         });
-        res.send(updateCompany);
+        res.json(result);
+    }
+    catch (error) {
+        console.log(error);
     }
 }
 async function deleteCompany(req, res) {
@@ -164,5 +192,5 @@ async function deleteCompany(req, res) {
         message: `Company with ID: ${companyDelete.id} has been deleted!`,
     });
 }
-export { createCompany, createCompanyWithRelations, deleteCompany, getCompanies, getCompanyByName, updateCompany, updateCompanyWithRelations, };
+export { createCompany, createCompanyWithRelations, deleteCompany, getCompanies, getCompanyById, updateCompany, updateCompanyWithRelations, };
 //# sourceMappingURL=companyController.js.map

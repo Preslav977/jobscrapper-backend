@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { upload } from "../../helpers/multerConfiguration/multerConfiguration.js";
-import { createCompany, createCompanyWithRelations, deleteCompany, getCompanies, getCompanyByName, updateCompany, updateCompanyWithRelations, } from "../../controllers/companyController/companyController.js";
+import { createCompany, createCompanyWithRelations, deleteCompany, getCompanies, getCompanyById, updateCompany, updateCompanyWithRelations, } from "../../controllers/companyController/companyController.js";
 import { createJobs, deleteJob, getJobDetails, getJobs, updateJob, } from "../../controllers/jobsControllers/jobsControllers.js";
 import { createScrappingInstructions, deleteScrappingInstructionsDetails, getScrappingInstructionsDetails, updateScrappingInstructionsDetails, } from "../../controllers/instructionsController/instructionsController.js";
 import { createScrappingSteps, deleteScrappingStepsDetails, getScrappingStepsDetails, updateScrappingStepsDetails, } from "../../controllers/stepsController/stepsController.js";
@@ -10,10 +10,12 @@ const companyRouter = Router();
 ///CRUD company routes
 companyRouter.post("/", upload.single("file"), validateCreatingCompany, createCompany);
 companyRouter.post("/relations", upload.single("file"), validateCreatingCompany, validateImageUpload, createCompanyWithRelations);
-companyRouter.get("/:name", getCompanyByName);
+companyRouter.get("/:id", getCompanyById);
 companyRouter.get("/", getCompanies);
 companyRouter.put("/:id", upload.single("file"), validateCreatingCompany, updateCompany);
-companyRouter.put("/relations", upload.single("file"), validateCreatingCompany, validateImageUpload, updateCompanyWithRelations);
+companyRouter.put("/:id/relations/:companyID", upload.single("file"), 
+// validateCreatingCompany,
+validateImageUpload, updateCompanyWithRelations);
 companyRouter.delete("/:id", deleteCompany);
 ///CRUD jobs routes
 companyRouter.post("/:id/jobs", createJobs);
