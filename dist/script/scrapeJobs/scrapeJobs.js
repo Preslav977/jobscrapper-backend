@@ -2,32 +2,33 @@ import { prisma } from "../../db/client.js";
 import { buildData, hasJobChanged, } from "../helperUtilities/helperUtilities.js";
 import { scrapingJobsFunction } from "../scrapingJobsFunction/scrapingJobsFunction.js";
 (async () => {
-    try {
-        const companies = await prisma.company.findMany({
-            include: {
-                jobs: true,
-                instructions: true,
-                steps: true,
-            },
-            where: {
-                id: 1,
-            },
-        });
-        if (companies.length > 0) {
-            for (const company of companies) {
+    const companies = await prisma.company.findMany({
+        include: {
+            jobs: true,
+            instructions: true,
+            steps: true,
+        },
+    });
+    if (companies.length > 0) {
+        for (const company of companies) {
+            try {
                 const scrapedJobs = await scrapingJobsFunction(company);
                 const existingJobsMap = new Map(company.jobs.map((job) => [job.anchorHref, job]));
                 const existingJobsIds = new Set(company.jobs.map((job) => job.id));
                 const scrapedJobsIds = new Set();
                 await prisma.$transaction(async (tx) => {
                     for (const scrapedJob of scrapedJobs) {
+                        if (!scrapedJob.anchorHref) {
+                            console.warn(`Scraped job: ${scrapedJob} anchor href is null! Change the CSS/Attribute selector!`);
+                            continue;
+                        }
                         const existingJob = existingJobsMap.get(scrapedJob.anchorHref);
                         if (!existingJob) {
                             await tx.jobs.create({
                                 data: buildData(scrapedJob),
                             });
                         }
-                        else if (existingJob) {
+                        else {
                             scrapedJobsIds.add(existingJob.id);
                             const scrapedJobChanged = hasJobChanged(existingJob, scrapedJob);
                             if (scrapedJobChanged) {
@@ -54,11 +55,12 @@ import { scrapingJobsFunction } from "../scrapingJobsFunction/scrapingJobsFuncti
                     maxWait: 5000,
                     timeout: 20000,
                 });
+                console.log(`Successfully completed sync for: ${company.name}`);
+            }
+            catch (error) {
+                console.error(`Failed to sync company: ${company.name} due to error: ${error}`);
             }
         }
-    }
-    catch (error) {
-        console.error(`Failed to sync company:`, error);
     }
 })();
 //# sourceMappingURL=scrapeJobs.js.map

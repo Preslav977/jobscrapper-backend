@@ -7,20 +7,17 @@ import {
 import { scrapingJobsFunction } from "../scrapingJobsFunction/scrapingJobsFunction.js";
 
 (async () => {
-  try {
-    const companies = await prisma.company.findMany({
-      include: {
-        jobs: true,
-        instructions: true,
-        steps: true,
-      },
-      where: {
-        id: 1,
-      },
-    });
+  const companies = await prisma.company.findMany({
+    include: {
+      jobs: true,
+      instructions: true,
+      steps: true,
+    },
+  });
 
-    if (companies.length > 0) {
-      for (const company of companies) {
+  if (companies.length > 0) {
+    for (const company of companies) {
+      try {
         const scrapedJobs = await scrapingJobsFunction(company);
 
         const existingJobsMap = new Map(
@@ -34,17 +31,24 @@ import { scrapingJobsFunction } from "../scrapingJobsFunction/scrapingJobsFuncti
         await prisma.$transaction(
           async (tx) => {
             for (const scrapedJob of scrapedJobs) {
-              const existingJob = existingJobsMap.get(scrapedJob.anchorHref!);
+              if (!scrapedJob.anchorHref) {
+                console.warn(
+                  `Scraped job: ${scrapedJob} anchor href is null! Change the CSS/Attribute selector!`,
+                );
+                continue;
+              }
+
+              const existingJob = existingJobsMap.get(scrapedJob.anchorHref);
 
               if (!existingJob) {
                 await tx.jobs.create({
                   data: buildData(scrapedJob as Jobs),
                 });
-              } else if (existingJob) {
+              } else {
                 scrapedJobsIds.add(existingJob.id);
 
                 const scrapedJobChanged = hasJobChanged(
-                  existingJob!,
+                  existingJob,
                   scrapedJob as Jobs,
                 );
 
@@ -78,9 +82,12 @@ import { scrapingJobsFunction } from "../scrapingJobsFunction/scrapingJobsFuncti
             timeout: 20000,
           },
         );
+        console.log(`Successfully completed sync for: ${company.name}`);
+      } catch (error) {
+        console.error(
+          `Failed to sync company: ${company.name} due to error: ${error}`,
+        );
       }
     }
-  } catch (error) {
-    console.error(`Failed to sync company:`, error);
   }
 })();
