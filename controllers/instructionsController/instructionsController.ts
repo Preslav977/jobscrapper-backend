@@ -2,7 +2,7 @@ import { prisma } from "../../db/client.js";
 
 import type { Request, Response } from "express";
 
-import type { Instructions } from "../../generated/prisma/client.js";
+import { Prisma, type Instructions } from "../../generated/prisma/client.js";
 import type { InstructionsCreateInput } from "../../generated/prisma/models.js";
 
 async function createScrappingInstructions(req: Request, res: Response) {
@@ -79,16 +79,27 @@ async function updateScrappingInstructionsDetails(req: Request, res: Response) {
 async function deleteScrappingInstructionsDetails(req: Request, res: Response) {
   const { companyID, id } = req.params;
 
-  await prisma.instructions.deleteMany({
-    where: {
-      companyID: Number(companyID),
-      id: Number(id),
-    },
-  });
+  try {
+    const instructionDelete = await prisma.instructions.delete({
+      where: {
+        id: Number(id),
+        companyID: Number(companyID),
+      },
+    });
 
-  res.json({
-    message: `Instructions with ID: ${id} has been deleted!`,
-  });
+    res.json({
+      message: `Instruction with ID: ${instructionDelete.id} has been deleted!`,
+    });
+  } catch (error) {
+    if (
+      error instanceof Prisma.PrismaClientKnownRequestError &&
+      error.code === "P2025"
+    ) {
+      res.json({
+        message: `Failed to delete instruction: ${id} and ${companyID}, check if IDs are not null`,
+      });
+    }
+  }
 }
 
 export {

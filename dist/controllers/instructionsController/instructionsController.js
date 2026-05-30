@@ -1,4 +1,5 @@
 import { prisma } from "../../db/client.js";
+import { Prisma } from "../../generated/prisma/client.js";
 async function createScrappingInstructions(req, res) {
     const { companyID } = req.params;
     if (req.body.length === 0 || companyID === null) {
@@ -59,15 +60,25 @@ async function updateScrappingInstructionsDetails(req, res) {
 }
 async function deleteScrappingInstructionsDetails(req, res) {
     const { companyID, id } = req.params;
-    await prisma.instructions.deleteMany({
-        where: {
-            companyID: Number(companyID),
-            id: Number(id),
-        },
-    });
-    res.json({
-        message: `Instructions with ID: ${id} has been deleted!`,
-    });
+    try {
+        const instructionDelete = await prisma.instructions.delete({
+            where: {
+                id: Number(id),
+                companyID: Number(companyID),
+            },
+        });
+        res.json({
+            message: `Instruction with ID: ${instructionDelete.id} has been deleted!`,
+        });
+    }
+    catch (error) {
+        if (error instanceof Prisma.PrismaClientKnownRequestError &&
+            error.code === "P2025") {
+            res.json({
+                message: `Failed to delete instruction: ${id} and ${companyID}, check if IDs are not null`,
+            });
+        }
+    }
 }
 export { createScrappingInstructions, deleteScrappingInstructionsDetails, getScrappingInstructionsDetails, updateScrappingInstructionsDetails, };
 //# sourceMappingURL=instructionsController.js.map

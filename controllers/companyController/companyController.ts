@@ -4,7 +4,11 @@ import type { Request, Response } from "express";
 
 import { validationResult } from "express-validator";
 
-import type { Company, Steps } from "../../generated/prisma/client.js";
+import {
+  Prisma,
+  type Company,
+  type Steps,
+} from "../../generated/prisma/client.js";
 
 import { supabaseImageUpload } from "../../helpers/supabaseImageUpload/supabaseImageUpload.js";
 import { CompanyWithRelationsType } from "../../interfaces/CompanyInterface/CompanyInterface.js";
@@ -103,8 +107,8 @@ async function getCompanyById(req: Request, res: Response) {
     },
   });
 
-  if (id === null) {
-    res.json({ message: `No company with this name: ${id} has been found!` });
+  if (companyId === null) {
+    res.json({ message: `No company with this ID: ${id} has been found!` });
   } else {
     res.json(companyId);
   }
@@ -165,21 +169,22 @@ async function updateCompanyWithRelations(req: Request, res: Response) {
         data: { name, URL, logo, scrapMode },
       });
 
-      // for (const instruction of instructions) {
-      //   await tx.instructions.upsert({
-      //     where: {
-      //       id: Number(instruction.id) || -1,
-      //       companyID: Number(instruction.companyID) || -1,
-      //     },
-      //     update: {
-      //       extractionInstructions: instruction.extractionInstructions!,
-      //     },
-      //     create: {
-      //       // companyID: Number(companyID),
-      //       extractionInstructions: instruction.extractionInstructions!,
-      //     },
-      //   });
-      // }
+      for (const instruction of instructions) {
+        await tx.instructions.upsert({
+          where: {
+            id: Number(instruction.id) || -1,
+            companyID: Number(companyID) || -1,
+          },
+          update: {
+            companyID: Number(companyID),
+            extractionInstructions: instruction.extractionInstructions!,
+          },
+          create: {
+            companyID: Number(companyID),
+            extractionInstructions: instruction.extractionInstructions!,
+          },
+        });
+      }
 
       const deletedStepIds = steps
         .map((step: Steps) => step.id)
@@ -223,22 +228,36 @@ async function updateCompanyWithRelations(req: Request, res: Response) {
 
     res.json(result);
   } catch (error) {
-    console.log(error);
+    console.log(
+      `Failed to update company: ${id} and ${companyID}, check you passed the correct IDs`,
+      error,
+    );
   }
 }
 
 async function deleteCompany(req: Request, res: Response) {
   const { id } = req.params;
 
-  const companyDelete = await prisma.company.delete({
-    where: {
-      id: Number(id),
-    },
-  });
+  try {
+    const companyDelete = await prisma.company.delete({
+      where: {
+        id: Number(id),
+      },
+    });
 
-  res.json({
-    message: `Company with ID: ${companyDelete.id} has been deleted!`,
-  });
+    res.json({
+      message: `Company with ID: ${companyDelete.id} has been deleted!`,
+    });
+  } catch (error) {
+    if (
+      error instanceof Prisma.PrismaClientKnownRequestError &&
+      error.code === "P2025"
+    ) {
+      res.json({
+        message: `Failed to delete company: ${id}, check if ID is not null`,
+      });
+    }
+  }
 }
 
 export {

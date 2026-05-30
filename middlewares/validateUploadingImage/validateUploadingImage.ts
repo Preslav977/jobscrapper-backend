@@ -15,7 +15,7 @@ export const validateImageUpload = async (
       {
         type: "field",
         value: req.file.originalname,
-        msg: "Failed to upload profile picture to storage provider.",
+        message: "Failed to upload profile picture to storage provider.",
         path: "profilePicture",
         location: "body",
       },

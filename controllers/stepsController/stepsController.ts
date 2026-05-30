@@ -3,7 +3,7 @@ import { prisma } from "../../db/client.js";
 import type { Request, Response } from "express";
 
 import { validationResult } from "express-validator";
-import type { Steps } from "../../generated/prisma/client.js";
+import { type Steps } from "../../generated/prisma/client.js";
 
 async function createScrappingSteps(req: Request, res: Response) {
   const { companyID } = req.params;
@@ -75,7 +75,7 @@ async function updateScrappingStepsDetails(req: Request, res: Response) {
 async function deleteScrappingStepsDetails(req: Request, res: Response) {
   const { companyID } = req.params;
 
-  await prisma.steps.deleteMany({
+  const stepsDelete = await prisma.steps.deleteMany({
     where: {
       companyID: Number(companyID),
     },
@@ -84,6 +84,12 @@ async function deleteScrappingStepsDetails(req: Request, res: Response) {
   res.json({
     message: `Steps with ID: ${companyID} has been deleted!`,
   });
+
+  if (stepsDelete.count === 0) {
+    res.json({
+      message: `Failed to delete steps with ID: ${companyID}, check if ID is not null`,
+    });
+  }
 }
 
 export {

@@ -57,7 +57,7 @@ async function updateScrappingStepsDetails(req, res) {
 }
 async function deleteScrappingStepsDetails(req, res) {
     const { companyID } = req.params;
-    await prisma.steps.deleteMany({
+    const stepsDelete = await prisma.steps.deleteMany({
         where: {
             companyID: Number(companyID),
         },
@@ -65,6 +65,11 @@ async function deleteScrappingStepsDetails(req, res) {
     res.json({
         message: `Steps with ID: ${companyID} has been deleted!`,
     });
+    if (stepsDelete.count === 0) {
+        res.json({
+            message: `Failed to delete steps with ID: ${companyID}, check if ID is not null`,
+        });
+    }
 }
 export { createScrappingSteps, deleteScrappingStepsDetails, getScrappingStepsDetails, updateScrappingStepsDetails, };
 //# sourceMappingURL=stepsController.js.map

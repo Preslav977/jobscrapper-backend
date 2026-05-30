@@ -1,7 +1,7 @@
 import type { Request, Response } from "express";
 import { validationResult } from "express-validator";
 import { prisma } from "../../db/client.js";
-import type { Jobs } from "../../generated/prisma/client.js";
+import { Prisma, type Jobs } from "../../generated/prisma/client.js";
 
 async function createJobs(req: Request, res: Response) {
   const { id } = req.params;
@@ -152,18 +152,27 @@ async function updateJob(req: Request, res: Response) {
 async function deleteJob(req: Request, res: Response) {
   const { id, companyID } = req.params;
 
-  const jobDelete = await prisma.jobs.delete({
-    include: {
-      company: true,
-    },
+  try {
+    const jobDelete = await prisma.instructions.delete({
+      where: {
+        id: Number(id),
+        companyID: Number(companyID),
+      },
+    });
 
-    where: {
-      companyID: Number(companyID),
-      id: Number(id),
-    },
-  });
-
-  res.json({ message: `Job with ID: ${jobDelete.id} has been deleted!` });
+    res.json({
+      message: `Job with ID: ${jobDelete.id} has been deleted!`,
+    });
+  } catch (error) {
+    if (
+      error instanceof Prisma.PrismaClientKnownRequestError &&
+      error.code === "P2025"
+    ) {
+      res.json({
+        message: `Failed to delete job: ${id} and ${companyID}, check if IDs are not null`,
+      });
+    }
+  }
 }
 
 export {
