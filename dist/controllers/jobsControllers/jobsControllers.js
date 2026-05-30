@@ -1,6 +1,7 @@
 import { validationResult } from "express-validator";
 import { prisma } from "../../db/client.js";
 import { Prisma } from "../../generated/prisma/client.js";
+import { parseMarkedUpText } from "../../script/extractDataFunctions/extractDataFunctions.js";
 async function createJobs(req, res) {
     const { id } = req.params;
     if (req.body.length === 0 || id === null) {
@@ -81,13 +82,14 @@ async function getJobDetails(req, res) {
             id: Number(id),
         },
     });
+    const formattedData = parseMarkedUpText(jobDetails.scrapedText);
     if (id === null) {
         res.json({
             message: `No jobs has been found for the company with ID: ${id}`,
         });
     }
     else {
-        res.json(jobDetails);
+        res.json({ jobDetails, formattedData });
     }
 }
 async function getJobsBySearch(req, res) { }

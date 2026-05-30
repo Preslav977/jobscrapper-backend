@@ -1,7 +1,7 @@
 import puppeteer from "puppeteer-extra";
 import StealthPlugin from "puppeteer-extra-plugin-stealth";
 import { URL } from "node:url";
-import { extractJobsDetailsText, parseMarkedUpText, } from "../extractDataFunctions/extractDataFunctions.js";
+import { extractJobsDetailsText } from "../extractDataFunctions/extractDataFunctions.js";
 import { randomViewport } from "../helperUtilities/helperUtilities.js";
 const stealthPlugin = StealthPlugin();
 stealthPlugin.enabledEvasions.add("user-agent-override");
@@ -12,7 +12,7 @@ export async function scrapingJobsDetailsFunction(job) {
     const constructNewURL = new URL(anchorHref, job.company.URL);
     let scrapingJobsDetailsResult = {
         id,
-        formattedData: "",
+        scrapedText: "",
         rawHTML: "",
     };
     const browser = await puppeteer.default.launch({
@@ -45,10 +45,9 @@ export async function scrapingJobsDetailsFunction(job) {
         if (instructions.length > 0) {
             for (const instruction of instructions) {
                 const result = await extractJobsDetailsText(page, instruction);
-                const parseScrapedRes = parseMarkedUpText(result.structuredText);
                 scrapingJobsDetailsResult = {
                     id,
-                    formattedData: parseScrapedRes,
+                    scrapedText: result.structuredText,
                     rawHTML: result.rawHTML,
                 };
                 await browser.close();

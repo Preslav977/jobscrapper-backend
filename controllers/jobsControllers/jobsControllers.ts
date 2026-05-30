@@ -2,6 +2,7 @@ import type { Request, Response } from "express";
 import { validationResult } from "express-validator";
 import { prisma } from "../../db/client.js";
 import { Prisma, type Jobs } from "../../generated/prisma/client.js";
+import { parseMarkedUpText } from "../../script/extractDataFunctions/extractDataFunctions.js";
 
 async function createJobs(req: Request, res: Response) {
   const { id } = req.params;
@@ -97,12 +98,14 @@ async function getJobDetails(req: Request, res: Response) {
     },
   });
 
+  const formattedData = parseMarkedUpText(jobDetails!.scrapedText!);
+
   if (id === null) {
     res.json({
       message: `No jobs has been found for the company with ID: ${id}`,
     });
   } else {
-    res.json(jobDetails);
+    res.json({ jobDetails, formattedData });
   }
 }
 

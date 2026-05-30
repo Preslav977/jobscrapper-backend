@@ -7,10 +7,7 @@ import { Page } from "puppeteer";
 
 import type { Jobs } from "../../generated/prisma/client.js";
 import type { JobsWithRelationsType } from "../../interfaces/JobsInterface/JobsInterface.js";
-import {
-  extractJobsDetailsText,
-  parseMarkedUpText,
-} from "../extractDataFunctions/extractDataFunctions.js";
+import { extractJobsDetailsText } from "../extractDataFunctions/extractDataFunctions.js";
 import { randomViewport } from "../helperUtilities/helperUtilities.js";
 
 const stealthPlugin = StealthPlugin();
@@ -26,11 +23,11 @@ export async function scrapingJobsDetailsFunction(job: JobsWithRelationsType) {
 
   const constructNewURL = new URL(anchorHref!, job.company.URL);
 
-  type ScrapedJobsDetails = Pick<Jobs, "id" | "formattedData" | "rawHTML">;
+  type ScrapedJobsDetails = Pick<Jobs, "id" | "scrapedText" | "rawHTML">;
 
   let scrapingJobsDetailsResult: ScrapedJobsDetails = {
     id,
-    formattedData: "",
+    scrapedText: "",
     rawHTML: "",
   };
 
@@ -74,12 +71,10 @@ export async function scrapingJobsDetailsFunction(job: JobsWithRelationsType) {
       for (const instruction of instructions) {
         const result = await extractJobsDetailsText(page, instruction);
 
-        const parseScrapedRes = parseMarkedUpText(result!.structuredText);
-
         scrapingJobsDetailsResult = {
           id,
-          formattedData: parseScrapedRes,
-          rawHTML: result!.rawHTML,
+          scrapedText: result.structuredText,
+          rawHTML: result.rawHTML,
         };
 
         await browser.close();

@@ -11,5 +11,5 @@ export declare function scrapingJobsDetailsFunction(job: JobsWithRelationsType):
     formattedData: import("@prisma/client/runtime/client").JsonValue | null;
     anchorHref: string | null;
     companyID: number;
-}, "id" | "rawHTML" | "formattedData">>;
+}, "id" | "scrapedText" | "rawHTML">>;
 //# sourceMappingURL=scrapingJobsDetailsFunction.d.ts.map
