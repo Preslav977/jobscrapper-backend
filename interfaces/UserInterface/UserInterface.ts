@@ -14,5 +14,5 @@ export interface UserInterface {
 }
 
 export interface UserIDInterface extends Express.User {
-  id: number;
+  id?: number;
 }

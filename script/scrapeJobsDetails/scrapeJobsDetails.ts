@@ -5,7 +5,7 @@ import { scrapingJobsDetailsFunction } from "../scrapingJobsDetailsFunction/scra
   try {
     const pendingJobs = await prisma.jobs.findMany({
       where: {
-        formattedData: null,
+        scrapedText: null,
       },
 
       include: {
@@ -22,14 +22,14 @@ import { scrapingJobsDetailsFunction } from "../scrapingJobsDetailsFunction/scra
         try {
           const scrapedJobsDetails = await scrapingJobsDetailsFunction(job);
 
-          if (scrapedJobsDetails && scrapedJobsDetails.formattedData) {
+          if (scrapedJobsDetails && scrapedJobsDetails.scrapedText) {
             await prisma.jobs.update({
               where: {
                 id: job.id,
               },
               data: {
                 rawHTML: scrapedJobsDetails.rawHTML,
-                formattedData: scrapedJobsDetails.formattedData,
+                scrapedText: scrapedJobsDetails.scrapedText,
               },
             });
             console.log(

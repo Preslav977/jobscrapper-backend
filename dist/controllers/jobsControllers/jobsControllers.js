@@ -82,14 +82,24 @@ async function getJobDetails(req, res) {
             id: Number(id),
         },
     });
-    const formattedData = parseMarkedUpText(jobDetails.scrapedText);
+    if (jobDetails?.scrapedText) {
+        const formattedData = parseMarkedUpText(jobDetails.scrapedText);
+        await prisma.jobs.update({
+            where: {
+                id: Number(id),
+            },
+            data: {
+                formattedData: formattedData,
+            },
+        });
+    }
     if (id === null) {
         res.json({
             message: `No jobs has been found for the company with ID: ${id}`,
         });
     }
     else {
-        res.json({ jobDetails, formattedData });
+        res.json(jobDetails);
     }
 }
 async function getJobsBySearch(req, res) { }

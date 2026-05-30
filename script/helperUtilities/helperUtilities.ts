@@ -26,9 +26,7 @@ function hasJobChanged(existingJob: Jobs, scrapedJob: Jobs): boolean {
   return keysToCompare.some((key) => existingJob[key] !== scrapedJob[key]);
 }
 
-function buildData(
-  job: Jobs,
-): Omit<Jobs, "id" | "formattedData" | "scrapedText"> {
+function buildData(job: Jobs): Omit<Jobs, "id" | "formattedData"> {
   return {
     title: job.title,
     location: job.location,
@@ -38,6 +36,7 @@ function buildData(
     description: job.description,
     companyID: job.companyID,
     rawHTML: job.rawHTML,
+    scrapedText: job.scrapedText,
   };
 }
 

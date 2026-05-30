@@ -17,7 +17,8 @@ export interface JobsInterface {
   anchorHref: string;
   companyID: number;
   rawHTML: string;
-  // scrapedText: FormattedJobsType;
+  scrapedText: string;
+  formattedData: FormattedJobsType | null;
 }
 
 export type ScrapedJobsArrayType = {

@@ -36,7 +36,11 @@ import { scrapingJobsFunction } from "../scrapingJobsFunction/scrapingJobsFuncti
                                     where: {
                                         id: existingJob.id,
                                     },
-                                    data: buildData(scrapedJob),
+                                    data: {
+                                        ...buildData(scrapedJob),
+                                        scrapedText: null,
+                                        rawHTML: null,
+                                    },
                                 });
                             }
                         }
