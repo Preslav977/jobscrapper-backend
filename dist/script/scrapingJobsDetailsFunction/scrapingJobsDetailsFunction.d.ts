@@ -6,8 +6,8 @@ export declare function scrapingJobsDetailsFunction(job: JobsWithRelationsType):
     location: string | null;
     remoteOrHybrid: string | null;
     datePosted: string | null;
-    anchorHref: string | null;
     description: string | null;
+    anchorHref: string | null;
     scrapedText: string | null;
     rawHTML: string | null;
     formattedData: import("@prisma/client/runtime/client").JsonValue | null;

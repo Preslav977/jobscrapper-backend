@@ -95,6 +95,8 @@ export async function scrapingJobsFunction(company) {
                 const jobScrapingResult = await extractJobsText(page, instruction, id);
                 scrapingJobsResult = [...jobScrapingResult];
                 await sleepDelay(5000);
+                await browser.close();
+                return scrapingJobsResult;
             }
         }
         else if (!checkForNavigationResultsFailures && scrapMode === "FETCH") {

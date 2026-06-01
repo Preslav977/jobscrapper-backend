@@ -167,6 +167,10 @@ export async function scrapingJobsFunction(
         scrapingJobsResult = [...jobScrapingResult];
 
         await sleepDelay(5000);
+
+        await browser.close();
+
+        return scrapingJobsResult;
       }
     } else if (!checkForNavigationResultsFailures && scrapMode === "FETCH") {
       navigationResults = [];
