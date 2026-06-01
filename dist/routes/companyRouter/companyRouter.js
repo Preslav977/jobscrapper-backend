@@ -12,7 +12,9 @@ companyRouter.post("/", upload.single("file"), validateCreatingCompany, createCo
 companyRouter.post("/relations", upload.single("file"), validateCreatingCompany, validateImageUpload, createCompanyWithRelations);
 companyRouter.get("/:id", getCompanyById);
 companyRouter.get("/", getCompanies);
-companyRouter.put("/:id", upload.single("file"), validateCreatingCompany, updateCompany);
+companyRouter.put("/:id", upload.single("file"), 
+// validateCreatingCompany,
+updateCompany);
 companyRouter.put("/:id/relations/:companyID", upload.single("file"), 
 // validateCreatingCompany,
 validateImageUpload, updateCompanyWithRelations);

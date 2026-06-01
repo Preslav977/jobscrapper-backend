@@ -8,6 +8,9 @@ import { scrapingJobsFunction } from "../scrapingJobsFunction/scrapingJobsFuncti
             instructions: true,
             steps: true,
         },
+        where: {
+            id: 2,
+        },
     });
     if (companies.length > 0) {
         for (const company of companies) {
@@ -18,10 +21,8 @@ import { scrapingJobsFunction } from "../scrapingJobsFunction/scrapingJobsFuncti
                 const scrapedJobsIds = new Set();
                 await prisma.$transaction(async (tx) => {
                     for (const scrapedJob of scrapedJobs) {
-                        if (!scrapedJob.anchorHref) {
-                            console.warn(`Scraped job: ${scrapedJob} anchor href is null! Change the CSS/Attribute selector!`);
+                        if (!scrapedJob.anchorHref)
                             continue;
-                        }
                         const existingJob = existingJobsMap.get(scrapedJob.anchorHref);
                         if (!existingJob) {
                             await tx.jobs.create({

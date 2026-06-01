@@ -12,11 +12,18 @@ async function extractJobsText(
   instruction: Instructions,
   id: number,
 ): Promise<JobsCreateManyInput[]> {
-  const { container, title, location, remoteOrHybrid, datePosted, anchorHref } =
-    instruction.extractionInstructions as ExtractionConfig;
+  const {
+    container,
+    title,
+    location,
+    remoteOrHybrid,
+    datePosted,
+    description,
+    anchorHref,
+  } = instruction.extractionInstructions as ExtractionConfig;
 
   const containerExists = await page
-    .waitForSelector(`${container.selector!}:not(empty)`)
+    .waitForSelector(`${container.selector!}`)
     .catch(() => null);
 
   if (!containerExists) {
@@ -40,7 +47,9 @@ async function extractJobsText(
         ) {
           if (!field.extractType) return null;
 
-          const target = field.selector ? el.querySelector(field.selector) : el;
+          const target = field.selector
+            ? el.querySelector(field.selector!)
+            : el;
 
           console.log(target);
 
@@ -52,12 +61,16 @@ async function extractJobsText(
               : null;
           }
 
-          if (
-            field.extractType === "attribute" ||
-            (field.extractType === "elementAttribute" && field.attr)
-          ) {
-            return el.getAttribute(field.attr!);
+          if (field.extractType === "attribute" && field.attr) {
+            console.log("Getting attribute HREF", el.getAttribute(field.attr!));
+
+            return el.getAttribute(field.attr);
           }
+
+          if (field.extractType === "elementAttribute" && field.attr) {
+            return target.getAttribute(field.attr);
+          }
+
           return null;
         }
 
@@ -73,14 +86,25 @@ async function extractJobsText(
             location: extractField(node, cfg.location) || "",
             remoteOrHybrid: extractField(node, cfg.remoteOrHybrid) || "",
             datePosted: extractField(node, cfg.datePosted) || "",
+            description: cfg.description.selector!,
             anchorHref: extractField(node, cfg.anchorHref) || "",
             companyID: companyID,
           });
         });
 
+        console.log(scrapedJobs);
+
         return scrapedJobs;
       },
-      { container, title, location, remoteOrHybrid, datePosted, anchorHref },
+      {
+        container,
+        title,
+        location,
+        remoteOrHybrid,
+        datePosted,
+        description,
+        anchorHref,
+      },
       id,
     );
   } catch (error) {

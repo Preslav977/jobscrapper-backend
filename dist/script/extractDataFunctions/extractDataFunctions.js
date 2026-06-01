@@ -1,7 +1,7 @@
 async function extractJobsText(page, instruction, id) {
-    const { container, title, location, remoteOrHybrid, datePosted, anchorHref } = instruction.extractionInstructions;
+    const { container, title, location, remoteOrHybrid, datePosted, description, anchorHref, } = instruction.extractionInstructions;
     const containerExists = await page
-        .waitForSelector(`${container.selector}:not(empty)`)
+        .waitForSelector(`${container.selector}`)
         .catch(() => null);
     if (!containerExists) {
         console.warn(`[Scraper] Active timeout: Container ${container.selector} not found.`);
@@ -12,7 +12,9 @@ async function extractJobsText(page, instruction, id) {
             function extractField(el, field) {
                 if (!field.extractType)
                     return null;
-                const target = field.selector ? el.querySelector(field.selector) : el;
+                const target = field.selector
+                    ? el.querySelector(field.selector)
+                    : el;
                 console.log(target);
                 if (!target)
                     return null;
@@ -21,9 +23,12 @@ async function extractJobsText(page, instruction, id) {
                         ? target.textContent.trim().replace("\n", "")
                         : null;
                 }
-                if (field.extractType === "attribute" ||
-                    (field.extractType === "elementAttribute" && field.attr)) {
+                if (field.extractType === "attribute" && field.attr) {
+                    console.log("Getting attribute HREF", el.getAttribute(field.attr));
                     return el.getAttribute(field.attr);
+                }
+                if (field.extractType === "elementAttribute" && field.attr) {
+                    return target.getAttribute(field.attr);
                 }
                 return null;
             }
@@ -36,12 +41,22 @@ async function extractJobsText(page, instruction, id) {
                     location: extractField(node, cfg.location) || "",
                     remoteOrHybrid: extractField(node, cfg.remoteOrHybrid) || "",
                     datePosted: extractField(node, cfg.datePosted) || "",
+                    description: cfg.description.selector,
                     anchorHref: extractField(node, cfg.anchorHref) || "",
                     companyID: companyID,
                 });
             });
+            console.log(scrapedJobs);
             return scrapedJobs;
-        }, { container, title, location, remoteOrHybrid, datePosted, anchorHref }, id);
+        }, {
+            container,
+            title,
+            location,
+            remoteOrHybrid,
+            datePosted,
+            description,
+            anchorHref,
+        }, id);
     }
     catch (error) {
         console.error(`[Scraper] Critical evaluation failure: ${error}`);

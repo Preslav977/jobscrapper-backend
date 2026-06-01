@@ -63,7 +63,7 @@ companyRouter.get("/", getCompanies);
 companyRouter.put(
   "/:id",
   upload.single("file"),
-  validateCreatingCompany,
+  // validateCreatingCompany,
   updateCompany,
 );
 

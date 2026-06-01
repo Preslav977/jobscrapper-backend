@@ -95,9 +95,6 @@ export async function scrapingJobsFunction(company) {
                 const jobScrapingResult = await extractJobsText(page, instruction, id);
                 scrapingJobsResult = [...jobScrapingResult];
                 await sleepDelay(5000);
-                navigationResults = [];
-                // await browser.close();
-                return jobScrapingResult;
             }
         }
         else if (!checkForNavigationResultsFailures && scrapMode === "FETCH") {
@@ -107,7 +104,7 @@ export async function scrapingJobsFunction(company) {
     }
     catch (error) {
         console.log(`Navigation script for jobs failed, check the selectors, ${error}`);
-        // await browser.close();
+        await browser.close();
     }
     navigationResults = [];
     await browser.close();

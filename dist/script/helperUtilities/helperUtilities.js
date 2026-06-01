@@ -15,9 +15,6 @@ function hasJobChanged(existingJob, scrapedJob) {
         "description",
         "anchorHref",
         "companyID",
-        "formattedData",
-        "scrapedText",
-        "rawHTML",
     ];
     return keysToCompare.some((key) => existingJob[key] !== scrapedJob[key]);
 }
