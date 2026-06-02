@@ -33,25 +33,23 @@ import { scrapingJobsDetailsFunction } from "../scrapingJobsDetailsFunction/scra
               },
             });
             console.log(
-              `[Sync] Successfully updated details for job ID: ${job.id}`,
+              `Successfully scraped job details ${job.title} for ${job.company.name}`,
             );
           } else {
             console.warn(
-              `[Sync Warning] Scraper returned empty details payload for job ID: ${job.id}`,
+              `Failed to scrap jobs details for ${job.title} check the ID: ${job.id}`,
             );
           }
         } catch (error) {
           console.error(
-            `[Job Error] Failed to process details for job ID ${job.id}:`,
-            error,
+            `Failed to scrap jobs details for ${job.title} due to error: ${error}`,
           );
         }
       }
     }
   } catch (error) {
     console.error(
-      `[Global Error] Fatal failure fetching pending jobs list:`,
-      error,
+      `Failed to fetch jobs details from database due to error :${error}`,
     );
   }
 })();

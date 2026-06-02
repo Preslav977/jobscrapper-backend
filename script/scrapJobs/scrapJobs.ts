@@ -84,10 +84,12 @@ import { scrapingJobsFunction } from "../scrapingJobsFunction/scrapingJobsFuncti
             timeout: 20000,
           },
         );
-        console.log(`Successfully completed sync for: ${company.name}`);
+        console.log(
+          `Successfully scraped jobs: ${company.jobs} for ${company.name}`,
+        );
       } catch (error) {
         console.error(
-          `Failed to sync company: ${company.name} due to error: ${error}`,
+          `Failed to scrap jobs for: ${company.name} due to error: ${error}`,
         );
       }
     }

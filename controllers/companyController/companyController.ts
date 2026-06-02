@@ -228,7 +228,7 @@ async function updateCompanyWithRelations(req: Request, res: Response) {
 
     res.json(result);
   } catch (error) {
-    console.log(
+    console.error(
       `Failed to update company: ${id} and ${companyID}, check you passed the correct IDs`,
       error,
     );

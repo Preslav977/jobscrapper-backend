@@ -465,12 +465,14 @@ import type { CompanyWithSelectedFieldsType } from "../interfaces/CompanyInterfa
             },
           },
         });
-        console.log(`Successfully seeded company: ${name}`);
+        console.log(`Successfully created company: ${name} from seed.`);
       } else {
         return;
       }
     } catch (error) {
-      console.log(`Failed to create company ${company.name}, ${error}`);
+      console.error(
+        `Failed to create company: ${company.name} due to error: ${error}`,
+      );
     }
   }
 })();

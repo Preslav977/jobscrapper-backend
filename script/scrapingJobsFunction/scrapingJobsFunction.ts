@@ -7,7 +7,6 @@ import {
 import { randomViewport } from "../helperUtilities/helperUtilities.js";
 import {
   selectOptionFromDropDown,
-  sleepDelay,
   tryClick,
   tryClickEvaluate,
   tryClickLoadMore,
@@ -166,7 +165,7 @@ export async function scrapingJobsFunction(
 
         scrapingJobsResult = [...jobScrapingResult];
 
-        await sleepDelay(5000);
+        navigationResults = [];
 
         await browser.close();
 
@@ -178,8 +177,8 @@ export async function scrapingJobsFunction(
       await browser.close();
     }
   } catch (error) {
-    console.log(
-      `Navigation script for jobs failed, check the selectors, ${error}`,
+    console.error(
+      `scrapingJobsFunction failed check the selector due to error: ${error}`,
     );
 
     await browser.close();

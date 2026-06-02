@@ -29,7 +29,9 @@ async function tryClick(
       }
     } catch (error) {
       if (attempt === maxAttempt) {
-        console.log(`tryClick, failed to query, and click, reason: ${error}`);
+        console.error(
+          `tryClick, failed to select the instruction, and click, reason: ${error}`,
+        );
         return "failure";
       }
     }
@@ -51,15 +53,25 @@ async function tryClickEvaluate(
         timeout,
       })) as ElementHandle<HTMLElement>;
 
-      await clickedInstruction.evaluate((element) => element.click());
+      const isElementVisible = await page.$eval(instruction, (el) => {
+        const style = window.getComputedStyle(el);
+        return style.display !== "none" && style.visibility !== "hidden";
+      });
 
-      await sleepDelay(3000);
+      const isElementEnabled = await page.$eval(
+        instruction,
+        (el) => !el.ariaDisabled,
+      );
 
-      return "success";
+      if (clickedInstruction && isElementVisible && isElementEnabled) {
+        await clickedInstruction.evaluate((element) => element.click());
+
+        return "success";
+      }
     } catch (error) {
       if (attempt === maxAttempt) {
-        console.log(
-          `tryClickEvaluate, failed to query, and click, reason: ${error}`,
+        console.error(
+          `tryClickEvaluate, failed to select the instruction, and click, reason: ${error}`,
         );
         return "failure";
       }
@@ -90,7 +102,7 @@ async function tryClickLoadMore(
 
         await loadMoreButton.evaluate((element) => element.scrollIntoView());
 
-        await sleepDelay(5000);
+        await sleepDelay(3000);
 
         clickedMoreButtonCount++;
       }
@@ -102,8 +114,8 @@ async function tryClickLoadMore(
       } else {
         loadMoreJobs = false;
 
-        console.log(
-          `tryClickLoadMore, failed to query, and click, reason: ${error}`,
+        console.error(
+          `tryClickLoadMore, failed to select the instruction, and click, reason: ${error}`,
         );
 
         return "failure";
@@ -124,16 +136,27 @@ async function selectOptionFromDropDown(
     try {
       await page.waitForSelector(selectElement);
 
-      await page.select(selectElement, selectOption);
+      const isElementVisible = await page.$eval(selectElement, (el) => {
+        const style = window.getComputedStyle(el);
+        return style.display !== "none" && style.visibility !== "hidden";
+      });
 
-      await sleepDelay(2500);
+      const isElementEnabled = await page.$eval(
+        selectElement,
+        (el) => !el.ariaDisabled,
+      );
 
-      return "success";
+      if (isElementEnabled && isElementVisible) {
+        await page.select(selectElement, selectOption);
+
+        return "success";
+      }
     } catch (error) {
       if (attempt === maxAttempt) {
-        console.log(
-          `selectOptionFromDropDown, failed to query, and click, reason: ${error}`,
+        console.error(
+          `selectOptionFromDropDown, failed to select the instruction, and click, reason: ${error}`,
         );
+
         return "failure";
       }
     }
@@ -165,9 +188,10 @@ async function tryEventLocator(
       return "success";
     } catch (error) {
       if (attempt === maxAttempt) {
-        console.log(
-          `tryEventLocator, failed to query, and click, reason: ${error} at event: ${event}`,
+        console.error(
+          `tryEventLocator, failed to select the instruction, and click, reason: ${error}`,
         );
+
         return "failure";
       }
     }

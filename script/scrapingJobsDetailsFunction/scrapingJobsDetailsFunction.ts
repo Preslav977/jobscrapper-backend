@@ -81,15 +81,15 @@ export async function scrapingJobsDetailsFunction(job: JobsWithRelationsType) {
       }
     }
   } catch (error) {
-    console.log(
-      `Navigation script for jobs details failed, check the selector, ${error}`,
+    console.error(
+      `scrapingJobsDetailsFunction failed check the selector due to error: ${error}`,
     );
 
     return scrapingJobsDetailsResult;
   }
 
   console.log(
-    `Scraping details has succeeded for job: ${job.title} with company ${job.company.name}`,
+    `Scraping details has succeeded for job: ${job.title} for company ${job.company.name}`,
   );
 
   return scrapingJobsDetailsResult;
