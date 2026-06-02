@@ -17,7 +17,7 @@ async function tryClick(page, instruction, maxAttempt) {
         }
         catch (error) {
             if (attempt === maxAttempt) {
-                console.log(`tryClick, failed to query, and click, reason: ${error}`);
+                console.error(`tryClick, failed to select the instruction, and click, reason: ${error}`);
                 return "failure";
             }
         }
@@ -32,13 +32,19 @@ async function tryClickEvaluate(page, instruction, maxAttempt) {
             const clickedInstruction = (await page.waitForSelector(instruction, {
                 timeout,
             }));
-            await clickedInstruction.evaluate((element) => element.click());
-            await sleepDelay(3000);
-            return "success";
+            const isElementVisible = await page.$eval(instruction, (el) => {
+                const style = window.getComputedStyle(el);
+                return style.display !== "none" && style.visibility !== "hidden";
+            });
+            const isElementEnabled = await page.$eval(instruction, (el) => !el.ariaDisabled);
+            if (clickedInstruction && isElementVisible && isElementEnabled) {
+                await clickedInstruction.evaluate((element) => element.click());
+                return "success";
+            }
         }
         catch (error) {
             if (attempt === maxAttempt) {
-                console.log(`tryClickEvaluate, failed to query, and click, reason: ${error}`);
+                console.error(`tryClickEvaluate, failed to select the instruction, and click, reason: ${error}`);
                 return "failure";
             }
         }
@@ -54,7 +60,7 @@ async function tryClickLoadMore(page, instruction) {
             if (loadMoreButtonText !== null) {
                 await loadMoreButton.click();
                 await loadMoreButton.evaluate((element) => element.scrollIntoView());
-                await sleepDelay(5000);
+                await sleepDelay(3000);
                 clickedMoreButtonCount++;
             }
         }
@@ -65,7 +71,7 @@ async function tryClickLoadMore(page, instruction) {
             }
             else {
                 loadMoreJobs = false;
-                console.log(`tryClickLoadMore, failed to query, and click, reason: ${error}`);
+                console.error(`tryClickLoadMore, failed to select the instruction, and click, reason: ${error}`);
                 return "failure";
             }
         }
@@ -77,13 +83,19 @@ async function selectOptionFromDropDown(page, selectElement, selectOption, maxAt
     for (let attempt = 1; attempt <= maxAttempt; attempt++) {
         try {
             await page.waitForSelector(selectElement);
-            await page.select(selectElement, selectOption);
-            await sleepDelay(2500);
-            return "success";
+            const isElementVisible = await page.$eval(selectElement, (el) => {
+                const style = window.getComputedStyle(el);
+                return style.display !== "none" && style.visibility !== "hidden";
+            });
+            const isElementEnabled = await page.$eval(selectElement, (el) => !el.ariaDisabled);
+            if (isElementEnabled && isElementVisible) {
+                await page.select(selectElement, selectOption);
+                return "success";
+            }
         }
         catch (error) {
             if (attempt === maxAttempt) {
-                console.log(`selectOptionFromDropDown, failed to query, and click, reason: ${error}`);
+                console.error(`selectOptionFromDropDown, failed to select the instruction, and click, reason: ${error}`);
                 return "failure";
             }
         }
@@ -107,7 +119,7 @@ async function tryEventLocator(page, instruction, event, maxAttempt) {
         }
         catch (error) {
             if (attempt === maxAttempt) {
-                console.log(`tryEventLocator, failed to query, and click, reason: ${error} at event: ${event}`);
+                console.error(`tryEventLocator, failed to select the instruction, and click, reason: ${error}`);
                 return "failure";
             }
         }

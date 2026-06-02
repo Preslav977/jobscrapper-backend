@@ -180,7 +180,7 @@ async function updateCompanyWithRelations(req, res) {
         res.json(result);
     }
     catch (error) {
-        console.log(`Failed to update company: ${id} and ${companyID}, check you passed the correct IDs`, error);
+        console.error(`Failed to update company: ${id} and ${companyID}, check you passed the correct IDs`, error);
     }
 }
 async function deleteCompany(req, res) {

@@ -4,7 +4,7 @@ async function extractJobsText(page, instruction, id) {
         .waitForSelector(`${container.selector}`)
         .catch(() => null);
     if (!containerExists) {
-        console.warn(`[Scraper] Active timeout: Container ${container.selector} not found.`);
+        console.warn(`The container for the jobs is null: ${container}!`);
         return [];
     }
     try {
@@ -15,7 +15,6 @@ async function extractJobsText(page, instruction, id) {
                 const target = field.selector
                     ? el.querySelector(field.selector)
                     : el;
-                console.log(target);
                 if (!target)
                     return null;
                 if (field.extractType === "text") {
@@ -24,7 +23,6 @@ async function extractJobsText(page, instruction, id) {
                         : null;
                 }
                 if (field.extractType === "attribute" && field.attr) {
-                    console.log("Getting attribute HREF", el.getAttribute(field.attr));
                     return el.getAttribute(field.attr);
                 }
                 if (field.extractType === "elementAttribute" && field.attr) {
@@ -46,7 +44,6 @@ async function extractJobsText(page, instruction, id) {
                     companyID: companyID,
                 });
             });
-            console.log(scrapedJobs);
             return scrapedJobs;
         }, {
             container,
@@ -59,7 +56,7 @@ async function extractJobsText(page, instruction, id) {
         }, id);
     }
     catch (error) {
-        console.error(`[Scraper] Critical evaluation failure: ${error}`);
+        console.error(`extractJobsText failed to scrap, instruction might have changed: ${error}`);
         return [];
     }
 }
@@ -69,7 +66,7 @@ async function extractJobsDetailsText(page, instruction) {
         .waitForSelector(description.selector)
         .catch(() => null);
     if (!descriptionExists) {
-        console.warn(`[Scraper] Active timeout: Description ${description.selector} not found.`);
+        console.warn(`The description for the jobs details is null: ${description}!`);
         return { structuredText: "", rawHTML: "" };
     }
     try {
@@ -78,14 +75,14 @@ async function extractJobsDetailsText(page, instruction) {
             if (!container)
                 return { structuredText: "", rawHTML: "" };
             const rawHTML = container.outerHTML;
-            const junk = container?.querySelectorAll("script, style, nav, footer, svg, img");
+            const junk = container.querySelectorAll("script, style, nav, footer, svg, img");
             junk?.forEach((el) => el.remove());
             const walker = document.createTreeWalker(container, NodeFilter.SHOW_ELEMENT);
             let structuredText = "";
-            let currentNode = walker?.nextNode();
+            let currentNode = walker.nextNode();
             while (currentNode && currentNode instanceof Element) {
                 const tagName = currentNode.tagName;
-                const text = currentNode.textContent?.trim();
+                const text = currentNode.textContent.trim();
                 if (text) {
                     if (["H1", "H2", "H3", "H4", "STRONG", "B"].includes(tagName)) {
                         structuredText += `\n\n[HEADER]: ${text}\n`;
@@ -106,7 +103,7 @@ async function extractJobsDetailsText(page, instruction) {
         return extractionResult;
     }
     catch (error) {
-        console.error(`[Scraper] Critical evaluation failure: ${error}`);
+        console.error(`extractJobsDetailsText failed to scrap, instruction might have changed: ${error}`);
         return { structuredText: "", rawHTML: "" };
     }
 }
@@ -172,7 +169,7 @@ async function extractJobsFetchURL(id, url, companyURL) {
         retrieveFetchedJobs = [...result];
     }
     catch (error) {
-        console.log(error);
+        console.log(`extractJobsFetchURL failed to fetch, check the URL: ${error}`);
     }
     return retrieveFetchedJobs;
 }

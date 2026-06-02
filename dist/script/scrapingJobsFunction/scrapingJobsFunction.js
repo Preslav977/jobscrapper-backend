@@ -2,7 +2,7 @@ import puppeteer from "puppeteer-extra";
 import StealthPlugin from "puppeteer-extra-plugin-stealth";
 import { extractJobsFetchURL, extractJobsText, } from "../extractDataFunctions/extractDataFunctions.js";
 import { randomViewport } from "../helperUtilities/helperUtilities.js";
-import { selectOptionFromDropDown, sleepDelay, tryClick, tryClickEvaluate, tryClickLoadMore, } from "../navigationFunctions/navigationFunctions.js";
+import { selectOptionFromDropDown, tryClick, tryClickEvaluate, tryClickLoadMore, } from "../navigationFunctions/navigationFunctions.js";
 const stealthPlugin = StealthPlugin();
 stealthPlugin.enabledEvasions.add("user-agent-override");
 puppeteer.default.use(stealthPlugin);
@@ -94,7 +94,7 @@ export async function scrapingJobsFunction(company) {
             for (const instruction of instructions) {
                 const jobScrapingResult = await extractJobsText(page, instruction, id);
                 scrapingJobsResult = [...jobScrapingResult];
-                await sleepDelay(5000);
+                navigationResults = [];
                 await browser.close();
                 return scrapingJobsResult;
             }
@@ -105,7 +105,7 @@ export async function scrapingJobsFunction(company) {
         }
     }
     catch (error) {
-        console.log(`Navigation script for jobs failed, check the selectors, ${error}`);
+        console.error(`scrapingJobsFunction failed check the selector due to error: ${error}`);
         await browser.close();
     }
     navigationResults = [];

@@ -116,6 +116,8 @@ export const JobsScalarFieldEnum = {
     rawHTML: 'rawHTML',
     formattedData: 'formattedData',
     anchorHref: 'anchorHref',
+    createdAt: 'createdAt',
+    updateAt: 'updateAt',
     companyID: 'companyID'
 };
 export const InstructionsScalarFieldEnum = {

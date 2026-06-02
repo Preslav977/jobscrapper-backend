@@ -76,23 +76,23 @@ model Jobs {
 }
 
 model Instructions {
-  id                     Int     @id @default(autoincrement())
-  extractionInstructions Json
-  company                Company @relation(fields: [companyID], references: [id], onDelete: Cascade)
-  companyID              Int
+  id                     Int      @id @default(autoincrement())
+  extractionInstructions Json?
+  company                Company? @relation(fields: [companyID], references: [id], onDelete: Cascade)
+  companyID              Int?
 
   @@map("instructions")
 }
 
 model Steps {
-  id           Int     @id @default(autoincrement())
+  id           Int      @id @default(autoincrement())
   order        Int
   action       String
   selector     String
   selectOption String?
   url          String?
-  company      Company @relation(fields: [companyID], references: [id])
-  companyID    Int
+  company      Company? @relation(fields: [companyID], references: [id])
+  companyID    Int?
 
   @@map("steps")
 }

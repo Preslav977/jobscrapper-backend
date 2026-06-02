@@ -766,6 +766,8 @@ export declare const JobsScalarFieldEnum: {
     readonly rawHTML: "rawHTML";
     readonly formattedData: "formattedData";
     readonly anchorHref: "anchorHref";
+    readonly createdAt: "createdAt";
+    readonly updateAt: "updateAt";
     readonly companyID: "companyID";
 };
 export type JobsScalarFieldEnum = (typeof JobsScalarFieldEnum)[keyof typeof JobsScalarFieldEnum];
