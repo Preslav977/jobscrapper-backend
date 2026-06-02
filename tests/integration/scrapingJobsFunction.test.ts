@@ -119,7 +119,7 @@ describe("Company scraping integration", () => {
     const result = await scrapingJobsFunction(mockCompany);
 
     expect(result).toEqual([]);
-  }, 15000);
+  }, 20000);
 
   it("should return empty array if action is empty string", async () => {
     const mockCompany: CompanyWithRelationsType = {

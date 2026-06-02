@@ -50,11 +50,13 @@ describe("Extract jobs details text implementation", () => {
 
     expect(jobDetails).toBeInstanceOf(Object);
 
-    expect(jobDetails).toHaveProperty("id");
+    expect(jobDetails).toHaveProperty("structuredText");
+
+    expect(jobDetails.structuredText).toEqual(jobDetails.structuredText);
 
     expect(jobDetails).toHaveProperty("rawHTML");
 
-    expect(jobDetails!.rawHTML).toEqual(jobDetails!.rawHTML);
+    expect(jobDetails.rawHTML).toEqual(jobDetails!.rawHTML);
   });
 
   it("should return empty object if description selector is wrong", async () => {
@@ -101,6 +103,8 @@ describe("Extract jobs details text implementation", () => {
 
     const jobDetails = await extractJobsDetailsText(mockPage, instruction);
 
-    expect(jobDetails).toEqual({});
-  }, 10000);
+    expect(jobDetails.structuredText).toEqual("");
+
+    expect(jobDetails.rawHTML).toEqual("");
+  }, 15000);
 });

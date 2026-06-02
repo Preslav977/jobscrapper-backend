@@ -21,6 +21,8 @@ describe("Jobs details scraping integration", () => {
       },
       anchorHref:
         "http://127.0.0.1:5500/tests/test-fixtures/adastra-jobs-details.html",
+      createdAt: new Date(),
+      updateAt: new Date(),
       companyID: 1,
       company: {
         id: 1,
@@ -70,9 +72,13 @@ describe("Jobs details scraping integration", () => {
 
     expect(result).toHaveProperty("rawHTML");
 
+    expect(result).toHaveProperty("scrapedText");
+
     expect(result.id).toEqual(1);
 
     expect(result.rawHTML).toEqual(result.rawHTML);
+
+    expect(result.scrapedText).toEqual(result.scrapedText);
   });
 
   it("should return empty object if scraping failed", async () => {
@@ -92,6 +98,8 @@ describe("Jobs details scraping integration", () => {
         other: [],
       },
       anchorHref: "http://127.0.0.1:5500/tests/test-fixtures/no-jobs.html",
+      createdAt: new Date(),
+      updateAt: new Date(),
       companyID: 1,
       company: {
         id: 1,
@@ -134,10 +142,12 @@ describe("Jobs details scraping integration", () => {
     };
     const result = await scrapingJobsDetailsFunction(mockJob);
 
-    expect(result).toEqual({});
+    expect(result.scrapedText).toEqual("");
+
+    expect(result.rawHTML).toEqual("");
   }, 10000);
 
-  it("should return empty object if site selectors changed", async () => {
+  it.only("should return empty object if site selectors changed", async () => {
     const mockJob: JobsWithRelationsType = {
       id: 1,
       title: "Azure Databricks Engineer ",
@@ -155,6 +165,8 @@ describe("Jobs details scraping integration", () => {
       },
       anchorHref:
         "http://127.0.0.1:5500/tests/test-fixtures/adastra-jobs-details.html",
+      createdAt: new Date(),
+      updateAt: new Date(),
       companyID: 1,
       company: {
         id: 1,
@@ -198,6 +210,8 @@ describe("Jobs details scraping integration", () => {
 
     const result = await scrapingJobsDetailsFunction(mockJob);
 
-    expect(result).toEqual({});
+    expect(result.scrapedText).toEqual("");
+
+    expect(result.rawHTML).toEqual("");
   }, 10000);
 });

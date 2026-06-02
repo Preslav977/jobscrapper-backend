@@ -23,11 +23,11 @@ async function extractJobsText(
   } = instruction.extractionInstructions as ExtractionConfig;
 
   const containerExists = await page
-    .waitForSelector(`${container.selector!}`)
+    .waitForSelector(`${container.selector!}`, { timeout: 5000 })
     .catch(() => null);
 
   if (!containerExists) {
-    console.warn(`The container for the jobs is null: ${container}!`);
+    console.warn(`The container for the jobs is null: ${container.selector}!`);
 
     return [];
   }
@@ -75,15 +75,16 @@ async function extractJobsText(
         jobsNodes.forEach((node) => {
           const rawTitle = extractField(node, cfg.title) || "";
 
-          scrapedJobs.push({
-            title: rawTitle,
-            location: extractField(node, cfg.location) || "",
-            remoteOrHybrid: extractField(node, cfg.remoteOrHybrid) || "",
-            datePosted: extractField(node, cfg.datePosted) || "",
-            description: cfg.description.selector!,
-            anchorHref: extractField(node, cfg.anchorHref) || "",
-            companyID: companyID,
-          });
+          if (rawTitle.includes("Developer") || rawTitle.includes("Engineer"))
+            scrapedJobs.push({
+              title: rawTitle,
+              location: extractField(node, cfg.location) || "",
+              remoteOrHybrid: extractField(node, cfg.remoteOrHybrid) || "",
+              datePosted: extractField(node, cfg.datePosted) || "",
+              description: cfg.description.selector!,
+              anchorHref: extractField(node, cfg.anchorHref) || "",
+              companyID: companyID,
+            });
         });
 
         return scrapedJobs;
@@ -113,12 +114,12 @@ async function extractJobsDetailsText(page: Page, instruction: Instructions) {
     instruction.extractionInstructions as ExtractionConfig;
 
   const descriptionExists = await page
-    .waitForSelector(description.selector!)
+    .waitForSelector(description.selector!, { timeout: 5000 })
     .catch(() => null);
 
   if (!descriptionExists) {
     console.warn(
-      `The description for the jobs details is null: ${description}!`,
+      `The description for the jobs details is null: ${description.selector}!`,
     );
 
     return { structuredText: "", rawHTML: "" };
@@ -256,6 +257,7 @@ async function extractJobsFetchURL(
       title: job.jobOpeningName,
       location: job.location.city,
       remoteOrHybrid: job.isRemote,
+      description: "",
       anchorHref: `${companyURL}${job.id}`,
       companyID: id,
     }));

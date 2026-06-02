@@ -1,10 +1,10 @@
 async function extractJobsText(page, instruction, id) {
     const { container, title, location, remoteOrHybrid, datePosted, description, anchorHref, } = instruction.extractionInstructions;
     const containerExists = await page
-        .waitForSelector(`${container.selector}`)
+        .waitForSelector(`${container.selector}`, { timeout: 5000 })
         .catch(() => null);
     if (!containerExists) {
-        console.warn(`The container for the jobs is null: ${container}!`);
+        console.warn(`The container for the jobs is null: ${container.selector}!`);
         return [];
     }
     try {
@@ -34,15 +34,16 @@ async function extractJobsText(page, instruction, id) {
             const scrapedJobs = [];
             jobsNodes.forEach((node) => {
                 const rawTitle = extractField(node, cfg.title) || "";
-                scrapedJobs.push({
-                    title: rawTitle,
-                    location: extractField(node, cfg.location) || "",
-                    remoteOrHybrid: extractField(node, cfg.remoteOrHybrid) || "",
-                    datePosted: extractField(node, cfg.datePosted) || "",
-                    description: cfg.description.selector,
-                    anchorHref: extractField(node, cfg.anchorHref) || "",
-                    companyID: companyID,
-                });
+                if (rawTitle.includes("Developer") || rawTitle.includes("Engineer"))
+                    scrapedJobs.push({
+                        title: rawTitle,
+                        location: extractField(node, cfg.location) || "",
+                        remoteOrHybrid: extractField(node, cfg.remoteOrHybrid) || "",
+                        datePosted: extractField(node, cfg.datePosted) || "",
+                        description: cfg.description.selector,
+                        anchorHref: extractField(node, cfg.anchorHref) || "",
+                        companyID: companyID,
+                    });
             });
             return scrapedJobs;
         }, {
@@ -63,10 +64,10 @@ async function extractJobsText(page, instruction, id) {
 async function extractJobsDetailsText(page, instruction) {
     const { description } = instruction.extractionInstructions;
     const descriptionExists = await page
-        .waitForSelector(description.selector)
+        .waitForSelector(description.selector, { timeout: 5000 })
         .catch(() => null);
     if (!descriptionExists) {
-        console.warn(`The description for the jobs details is null: ${description}!`);
+        console.warn(`The description for the jobs details is null: ${description.selector}!`);
         return { structuredText: "", rawHTML: "" };
     }
     try {
@@ -163,6 +164,7 @@ async function extractJobsFetchURL(id, url, companyURL) {
             title: job.jobOpeningName,
             location: job.location.city,
             remoteOrHybrid: job.isRemote,
+            description: "",
             anchorHref: `${companyURL}${job.id}`,
             companyID: id,
         }));

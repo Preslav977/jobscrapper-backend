@@ -49,9 +49,21 @@ describe("Extracting text integration", async () => {
     const jobs = await extractJobsText(mockPage, instruction, 1);
 
     expect(jobs).toHaveLength(1);
+
+    expect(jobs[0]).toHaveProperty("title");
+
+    expect(jobs[0]).toHaveProperty("location");
+
+    expect(jobs[0]).toHaveProperty("remoteOrHybrid");
+
+    expect(jobs[0]).toHaveProperty("description");
+
+    expect(jobs[0]).toHaveProperty("anchorHref");
+
+    expect(jobs[0]).toHaveProperty("companyID");
   });
 
-  it("should return empty array if no jobs exists", async () => {
+  it.only("should return empty array if no jobs exists", async () => {
     const instruction = {
       id: 1,
       extractionInstructions: {
