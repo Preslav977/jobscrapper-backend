@@ -12,7 +12,7 @@ import {
   tryClickLoadMore,
 } from "../navigationFunctions/navigationFunctions.js";
 
-import { Page } from "puppeteer";
+import { Browser, Page } from "puppeteer";
 import type { UtilityInterface } from "../../interfaces/UtilityInterface/UtilityInterface.js";
 
 import type { JobsCreateManyInput } from "../../generated/prisma/models.js";
@@ -31,9 +31,11 @@ export async function scrapingJobsFunction(
 
   let scrapingJobsResult: JobsCreateManyInput[] = [];
 
-  let navigationResults: UtilityInterface[] = [];
+  let browser: Browser | null = null;
 
-  const browser = await puppeteer.default.launch({
+  const navigationResults: UtilityInterface[] = [];
+
+  browser = await puppeteer.default.launch({
     headless: false,
     args: [
       "--no-sandbox",
@@ -51,6 +53,11 @@ export async function scrapingJobsFunction(
 
   await page.setUserAgent({ userAgent: consistentUA, platform: "Windows" });
 
+  await page.setViewport({
+    width: randomViewport.width,
+    height: randomViewport.height,
+  });
+
   await page.setExtraHTTPHeaders({
     "Accept-Language": "en-US,en;q=0.9",
     Accept: "text/html,application/xhtml+xml",
@@ -59,11 +66,6 @@ export async function scrapingJobsFunction(
 
   await page.goto(URL, {
     waitUntil: "load",
-  });
-
-  await page.setViewport({
-    width: randomViewport.width,
-    height: randomViewport.height,
   });
 
   await page.emulateTimezone("Europe/Sofia");
@@ -155,40 +157,34 @@ export async function scrapingJobsFunction(
       }
     }
 
-    const checkForNavigationResultsFailures = navigationResults.some(
+    const executionHasFailures = navigationResults.some(
       (res) => res.status === "failure",
     );
 
-    if (!checkForNavigationResultsFailures && scrapMode === "NAVIGATION") {
+    if (executionHasFailures) {
+      throw new Error(
+        "Scraping aborted: One or more navigation steps failed to execute.",
+      );
+    }
+
+    if (scrapMode === "NAVIGATION") {
       for (const instruction of instructions) {
         const jobScrapingResult = await extractJobsText(page, instruction, id);
 
-        scrapingJobsResult = [...jobScrapingResult];
-
-        navigationResults = [];
-
-        await browser.close();
-
-        return scrapingJobsResult;
+        scrapingJobsResult.push(...jobScrapingResult);
       }
-    } else if (!checkForNavigationResultsFailures && scrapMode === "FETCH") {
-      navigationResults = [];
-
-      await browser.close();
     }
   } catch (error) {
     console.error(
-      `scrapingJobsFunction failed check the selector due to error: ${error}`,
+      `scrapingJobsFunction failed check the selector due to error: ${error} for company: ${company.name} `,
     );
 
-    await browser.close();
+    scrapingJobsResult = [];
+  } finally {
+    if (browser) {
+      await browser.close();
+    }
   }
-
-  navigationResults = [];
-
-  await browser.close();
-
-  console.log(`Scraping has succeeded for company: ${company.name}`);
 
   return scrapingJobsResult;
 }

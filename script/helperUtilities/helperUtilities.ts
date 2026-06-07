@@ -34,6 +34,8 @@ function buildData(job: Jobs): Omit<Jobs, "id" | "formattedData"> {
     companyID: job.companyID,
     rawHTML: job.rawHTML,
     scrapedText: job.scrapedText,
+    createdAt: job.createdAt,
+    updateAt: job.updateAt,
   };
 }
 

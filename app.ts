@@ -134,8 +134,6 @@ app.get("users/logout", (req, res, next) => {
 
 app.use(authRouter);
 
-// app.use(verifyBearerToken);
-
 app.use(conditionalRouteMiddleware);
 
 app.use("/users", userRouter);

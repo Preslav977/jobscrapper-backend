@@ -29,6 +29,8 @@ function buildData(job) {
         companyID: job.companyID,
         rawHTML: job.rawHTML,
         scrapedText: job.scrapedText,
+        createdAt: job.createdAt,
+        updateAt: job.updateAt,
     };
 }
 export { buildData, hasJobChanged, randomViewport };
