@@ -1,17 +1,6 @@
+import type { Jobs } from "../../generated/prisma/client.js";
 import type { JobsWithRelationsType } from "../../interfaces/JobsInterface/JobsInterface.js";
-export declare function scrapingJobsDetailsFunction(job: JobsWithRelationsType): Promise<Pick<{
-    id: number;
-    companyID: number;
-    title: string;
-    location: string | null;
-    remoteOrHybrid: string | null;
-    datePosted: string | null;
-    description: string;
-    anchorHref: string | null;
-    scrapedText: string | null;
-    rawHTML: string | null;
-    formattedData: import("@prisma/client/runtime/client").JsonValue | null;
-    createdAt: Date;
-    updateAt: Date;
-}, "id" | "scrapedText" | "rawHTML">>;
+type ScrapedJobsDetails = Pick<Jobs, "id" | "scrapedText" | "rawHTML">;
+export declare function scrapingJobsDetailsFunction(job: JobsWithRelationsType): Promise<ScrapedJobsDetails>;
+export {};
 //# sourceMappingURL=scrapingJobsDetailsFunction.d.ts.map

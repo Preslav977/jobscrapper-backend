@@ -3,7 +3,7 @@ import StealthPlugin from "puppeteer-extra-plugin-stealth";
 
 import { URL } from "node:url";
 
-import { Page } from "puppeteer";
+import { Browser, Page } from "puppeteer";
 
 import type { Jobs } from "../../generated/prisma/client.js";
 import type { JobsWithRelationsType } from "../../interfaces/JobsInterface/JobsInterface.js";
@@ -16,6 +16,8 @@ stealthPlugin.enabledEvasions.add("user-agent-override");
 
 puppeteer.default.use(stealthPlugin);
 
+type ScrapedJobsDetails = Pick<Jobs, "id" | "scrapedText" | "rawHTML">;
+
 export async function scrapingJobsDetailsFunction(job: JobsWithRelationsType) {
   const { id, anchorHref } = job;
 
@@ -23,15 +25,15 @@ export async function scrapingJobsDetailsFunction(job: JobsWithRelationsType) {
 
   const constructNewURL = new URL(anchorHref!, job.company.URL);
 
-  type ScrapedJobsDetails = Pick<Jobs, "id" | "scrapedText" | "rawHTML">;
-
   let scrapingJobsDetailsResult: ScrapedJobsDetails = {
     id,
     scrapedText: "",
     rawHTML: "",
   };
 
-  const browser = await puppeteer.default.launch({
+  let browser: Browser | null = null;
+
+  browser = await puppeteer.default.launch({
     headless: false,
     args: [
       "--no-sandbox",
@@ -49,6 +51,13 @@ export async function scrapingJobsDetailsFunction(job: JobsWithRelationsType) {
 
   await page.setUserAgent({ userAgent: consistentUA, platform: "Windows" });
 
+  await page.setViewport({
+    width: randomViewport.width,
+    height: randomViewport.height,
+  });
+
+  await page.emulateTimezone("Europe/Sofia");
+
   await page.setExtraHTTPHeaders({
     "Accept-Language": "en-US,en;q=0.9",
     Accept: "text/html,application/xhtml+xml",
@@ -58,13 +67,6 @@ export async function scrapingJobsDetailsFunction(job: JobsWithRelationsType) {
   await page.goto(`${constructNewURL.href}`, {
     waitUntil: "load",
   });
-
-  await page.setViewport({
-    width: randomViewport.width,
-    height: randomViewport.height,
-  });
-
-  await page.emulateTimezone("Europe/Sofia");
 
   try {
     if (instructions.length > 0) {
@@ -77,20 +79,20 @@ export async function scrapingJobsDetailsFunction(job: JobsWithRelationsType) {
           rawHTML: result.rawHTML,
         };
 
-        await browser.close();
+        console.log(
+          `Scraping details has succeeded for job: ${job.title} for company ${job.company.name}`,
+        );
       }
     }
   } catch (error) {
     console.error(
       `scrapingJobsDetailsFunction failed check the selector due to error: ${error}`,
     );
-
-    return scrapingJobsDetailsResult;
+  } finally {
+    if (browser) {
+      await browser.close();
+    }
   }
-
-  console.log(
-    `Scraping details has succeeded for job: ${job.title} for company ${job.company.name}`,
-  );
 
   return scrapingJobsDetailsResult;
 }

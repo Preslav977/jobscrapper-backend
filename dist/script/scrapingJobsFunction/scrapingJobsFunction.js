@@ -10,7 +10,7 @@ export async function scrapingJobsFunction(company) {
     const { id, URL, scrapMode, instructions, steps } = company;
     let scrapingJobsResult = [];
     let browser = null;
-    const navigationResults = [];
+    let navigationResults = [];
     browser = await puppeteer.default.launch({
         headless: false,
         args: [
@@ -104,6 +104,7 @@ export async function scrapingJobsFunction(company) {
     catch (error) {
         console.error(`scrapingJobsFunction failed check the selector due to error: ${error} for company: ${company.name} `);
         scrapingJobsResult = [];
+        navigationResults = [];
     }
     finally {
         if (browser) {

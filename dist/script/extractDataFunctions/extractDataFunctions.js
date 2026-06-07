@@ -1,7 +1,7 @@
 async function extractJobsText(page, instruction, id) {
     const { container, title, location, remoteOrHybrid, datePosted, description, anchorHref, } = instruction.extractionInstructions;
     const containerExists = await page
-        .waitForSelector(`${container.selector}`, { timeout: 5000 })
+        .waitForSelector(`${container.selector}`, { timeout: 15000 })
         .catch(() => null);
     if (!containerExists) {
         console.warn(`The container for the jobs is null: ${container.selector}!`);
@@ -64,7 +64,7 @@ async function extractJobsText(page, instruction, id) {
 async function extractJobsDetailsText(page, instruction) {
     const { description } = instruction.extractionInstructions;
     const descriptionExists = await page
-        .waitForSelector(description.selector, { timeout: 5000 })
+        .waitForSelector(description.selector, { timeout: 15000 })
         .catch(() => null);
     if (!descriptionExists) {
         console.warn(`The description for the jobs details is null: ${description.selector}!`);

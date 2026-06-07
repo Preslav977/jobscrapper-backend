@@ -33,7 +33,7 @@ export async function scrapingJobsFunction(
 
   let browser: Browser | null = null;
 
-  const navigationResults: UtilityInterface[] = [];
+  let navigationResults: UtilityInterface[] = [];
 
   browser = await puppeteer.default.launch({
     headless: false,
@@ -180,6 +180,8 @@ export async function scrapingJobsFunction(
     );
 
     scrapingJobsResult = [];
+
+    navigationResults = [];
   } finally {
     if (browser) {
       await browser.close();

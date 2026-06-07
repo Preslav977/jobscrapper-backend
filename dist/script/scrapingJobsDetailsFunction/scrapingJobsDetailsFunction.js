@@ -15,7 +15,8 @@ export async function scrapingJobsDetailsFunction(job) {
         scrapedText: "",
         rawHTML: "",
     };
-    const browser = await puppeteer.default.launch({
+    let browser = null;
+    browser = await puppeteer.default.launch({
         headless: false,
         args: [
             "--no-sandbox",
@@ -28,6 +29,11 @@ export async function scrapingJobsDetailsFunction(job) {
     const page = await browser.newPage();
     const consistentUA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36";
     await page.setUserAgent({ userAgent: consistentUA, platform: "Windows" });
+    await page.setViewport({
+        width: randomViewport.width,
+        height: randomViewport.height,
+    });
+    await page.emulateTimezone("Europe/Sofia");
     await page.setExtraHTTPHeaders({
         "Accept-Language": "en-US,en;q=0.9",
         Accept: "text/html,application/xhtml+xml",
@@ -36,11 +42,6 @@ export async function scrapingJobsDetailsFunction(job) {
     await page.goto(`${constructNewURL.href}`, {
         waitUntil: "load",
     });
-    await page.setViewport({
-        width: randomViewport.width,
-        height: randomViewport.height,
-    });
-    await page.emulateTimezone("Europe/Sofia");
     try {
         if (instructions.length > 0) {
             for (const instruction of instructions) {
@@ -50,15 +51,18 @@ export async function scrapingJobsDetailsFunction(job) {
                     scrapedText: result.structuredText,
                     rawHTML: result.rawHTML,
                 };
-                await browser.close();
+                console.log(`Scraping details has succeeded for job: ${job.title} for company ${job.company.name}`);
             }
         }
     }
     catch (error) {
         console.error(`scrapingJobsDetailsFunction failed check the selector due to error: ${error}`);
-        return scrapingJobsDetailsResult;
     }
-    console.log(`Scraping details has succeeded for job: ${job.title} for company ${job.company.name}`);
+    finally {
+        if (browser) {
+            await browser.close();
+        }
+    }
     return scrapingJobsDetailsResult;
 }
 //# sourceMappingURL=scrapingJobsDetailsFunction.js.map

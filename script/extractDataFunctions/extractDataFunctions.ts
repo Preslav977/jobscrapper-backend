@@ -23,7 +23,7 @@ async function extractJobsText(
   } = instruction.extractionInstructions as ExtractionConfig;
 
   const containerExists = await page
-    .waitForSelector(`${container.selector!}`, { timeout: 5000 })
+    .waitForSelector(`${container.selector!}`, { timeout: 15000 })
     .catch(() => null);
 
   if (!containerExists) {
@@ -114,7 +114,7 @@ async function extractJobsDetailsText(page: Page, instruction: Instructions) {
     instruction.extractionInstructions as ExtractionConfig;
 
   const descriptionExists = await page
-    .waitForSelector(description.selector!, { timeout: 5000 })
+    .waitForSelector(description.selector!, { timeout: 15000 })
     .catch(() => null);
 
   if (!descriptionExists) {
