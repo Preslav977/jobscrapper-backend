@@ -1,6 +1,10 @@
 import { prisma } from "../../db/client.js";
 import type { Jobs } from "../../generated/prisma/client.js";
 import {
+  JobsCreateManyInput,
+  JobsUpdateArgs,
+} from "../../generated/prisma/models.js";
+import {
   buildData,
   hasJobChanged,
 } from "../helperUtilities/helperUtilities.js";
@@ -16,58 +20,73 @@ import { scrapingJobsFunction } from "../scrapingJobsFunction/scrapingJobsFuncti
       },
     });
 
-    if (companies.length > 0) {
-      for (const company of companies) {
-        try {
-          const scrapedJobs = await scrapingJobsFunction(company);
+    if (companies.length === 0) return;
 
-          const existingJobsMap = new Map(
-            company.jobs.map((job) => [job.anchorHref, job]),
-          );
+    for (const company of companies) {
+      try {
+        const scrapedJobs = await scrapingJobsFunction(company);
 
-          const existingJobsIds = new Set(company.jobs.map((job) => job.id));
+        const existingJobsMap = new Map(
+          company.jobs.map((job) => [job.anchorHref, job]),
+        );
 
-          const scrapedJobsIds: Set<number> = new Set();
+        const existingJobsIds = new Set(company.jobs.map((job) => job.id));
 
+        const scrapedJobsIds: Set<number> = new Set();
+
+        const jobsToCreate: JobsCreateManyInput[] = [];
+        const jobsToUpdate: JobsUpdateArgs[] = [];
+
+        for (const scrapedJob of scrapedJobs) {
+          if (!scrapedJob.anchorHref) continue;
+
+          const existingJob = existingJobsMap.get(scrapedJob.anchorHref);
+
+          if (!existingJob) {
+            jobsToCreate.push(buildData(scrapedJob as Jobs));
+          } else {
+            scrapedJobsIds.add(existingJob.id);
+
+            if (hasJobChanged(existingJob, scrapedJob as Jobs)) {
+              jobsToUpdate.push({
+                where: {
+                  id: existingJob.id,
+                },
+                data: {
+                  ...buildData(scrapedJob as Jobs),
+                  scrapedText: null,
+                  rawHTML: null,
+                },
+              });
+            }
+          }
+        }
+
+        const jobsToDelete = Array.from(
+          existingJobsIds.difference(scrapedJobsIds),
+        );
+
+        if (
+          jobsToCreate.length > 0 ||
+          jobsToUpdate.length > 0 ||
+          (jobsToDelete.length > 0 && scrapedJobs.length > 0)
+        ) {
           await prisma.$transaction(
             async (tx) => {
-              for (const scrapedJob of scrapedJobs) {
-                if (!scrapedJob.anchorHref) continue;
-
-                const existingJob = existingJobsMap.get(scrapedJob.anchorHref);
-
-                if (!existingJob) {
-                  await tx.jobs.create({
-                    data: buildData(scrapedJob as Jobs),
-                  });
-                } else {
-                  scrapedJobsIds.add(existingJob.id);
-
-                  const scrapedJobChanged = hasJobChanged(
-                    existingJob,
-                    scrapedJob as Jobs,
-                  );
-
-                  if (scrapedJobChanged) {
-                    await tx.jobs.update({
-                      where: {
-                        id: existingJob.id,
-                      },
-                      data: {
-                        ...buildData(scrapedJob as Jobs),
-                        scrapedText: null,
-                        rawHTML: null,
-                      },
-                    });
-                  }
-                }
+              if (jobsToCreate.length > 0) {
+                await tx.jobs.createMany({
+                  data: jobsToCreate,
+                  skipDuplicates: true,
+                });
               }
 
-              const jobsToDelete = Array.from(
-                existingJobsIds.difference(scrapedJobsIds),
-              );
+              if (jobsToUpdate.length > 0) {
+                await Promise.all(
+                  jobsToUpdate.map((updateJob) => tx.jobs.update(updateJob)),
+                );
+              }
 
-              if (jobsToDelete.length > 0) {
+              if (jobsToDelete.length > 0 && scrapedJobs.length > 0) {
                 await tx.jobs.deleteMany({
                   where: {
                     id: {
@@ -77,19 +96,17 @@ import { scrapingJobsFunction } from "../scrapingJobsFunction/scrapingJobsFuncti
                 });
               }
             },
-            {
-              maxWait: 5000,
-              timeout: 20000,
-            },
-          );
-          console.log(
-            `Successfully scraped jobs: ${company.jobs} for ${company.name}`,
-          );
-        } catch (error) {
-          console.error(
-            `Failed to scrap jobs for: ${company.name} due to error: ${error}`,
+            { maxWait: 2000, timeout: 10000 },
           );
         }
+
+        console.log(
+          `Successfully scraped jobs: ${scrapedJobs.length} for ${company.name}`,
+        );
+      } catch (error) {
+        console.error(
+          `Failed to scrap jobs for: ${company.name} due to error: ${error}`,
+        );
       }
     }
   } catch (error) {
