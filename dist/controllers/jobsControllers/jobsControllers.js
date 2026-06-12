@@ -31,6 +31,9 @@ async function getJobs(req, res) {
                     include: {
                         company: true,
                     },
+                    orderBy: {
+                        id: "asc",
+                    },
                 });
                 res.json(jobs);
             }
@@ -40,6 +43,9 @@ async function getJobs(req, res) {
                 const searchJobs = await prisma.jobs.findMany({
                     include: {
                         company: true,
+                    },
+                    orderBy: {
+                        id: "asc",
                     },
                     where: {
                         OR: [
@@ -102,7 +108,6 @@ async function getJobDetails(req, res) {
         res.json(jobDetails);
     }
 }
-async function getJobsBySearch(req, res) { }
 async function updateJob(req, res) {
     const { id, companyID } = req.params;
     const errors = validationResult(req);
@@ -153,5 +158,5 @@ async function deleteJob(req, res) {
         }
     }
 }
-export { createJobs, deleteJob, getJobDetails, getJobs, getJobsBySearch, updateJob, };
+export { createJobs, deleteJob, getJobDetails, getJobs, updateJob };
 //# sourceMappingURL=jobsControllers.js.map

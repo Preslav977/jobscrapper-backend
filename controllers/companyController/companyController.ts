@@ -83,6 +83,10 @@ async function getCompanies(req: Request, res: Response) {
       instructions: true,
       steps: true,
     },
+
+    orderBy: {
+      id: "asc",
+    },
   });
 
   if (companies.length === 0) {

@@ -37,6 +37,10 @@ async function getJobs(req: Request, res: Response) {
           include: {
             company: true,
           },
+
+          orderBy: {
+            id: "asc",
+          },
         });
 
         res.json(jobs);
@@ -49,6 +53,10 @@ async function getJobs(req: Request, res: Response) {
         const searchJobs = await prisma.jobs.findMany({
           include: {
             company: true,
+          },
+
+          orderBy: {
+            id: "asc",
           },
 
           where: {
@@ -120,8 +128,6 @@ async function getJobDetails(req: Request, res: Response) {
   }
 }
 
-async function getJobsBySearch(req: Request, res: Response) {}
-
 async function updateJob(req: Request, res: Response) {
   const { id, companyID } = req.params;
 
@@ -189,11 +195,4 @@ async function deleteJob(req: Request, res: Response) {
   }
 }
 
-export {
-  createJobs,
-  deleteJob,
-  getJobDetails,
-  getJobs,
-  getJobsBySearch,
-  updateJob,
-};
+export { createJobs, deleteJob, getJobDetails, getJobs, updateJob };

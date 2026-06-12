@@ -64,11 +64,11 @@ export async function scrapingJobsFunction(
     "User-Agent": consistentUA,
   });
 
+  await page.emulateTimezone("Europe/Sofia");
+
   await page.goto(URL, {
     waitUntil: "load",
   });
-
-  await page.emulateTimezone("Europe/Sofia");
 
   try {
     for (const step of steps) {

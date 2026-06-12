@@ -33,10 +33,10 @@ export async function scrapingJobsFunction(company) {
         Accept: "text/html,application/xhtml+xml",
         "User-Agent": consistentUA,
     });
+    await page.emulateTimezone("Europe/Sofia");
     await page.goto(URL, {
         waitUntil: "load",
     });
-    await page.emulateTimezone("Europe/Sofia");
     try {
         for (const step of steps) {
             switch (step.action) {

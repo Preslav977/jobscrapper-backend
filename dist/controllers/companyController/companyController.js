@@ -57,6 +57,9 @@ async function getCompanies(req, res) {
             instructions: true,
             steps: true,
         },
+        orderBy: {
+            id: "asc",
+        },
     });
     if (companies.length === 0) {
         res.json({ message: "No companies has been found!" });
