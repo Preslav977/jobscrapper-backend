@@ -1,7 +1,7 @@
 import { prisma } from "../../db/client.js";
 import { scrapingJobsDetailsFunction } from "../scrapingJobsDetailsFunction/scrapingJobsDetailsFunction.js";
 
-(async () => {
+export const scrapJobsDetails = async () => {
   try {
     const pendingJobs = await prisma.jobs.findMany({
       where: {
@@ -52,4 +52,4 @@ import { scrapingJobsDetailsFunction } from "../scrapingJobsDetailsFunction/scra
       `Failed to fetch jobs details from database due to error :${error}`,
     );
   }
-})();
+};

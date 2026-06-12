@@ -10,7 +10,7 @@ import {
 } from "../helperUtilities/helperUtilities.js";
 import { scrapingJobsFunction } from "../scrapingJobsFunction/scrapingJobsFunction.js";
 
-(async () => {
+export const scrapJobs = async () => {
   try {
     const companies = await prisma.company.findMany({
       include: {
@@ -114,4 +114,4 @@ import { scrapingJobsFunction } from "../scrapingJobsFunction/scrapingJobsFuncti
       `Failed to fetch companies from database due to error: ${error}`,
     );
   }
-})();
+};
