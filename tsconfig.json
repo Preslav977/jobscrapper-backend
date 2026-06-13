@@ -43,6 +43,6 @@
     "moduleDetection": "force",
     "skipLibCheck": true
   },
-  "include": ["./**/*.ts"],
+  "include": ["./**/*.ts", "./types/declarations.d.ts"],
   "exclude": ["node_modules", "dist"]
 }

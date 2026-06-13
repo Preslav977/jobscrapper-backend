@@ -2,6 +2,14 @@ import cron from "node-cron";
 import { scrapJobs } from "../script/scrapJobs/scrapJobs.js";
 import { scrapJobsDetails } from "../script/scrapJobsDetails/scrapJobsDetails.js";
 
+interface TaskContext {
+  date: Date;
+  dateLocalIso: string;
+  triggeredAt: Date;
+  task?: any;
+  execution?: any;
+}
+
 const task = cron.schedule(
   "0 10 * * *",
   async () => {
@@ -12,7 +20,7 @@ const task = cron.schedule(
   { noOverlap: true },
 );
 
-task.on("execution:started", (ctx: cron.TaskContext) => {
+task.on("execution:started", (ctx: TaskContext) => {
   console.log(
     "Execution started at",
     ctx.date,
@@ -21,11 +29,11 @@ task.on("execution:started", (ctx: cron.TaskContext) => {
   );
 });
 
-task.on("execution:finished", (ctx: cron.TaskContext) => {
+task.on("execution:finished", (ctx: TaskContext) => {
   console.log("Execution finished. Result:", ctx.execution?.result);
 });
 
-task.on("execution:failed", (ctx: cron.TaskContext) => {
+task.on("execution:failed", (ctx: TaskContext) => {
   console.error("Execution failed with error:", ctx.execution?.error?.message);
 });
 
@@ -39,7 +47,7 @@ const task1 = cron.schedule(
   { noOverlap: true },
 );
 
-task1.on("execution:started", (ctx: cron.TaskContext) => {
+task1.on("execution:started", (ctx: TaskContext) => {
   console.log(
     "Execution started at",
     ctx.date,
@@ -48,10 +56,10 @@ task1.on("execution:started", (ctx: cron.TaskContext) => {
   );
 });
 
-task1.on("execution:finished", (ctx: cron.TaskContext) => {
+task1.on("execution:finished", (ctx: TaskContext) => {
   console.log("Execution finished. Result:", ctx.execution?.result);
 });
 
-task1.on("execution:failed", (ctx: cron.TaskContext) => {
+task1.on("execution:failed", (ctx: TaskContext) => {
   console.error("Execution failed with error:", ctx.execution?.error?.message);
 });
