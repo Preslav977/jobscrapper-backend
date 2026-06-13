@@ -7,7 +7,7 @@
 
 [![Star History Chart](https://api.star-history.com/svg?repos=Preslav977/jobscrapper-backend&type=Date)](https://star-history.com/#Preslav977/jobscrapper-backend&Date)
 
-[Live Site]() · [Frontend Repo](https://github.com/Preslav977/jobscrapper-frontend)
+[Live Site](https://jobscrapper-frontend-sxkw.vercel.app/) · [Frontend Repo](https://github.com/Preslav977/jobscrapper-frontend)
 
 ---
 
@@ -61,9 +61,9 @@ npm run seed        # optional: seed initial company/job data
 ### Run
 
 ```bash
-npm run dev         # development (ts-node / tsx)
-npm run build       # compile to dist/
-npm start           # run compiled output
+npx prisma generate     # generate Prisma folder
+tsx                     # compile to dist/
+npm run start           # run compiled output
 ```
 
 > API runs on [http://localhost:3000](http://localhost:3000)

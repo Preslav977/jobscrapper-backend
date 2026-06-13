@@ -40,7 +40,14 @@ app.use(express.json());
 
 app.use(express.urlencoded({ extended: true }));
 
-app.use(cors());
+app.use(
+  cors({
+    origin: [
+      "https://jobscrapper-backend-vhpo.onrender.com",
+      "https://jobscrapper-frontend-sxkw.vercel.app",
+    ],
+  }),
+);
 
 app.use(
   session({
