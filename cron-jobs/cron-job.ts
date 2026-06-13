@@ -12,7 +12,7 @@ const task = cron.schedule(
   { noOverlap: true },
 );
 
-task.on("execution:started", (ctx) => {
+task.on("execution:started", (ctx: cron.TaskContext) => {
   console.log(
     "Execution started at",
     ctx.date,
@@ -21,11 +21,11 @@ task.on("execution:started", (ctx) => {
   );
 });
 
-task.on("execution:finished", (ctx) => {
+task.on("execution:finished", (ctx: cron.TaskContext) => {
   console.log("Execution finished. Result:", ctx.execution?.result);
 });
 
-task.on("execution:failed", (ctx) => {
+task.on("execution:failed", (ctx: cron.TaskContext) => {
   console.error("Execution failed with error:", ctx.execution?.error?.message);
 });
 
@@ -39,7 +39,7 @@ const task1 = cron.schedule(
   { noOverlap: true },
 );
 
-task1.on("execution:started", (ctx) => {
+task1.on("execution:started", (ctx: cron.TaskContext) => {
   console.log(
     "Execution started at",
     ctx.date,
@@ -48,10 +48,10 @@ task1.on("execution:started", (ctx) => {
   );
 });
 
-task1.on("execution:finished", (ctx) => {
+task1.on("execution:finished", (ctx: cron.TaskContext) => {
   console.log("Execution finished. Result:", ctx.execution?.result);
 });
 
-task1.on("execution:failed", (ctx) => {
+task1.on("execution:failed", (ctx: cron.TaskContext) => {
   console.error("Execution failed with error:", ctx.execution?.error?.message);
 });
