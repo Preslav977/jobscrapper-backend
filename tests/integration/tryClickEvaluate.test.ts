@@ -38,8 +38,6 @@ describe("tryClickEvaluate integration", () => {
 
     const result = await tryClickEvaluate(mockPage, "btn", 1);
 
-    console.log(result);
-
     expect(result).toBe("failure");
   }, 12000);
 
