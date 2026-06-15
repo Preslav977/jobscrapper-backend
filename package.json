@@ -49,8 +49,9 @@
     "vitest": "^4.1.4"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "NODE_ENV=test vitest tests/api & npm tests/integration",
     "start": "NODE_ENV=development & tsc -w & node --watch ./dist/listen.js",
+    "build": "tsc",
     "seed": "node --watch ./dist/seed/companySeed.js",
     "scrapJobs": "node --watch ./dist/script/scrapJobs/scrapJobs.js",
     "scrapJobsDetails": "node --watch ./dist/script/scrapJobsDetails/scrapJobsDetails.js",
