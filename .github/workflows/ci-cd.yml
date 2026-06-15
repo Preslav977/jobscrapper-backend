@@ -13,9 +13,9 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Setup Node.js Environment
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v24
         with:
-          node-with-version: "22"
+          node-with-version: "24"
 
       - name: Install Dependencies
         run: npm install
