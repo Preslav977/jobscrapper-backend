@@ -2,8 +2,8 @@ import { createClient } from "@supabase/supabase-js";
 import type { MulterFileInterface } from "../../interfaces/MulterFileInterface/MulterFileInterface.js";
 
 const supabase = createClient(
-  `${process.env.supabaseURL}`,
-  `${process.env.supabaseAPI}`,
+  `${process.env.SUPABASEURL}`,
+  `${process.env.SUPABASEAPI}`,
 );
 
 async function supabaseImageUpload(file: MulterFileInterface) {
