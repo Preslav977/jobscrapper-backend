@@ -54,7 +54,7 @@ app.use(
     cookie: {
       maxAge: 7 * 24 * 60 * 60 * 1000,
     },
-    secret: process.env.sessionSecret as string,
+    secret: process.env.SESSIONSECRET as string,
     resave: false,
     saveUninitialized: false,
 

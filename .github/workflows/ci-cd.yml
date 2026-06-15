@@ -37,6 +37,9 @@ jobs:
         env:
           SUPABASEURL: ${{ secrets.SUPABASEURL}}
           SUPARABASEAPI: ${{ secrets.SUPABASEAPI }}
+          SESSIONSECRET: ${{secrets.SESSIONSECRET}}
+          SECRET: ${{secrets.SECRET}}
+          PORT: ${{secrets.PORT}}
           DATABASE_URL: ${{ secrets.TEST_DATABASE_URL }}
         run: npm test
 
