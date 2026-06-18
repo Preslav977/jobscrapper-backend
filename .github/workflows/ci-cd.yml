@@ -36,7 +36,7 @@ jobs:
       - name: Run Tests
         env:
           SUPABASEURL: ${{ secrets.SUPABASEURL}}
-          SUPARABASEAPI: ${{ secrets.SUPABASEAPI }}
+          SUPABASEAPI: ${{ secrets.SUPABASEAPI }}
           SESSIONSECRET: ${{secrets.SESSIONSECRET}}
           SECRET: ${{secrets.SECRET}}
           PORT: ${{secrets.PORT}}
