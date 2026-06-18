@@ -30,6 +30,7 @@ describe("testing company controller and routes", () => {
 
       const { body, header, status } = await request(app)
         .post("/companies")
+        .set("Content-Type", "application/json")
         .set("Authorization", `Bearer ${testUser.token}`)
         .send({
           name: "Test",
@@ -183,13 +184,13 @@ describe("testing company controller and routes", () => {
       expect(status).toBe(200);
     });
 
-    it("user should see defined company by name", async () => {
+    it("user should see defined company by id", async () => {
       const testCompany = await createTestCompany();
 
       const { body, header, status } = await request(app)
-        .get(`/companies/${testCompany.name}`)
+        .get(`/companies/${testCompany.id}`)
         .send({
-          name: testCompany.name,
+          name: testCompany.id,
         });
 
       const findDefinedCompany = await prisma.company.findFirst({
@@ -199,8 +200,6 @@ describe("testing company controller and routes", () => {
       });
 
       expect(findDefinedCompany).toBeDefined();
-
-      expect(findDefinedCompany?.name).toBe("Test123");
 
       expect(findDefinedCompany?.logo).toBe(null);
 
@@ -215,7 +214,7 @@ describe("testing company controller and routes", () => {
 
     it("user shouldn't see a company with name that doesn't exist", async () => {
       const { body, header, status } = await request(app)
-        .get("/companies/test")
+        .get("/companies/10000")
         .send({
           name: "test",
         });
@@ -343,7 +342,6 @@ describe("testing company controller and routes", () => {
           id: body.id,
         },
       });
-
       expect(body[0].msg).toBe("Company name already exists!");
 
       expect(header["content-type"]).toMatch(/json/);

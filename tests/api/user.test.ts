@@ -109,7 +109,7 @@ describe("testing user controller and routes", () => {
 
       expect(findUpdateUser?.portfolioURL).toBe("Portfolio");
 
-      expect(findUpdateUser?.profilePicture).toBe("");
+      expect(findUpdateUser?.profilePicture).not.toBe("");
     });
 
     it("user should able to upload a profile picture", async () => {

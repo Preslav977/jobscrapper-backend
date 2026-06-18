@@ -49,7 +49,7 @@
     "vitest": "^4.1.4"
   },
   "scripts": {
-    "test": "NODE_ENV=test vitest tests/api & node --watch ./dist/listen.js",
+    "test": "NODE_ENV=test vitest tests/api",
     "start": "NODE_ENV=development & tsc -w & node --watch ./dist/listen.js",
     "build": "tsc",
     "seed": "node --watch ./dist/seed/companySeed.js",

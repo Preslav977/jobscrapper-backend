@@ -105,9 +105,8 @@ describe("testing jobs controller and routes", () => {
     it("user should see all jobs related to the company", async () => {
       const testJobs = await createTestJobs();
 
-      const { body, header, status } = await request(app).get(
-        `/companies/${testJobs.companyID}/jobs`,
-      );
+      const { body, header, status } =
+        await request(app).get(`/companies/get/jobs`);
 
       expect(body).toBeInstanceOf(Array);
 
@@ -135,8 +134,9 @@ describe("testing jobs controller and routes", () => {
     });
 
     it("user shouldn't see jobs that doesn't exists", async () => {
-      const { body, header, status } =
-        await request(app).get("/companies/1/jobs");
+      const { body, header, status } = await request(app).get(
+        "/companies/get/jobs/search?title=test",
+      );
 
       expect(body.message).toBe(body.message);
 

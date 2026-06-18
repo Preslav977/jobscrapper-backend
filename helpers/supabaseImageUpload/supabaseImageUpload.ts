@@ -1,9 +1,11 @@
+import "dotenv/config";
+
 import { createClient } from "@supabase/supabase-js";
 import type { MulterFileInterface } from "../../interfaces/MulterFileInterface/MulterFileInterface.js";
 
 const supabase = createClient(
-  `${process.env.SUPABASEURL}`,
-  `${process.env.SUPABASEAPI}`,
+  process.env.SUPABASEURL as string,
+  process.env.SUPABASEAPI as string,
 );
 
 async function supabaseImageUpload(file: MulterFileInterface) {
