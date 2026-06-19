@@ -1,0 +1,31 @@
+name: JobScrapper Cron Job CI/CD
+
+on:
+  pull:
+    branches: [main]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js Environment
+        uses: actions/setup-node@v4
+        with:
+          node-with-version: "22"
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Generate Prisma Client
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        run: npx prisma generate
+
+      - name: Run cron-job
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        run: npm run cron-job

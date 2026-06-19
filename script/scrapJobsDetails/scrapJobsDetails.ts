@@ -53,5 +53,3 @@ export const scrapJobsDetails = async () => {
     );
   }
 };
-
-await scrapJobsDetails();

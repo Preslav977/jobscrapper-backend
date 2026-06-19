@@ -115,5 +115,3 @@ export const scrapJobs = async () => {
     );
   }
 };
-
-await scrapJobs();
