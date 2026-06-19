@@ -34,7 +34,7 @@ export async function scrapingJobsDetailsFunction(job: JobsWithRelationsType) {
   let browser: Browser | null = null;
 
   browser = await puppeteer.default.launch({
-    headless: false,
+    headless: true,
     args: [
       "--no-sandbox",
       "--disable-blink-features=AutomationControlled",

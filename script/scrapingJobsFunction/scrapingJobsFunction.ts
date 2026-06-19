@@ -36,7 +36,7 @@ export async function scrapingJobsFunction(
   let navigationResults: UtilityInterface[] = [];
 
   browser = await puppeteer.default.launch({
-    headless: false,
+    headless: true,
     args: [
       "--no-sandbox",
       "--disable-blink-features=AutomationControlled",
