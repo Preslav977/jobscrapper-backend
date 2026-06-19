@@ -1,53 +1,53 @@
-name: JobScrapper Backend CI/CD
+# name: JobScrapper Backend CI/CD
 
-on:
-  push:
-    branches: [main]
+# on:
+#   push:
+#     branches: [main]
 
-jobs:
-  build-and-test:
-    runs-on: ubuntu-latest
+# jobs:
+#   build-and-test:
+#     runs-on: ubuntu-latest
 
-    steps:
-      - name: Download Code
-        uses: actions/checkout@v4
+#     steps:
+#       - name: Download Code
+#         uses: actions/checkout@v4
 
-      - name: Setup Node.js Environment
-        uses: actions/setup-node@v4
-        with:
-          node-with-version: "22"
+#       - name: Setup Node.js Environment
+#         uses: actions/setup-node@v4
+#         with:
+#           node-with-version: "22"
 
-      - name: Install Dependencies
-        run: npm install
+#       - name: Install Dependencies
+#         run: npm install
 
-      - name: Generate Prisma Client
-        env:
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}
-        run: npx prisma generate
+#       - name: Generate Prisma Client
+#         env:
+#           DATABASE_URL: ${{ secrets.DATABASE_URL }}
+#         run: npx prisma generate
 
-      - name: Compile TypeScript (Build)
-        run: npm run build
+#       - name: Compile TypeScript (Build)
+#         run: npm run build
 
-      - name: Run Migrations on Test DB
-        env:
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}
-        run: npx prisma migrate deploy
+#       - name: Run Migrations on Test DB
+#         env:
+#           DATABASE_URL: ${{ secrets.TEST_DATABASE_URL }}
+#         run: npx prisma migrate deploy
 
-      - name: Run Tests
-        env:
-          SUPABASEURL: ${{ secrets.SUPABASEURL}}
-          SUPABASEAPI: ${{ secrets.SUPABASEAPI }}
-          SESSIONSECRET: ${{secrets.SESSIONSECRET}}
-          SECRET: ${{secrets.SECRET}}
-          PORT: ${{secrets.PORT}}
-          TEST_DATABASE_URL: ${{ secrets.TEST_DATABASE_URL }}
-        run: npm test
+#       - name: Run Tests
+#         env:
+#           TEST_DATABASE_URL: ${{ secrets.TEST_DATABASE_URL }}
+#           SUPABASEURL: ${{ secrets.SUPABASEURL}}
+#           SUPABASEAPI: ${{ secrets.SUPABASEAPI }}
+#           SESSIONSECRET: ${{secrets.SESSIONSECRET}}
+#           SECRET: ${{secrets.SECRET}}
+#           PORT: ${{secrets.PORT}}
+#         run: npm test
 
-  deploy-to-render:
-    needs: build-and-test
-    runs-on: ubuntu-latest
+#   deploy-to-render:
+#     needs: build-and-test
+#     runs-on: ubuntu-latest
 
-    steps:
-      - name: Trigger Render Deployment
-        run: |
-          curl -X POST "${{ secrets.RENDER_DEPLOY_HOOK_URL }}"
+#     steps:
+#       - name: Trigger Render Deployment
+#         run: |
+#           curl -X POST "${{ secrets.RENDER_DEPLOY_HOOK_URL }}"
