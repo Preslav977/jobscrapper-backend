@@ -53,13 +53,12 @@
     "build": "tsc",
     "seed": "node --watch ./dist/seed/companySeed.js",
     "scrapJobs": "node --watch ./dist/script/runScrapJobs/runScrapJobs.js",
-    "scrapJobsDetails": "node ./dist/script/runScrapJobsDetails/runScrapJobsDetails.js",
+    "scrapJobsDetails": "node --watch ./dist/script/runScrapJobsDetails/runScrapJobsDetails.js",
     "parseScrapedJobs": "node ./dist/script/parseScrapedTextJobs/parseScrapedTextJobs.js",
     "migrate": "npx prisma migrate dev --name init",
     "generate": "npx prisma generate",
     "test:integration": "NODE_ENV=test vitest tests/integration",
-    "test:api": "NODE_ENV=test vitest tests/api",
-    "cron-job": "node ./dist/cron-jobs/cron-job.js"
+    "test:api": "NODE_ENV=test vitest tests/api"
   },
   "repository": {
     "type": "git",
