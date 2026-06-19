@@ -1,13 +1,13 @@
-name: JobScrapper Cron Job CI/CD
+name: JobScrapper - Fetch Jobs Details
 
 on:
-  pull:
-    branches: [main]
+  schedule:
+    - cron: "0 9 * * *"
+  workflow_dispatch:
 
 jobs:
-  build-and-test:
+  build-and-run:
     runs-on: ubuntu-latest
-
     steps:
       - name: Download Code
         uses: actions/checkout@v4
@@ -15,7 +15,7 @@ jobs:
       - name: Setup Node.js Environment
         uses: actions/setup-node@v4
         with:
-          node-with-version: "22"
+          node-version: "22"
 
       - name: Install Dependencies
         run: npm install
@@ -25,7 +25,7 @@ jobs:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
         run: npx prisma generate
 
-      - name: Run cron-job
+      - name: Run Job Scraper
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
-        run: npm run cron-job
+        run: npm run scrapJobsDetails
