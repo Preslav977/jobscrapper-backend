@@ -4,11 +4,7 @@ import type { Request, Response } from "express";
 
 import { validationResult } from "express-validator";
 
-import {
-  Prisma,
-  type Company,
-  type Steps,
-} from "../../generated/prisma/client.js";
+import { Prisma, type Company } from "../../generated/prisma/client.js";
 
 import { supabaseImageUpload } from "../../helpers/supabaseImageUpload/supabaseImageUpload.js";
 import { CompanyWithRelationsType } from "../../interfaces/CompanyInterface/CompanyInterface.js";
@@ -216,19 +212,6 @@ async function updateCompanyWithRelations(req: Request, res: Response) {
         );
       }
 
-      const deletedStepIds = steps
-        .map((step: Steps) => step.id)
-        .filter(Boolean);
-
-      await tx.steps.deleteMany({
-        where: {
-          companyID: Number(companyID),
-          id: {
-            notIn: deletedStepIds,
-          },
-        },
-      });
-
       const existingSteps = await tx.steps.findMany({
         where: { companyID: Number(companyID) },
       });
@@ -278,6 +261,25 @@ async function updateCompanyWithRelations(req: Request, res: Response) {
             }),
           ),
         );
+      }
+
+      const missingStepsIds = existingSteps
+        .filter(
+          (dbSteps) =>
+            !steps.some(
+              (incomingStep) => Number(incomingStep.id) === dbSteps.id,
+            ),
+        )
+        .map((dbStep) => dbStep.id);
+
+      if (missingStepsIds.length > 0) {
+        await tx.steps.deleteMany({
+          where: {
+            id: {
+              in: missingStepsIds,
+            },
+          },
+        });
       }
 
       return updateCompany;
