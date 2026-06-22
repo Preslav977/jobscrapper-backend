@@ -122,7 +122,7 @@ import type { CompanyWithSelectedFieldsType } from "../interfaces/CompanyInterfa
         },
         {
           order: 2,
-          action: "click",
+          action: "clickEvaluate",
           selector: "[title='Bulgaria']",
           selectOption: null,
           url: null,
@@ -134,13 +134,13 @@ import type { CompanyWithSelectedFieldsType } from "../interfaces/CompanyInterfa
           selectOption: null,
           url: null,
         },
-        {
-          order: 4,
-          action: "click",
-          selector: "text/Show all open positions",
-          selectOption: null,
-          url: null,
-        },
+        // {
+        //   order: 4,
+        //   action: "click",
+        //   selector: "text/Show all open positions",
+        //   selectOption: null,
+        //   url: null,
+        // },
       ],
     },
     {
@@ -397,7 +397,7 @@ import type { CompanyWithSelectedFieldsType } from "../interfaces/CompanyInterfa
     {
       name: "Anthill",
       logo: null,
-      URL: "https://anthill.bamboohr.com/careers/",
+      URL: "",
       scrapMode: "FETCH",
       instructions: [
         {

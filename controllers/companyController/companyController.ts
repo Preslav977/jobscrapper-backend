@@ -173,21 +173,47 @@ async function updateCompanyWithRelations(req: Request, res: Response) {
         data: { name, URL, logo, scrapMode },
       });
 
-      for (const instruction of instructions) {
-        await tx.instructions.upsert({
-          where: {
-            id: Number(instruction.id) || -1,
-            companyID: Number(companyID) || -1,
-          },
-          update: {
-            companyID: Number(companyID),
-            extractionInstructions: instruction.extractionInstructions!,
-          },
-          create: {
-            companyID: Number(companyID),
-            extractionInstructions: instruction.extractionInstructions!,
-          },
-        });
+      const existingInstructions = await tx.instructions.findMany({
+        where: { companyID: Number(companyID) },
+      });
+
+      const instructionsToUpsert = instructions.filter(
+        (incomingInstruction) => {
+          if (!incomingInstruction.id) return true;
+
+          const dbInstructions = existingInstructions.find(
+            (instruction) => instruction.id === Number(incomingInstruction.id),
+          );
+
+          if (!dbInstructions) return true;
+
+          const hasInstructionsChanged =
+            incomingInstruction.extractionInstructions !==
+            dbInstructions.extractionInstructions;
+
+          return hasInstructionsChanged;
+        },
+      );
+
+      if (instructionsToUpsert.length > 0) {
+        await Promise.all(
+          instructionsToUpsert.map((instruction) =>
+            tx.instructions.upsert({
+              where: {
+                id: Number(instruction.id) || -1,
+                companyID: Number(companyID) || -1,
+              },
+              update: {
+                companyID: Number(companyID),
+                extractionInstructions: instruction.extractionInstructions!,
+              },
+              create: {
+                companyID: Number(companyID),
+                extractionInstructions: instruction.extractionInstructions!,
+              },
+            }),
+          ),
+        );
       }
 
       const deletedStepIds = steps
@@ -203,30 +229,57 @@ async function updateCompanyWithRelations(req: Request, res: Response) {
         },
       });
 
-      for (const step of steps) {
-        await tx.steps.upsert({
-          where: {
-            id: Number(step.id) || -1,
-            companyID: Number(companyID) || -1,
-          },
-          update: {
-            order: step.order,
-            action: step.action,
-            selector: step.selector,
-            selectOption: step.selectOption,
-            url: step.url,
-            companyID: Number(companyID),
-          },
-          create: {
-            order: step.order,
-            action: step.action,
-            selector: step.selector,
-            selectOption: step.selectOption,
-            url: step.url,
-            companyID: Number(companyID),
-          },
-        });
+      const existingSteps = await tx.steps.findMany({
+        where: { companyID: Number(companyID) },
+      });
+
+      const StepsToUpsert = steps.filter((incomingStep) => {
+        if (!incomingStep.id) return true;
+
+        const dbSteps = existingSteps.find(
+          (step) => step.id === Number(incomingStep.id),
+        );
+
+        if (!dbSteps) return true;
+
+        const hasStepsChanged =
+          incomingStep.action !== dbSteps.action ||
+          incomingStep.selector !== dbSteps.selector ||
+          incomingStep.url !== dbSteps.url ||
+          incomingStep.order !== dbSteps.order;
+
+        return hasStepsChanged;
+      });
+
+      if (StepsToUpsert.length > 0) {
+        await Promise.all(
+          StepsToUpsert.map((step) =>
+            tx.steps.upsert({
+              where: {
+                id: Number(step.id) || -1,
+                companyID: Number(companyID) || -1,
+              },
+              update: {
+                order: step.order,
+                action: step.action,
+                selector: step.selector,
+                selectOption: step.selectOption,
+                url: step.url,
+                companyID: Number(companyID),
+              },
+              create: {
+                order: step.order,
+                action: step.action,
+                selector: step.selector,
+                selectOption: step.selectOption,
+                url: step.url,
+                companyID: Number(companyID),
+              },
+            }),
+          ),
+        );
       }
+
       return updateCompany;
     });
 
