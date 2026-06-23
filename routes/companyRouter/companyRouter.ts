@@ -63,6 +63,7 @@ companyRouter.put(
   "/:id",
   upload.single("file"),
   validateCreatingCompanyTest,
+  validateImageUpload,
   updateCompany,
 );
 

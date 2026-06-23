@@ -134,13 +134,6 @@ import type { CompanyWithSelectedFieldsType } from "../interfaces/CompanyInterfa
           selectOption: null,
           url: null,
         },
-        // {
-        //   order: 4,
-        //   action: "click",
-        //   selector: "text/Show all open positions",
-        //   selectOption: null,
-        //   url: null,
-        // },
       ],
     },
     {
@@ -429,15 +422,7 @@ import type { CompanyWithSelectedFieldsType } from "../interfaces/CompanyInterfa
           },
         },
       ],
-      steps: [
-        {
-          order: 1,
-          action: "fetch",
-          selector: "",
-          selectOption: "",
-          url: "https://anthill.bamboohr.com/careers/list",
-        },
-      ],
+      steps: [],
     },
   ];
 
