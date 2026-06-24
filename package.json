@@ -52,7 +52,7 @@
     "test": "NODE_ENV=test vitest tests/api",
     "start": "NODE_ENV=development & tsc -w & node --watch ./dist/listen.js",
     "startApp": "NODE_ENV=development & tsc & node ./dist/listen.js",
-    "aiAgent": "NODE_ENV=development & tsc -w & node --watch ./dist/ai-agent/ai-agent.js",
+    "aiAgent": "NODE_ENV=development & tsc & node ./dist/ai-agent/ai-agent.js",
     "build": "tsc",
     "seed": "node ./dist/seed/companySeed.js",
     "scrapJobs": "node ./dist/script/runScrapJobs/runScrapJobs.js",
