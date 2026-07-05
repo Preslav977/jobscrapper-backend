@@ -1,6 +1,7 @@
 import OpenAI from "openai";
 import { Browser, Page } from "puppeteer";
 import puppeteer from "puppeteer-extra";
+import StealthPlugin from "puppeteer-extra-plugin-stealth";
 import readline from "readline";
 import { prisma } from "../db/client.js";
 import { Prisma } from "../generated/prisma/client.js";
@@ -125,11 +126,48 @@ Output raw JSON containing corrected keys directly without markdown wrapper bloc
 `;
 }
 
+const stealthPlugin = StealthPlugin();
+
+stealthPlugin.enabledEvasions.add("user-agent-override");
+
+puppeteer.default.use(stealthPlugin);
+
+let browser: Browser | null = null;
+
 async function runAutoRepairAgent(
   page: Page,
   brokenCompany: CompanyWithSelectedFieldsType,
 ): Promise<CompanyWithSelectedFieldsType | null> {
   console.log(`\n🤖 Navigating to target site: ${brokenCompany.URL}...`);
+
+  browser = await puppeteer.default.launch({
+    headless: true,
+    args: [
+      "--no-sandbox",
+      "--disable-blink-features=AutomationControlled",
+      "--window-position=0,0",
+      "--disable-automation",
+    ],
+    ignoreDefaultArgs: ["--enable-automation"],
+  });
+
+  const consistentUA =
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36";
+
+  await page.setUserAgent({ userAgent: consistentUA, platform: "Windows" });
+
+  await page.setViewport({
+    width: randomViewport.width,
+    height: randomViewport.height,
+  });
+
+  await page.setExtraHTTPHeaders({
+    "Accept-Language": "en-US,en;q=0.9",
+    Accept: "text/html,application/xhtml+xml",
+    "User-Agent": consistentUA,
+  });
+
+  await page.emulateTimezone("Europe/Sofia");
 
   await page.goto(brokenCompany.URL, { waitUntil: "networkidle2" });
   const rawHtml = await page.content();
@@ -188,26 +226,9 @@ async function startInteractiveHealingSession(targetCompanyId: number) {
 
   const brokenCompany = (await prisma.company.findUnique({
     where: { id: targetCompanyId },
-    select: {
-      id: true,
-      name: true,
-      URL: true,
-      logo: true,
-      scrapMode: true,
-      instructions: {
-        select: { id: true, companyID: true, extractionInstructions: true },
-      },
-      steps: {
-        select: {
-          id: true,
-          order: true,
-          action: true,
-          selector: true,
-          selectOption: true,
-          url: true,
-          companyID: true,
-        },
-      },
+    include: {
+      instructions: true,
+      steps: true,
     },
   })) as unknown as CompanyWithSelectedFieldsType;
 
@@ -218,41 +239,13 @@ async function startInteractiveHealingSession(targetCompanyId: number) {
     return;
   }
 
-  let browser: Browser | null = null;
-
-  browser = await puppeteer.default.launch({
-    headless: true,
-    args: [
-      "--no-sandbox",
-      "--disable-blink-features=AutomationControlled",
-      "--window-position=0,0",
-      "--disable-automation",
-    ],
-    ignoreDefaultArgs: ["--enable-automation"],
-  });
-
-  const page: Page = await browser.newPage();
-
-  const consistentUA =
-    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36";
-
-  await page.setUserAgent({ userAgent: consistentUA, platform: "Windows" });
-
-  await page.setViewport({
-    width: randomViewport.width,
-    height: randomViewport.height,
-  });
-
-  await page.setExtraHTTPHeaders({
-    "Accept-Language": "en-US,en;q=0.9",
-    Accept: "text/html,application/xhtml+xml",
-    "User-Agent": consistentUA,
-  });
-
-  await page.emulateTimezone("Europe/Sofia");
+  const page: Page = await browser!.newPage();
 
   const patchProposal = await runAutoRepairAgent(page, brokenCompany);
-  await browser.close();
+
+  if (browser) {
+    await browser.close();
+  }
 
   if (!patchProposal) {
     console.log("❌ Agent failed to generate an acceptable extraction layout.");

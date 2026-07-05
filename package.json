@@ -23,7 +23,7 @@
   },
   "name": "jobscrapper-backend",
   "version": "1.0.0",
-  "description": "",
+  "description": "> REST API and scraping engine for aggregating Developer and Engineer job listings — built with TypeScript, Express, Prisma, and Puppeteer.",
   "main": "index.js",
   "devDependencies": {
     "@eslint/js": "^9.39.2",
@@ -74,5 +74,8 @@
   "bugs": {
     "url": "https://github.com/Preslav977/jobscrapper-backend/issues"
   },
-  "homepage": "https://github.com/Preslav977/jobscrapper-backend#readme"
+  "homepage": "https://github.com/Preslav977/jobscrapper-backend#readme",
+  "directories": {
+    "test": "tests"
+  }
 }
